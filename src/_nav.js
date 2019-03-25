@@ -21,7 +21,7 @@ export default {
     },
     {
       name: 'Notification',
-      url: '/notification',
+      url: '/notifications',
       icon: 'icon-bell'
     },
     {

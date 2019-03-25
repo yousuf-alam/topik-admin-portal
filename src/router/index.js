@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+//import Notifications from "../views/Notifications/Notifications";
 
 // Containers
 const DefaultContainer = () => import('@/containers/DefaultContainer')
 
 // Views
 const Dashboard = () => import('@/views/Dashboard')
+const Orders = () => import('@/views/Orders/Orders')
+const Notifications = () => import('@/views/Notifications/Notifications')
+const Promos = () => import('@/views/Promos/Promos')
 
-const Colors = () => import('@/views/theme/Colors')
-const Typography = () => import('@/views/theme/Typography')
-
-const Charts = () => import('@/views/Charts')
 const Widgets = () => import('@/views/Widgets')
 
 // Views - Components
@@ -57,7 +57,7 @@ const Register = () => import('@/views/pages/Register')
 // Users
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
-
+const Bar = { template: '<div>This is Order ID:  {{ $route.params.id }}</div>' }
 Vue.use(Router)
 
 export default new Router({
@@ -80,17 +80,17 @@ export default new Router({
         {
           path: 'orders',
           name: 'Orders',
-          component: Colors
+          component: Orders
         },
         {
-          path: 'notification',
+          path: 'notifications',
           name: 'Notification',
-          component: Typography
+          component: Notifications
         },
         {
           path: 'promos',
           name: 'Promo Codes',
-          component: Charts
+          component: Promos
         },
         {
           path: 'widgets',
@@ -116,7 +116,8 @@ export default new Router({
             },
           ]
         },
-        {
+        { path: '/orders/:id', name: 'orders', component: Bar }
+        /*{
           path: 'notifications',
           redirect: '/notifications/alerts',
           name: 'Notifications',
@@ -140,7 +141,7 @@ export default new Router({
               component: Modals
             }
           ]
-        }
+        }*/
       ]
     }
   ]

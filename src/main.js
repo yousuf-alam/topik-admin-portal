@@ -9,10 +9,25 @@ import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 import router from './router'
 
+
+import ElementUI from 'element-ui'
+import { Table, TableColumn, Button, Pagination } from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import lang from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale'
+
 // todo
 // cssVars()
 
 Vue.use(BootstrapVue)
+Vue.use(ElementUI)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Button)
+Vue.use(Pagination)
+
+locale.use(lang)
+
 
 /* eslint-disable no-new */
 new Vue({

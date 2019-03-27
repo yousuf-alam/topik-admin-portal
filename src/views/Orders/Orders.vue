@@ -23,8 +23,8 @@
                         placeholder="Type to search"/>
             </template>
             <template slot-scope="scope">
-                <a> <router-link :to="{ name: 'orders', params: { id: 123 }}"></router-link></a>
-                <a class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-search"></i></a>
+
+                <router-link :to="{ name: 'Orders / Show', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Show"><i class="fa fa-search"></i></span></router-link>
                 <a class="btn btn-warning btn-sm m-1" data-toggle="tooltip" href="" data-placement="top" title="Edit"> <i class="fa fa-edit"></i></a>
                 <a class="btn btn-danger btn-sm m-1" data-toggle="tooltip" href="" data-placement="top" title="Delete"> <i class="fa fa-trash"></i></a>
                 <!--<el-button

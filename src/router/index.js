@@ -8,8 +8,14 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 // Views
 const Dashboard = () => import('@/views/Dashboard')
 const Orders = () => import('@/views/Orders/Orders')
+//const OrderShow = import('@/views/Orders/OrderShow')
 const Notifications = () => import('@/views/Notifications/Notifications')
 const Promos = () => import('@/views/Promos/Promos')
+
+//const Bar = { template: '<div>This is Bar {{ $route.params.id }}</div>' }
+
+//import OrderShow from '../views/Orders/OrderShow';
+const OrderShow = () => import('../views/Orders/Order_Show')
 
 const Widgets = () => import('@/views/Widgets')
 
@@ -57,7 +63,7 @@ const Register = () => import('@/views/pages/Register')
 // Users
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
-const Bar = { template: '<div>This is Order ID:  {{ $route.params.id }}</div>' }
+
 Vue.use(Router)
 
 export default new Router({
@@ -80,7 +86,11 @@ export default new Router({
         {
           path: 'orders',
           name: 'Orders',
-          component: Orders
+          component: Orders,
+        },
+        { path: '/orders/:id',
+          name: 'Orders / Show',
+          component: OrderShow
         },
         {
           path: 'notifications',
@@ -116,7 +126,11 @@ export default new Router({
             },
           ]
         },
-        { path: '/orders/:id', name: 'orders', component: Bar }
+        { path: '/orders/:id',
+          name: 'show',
+          component: OrderShow
+        }
+
         /*{
           path: 'notifications',
           redirect: '/notifications/alerts',

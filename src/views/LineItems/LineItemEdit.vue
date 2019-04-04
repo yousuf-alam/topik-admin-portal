@@ -199,6 +199,89 @@
                     </form>
                 </b-card-text>
             </b-tab>
+            <b-tab title="Service Details">
+                <b-card-text>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Brand</label>
+
+                            <input type="text" name="name" class="form-control" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Ingredients</label>
+
+                            <input type="text" name="name" class="form-control" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Recommended For</label>
+
+                            <input type="text" name="name" class="form-control" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Tips For Customer</label>
+
+                            <input type="text" name="name" class="form-control" id="name">
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-9">
+                                <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
+                                </b-button>
+                            </div>
+                        </div>
+                    </form>
+                </b-card-text>
+            </b-tab>
+            <b-tab title="Change Pricing">
+                <b-card-text>
+                        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%">
+                            <thead>
+                            <tr>
+
+                                <th >Option 1</th>
+                                <th >Option 2</th>
+                                <th> price </th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td >
+                                    Makeup
+                                </td>
+                                <td >
+                                    Makeup
+                                </td>
+                                <td >
+                                    <input  type="number" name="price[0]" value="100"  multiple>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    Makeup
+                                </td>
+                                <td >
+                                    Makeup
+                                </td>
+                                <td >
+                                    <input  type="number" name="price[1]" value="100"  multiple>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >
+                                    Makeup
+                                </td>
+                                <td >
+                                    Makeup
+                                </td>
+                                <td >
+                                    <input  type="number" name="price[2]" value="100"  multiple>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                </b-card-text>
+            </b-tab>
         </b-tabs>
 
     </b-card>
@@ -206,7 +289,7 @@
 
 <script>
     export default {
-        name: "ServiceEdit"
+        name: "LineItemEdit"
     }
 </script>
 

@@ -206,7 +206,7 @@
 
 <script>
     export default {
-        name: "ServiceEdit"
+        name: "CategoryEdit"
     }
 </script>
 

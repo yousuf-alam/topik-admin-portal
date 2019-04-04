@@ -1,1 +1,32 @@
 // Here you can add other styles
+.cardheading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.cardheading > div {
+  margin:  auto 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .cardheading {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .cardheading > div {
+    margin: 0 auto ;
+  }
+}
+.sidebar .nav-link:hover {
+  color: #fff;
+  background: #ff3573;
+}
+.sidebar .nav-link.active .nav-icon {
+  color: #ff3573;
+}
+a {
+  color: #ff3573;
+}

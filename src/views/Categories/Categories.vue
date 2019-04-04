@@ -3,7 +3,7 @@
         <b-row>
             <b-col sm="10"></b-col>
             <b-col sm="2" class="mb-3">
-                <router-link :to="{ name: 'ServiceCreate'}"><button class="btn btn-success">Create New Service</button></router-link>
+                <router-link :to="{ name: 'CategoryCreate'}"><button class="btn btn-success">Create New Category</button></router-link>
             </b-col>
         </b-row>
         <b-row>
@@ -32,7 +32,7 @@
                                     placeholder="Type to search"/>
                         </template>
                         <template slot-scope="scope">
-                            <router-link :to="{ name: 'Service / Edit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></span></router-link>
+                           <router-link :to="{ name: 'Category / Edit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></span></router-link>
                             <a class="btn btn-danger btn-sm m-1" data-toggle="tooltip" href="" data-placement="top" title="Delete"> <i class="fa fa-trash"></i></a>
                             <!--<el-button
                                     size="mini"
@@ -64,7 +64,7 @@
 
 
     export default {
-        name: 'Services',
+        name: 'Categories',
         components: {Table, TableColumn, Button, Pagination},
         data() {
             return {

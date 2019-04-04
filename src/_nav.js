@@ -20,23 +20,9 @@ export default {
       icon: 'fa fa-cart-plus'
     },
     {
-      name: 'Notification',
-      url: '/notifications',
-      icon: 'icon-bell'
-    },
-    {
-      title: true,
-      name: 'Promo Codes',
-      class: '',
-      wrapper: {
-        element: '',
-        attributes: {}
-      }
-    },
-    {
-      name: 'Promo Codes',
-      url: '/promos',
-      icon: 'fa fa-plus-square'
+      name: 'Complains',
+      url: '/complains',
+      icon: 'fa fa-thumbs-down'
     },
     {
       title: true,
@@ -46,11 +32,6 @@ export default {
         element: '',
         attributes: {}
       }
-    },
-    {
-      name: 'Location',
-      url: '/locations',
-      icon: 'icon-location-pin'
     },
     {
       name: 'Service',
@@ -59,13 +40,18 @@ export default {
     },
     {
       name: 'Category',
-      url: '/category',
+      url: '/categories',
       icon: 'fa fa-barcode'
     },
     {
       name: 'Line Item',
       url: '/line-items',
       icon: 'fa fa-bars'
+    },
+    {
+      name: 'Location',
+      url: '/locations',
+      icon: 'icon-location-pin'
     },
     {
       title: true,
@@ -100,19 +86,29 @@ export default {
       url: '/resources',
       icon: 'fa fa-users'
     },
-    {
+/*    {
       name: 'Partner Reorder',
       url: '/partner-reorder',
       icon: 'fa fa-reorder'
-    },
+    },*/
     {
       title: true,
-      name: 'Portal',
+      name: 'Marketing',
       class: '',
       wrapper: {
         element: '',
         attributes: {}
       }
+    },
+    {
+      name: 'Notification',
+      url: '/notifications',
+      icon: 'icon-bell'
+    },
+    {
+      name: 'Promo Codes',
+      url: '/promos',
+      icon: 'fa fa-plus-square'
     },
     {
       name: 'Top Banners',
@@ -124,16 +120,21 @@ export default {
       url: '/bottom-banners',
       icon: 'fa fa-image'
     },
+
     {
-      name: 'Complains',
-      url: '/complains',
-      icon: 'fa fa-thumbs-down'
+      title: true,
+      name: 'Portal',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
     },
     {
       name: 'Documents',
       url: '/documents',
       icon: 'fa fa-file-word-o'
-    },
+    }
 
 
   ]

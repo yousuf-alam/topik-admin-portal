@@ -1,6 +1,6 @@
 <template>
     <b-card class="m-4">
-        <h5 class="mb-4">Service Title</h5>
+        <h5 class="mb-4">Edit BottomBanner</h5>
         <b-form-group label="Select Target">
             <b-form-select id="area"
                            :plain="true"
@@ -14,14 +14,12 @@
         <b-form-group label="Description">
             <b-form-input type="text" id="description"></b-form-input>
         </b-form-group>
-        <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Edit Notification</b-button>
+        <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Edit Promo</b-button>
     </b-card>
 </template>
 
 <script>
-    export default {
-        name: "ServiceShow"
-    }
+
 </script>
 
 <style scoped>

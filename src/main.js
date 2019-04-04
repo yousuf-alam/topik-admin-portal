@@ -16,6 +16,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 import '../node_modules/timeline-vuejs/dist/timeline-vuejs.css'
+import VueFormWizard from 'vue-form-wizard'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
+
 // todo
 // cssVars()
 
@@ -25,6 +30,8 @@ Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Button)
 Vue.use(Pagination)
+Vue.use(VueFormWizard)
+Vue.use( CKEditor );
 
 locale.use(lang)
 

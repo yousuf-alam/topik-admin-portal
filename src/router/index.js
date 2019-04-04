@@ -27,57 +27,38 @@ const LocationEdit = () => import('../views/Locations/LocationEdit')
 const Services = () => import('@/views/Services/Services')
 const ServiceCreate = () => import('../views/Services/ServiceCreate')
 const ServiceEdit = () => import('../views/Services/ServiceEdit')
-const ServiceShow = () => import('../views/Services/ServiceShow')
 
-//const Bar = { template: '<div>This is Bar {{ $route.params.id }}</div>' }
+const Categories = () => import('@/views/Categories/Categories')
+const CategoryCreate = () => import('../views/Categories/CategoryCreate')
+const CategoryEdit = () => import('../views/Categories/CategoryEdit')
 
-//import OrderShow from '../views/Orders/OrderShow';
+const LineItems = () => import('@/views/LineItems/LineItems')
+const LineItemCreate = () => import('../views/LineItems/LineItemCreate')
+const LineItemEdit = () => import('../views/LineItems/LineItemEdit')
+const LineItemShow = () => import('../views/LineItems/LineItemShow')
 
+const Partners = () => import('@/views/Partners/Partners')
+const PartnerShow = () => import('../views/Partners/PartnerShow')
 
+const Resources = () => import('@/views/Resources/Resources')
+const ResourceShow = () => import('../views/Resources/ResourceShow')
 
+const Wallets = () => import('@/views/Wallets/Wallets')
+const WalletShow = () => import('../views/Wallets/WalletShow')
 
-const Widgets = () => import('@/views/Widgets')
+const TopBanners = () => import('@/views/Top Banners/TopBanners')
+const TopBannerCreate = () => import('../views/Top Banners/TopBannerCreate')
+const TopBannerEdit = () => import('../views/Top Banners/TopBannerEdit')
 
-// Views - Components
-const Cards = () => import('@/views/base/Cards')
-const Forms = () => import('@/views/base/Forms')
-const Switches = () => import('@/views/base/Switches')
-const Tables = () => import('@/views/base/Tables')
-const Tabs = () => import('@/views/base/Tabs')
-const Breadcrumbs = () => import('@/views/base/Breadcrumbs')
-const Carousels = () => import('@/views/base/Carousels')
-const Collapses = () => import('@/views/base/Collapses')
-const Jumbotrons = () => import('@/views/base/Jumbotrons')
-const ListGroups = () => import('@/views/base/ListGroups')
-const Navs = () => import('@/views/base/Navs')
-const Navbars = () => import('@/views/base/Navbars')
-const Paginations = () => import('@/views/base/Paginations')
-const Popovers = () => import('@/views/base/Popovers')
-const ProgressBars = () => import('@/views/base/ProgressBars')
-const Tooltips = () => import('@/views/base/Tooltips')
+const BottomBanners = () => import('@/views/Bottom Banners/BottomBanners')
+const BottomBannerCreate = () => import('../views/Bottom Banners/BottomBannerCreate')
+const BottomBannerEdit = () => import('../views/Bottom Banners/BottomBannerEdit')
 
-// Views - Buttons
-const StandardButtons = () => import('@/views/buttons/StandardButtons')
-const ButtonGroups = () => import('@/views/buttons/ButtonGroups')
-const Dropdowns = () => import('@/views/buttons/Dropdowns')
-const BrandButtons = () => import('@/views/buttons/BrandButtons')
+const Complains = () => import('@/views/Complains/Complains')
+const ComplainCreate = () => import('@/views/Complains/ComplainCreate')
+const ComplainShow = () => import('../views/Complains/ComplainShow')
 
-// Views - Icons
-const Flags = () => import('@/views/icons/Flags')
-const FontAwesome = () => import('@/views/icons/FontAwesome')
-const SimpleLineIcons = () => import('@/views/icons/SimpleLineIcons')
-const CoreUIIcons = () => import('@/views/icons/CoreUIIcons')
-
-// Views - Promos
-const Alerts = () => import('@/views/notifications/Alerts')
-const Badges = () => import('@/views/notifications/Badges')
-const Modals = () => import('@/views/notifications/Modals')
-
-// Views - Pages
-const Page404 = () => import('@/views/pages/Page404')
-const Page500 = () => import('@/views/pages/Page500')
-const Login = () => import('@/views/pages/Login')
-const Register = () => import('@/views/pages/Register')
+const Documents = () => import('../views/Documents')
 
 // Users
 const Users = () => import('@/views/users/Users')
@@ -163,11 +144,6 @@ export default new Router({
                     component: Services
                 },
                 {
-                    path: '/services/show/:id',
-                    name: 'Service / Show',
-                    component: ServiceShow
-                },
-                {
                     path: '/services/edit/:id',
                     name: 'Service / Edit',
                     component: ServiceEdit
@@ -178,9 +154,119 @@ export default new Router({
                     component: ServiceCreate
                 },
                 {
-                    path: 'widgets',
-                    name: 'Widgets',
-                    component: Widgets
+                    path: 'categories',
+                    name: 'Categories',
+                    component: Categories
+                },
+                {
+                    path: '/categories/edit/:id',
+                    name: 'Category / Edit',
+                    component: CategoryEdit
+                },
+                {
+                    path: '/categories/create',
+                    name: 'CategoryCreate',
+                    component: CategoryCreate
+                },
+                {
+                    path: 'line-items',
+                    name: 'LineItems',
+                    component: LineItems
+                },
+                {
+                    path: '/line-items/edit/:id',
+                    name: 'LineItem / Edit',
+                    component: LineItemEdit
+                },
+                {
+                    path: '/line-items/show/:id',
+                    name: 'LineItem / Show',
+                    component: LineItemShow
+                },
+                {
+                    path: '/line-items/create',
+                    name: 'LineItemCreate',
+                    component: LineItemCreate
+                },
+                {
+                    path: 'partners',
+                    name: 'Partners',
+                    component: Partners
+                },
+                {
+                    path: '/partners/show/:id',
+                    name: 'Partner / Show',
+                    component: PartnerShow
+                },
+                {
+                    path: 'resources',
+                    name: 'Resources',
+                    component: Resources
+                },
+                {
+                    path: '/resources/show/:id',
+                    name: 'Resource / Show',
+                    component: ResourceShow
+                },
+                {
+                    path: 'partner-wallets',
+                    name: 'wallets',
+                    component: Wallets
+                },
+                {
+                    path: '/wallets/show/:id',
+                    name: 'Wallet / Show',
+                    component: WalletShow
+                },
+                {
+                    path: 'top-banners',
+                    name: 'Top Banners',
+                    component: TopBanners
+                },
+                {
+                    path: '/top-banners/edit/:id',
+                    name: 'TopBanner / Edit',
+                    component: TopBannerEdit
+                },
+                {
+                    path: '/top-banners/create',
+                    name: 'TopBannerCreate',
+                    component: TopBannerCreate
+                },
+                {
+                    path: 'bottom-banners',
+                    name: 'Bottom Banners',
+                    component: BottomBanners
+                },
+                {
+                    path: '/bottom-banners/edit/:id',
+                    name: 'BottomBanner / Edit',
+                    component: BottomBannerEdit
+                },
+                {
+                    path: '/bottom-banners/create',
+                    name: 'BottomBannerCreate',
+                    component: BottomBannerCreate
+                },
+                {
+                    path: 'complains',
+                    name: 'Complains',
+                    component: Complains
+                },
+                {
+                    path: '/complains/show/:id',
+                    name: 'Complain / Show',
+                    component: ComplainShow
+                },
+                {
+                    path: '/complains/create',
+                    name: 'ComplainCreate',
+                    component: ComplainCreate
+                },
+                {
+                    path: 'documents',
+                    name: 'Documents',
+                    component: Documents
                 },
                 {
                     path: 'users',

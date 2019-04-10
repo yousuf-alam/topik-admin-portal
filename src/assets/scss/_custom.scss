@@ -30,3 +30,7 @@
 a {
   color: #ff3573;
 }
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #fff;
+  background-color: #ff3573;
+}

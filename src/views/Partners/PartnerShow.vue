@@ -7,9 +7,9 @@
                     <h3>SP Name</h3>
                 </div>
                 <div>
-                    <div class="badge badge-gradient-danger" id="status">
+                    <h4 class="status-badge">
                         Verified
-                    </div>
+                    </h4>
                 </div>
                 <div>
                     <div class="change-log-modal" v-b-modal.modal-1>
@@ -89,134 +89,18 @@
                 </b-tab>
 
                 <b-tab title="Resources">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <v-client-table :data="tableData" :columns="columns" :options="options"></v-client-table>
                 </b-tab>
 
                 <b-tab title="Category">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <v-client-table :data="tableData" :columns="columns" :options="options"></v-client-table>
                 </b-tab>
 
                 <b-tab title="SubCategory">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <v-client-table :data="tableData" :columns="columns" :options="options"></v-client-table>
                 </b-tab>
                 <b-tab title="Line Item">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <v-client-table :data="tableData" :columns="columns" :options="options"></v-client-table>
                 </b-tab>
             </b-tabs>
         </div>
@@ -227,21 +111,58 @@
 
     export default {
         name: 'PartnerShow',
-        components: {}
+        components: {},
+        data() {
+            return {
+                columns: ['id', 'name', 'age'],
+                tableData: [
+                    {id: 1, name: "John", age: "2018-12-18"},
+                    {id: 2, name: "Jane", age: "2018-10-31"},
+                    {id: 3, name: "Susan", age: "2018-10-31"},
+                    {id: 4, name: "Chris", age: "2018-10-31"},
+                    {id: 5, name: "Dan", age: "2018-12-30"},
+                    {id: 11, name: "John", age: "2018-10-31"},
+                    {id: 12, name: "Jane", age: "2018-08-31"},
+                    {id: 13, name: "Susan", age: "2018-08-03"},
+                    {id: 14, name: "Chris", age: "2018-09-31"},
+                    {id: 15, name: "Dan", age: "2018-12-31"},
+                    {id: 11, name: "John", age: "2018-12-31"},
+                    {id: 12, name: "Jane", age: "2018-12-31"},
+                    {id: 13, name: "Susan", age: "2018-12-31"},
+                    {id: 14, name: "Chris", age: "2018-12-31"},
+                    {id: 15, name: "Dan", age: "2018-12-31"}
+                ],
+                options: {
+                    pagination: {nav: 'fixed'},
+                    perPage: 5,
+                    filterByColumn: true,
+                    dateColumns: ['age'],
+                    toMomentFormat: 'YYYY-MM-DD',
+                    sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
+
+                }
+
+            }
+        },
+        methods: {
+
+            delete(id) {
+                // The id can be fetched from the slot-scope row object when id is in columns
+                console.log('hi');
+            }
+        },
     }
 </script>
 
-<style scoped>
-    .badge-gradient-danger {
-        padding: 10px;
-        margin-bottom: 10px;
-        background: linear-gradient(to top, #3a4252, #0989df);
-        font-size: 20px;
-        box-shadow: -3px 4px #b9b3b3;
-        font-weight: 400;
-        color: #ffffff;
-    }
+}
+</script>
 
+<style scoped>
+    .status-badge {
+        color: white;
+        background-color: #4dbd74;
+        padding: 0.25rem;
+    }
     .change-log-modal {
         color: #0989df;
         text-decoration: underline;

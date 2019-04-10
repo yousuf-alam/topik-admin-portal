@@ -3,45 +3,59 @@
 import 'core-js/es6/promise'
 import 'core-js/es6/string'
 import 'core-js/es7/array'
-// import cssVars from 'css-vars-ponyfill'
+
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App'
+
 import router from './router'
 
 
-import ElementUI from 'element-ui'
-import { Table, TableColumn, Button, Pagination } from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import lang from 'element-ui/lib/locale/lang/en'
-import locale from 'element-ui/lib/locale'
-import '../node_modules/timeline-vuejs/dist/timeline-vuejs.css'
 import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import CKEditor from '@ckeditor/ckeditor5-vue';
+
+
+import {ClientTable} from 'vue-tables-2'
 
 
 // todo
 // cssVars()
 
 Vue.use(BootstrapVue)
-Vue.use(ElementUI)
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(Button)
-Vue.use(Pagination)
+
 Vue.use(VueFormWizard)
-Vue.use( CKEditor );
+Vue.use(CKEditor);
 
-locale.use(lang)
+Vue.use(ClientTable);
 
 
+/*Vue.config.productionTip = false;
+
+const host = window.location.host;
+const parts = host.split('.');
+const domainLength = 3; // route1.example.com => domain length = 3
+
+const router = () => {
+    let routes;
+    if (parts.length === (domainLength - 1) || parts[0] === 'www') {
+        routes = index;
+    } else if (parts[0] === 'admin') {
+        routes = index;
+    } else if (parts[0] === 'route2') {
+        routes = index;
+    } else {
+        // If you want to do something else just comment the line below
+        routes = index;
+    }
+    return routes;
+};*/
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: {
-    App
-  }
+    el: '#app',
+    router,
+    template: '<App/>',
+    components: {
+        App
+    }
 })

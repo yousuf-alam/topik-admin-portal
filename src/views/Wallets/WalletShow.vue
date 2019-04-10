@@ -17,72 +17,20 @@
         </div>
         <b-tabs card>
             <b-tab title="Transaction History" active>
-                <b-card-text>
-                    <div class="walletBody card table-responsive">
-                        <table class="table">
-                            <thead class="bg-success">
-                            <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">ID</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Debit</th>
-                                <th scope="col">Credit</th>
-                                <th scope="col">Balance</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">2019-01-09 13:24:50</th>
-                                <td>Mark</td>
-                                <td>Once upon a time there was an application.</td>
-                                <td>540</td>
-                                <td>700</td>
-                                <td>2000</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2019-01-09 13:24:50</th>
-                                <td>Mark</td>
-                                <td>Once upon a time there was an application.</td>
-                                <td>540</td>
-                                <td>700</td>
-                                <td>2000</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2019-01-09 13:24:50</th>
-                                <td>Mark</td>
-                                <td>Once upon</td>
-                                <td>540</td>
-                                <td>700</td>
-                                <td>2000</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2019-01-09 13:24:50</th>
-                                <td>Mark</td>
-                                <td>Once upon</td>
-                                <td>540</td>
-                                <td>700</td>
-                                <td>2000</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2019-01-09 13:24:50</th>
-                                <td>Mark</td>
-                                <td>Once upon</td>
-                                <td>540</td>
-                                <td>700</td>
-                                <td>2000</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2019-01-09 13:24:50</th>
-                                <td>Mark</td>
-                                <td>Once upon</td>
-                                <td>540</td>
-                                <td>700</td>
-                                <td>2000</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </b-card-text>
+                <b-card>
+                    <v-client-table :data="tableData" :columns="columns" :options="options">
+                        <template slot="action" slot-scope="props">
+                            <div>
+                                <router-link :to="{ name: 'Order / Show', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
+                                    <i class="fa fa-search"></i></span></router-link>
+                                <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit">
+                                    <i class="fa fa-edit"></i></span>
+                                <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
+                                    <i class="fa fa-trash"></i></span>
+                            </div>
+                        </template>
+                    </v-client-table>
+                </b-card>
             </b-tab>
             <b-tab title="Advance Recharge">
                 <div class="row w-100">
@@ -108,8 +56,49 @@
 
 <script>
     export default {
-        name: 'WalletShow'
+        name: 'WalletShow',
+        data() {
+            return {
+                columns: ['id', 'name', 'age', 'action'],
+                tableData: [
+                    {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},
+                    {id: 2, name: "Jane", age: "2018-10-31"},
+                    {id: 3, name: "Susan", age: "2018-10-31"},
+                    {id: 4, name: "Chris", age: "2018-10-31"},
+                    {id: 5, name: "Dan", age: "2018-12-30"},
+                    {id: 11, name: "John", age: "2018-10-31"},
+                    {id: 12, name: "Jane", age: "2018-08-31"},
+                    {id: 13, name: "Susan", age: "2018-08-03"},
+                    {id: 14, name: "Chris", age: "2018-09-31"},
+                    {id: 15, name: "Dan", age: "2018-12-31"},
+                    {id: 11, name: "John", age: "2018-12-31"},
+                    {id: 12, name: "Jane", age: "2018-12-31"},
+                    {id: 13, name: "Susan", age: "2018-12-31"},
+                    {id: 14, name: "Chris", age: "2018-12-31"},
+                    {id: 15, name: "Dan", age: "2018-12-31"}
+                ],
+                options: {
+                    pagination: {nav: 'fixed'},
+                    filterByColumn: true,
+                    dateColumns: ['age'],
+                    toMomentFormat: 'YYYY-MM-DD',
+                    sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
+
+                }
+
+            }
+        },
+        methods: {
+
+            delete(id) {
+                // The id can be fetched from the slot-scope row object when id is in columns
+                console.log('hi');
+            }
+        },
     }
+</script>
+
+}
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
     <b-card class="m-4">
-        <h5 class="mb-4">Edit BottomBanner</h5>
+        <h5 class="mb-4">Edit Bottom Banner</h5>
         <b-form-group label="Select Target">
             <b-form-select id="area"
                            :plain="true"

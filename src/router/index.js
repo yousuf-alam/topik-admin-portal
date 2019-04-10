@@ -59,15 +59,15 @@ const ComplainCreate = () => import('@/views/Complains/ComplainCreate')
 const ComplainShow = () => import('../views/Complains/ComplainShow')
 
 const Documents = () => import('../views/Documents')
-
+const Login = () => import('@/views/login/Login')
 // Users
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
 
 Vue.use(Router)
 
-export default new Router({
-    mode: 'hash', // https://router.vuejs.org/api/#mode
+const router =  new Router({
+    mode: 'history', // https://router.vuejs.org/api/#mode
     linkActiveClass: 'open active',
     scrollBehavior: () => ({y: 0}),
     routes: [
@@ -90,7 +90,7 @@ export default new Router({
                 },
                 {
                     path: '/orders/details/:id',
-                    name: 'Orders / Show',
+                    name: 'Order / Show',
                     component: OrderShow
                 },
                 {
@@ -105,7 +105,7 @@ export default new Router({
                 },
                 {
                     path: '/notifications/edit/:id',
-                    name: 'Notifications / Edit',
+                    name: 'Notification / Edit',
                     component: NotificationEdit
                 },
                 {
@@ -269,6 +269,11 @@ export default new Router({
                     component: Documents
                 },
                 {
+                    path: 'login',
+                    name: 'Login',
+                    component: Login
+                },
+                {
                     path: 'users',
                     meta: {label: 'Users'},
                     component: {
@@ -318,3 +323,5 @@ export default new Router({
         }
     ]
 })
+
+export default router

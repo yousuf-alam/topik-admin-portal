@@ -8,40 +8,16 @@
         </b-row>
         <b-row>
             <b-col>
-                <el-table
-                        :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()) || data.date.toLowerCase().includes(search.toLowerCase()))"
-                        style="width: 100%">
-                    <el-table-column
-                            label="Date"
-                            prop="date">
-                    </el-table-column>
-                    <el-table-column
-                            label="Name"
-                            prop="name">
-                    </el-table-column>
-                    <el-table-column
-                            label="Address"
-                            prop="address">
-                    </el-table-column>
-                    <el-table-column
-                            align="right">
-                        <template slot="header" slot-scope="scope">
-                            <el-input
-                                    v-model="search"
-                                    size="mini"
-                                    placeholder="Type to search"/>
-                        </template>
-                        <template slot-scope="scope">
-                            <router-link :to="{ name: 'Service / Edit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></span></router-link>
-                            <a class="btn btn-danger btn-sm m-1" data-toggle="tooltip" href="" data-placement="top" title="Delete"> <i class="fa fa-trash"></i></a>
-                            <!--<el-button
-                                    size="mini"
-                                    type="danger"
-                                    @click="handleDelete(scope.$index, scope.row)">Delete
-                            </el-button>-->
-                        </template>
-                    </el-table-column>
-                </el-table>
+                <b-card>
+                <v-client-table :data="tableData" :columns="columns" :options="options">
+                    <template slot="action" slot-scope="props">
+                        <div>
+                            <router-link :to="{ name: 'Service / Edit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.show">
+                                    <i class="fa fa-search"></i></span></router-link>
+                        </div>
+                    </template>
+                </v-client-table>
+                </b-card>
             </b-col>
         </b-row>
     </div>
@@ -50,49 +26,41 @@
 
 <script>
 
-    import 'element-ui/lib/theme-chalk/index.css'
-
-    // import DataTables and DataTablesServer separately
-    import {DataTables, DataTablesServer} from 'vue-data-tables'
-
-
-    // import DataTables and DataTablesServer together
-    import VueDataTables from 'vue-data-tables'
-
-
-    import {Table, TableColumn, Button, Pagination} from 'element-ui'
-
-
     export default {
         name: 'Services',
-        components: {Table, TableColumn, Button, Pagination},
         data() {
             return {
-                tableData: [{
-                    date: '2016-05-03',
-                    name: 'Tom',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-02',
-                    name: 'John',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-04',
-                    name: 'Morgan',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }, {
-                    date: '2016-05-01',
-                    name: 'Jessy',
-                    address: 'No. 189, Grove St, Los Angeles'
-                }],
-                search: '',
+                columns: ['id', 'name', 'age', 'action'],
+                tableData: [
+                    {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},
+                    {id: 2, name: "Jane", age: "2018-10-31"},
+                    {id: 3, name: "Susan", age: "2018-10-31"},
+                    {id: 4, name: "Chris", age: "2018-10-31"},
+                    {id: 5, name: "Dan", age: "2018-12-30"},
+                    {id: 11, name: "John", age: "2018-10-31"},
+                    {id: 12, name: "Jane", age: "2018-08-31"},
+                    {id: 13, name: "Susan", age: "2018-08-03"},
+                    {id: 14, name: "Chris", age: "2018-09-31"},
+                    {id: 15, name: "Dan", age: "2018-12-31"},
+                    {id: 11, name: "John", age: "2018-12-31"},
+                    {id: 12, name: "Jane", age: "2018-12-31"},
+                    {id: 13, name: "Susan", age: "2018-12-31"},
+                    {id: 14, name: "Chris", age: "2018-12-31"},
+                    {id: 15, name: "Dan", age: "2018-12-31"}
+                ],
+                options: {
+                    pagination: {nav: 'fixed'},
+                    filterByColumn: true,
+                    dateColumns: ['age'],
+                    toMomentFormat: 'YYYY-MM-DD',
+                    sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
+
+                }
+
             }
         },
         methods: {
 
-            handleDelete(index, row) {
-                console.log(index, row);
-            }
         },
     }
 </script>

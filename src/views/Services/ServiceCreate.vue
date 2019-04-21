@@ -1,86 +1,157 @@
 <template>
-    <b-card class="m-4">
-        <h5 class="mb-4">Create Service</h5>
-        <div class="form-group">
-            <label for="name">Name*</label>
+  <b-card class="m-4">
+    <h5 class="mb-4">Create New Service</h5>
+    <form @submit="onSubmit" enctype="multipart/form-data">
+       <div class="form-group">
+         <label>Name*</label>
 
-            <input type="text" name="name" class="form-control"  id="name">
-        </div>
-
-
-        <div class="form-group">
-            <label for="category_description">Short Description</label>
-            <textarea class="form-control" name="short_description" id="category_description" rows="3" ></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="simpleMde">Long Description</label>
-            <textarea class="form-control" name="long_description" rows="10" id="tinyMceExample"></textarea>
-
-        </div>
+         <input type="text" name="name" class="form-control" v-model="name">
+       </div>
 
 
-        <div class="form-group">
-            <label for="meta_titile">Meta Title</label>
+       <div class="form-group">
+         <label>Short Description</label>
+         <textarea class="form-control" name="short_description" rows="3" v-model="short_description"></textarea>
+       </div>
 
-            <input type="text" name="meta_titile" class="form-control"  id="meta_titile" >
-        </div>
+       <div class="form-group">
+         <label>Long Description</label>
+         <textarea class="form-control" name="long_description" rows="10" v-model="long_description"></textarea>
+
+       </div>
 
 
-        <div class="form-group">
-            <label for="meta_description">Meta Description</label>
-            <textarea class="form-control" name="meta_description" id="meta_description" rows="10" ></textarea>
-        </div>
+       <div class="form-group">
+         <label>Meta Title</label>
+         <input type="text" name="meta_title" class="form-control" v-model="meta_title">
+       </div>
 
-        <div class="form-group">
-            <label for="video_link">video Link</label>
+       <div class="form-group">
+         <label>Meta Description</label>
+         <textarea class="form-control" name="meta_description" rows="10" v-model="meta_description"></textarea>
+       </div>
 
-            <input type="text" name="video_link" class="form-control"  id="video_link" >
-        </div>
+       <div class="form-group">
+         <div class="form-check checkbox">
+           <input class="form-check-input" type="checkbox" name="published_status" v-model="published_status">
+           <label class="form-check-label" >Published</label>
+         </div>
+       </div>
 
-        <div class="custom-control mb-3 custom-checkbox">
-            <input type="checkbox" name="published_status" class="custom-control-input" value="1"  id="customCheck1">
-            <label class="custom-control-label" for="customCheck1">publish</label>
-        </div>
+      <div class="form-group">
+        <label>Icon (SVG)</label>
+        <input type="file" class="form-control" v-on:change="onSVGChange">
+      </div>
+      <div class="form-group">
+        <label>Icon (PDF)</label>
+        <input type="file" class="form-control" v-on:change="onPDFChange">
+      </div>
+      <div class="form-group">
+        <label>Thumbnail</label>
+        <input type="file" class="form-control" v-on:change="onThumbnailChange">
+      </div>
+      <div class="form-group">
+        <label>Banner (Web)</label>
+        <input type="file" class="form-control" v-on:change="onBwebChange">
+      </div>
+      <div class="form-group">
+        <label>Banner (Tab)</label>
+        <input type="file" class="form-control" v-on:change="onBtabChange">
+      </div>
+      <div class="form-group">
+        <label>Banner (iOS)</label>
+        <input type="file" class="form-control" v-on:change="onBandChange">
+      </div>
+      <div class="form-group">
+        <label>Banner (Android)</label>
+        <input type="file" class="form-control" v-on:change="onBiosChange">
+      </div>
 
-        <div class="form-group">
-            <label for="exampleFormControlFile1">Upload Thumbnail*<p class="text-danger">(Image Size must be less than 1MB)</p></label>
-            <input onchange="ValidateSize(this)"  type="file" name="thumbnail" class="form-control-file" id="exampleFormControlFile1" required >
-        </div>
-
-        <div class="form-group">
-            <label for="exampleFormControlFile2">Upload App Thumbnail*<p class="text-danger">(Image Size must be less than 1MB)</p></label>
-            <input onchange="ValidateSize(this)" type="file" name="app_thumbnail" class="form-control-file" id="exampleFormControlFile2" required>
-        </div>
-
-        <div class="form-group">
-            <label for="exampleFormControlFile3">Upload Banner*<p class="text-danger">(Image Size must be less than 1MB)</p></label>
-            <input onchange="ValidateSize(this)" type="file" name="banner" class="form-control-file" id="exampleFormControlFile3" required>
-        </div>
-
-        <div class="form-group">
-            <label for="exampleFormControlFile4">Upload App Banner*<p class="text-danger">(Image Size must be less than 1MB)</p></label>
-            <input onchange="ValidateSize(this)" type="file" name="app_banner" class="form-control-file" id="exampleFormControlFile4" required>
-        </div>
-
-        <div class="form-group">
-            <label for="exampleFormControlFile5">Upload Icon (svg)<p class="text-danger">(Image Size must be less than 1MB)</p></label>
-            <input onchange="ValidateSize(this)" type="file" name="icon_svg" class="form-control-file" id="exampleFormControlFile5">
-        </div>
-
-        <div class="form-group">
-            <label for="exampleFormControlFile6">Upload Icon(png)<p class="text-danger">(Image Size must be less than 1MB)</p></label>
-            <input onchange="ValidateSize(this)" type="file" name="icon_png" class="form-control-file" id="exampleFormControlFile6">
-        </div>
-
-        <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Service</b-button>
-    </b-card>
+      <b-button type="submit" value="Submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Service
+      </b-button>
+    </form>
+  </b-card>
 </template>
 
 <script>
-    export default {
-        name: "ServiceCreate"
+  export default {
+    name: "ServiceCreate",
+    data() {
+      return {
+        name: '',
+        short_description: '',
+        long_description: '',
+        meta_title: '',
+        meta_description: '',
+        published_status: '',
+        icon_svg: '',
+        icon_pdf: '',
+        thumbnail: '',
+        banner_web: '',
+        banner_tab: '',
+        banner_android: '',
+        banner_ios: '',
+      }
+    },
+    methods: {
+
+      onSVGChange(e) {
+        this.icon_svg = e.target.files[0];
+      },
+      onPDFChange(e) {
+        this.icon_pdf = e.target.files[0];
+      },
+      onThumbnailChange(e) {
+        this.thumbnail = e.target.files[0];
+      },
+      onBwebChange(e) {
+        this.banner_web = e.target.files[0];
+      },
+      onBtabChange(e) {
+        this.banner_tab = e.target.files[0];
+      },
+      onBandChange(e) {
+        this.banner_android = e.target.files[0];
+      },
+      onBiosChange(e) {
+        this.banner_ios = e.target.files[0];
+      },
+      onSubmit(e) {
+        e.preventDefault();
+        let currentObj = this;
+        const config = {
+          headers: {'content-type': 'multipart/form-data'}
+        }
+
+
+        let formData = new FormData();
+        formData.append('name', this.name);
+        formData.append('short_description', this.short_description);
+        formData.append('long_description', this.long_description);
+        formData.append('meta_title', this.meta_title);
+        formData.append('meta_description', this.meta_description);
+        formData.append('published_status', this.published_status);
+        formData.append('icon_svg', this.icon_svg);
+        formData.append('icon_pdf', this.icon_pdf);
+        formData.append('thumbnail', this.thumbnail);
+        formData.append('banner_web', this.banner_web);
+        formData.append('banner_tab', this.banner_tab);
+        formData.append('banner_android', this.banner_android);
+        formData.append('banner_ios', this.banner_android);
+        console.log(formData);
+        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${Base_URL}/api/services/create`, formData, config)
+          .then(function (response) {
+            currentObj.success = response.data.success;
+          })
+          .catch(function (error) {
+            currentObj.output = error;
+            console.log(error);
+          });
+      }
     }
+
+  }
 </script>
 
 <style scoped>

@@ -17,6 +17,8 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 
 
 import {ClientTable} from 'vue-tables-2'
+import {ServerTable} from 'vue-tables-2'
+import VueAxios from 'vue-axios'
 
 
 // todo
@@ -28,7 +30,8 @@ Vue.use(VueFormWizard)
 Vue.use(CKEditor);
 
 Vue.use(ClientTable);
-
+Vue.use(ServerTable);
+Vue.use(VueAxios, axios)
 
 /*Vue.config.productionTip = false;
 

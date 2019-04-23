@@ -1,3 +1,20 @@
+.customcard {
+  background-color: rgb(252, 252, 252);
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+.customcard {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border: 1px solid #c8ced3;
+      border-radius: 0.25rem;
+} 
+
 // Here you can add other styles
 .cardheading {
   display: flex;
@@ -34,3 +51,5 @@ a {
   color: #fff;
   background-color: #ff3573;
 }
+
+

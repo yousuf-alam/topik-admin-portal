@@ -72,6 +72,14 @@ const Register = () => import('@/views/login/Register')
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
 
+import Role from '../views/AccessControl/role/Role';
+import RoleShow from '../views/AccessControl/role/RoleShow';
+import CreateNewRole from '../views/AccessControl/role/CreateNewRole';
+import RoleEdit from '../views/AccessControl/role/RoleEdit';
+ 
+import Permission from '../views/AccessControl/permission/Permission';
+
+
 import store from '../store/store';
 Vue.use(Router)
 
@@ -95,7 +103,40 @@ const router =  new Router({
                     name: 'Dashboard',
                     component: Dashboard
                 },
-
+                {
+                    path: 'roles',
+                    redirect: '/roles',
+                    name: 'Role',
+                    component: {
+                      render (c) { return c('router-view') }
+                    },
+                    children: [
+                      {
+                        path: '',
+                        component: Role
+                      },
+                      {
+                        path: 'show/:id',
+                        name: 'RoleShow',
+                        component: RoleShow
+                      },
+                      {
+                        path: 'new',
+                        name: 'Create New Role',
+                        component: CreateNewRole
+                      },
+                      {
+                        path: 'edit/:id',
+                        name: 'Edit ',
+                        component: RoleEdit
+                      }
+                    ]
+                },
+                {
+                    path: 'permissions',
+                    name: 'Permission',
+                    component: Permission
+                },                
                 {
                     path: 'orders',
                     name: 'Orders',

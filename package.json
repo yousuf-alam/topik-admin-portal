@@ -14,7 +14,7 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^12.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^12.1.0",
     "@ckeditor/ckeditor5-vue": "^1.0.0-beta.1",
     "@coreui/coreui": "^2.1.6",
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
@@ -24,6 +24,7 @@
     "bootstrap": "^4.2.1",
     "bootstrap-vue": "^2.0.0-rc.11",
     "chart.js": "^2.7.3",
+    "ckeditor": "^4.11.4",
     "core-js": "^2.6.2",
     "css-vars-ponyfill": "^1.16.2",
     "flag-icon-css": "^3.2.0",
@@ -32,7 +33,7 @@
     "lodash": "^4.17.11",
     "perfect-scrollbar": "^1.4.0",
     "simple-line-icons": "^2.4.1",
-    "vue": "^2.5.22",
+    "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
     "vue-chartjs": "^3.4.0",
     "vue-form-wizard": "^0.8.4",

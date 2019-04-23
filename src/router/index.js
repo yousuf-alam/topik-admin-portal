@@ -59,11 +59,20 @@ const ComplainCreate = () => import('@/views/Complains/ComplainCreate')
 const ComplainShow = () => import('../views/Complains/ComplainShow')
 
 const Documents = () => import('../views/Documents')
+
+// Views - Pages
+const Page404 = () => import('@/views/pages/Page404')
+const Page500 = () => import('@/views/pages/Page500')
+
+// Authentication
 const Login = () => import('@/views/login/Login')
+const Register = () => import('@/views/login/Register')
+
 // Users
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
 
+import store from '../store/store';
 Vue.use(Router)
 
 const router =  new Router({
@@ -73,9 +82,13 @@ const router =  new Router({
     routes: [
         {
             path: '/',
+            mode: 'hash',
             redirect: '/dashboard',
             name: 'Home',
             component: DefaultContainer,
+            meta: {
+                requiresAuth: true,
+            },
             children: [
                 {
                     path: 'dashboard',
@@ -268,11 +281,13 @@ const router =  new Router({
                     name: 'Documents',
                     component: Documents
                 },
+            /*
                 {
                     path: 'login',
                     name: 'Login',
                     component: Login
                 },
+            */
                 {
                     path: 'users',
                     meta: {label: 'Users'},
@@ -320,8 +335,64 @@ const router =  new Router({
                   ]
                 }*/
             ]
-        }
+        },
+        {
+            path: '/',
+            redirect: '/404',
+            name: 'Authentication',
+            component: {
+              render (c) { return c('router-view') }
+            },
+            children: [
+              {
+                path: '404',
+                name: 'Page404',
+                component: Page404
+              },
+              {
+                path: '500',
+                name: 'Page500',
+                component: Page500
+              },
+              {
+                path: 'login',
+                name: 'Login',
+                component: Login,
+
+              },
+              {
+                path: 'register',
+                name: 'Register',
+                component: Register
+              }
+            ]
+        },
     ]
 })
+
+
+router.beforeEach((to, from, next) => {
+  // let user_roles = JSON.parse(window.localStorage.getItem("user_roles"));
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters['auth/isLoggedIn']) {
+      next()
+      return
+    }
+    next('/login')
+
+   } else if (store.getters['auth/isLoggedIn']) {
+     if (to.matched.some(record => (record.name === 'Login' || record.name === 'Register') )) {
+        next('/dashboard')
+     } else {
+       next()
+     }
+
+  } else {
+    next()
+  }
+
+})
+
 
 export default router

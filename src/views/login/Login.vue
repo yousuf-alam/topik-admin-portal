@@ -7,19 +7,46 @@
             <b-card no-body class="p-4">
               <b-card-body>
                 <b-form>
-                  <h1>Login</h1>
+                  <h1>Admin Login</h1>
                   <p class="text-muted">Sign In to your account</p>
-                  <b-input-group class="mb-3">
+                  <b-input-group class="mb-0">
                     <b-input-group-prepend><b-input-group-text><i class="icon-user"></i></b-input-group-text></b-input-group-prepend>
-                    <b-form-input type="text" class="form-control" placeholder="Username" autocomplete="username email" />
+                    <b-form-input
+                      name="phone"
+                      v-model="phone"
+                      type="text"
+                      class="form-control"
+                      placeholder="Phone no."
+                      autocomplete="phone"
+                      @keyup="onKeyUpPhone"
+                    />
                   </b-input-group>
-                  <b-input-group class="mb-4">
+                  <span class="text-danger"> {{phone_warning}} </span>
+                  <div class="my-3"></div>
+                  <b-input-group class="mt-0">
                     <b-input-group-prepend><b-input-group-text><i class="icon-lock"></i></b-input-group-text></b-input-group-prepend>
-                    <b-form-input type="password" class="form-control" placeholder="Password" autocomplete="current-password" />
+                    <b-form-input
+                      name="password"
+                      v-model="password"
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      autocomplete="current-password"
+                      @keyup="onKeyUpPassword"
+                    />
                   </b-input-group>
-                  <b-row>
+                  <span class="text-danger"> {{ password_warning }} </span>
+                  <b-row class="mt-2">
                     <b-col cols="6">
-                      <b-button variant="primary" class="px-4">Login</b-button>
+                      <b-button
+                        @click="handleFormSubmit"
+                        variant="primary"
+                        class="px-4 "
+                        :disabled="disableLogInBtn"
+
+                      >
+                        Login
+                      </b-button>
                     </b-col>
                     <b-col cols="6" class="text-right">
                       <b-button variant="link" class="px-0">Forgot password?</b-button>
@@ -45,7 +72,52 @@
 </template>
 
 <script>
+import store from '../../store/store';
+
 export default {
-  name: 'Login'
+  name: 'Login',
+  data() {
+    return {
+       phone: '',
+       phone_warning: '',
+       password: '',
+       password_warning: '',
+       loginClicked: false,
+    }
+  },
+  computed: {
+    disableLogInBtn: function() {
+    let rule = this.phone_warning.length > 0 || this.password_warning.length > 0 ||
+      this.phone.length === 0 || this.password.length === 0;
+    return rule;
+    }
+  },
+  methods: {
+    onKeyUpPhone(event) {
+      const phoneIsValid = /(^()?(01){1}[23456789]{1}(\d){8})$/i.test(this.phone);
+      if (phoneIsValid === false) {
+        this.phone_warning = 'Invalid phone number';
+      } else { this.phone_warning = '';}
+
+      if(this.phone.length < 11 || this.phone.length > 11) {
+        this.phone_warning = 'Enter 11 digit phone number';
+      } if (this.phone.length === 0) { this.phone_warning = ''; }
+    },
+
+    onKeyUpPassword(event) {
+      if (this.password.length < 6 && this.password.length > 0) {
+        this.password_warning = 'Password must be at least 6 char long';
+      } else { this.password_warning = ''; }
+    },
+
+    handleFormSubmit(event) {
+      this.$store.dispatch('auth/login', {phone: this.phone, password: this.password})
+        .then((response) => {
+          this.$router.push({path: '/'});
+        }).catch((error) => {
+          // console.log('Error ... ', error.response);
+        })
+    }
+  }
 }
 </script>

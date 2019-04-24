@@ -6,7 +6,7 @@
         <b-card-text>
 
           <div class="form-group">
-            <label for="name">Name*</label>
+            <label for="name">Name</label>
             <input class="form-control" id="name" name="name" type="text" v-model="service.name">
           </div>
 
@@ -57,39 +57,39 @@
               <label class="col-md-3 control-label">Icon (SVG)</label>
               <div class="col-md-9">
                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                    <img :src="src_svg+service.icon_svg">
+                  <div class="fileinput-new thumbnail">
+                    <img :src="src_svg+service.icon_svg" style="width: 200px; height: 150px;">
                   </div>
                   <div>
                     <span class="btn default btn-file">
-                      <span class="fileinput-new"> Select image </span>
-                      <input name="banner" type="file">
+                      <span class="fileinput-new"> Icon (SVG) </span>
+                      <input name="icon_svg" type="file" v-on:change="onSVGChange">
                     </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="form-group row ">
-              <label class="col-md-3 control-label">App Banner *</label>
-              <div class="col-md-9">
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                    <img src="">
-                  </div>
-                  <div>
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Icon (PDF)</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_pdf+service.icon_pdf" style="width: 200px; height: 150px;">
+                </div>
+                <div>
                     <span class="btn default btn-file">
-                      <span class="fileinput-new"> Select image </span>
-                      <input data-show-preview="true" name="app_banner" type="file">
+                      <span class="fileinput-new"> Icon (PDF) </span>
+                      <input name="icon_pdf" type="file" v-on:change="onPDFChange">
                     </span>
-                  </div>
                 </div>
               </div>
             </div>
+          </div>
             <div class="form-group row">
               <label class="col-sm-3 col-form-label" for="name"></label>
               <div class="col-sm-9">
-                <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
+                <b-button  @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
                 </b-button>
               </div>
             </div>
@@ -97,46 +97,27 @@
       </b-tab>
       <b-tab title="Change Thumbnail">
         <b-card-text>
-            <div class="form-group row ">
-              <label class="col-md-3 control-label">Banner *</label>
-              <div class="col-md-9">
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                    <img src="">
-                  </div>
-
-                  <div>
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Thumbnail</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_thumbnail+service.thumbnail" style="width: 200px; height: 150px;">
+                </div>
+                <div>
                     <span class="btn default btn-file">
-                      <span class="fileinput-new"> Select image </span>
-                      <input name="banner" type="file">
+                      <span class="fileinput-new"> Thumbnail </span>
+                      <input name="thumbnail" type="file" v-on:change="onThumbnailChange">
                     </span>
-                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="form-group row ">
-              <label class="col-md-3 control-label">App Banner *</label>
-              <div class="col-md-9">
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                    <img src="">
-                  </div>
-
-                  <div>
-                    <span class="btn default btn-file">
-                      <span class="fileinput-new"> Select image </span>
-                      <input data-show-preview="true" name="app_banner" type="file">
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          </div>
 
             <div class="form-group row">
               <label class="col-sm-3 col-form-label" for="name"></label>
               <div class="col-sm-9">
-                <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
+                <b-button  @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
                 </b-button>
               </div>
             </div>
@@ -144,44 +125,76 @@
       </b-tab>
       <b-tab title="Change Banner">
         <b-card-text>
-            <div class="form-group row ">
-              <label class="col-md-3 control-label">Banner *</label>
-              <div class="col-md-9">
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                    <img src="">
-                  </div>
-
-                  <div>
-                      <span class="btn default btn-file">
-                        <span class="fileinput-new"> Select image </span>
-                        <input name="banner" type="file">
-                      </span>
-                  </div>
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Banner (Web)</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_banweb+service.banner_web" style="width: 200px; height: 150px;">
                 </div>
-              </div>
-            </div>
-
-            <div class="form-group row ">
-              <label class="col-md-3 control-label">App Banner *</label>
-              <div class="col-md-9">
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                  <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                    <img src="">
-                  </div>
-                  <div>
+                <div>
                     <span class="btn default btn-file">
-                      <span class="fileinput-new"> Select image </span>
-                      <input data-show-preview="true" name="app_banner" type="file">
+                      <span class="fileinput-new"> Banner (Web) </span>
+                      <input name="banner_web" type="file" v-on:change="onBwebChange">
                     </span>
-                  </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Banner (Tab)</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_bantab+service.banner_tab" style="width: 200px; height: 150px;">
+                </div>
+                <div>
+                    <span class="btn default btn-file">
+                      <span class="fileinput-new"> Icon (SVG) </span>
+                      <input name="banner_tab" type="file" v-on:change="onBtabChange">
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Banner (Android)</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_banand+service.banner_android" style="width: 200px; height: 150px;">
+                </div>
+                <div>
+                    <span class="btn default btn-file">
+                      <span class="fileinput-new"> Icon (SVG) </span>
+                      <input name="banner_android" type="file" v-on:change="onBandChange">
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Banner (iOS)</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_banios+service.banner_ios" style="width: 200px; height: 150px;">
+                </div>
+                <div>
+                    <span class="btn default btn-file">
+                      <span class="fileinput-new"> Icon (SVG) </span>
+                      <input name="banner_ios" type="file" v-on:change="onBiosChange">
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
             <div class="form-group row">
               <label class="col-sm-3 col-form-label" for="name"></label>
               <div class="col-sm-9">
-                <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
+                <b-button  @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
                 </b-button>
               </div>
             </div>
@@ -213,22 +226,30 @@
           banner_android: '',
           banner_ios: '',
         },
-        src_svg: '/images/service/icon_svg',
-        src_pdf: '/images/service/icon_pdf',
-        src_thumbnail: '/images/service/thumbnail',
-        src_banweb: '/images/service/banner_web',
-        src_bantab: '/images/service/banner_tab',
-        src_banios: '/images/service/banner_ios',
-        src_banand: '/images/service/banner_android',
+        src_svg: '/images/service/icon_svg/',
+        src_pdf: '/images/service/icon_pdf/',
+        src_thumbnail: '/images/service/thumbnail/',
+        src_banweb: '/images/service/banner_web/',
+        src_bantab: '/images/service/banner_tab/',
+        src_banios: '/images/service/banner_ios/',
+        src_banand: '/images/service/banner_android/',
 
       }
     },
     created(){
       const Base_URL = process.env.VUE_APP_ADMIN_URL;
+      this.src_svg = Base_URL + this.src_svg;
+      this.src_pdf = Base_URL + this.src_pdf;
+      this.src_thumbnail = Base_URL + this.src_thumbnail;
+      this.src_banweb = Base_URL + this.src_banweb;
+      this.src_bantab = Base_URL + this.src_bantab;
+      this.src_banios = Base_URL + this.src_banios;
+      this.src_banand = Base_URL + this.src_banand;
       let id = window.location.pathname.split("/").pop();
-      axios.post(`${Base_URL}/api/services/${id}`,
+      this.service.id = id;
+      axios.post(`${Base_URL}/api/services/edit`,
       {
-        id: id
+        id: this.service.id
       }).then(response =>{
           this.service = response.data;
 
@@ -240,25 +261,25 @@
     },
     methods: {
       onSVGChange(e) {
-        this.icon_svg = e.target.files[0];
+        this.service.icon_svg = e.target.files[0];
       },
       onPDFChange(e) {
-        this.icon_pdf = e.target.files[0];
+        this.service.icon_pdf = e.target.files[0];
       },
       onThumbnailChange(e) {
-        this.thumbnail = e.target.files[0];
+        this.service.thumbnail = e.target.files[0];
       },
       onBwebChange(e) {
-        this.banner_web = e.target.files[0];
+        this.service.banner_web = e.target.files[0];
       },
       onBtabChange(e) {
-        this.banner_tab = e.target.files[0];
+        this.service.banner_tab = e.target.files[0];
       },
       onBandChange(e) {
-        this.banner_android = e.target.files[0];
+        this.service.banner_android = e.target.files[0];
       },
       onBiosChange(e) {
-        this.banner_ios = e.target.files[0];
+        this.service.banner_ios = e.target.files[0];
       },
       onSubmit() {
 
@@ -269,22 +290,23 @@
 
 
         let formData = new FormData();
-        formData.append('name', this.name);
-        formData.append('short_description', this.short_description);
-        formData.append('long_description', this.long_description);
-        formData.append('meta_title', this.meta_title);
-        formData.append('meta_description', this.meta_description);
-        formData.append('published_status', this.published_status);
-        formData.append('icon_svg', this.icon_svg);
-        formData.append('icon_pdf', this.icon_pdf);
-        formData.append('thumbnail', this.thumbnail);
-        formData.append('banner_web', this.banner_web);
-        formData.append('banner_tab', this.banner_tab);
-        formData.append('banner_android', this.banner_android);
-        formData.append('banner_ios', this.banner_android);
+        formData.append('id', this.service.id);
+        formData.append('name', this.service.name);
+        formData.append('short_description', this.service.short_description);
+        formData.append('long_description', this.service.long_description);
+        formData.append('meta_title', this.service.meta_title);
+        formData.append('meta_description', this.service.meta_description);
+        formData.append('published_status', this.service.published_status);
+        formData.append('icon_svg', this.service.icon_svg);
+        formData.append('icon_pdf', this.service.icon_pdf);
+        formData.append('thumbnail', this.service.thumbnail);
+        formData.append('banner_web', this.service.banner_web);
+        formData.append('banner_tab', this.service.banner_tab);
+        formData.append('banner_android', this.service.banner_android);
+        formData.append('banner_ios', this.service.banner_android);
         console.log(formData);
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/services/edit/`+this.service.id, {name: this.service.name}, config)
+        axios.post(`${Base_URL}/api/services/update`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
           })

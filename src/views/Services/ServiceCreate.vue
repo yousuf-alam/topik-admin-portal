@@ -138,13 +138,17 @@
         formData.append('banner_tab', this.banner_tab);
         formData.append('banner_android', this.banner_android);
         formData.append('banner_ios', this.banner_android);
-        console.log(formData);
+
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/services/create`, formData, config)
-          .then(function (response) {
+        console.log(this.name);
+        axios.post(`${Base_URL}/api/services/create`,formData,config)
+          .then(response => {
+            console.log('Success', response);
             currentObj.success = response.data.success;
+            console.log(response.data);
           })
-          .catch(function (error) {
+          .catch(error => {
+            console.log('Error  ... ', error.response);
             currentObj.output = error;
             console.log(error);
           });

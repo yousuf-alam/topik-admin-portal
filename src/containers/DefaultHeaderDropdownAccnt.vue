@@ -2,10 +2,10 @@
   <AppHeaderDropdown right no-caret>
     <template slot="header">
       <img
-        src="img/avatars/6.jpg"
+        :src="origin_url+'/img/avatars/6.jpg'"
         class="img-avatar"
         alt="admin@bootstrapmaster.com" />
-    </template>\
+    </template>
     <template slot="dropdown">
       <b-dropdown-header tag="div" class="text-center"><strong>Account</strong></b-dropdown-header>
            <b-dropdown-item><i class="fa fa-bell-o" /> Updates
@@ -54,9 +54,15 @@ export default {
   components: {
     AppHeaderDropdown
   },
-  data: () => {
-    return { itemsCount: 42 }
+  data() {
+    return { 
+      itemsCount: 42, 
+      origin_url: window.location.origin
+    }
   },
+  created() {
+    console.log('defaultHeaderDropdownAccount created', window.location.origin)
+  }, 
   methods: {
     logoutClicked(e) {
       // console.log('inside logout Clicked', e);

@@ -76,6 +76,10 @@
 <script>
   export default {
     name: "ServiceCreate",
+    created() {
+        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        console.log('Service Create Base_URL === ', Base_URL);
+    },
     data() {
       return {
         name: '',
@@ -120,7 +124,10 @@
         e.preventDefault();
         let currentObj = this;
         const config = {
-          headers: {'content-type': 'multipart/form-data'}
+          headers: {
+            'content-type': 'multipart/form-data',
+            'Accept' : 'application/json',
+            }
         }
 
 
@@ -140,6 +147,7 @@
         formData.append('banner_ios', this.banner_android);
         console.log(formData);
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        // console.log('Service Create Base_URL === ', Base_URL);
         axios.post(`${Base_URL}/api/services/create`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;

@@ -11,8 +11,13 @@
         <b-card>
           <v-client-table :data="categories" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
-              <div>
+              <div v-if="props.row.category === 'none'">
                 <router-link :to="{ name: 'Category / Edit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
+                                    <i class="fa fa-edit"></i></span></router-link>
+                <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
+              </div>
+              <div v-else>
+                <router-link :to="{ name: 'Subcategory / Edit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
                                     <i class="fa fa-edit"></i></span></router-link>
                 <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
               </div>
@@ -32,7 +37,7 @@
     data() {
       return {
         categories : [],
-        columns: ['id', 'name', 'service', 'category' ,'published_status', 'created_at', 'action'],
+        columns: ['name', 'service', 'category' ,'published_status', 'created_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,

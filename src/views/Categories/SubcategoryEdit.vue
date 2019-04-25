@@ -4,8 +4,9 @@
     <b-tabs card pills>
       <b-tab active title="Basic Info">
         <b-card-text>
+
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Subcategory Name</label>
             <input class="form-control" id="name" name="name" type="text" v-model="category.name">
           </div>
 
@@ -207,7 +208,7 @@
 <script>
   import axios from 'axios';
   export default {
-    name: "CategoryEdit",
+    name: "SubcategoryEdit",
     data() {
       return {
         category: {
@@ -227,13 +228,13 @@
           banner_android: '',
           banner_ios: '',
         },
-        src_svg: '/images/category/icon_svg/',
-        src_pdf: '/images/category/icon_pdf/',
-        src_thumbnail: '/images/category/thumbnail/',
-        src_banweb: '/images/category/banner_web/',
-        src_bantab: '/images/category/banner_tab/',
-        src_banios: '/images/category/banner_ios/',
-        src_banand: '/images/category/banner_android/',
+        src_svg: '/images/subcategory/icon_svg/',
+        src_pdf: '/images/subcategory/icon_pdf/',
+        src_thumbnail: '/images/subcategory/thumbnail/',
+        src_banweb: '/images/subcategory/banner_web/',
+        src_bantab: '/images/subcategory/banner_tab/',
+        src_banios: '/images/subcategory/banner_ios/',
+        src_banand: '/images/subcategory/banner_android/',
 
       }
     },
@@ -248,7 +249,7 @@
       this.src_banand = Base_URL + this.src_banand;
       let id = window.location.pathname.split("/").pop();
       this.category.id = id;
-      axios.post(`${Base_URL}/api/categories/edit`,
+      axios.post(`${Base_URL}/api/subcategories/edit`,
         {
           id: this.category.id
         }).then(response =>{
@@ -293,7 +294,6 @@
         let formData = new FormData();
         formData.append('id', this.category.id);
         formData.append('name', this.category.name);
-        formData.append('group', 'none');
         formData.append('service_id', this.category.service_id);
         formData.append('short_description', this.category.short_description);
         formData.append('long_description', this.category.long_description);

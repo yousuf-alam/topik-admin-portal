@@ -31,6 +31,7 @@ const ServiceEdit = () => import('../views/Services/ServiceEdit')
 const Categories = () => import('@/views/Categories/Categories')
 const CategoryCreate = () => import('../views/Categories/CategoryCreate')
 const CategoryEdit = () => import('../views/Categories/CategoryEdit')
+const SubategoryEdit = () => import('../views/Categories/SubcategoryEdit')
 
 const LineItems = () => import('@/views/LineItems/LineItems')
 const LineItemCreate = () => import('../views/LineItems/LineItemCreate')
@@ -216,6 +217,11 @@ const router =  new Router({
         path: '/categories/edit/:id',
         name: 'Category / Edit',
         component: CategoryEdit
+      },
+      {
+        path: '/subcategories/edit/:id',
+        name: 'Subcategory / Edit',
+        component: SubategoryEdit
       },
       {
         path: '/categories/create',

@@ -160,6 +160,7 @@
 
         let formData = new FormData();
         formData.append('name', this.name);
+        formData.append('group', this.group);
         formData.append('service_id', this.service_id);
         formData.append('short_description', this.short_description);
         formData.append('long_description', this.long_description);

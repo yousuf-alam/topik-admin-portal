@@ -6,6 +6,7 @@ import 'core-js/es7/array'
 
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
+import axios from 'axios';
 import App from './App'
 
 import router from './router'
@@ -31,7 +32,7 @@ Vue.use(CKEditor);
 
 Vue.use(ClientTable);
 Vue.use(ServerTable);
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios, axios);
 
 /*Vue.config.productionTip = false;
 
@@ -54,9 +55,12 @@ const router = () => {
     return routes;
 };*/
 /* eslint-disable no-new */
+import store from './store/store';
+
 new Vue({
     el: '#app',
     router,
+    store,
     template: '<App/>',
     components: {
         App

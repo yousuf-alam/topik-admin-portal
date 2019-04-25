@@ -25,7 +25,8 @@
 
 
 <script>
-
+import axios from 'axios';
+// console.log('Services.vue ==== axios ==== ', axios.defaults.headers);
     export default {
         name: 'Services',
         data() {
@@ -44,10 +45,13 @@
             }
         },
         created(){
-          const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        		axios.get(`${Base_URL}/api/services`)
+            const Base_URL = process.env.VUE_APP_ADMIN_URL;
+            // console.log('Base url ==== ===========', Base_URL);
+
+            axios.get(`${Base_URL}/api/services`)
         		.then(response =>{
-        			this.services = response.data;
+                    this.services = response.data;
+                    console.log('Services.vue, Response === ', response.data);        
         		})
         		.catch(e=>{
         			//console.log("error occurs");

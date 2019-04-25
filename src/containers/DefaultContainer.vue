@@ -3,8 +3,8 @@
     <AppHeader fixed>
       <SidebarToggler class="d-lg-none" display="md" mobile />
       <b-link class="navbar-brand" to="#">
-        <img class="navbar-brand-full" src="img/brand/logo.svg" width="120" height="40" alt="Romoni Logo">
-        <img class="navbar-brand-minimized" src="img/brand/logo.svg" width="30" height="30" alt="Romoni Logo">
+        <img class="navbar-brand-full" :src="origin_url+'/img/brand/logo.svg'" width="120" height="40" alt="Romoni Logo">
+        <img class="navbar-brand-minimized" src="/img/brand/logo.svg" width="30" height="30" alt="Romoni Logo">
       </b-link>
       <SidebarToggler class="d-md-down-none" display="lg" />
       <b-navbar-nav class="d-md-down-none">
@@ -75,7 +75,8 @@ export default {
   },
   data () {
     return {
-      nav: nav.items
+      nav: nav.items,
+      origin_url: window.location.origin
     }
   },
   computed: {

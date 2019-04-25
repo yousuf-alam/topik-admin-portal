@@ -7,15 +7,6 @@
                     <span class="menu-title text-success">Mehendi- for the Bride</span>
                 </h3>
             </div>
-            <div class="">
-                <a href="">
-                    <h2>
-						<span class="badge badge-success">
-							Add New Line Item <b> + </b>
-						</span>
-                    </h2>
-                </a>
-            </div>
         </div>
 
 

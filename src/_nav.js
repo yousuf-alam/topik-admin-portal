@@ -7,6 +7,25 @@ export default {
     },
     {
       title: true,
+      name: 'Access Control',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'Roles',
+      url: '/roles',
+      icon: 'fa fa-podcast'
+    },
+    {
+      name: 'Permissions',
+      url: '/permissions',
+      icon: 'fa fa-superpowers'
+    },
+    {
+      title: true,
       name: 'Order',
       class: '',
       wrapper: {

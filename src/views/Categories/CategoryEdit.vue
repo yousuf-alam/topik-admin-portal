@@ -213,6 +213,7 @@
         category: {
           id: '',
           name: '',
+          service_id: '',
           short_description: '',
           long_description: '',
           meta_title: '',
@@ -292,6 +293,7 @@
         let formData = new FormData();
         formData.append('id', this.category.id);
         formData.append('name', this.category.name);
+        formData.append('service_id', this.category.service_id);
         formData.append('short_description', this.category.short_description);
         formData.append('long_description', this.category.long_description);
         formData.append('meta_title', this.category.meta_title);
@@ -304,7 +306,7 @@
         formData.append('banner_tab', this.category.banner_tab);
         formData.append('banner_android', this.category.banner_android);
         formData.append('banner_ios', this.category.banner_android);
-        console.log(formData);
+        console.log(this.category.service_id);
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
         axios.post(`${Base_URL}/api/categories/update`, formData, config)
           .then(function (response) {

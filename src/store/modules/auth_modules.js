@@ -44,6 +44,7 @@ const authModule = {
 
                 // Add the following line:
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                axios.defaults.headers.common['Accept'] = 'application/json';
                 commit('auth_success', {token, user});
                 resolve(resp);
               })

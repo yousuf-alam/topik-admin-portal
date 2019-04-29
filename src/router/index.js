@@ -77,8 +77,10 @@ import RoleShow from '../views/AccessControl/role/RoleShow';
 import CreateNewRole from '../views/AccessControl/role/CreateNewRole';
 import RoleEdit from '../views/AccessControl/role/RoleEdit';
 
-import Permission from '../views/AccessControl/permission/Permission';
-
+import Administrators from '../views/AccessControl/administrators/Administrators';
+import AdministratorShow from '../views/AccessControl/administrators/AdministratorShow';
+import CreateNewAdministrator from '../views/AccessControl/administrators/CreateNewAdministrator';
+import AdministratorEdit from '../views/AccessControl/administrators/AdministratorEdit';
 
 import store from '../store/store';
 Vue.use(Router)
@@ -133,9 +135,33 @@ const router =  new Router({
         ]
       },
       {
-        path: 'permissions',
-        name: 'Permission',
-        component: Permission
+        path: 'administrators',
+        redirect: '/administrators',
+        name: 'Administrators',
+        component: {
+          render (c) { return c('router-view') }
+        },
+        children: [
+          {
+            path: '',
+            component: Administrators
+          },
+          {
+            path: 'show/:id',
+            name: 'AdministratorShow',
+            component: AdministratorShow
+          },
+          {
+            path: 'new',
+            name: 'Create New Administrator',
+            component: CreateNewAdministrator
+          },
+          {
+            path: 'edit/:id',
+            name: 'Edit ',
+            component: AdministratorEdit
+          }
+        ]
       },
       {
         path: 'orders',

@@ -1,12 +1,12 @@
 <template>
     <div class="customcard">
-        <h1>Permission</h1>
+        <h1>CreateNewAdministrator</h1>
     </div>
 </template>
 
 <script>
 export default {
-
+    name: 'CreateNewAdministrator',
 }
 </script>
 

@@ -35,12 +35,13 @@
                                 <i class="fa fa-search"></i>
                             </span> 
                         </router-link>                         
-                        
+    <!--                         
                         <router-link to="/roles/edit/1" v-if="row.name!=='superadmin'"> 
                             <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Edit"> <i class="fa fa-edit"></i></span>
                         </router-link>    
-                        <router-link to="" v-if="row.name!=='superadmin'">
-                            <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
+    -->
+                        <router-link to="" v-if="row.name!=='superadmin'" >
+                            <span class="btn btn-danger btn-sm m-1" @click="handleDelete" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
                         </router-link> 
                     </td>
                 </tr>
@@ -60,14 +61,22 @@ export default {
          }
      },
      created() {        
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        const request = axios.get(`${Base_URL}/api/roles`);
-        request.then(response => {
-            console.log('Response  === ', response);
-            this.roles = response.data; 
-        }).catch(error => {
-            console.log('Error : ', error.response);
-        })
+         this.fetchData()
+     },
+     methods: {
+         fetchData() {
+            const Base_URL = process.env.VUE_APP_ADMIN_URL;
+            const request = axios.get(`${Base_URL}/api/roles`);
+            request.then(response => {
+                console.log('Response  === ', response);
+                this.roles = response.data; 
+            }).catch(error => {
+                console.log('Error : ', error.response);
+            })
+         }, 
+         handleDelete() {
+             alert('Need to implement delete');
+         }
      }
 }
 </script>

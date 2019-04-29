@@ -2,7 +2,6 @@ import axios from 'axios';
 const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
 const LS_TOKEN_KEY_NAME = 'token';
 
-
 const authModule = {
     namespaced: true, 
     state: {
@@ -56,6 +55,7 @@ const authModule = {
           })
         },
         register({ commit }, user) {
+          /*
           return new Promise((resolve, reject) => {
             commit('auth_request')
             axios({ url: `${ROOT_URL}/register`, data: user, method: 'POST' })
@@ -74,6 +74,7 @@ const authModule = {
                 reject(err)
               })
           })
+          */
         },
         logout({ commit }) {
           return new Promise((resolve /*, reject */) => {

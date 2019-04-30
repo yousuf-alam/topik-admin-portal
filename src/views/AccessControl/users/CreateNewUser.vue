@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label for="name">Enter Name</label>
                     <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name"
-                        v-model="name" @keyup="handleNameKeyUp">
+                        v-model="name" @keyup="nameKeyUp">
                     <span id="nameHelp" class="form-text text-danger">
                         {{name_warning}}
                     </span>
@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
                     <input type="text" class="form-control" id="phone" aria-describedby="phoneHelp" placeholder="Enter phone number"
-                        v-model="phone" @keyup="handlePhoneKeyUp">
+                        v-model="phone" @keyup="phoneKeyUp">
                     <span id="phoneHelp" class="form-text text-danger">
                        {{ phone_warning }}
                     </span>
@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Password"
-                        v-model="password" @keyup="handlePasswordKeyUp">
+                        v-model="password" @keyup="passwordKeyUp">
                     <span id="phoneHelp" class="form-text text-danger">
                         {{ password_warning }}
                     </span>
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label for="password_confirmation">Confirm Password</label>
                     <input type="password" class="form-control" id="password_confirmation" placeholder="Confirm Password"
-                        v-model="password_confirmation" @keyup="handlePasswordConfirmKeyUp">
+                        v-model="password_confirmation" @keyup="passwordConfirmKeyUp">
                     <span id="phoneHelp" class="form-text text-danger">
                         {{ password_confirmation_warning }}
                     </span>
@@ -65,6 +65,8 @@ export default {
     },
     computed: {
         disableSubmitBtn: function() {
+            const data = this.$data;
+            console.log('DATA === ', data);
             let rule =  this.name.length === 0 || this.phone.length === 0 || 
                     this.password.length === 0 || this.password_confirmation.length === 0 || 
                     this.name_warning.length > 0 || this.phone_warning.length > 0 ||
@@ -74,10 +76,10 @@ export default {
     },
     methods: {
         handleSubmit() {
-            this.handleNameKeyUp();
-            this.handlePhoneKeyUp();
-            this.handlePasswordKeyUp();
-            this.handlePasswordConfirmKeyUp();
+            this.nameKeyUp();
+            this.phoneKeyUp();
+            this.passwordKeyUp();
+            this.passwordConfirmKeyUp();
             if(this.disableSubmitBtn === true) {
                 return; 
             }
@@ -88,14 +90,37 @@ export default {
             formvalues.name = this.name;
             formvalues.phone = this.phone
             formvalues.password = this.password;
+            formvalues.password_confirmation =  0;//this.password_confirmation;
+
             axios.post(`${Base_URL}/api/users`, formvalues)
                 .then(res => {
                     console.log('Response === ', res);
-                }).catch(err => {
-                    console.log('Error === ', err)
+                    this.handleResponse(res);
+                }).catch(error => {
+                    console.log('Error === ', error.response)
                 })
         }, 
-        handleNameKeyUp() { 
+        handleResponse(res) {
+            if (res.status === 200) {
+                const dataObj = res.data;
+                const keys = Object.keys(dataObj);
+                keys.forEach(element => {
+                    const warning_msg = dataObj[element][0];
+                    if (element === 'name') {
+                        this.name_warning = warning_msg;
+                    } else if (element === 'phone') {
+                        this.phone_warning = warning_msg;
+                    } else if (element === 'password') {
+                        this.password_warning = warning_msg;
+                    }
+                });
+                // console.log('inside handle =--------= response ', res.data, res.data.length, data, data.length);
+            } else if (res.status === 201) {
+                alert('User create successfully');
+            }
+
+        }, 
+        nameKeyUp() { 
             if (this.name.length === 0) {
                 this.name_warning = 'Enter name';
             } else if (this.name.trim().length === 0) {
@@ -106,7 +131,7 @@ export default {
                 this.name_warning = '';
             }
         },
-        handlePhoneKeyUp() {
+        phoneKeyUp() {
             const phoneIsValid = this.$gbvar.is_valid_phone(this.phone);
             if (phoneIsValid === false) {
                 this.phone_warning = 'Invalid phone number';
@@ -121,14 +146,14 @@ export default {
                 this.phone_warning = ''; 
             }
         },
-        handlePasswordKeyUp() {
+        passwordKeyUp() {
             if (this.password.length < 6 && this.password.length > 0) {
                 this.password_warning = 'Password must be at least 6 char long';
             } else { 
                 this.password_warning = ''; 
             } 
         },
-        handlePasswordConfirmKeyUp() {
+        passwordConfirmKeyUp() {
 
             if (this.password !==  this.password_confirmation) {
                 this.password_confirmation_warning = 'Password not matched';

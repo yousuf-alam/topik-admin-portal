@@ -36,6 +36,10 @@
                         {{ password_confirmation_warning }}
                     </span>
                 </div>
+                <div class="mx-1 my-2">
+                    <CheckRoles @role-checked="checkedRolesFun" />
+                    <span class="text-danger"> {{ checked_roles_warning }} </span>
+                </div>
                 <button type="submit" class="btn btn-primary" :disabled="disableSubmitBtn"
                  @click="handleSubmit">Submit</button>
                 </form>
@@ -46,10 +50,14 @@
 </template>
 
 <script>
-
 import axios from 'axios';
+import CheckRoles from './CheckRoles';
+import _ from 'lodash';
 export default {
     name: 'CreateNewAdministrator',
+    components: {
+        CheckRoles, 
+    },
     data() {
         return {
             name: '',
@@ -60,6 +68,9 @@ export default {
             password_warning: '', 
             password_confirmation: '',
             password_confirmation_warning: '',
+            checked_roles: [], 
+            checked_roles_warning: '',
+            created_user: null,
 
         }
     },
@@ -80,17 +91,20 @@ export default {
             this.phoneKeyUp();
             this.passwordKeyUp();
             this.passwordConfirmKeyUp();
-            if(this.disableSubmitBtn === true) {
+            if(this.disableSubmitBtn === true || this.checked_roles.length === 0) {
+                if (this.checked_roles.length === 0) {
+                    this.checked_roles_warning = "You haven't select any roles"; 
+                }
                 return; 
             }
-            console.log('Yes , you are prepeared to do action. . . . ');
+            // console.log('Yes , you are prepeared to do action. . . . ');
             const Base_URL = process.env.VUE_APP_ADMIN_URL;
-            console.log(Base_URL);
+            // console.log(Base_URL);
             const formvalues = {};
             formvalues.name = this.name;
             formvalues.phone = this.phone
             formvalues.password = this.password;
-            formvalues.password_confirmation =  0;//this.password_confirmation;
+            formvalues.password_confirmation = this.password_confirmation;
 
             axios.post(`${Base_URL}/api/users`, formvalues)
                 .then(res => {
@@ -114,12 +128,29 @@ export default {
                         this.password_warning = warning_msg;
                     }
                 });
-                // console.log('inside handle =--------= response ', res.data, res.data.length, data, data.length);
+                // console.log('inside handle =--------= ', res.data, res.data.length, data, data.length);
             } else if (res.status === 201) {
-                alert('User create successfully');
+                this.created_user = res.data.user; 
+                const user_id = this.created_user.id;
+                const role_ids = _.map(this.checked_roles, 'id');
+                const formvalues = {user_id, role_ids};
+                const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+                axios.post(`${ADMIN_URL}/api/user/assignroles`, formvalues)
+                    .then(res => {
+                        console.log('And Final Response ', res)
+                        alert('User create and Role assigned successfully');
+                        this.$router.push({name: 'Users'});
+                    }).catch(error => {
+                        console.log('Error ... ', error);
+                    });
             }
 
         }, 
+        checkedRolesFun(parm) {
+            //console.log(JSON.stringify(parm));
+            this.checked_roles = parm;
+            this.checked_roles_warning = '';
+        },
         nameKeyUp() { 
             if (this.name.length === 0) {
                 this.name_warning = 'Enter name';

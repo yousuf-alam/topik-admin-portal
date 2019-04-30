@@ -16,6 +16,12 @@
 import axios from 'axios';
 export default {
     name: 'CheckRoles',
+    props: {
+        savedCheckedRoles: {
+            type: Array,
+            required: false
+        }
+    },
     data() {
         return {
             allRoles: [],
@@ -28,15 +34,15 @@ export default {
         axios.get(`${ADMIN_URL}/api/roles`)
             .then(resp => {
                 this.allRoles = resp.data;
-                // console.log('role fetched ', this.allRoles);
             }).catch(error => {
-                // console.log('role fetching ERROR', error);
+
             })
-        // console.log('Check Roles, ADMIN_URL === ', ADMIN_URL);
+    },
+    mounted() {
+        this.checkedRoles = this.savedCheckedRoles;
     },
     methods: {
         handleCheckRole() {
-            // console.log('here ...');
             this.$emit('role-checked', this.checkedRoles)
         }
     }

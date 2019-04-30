@@ -54,7 +54,7 @@ import axios from 'axios';
 import CheckRoles from './CheckRoles';
 import _ from 'lodash';
 export default {
-    name: 'CreateNewAdministrator',
+    name: 'CreateUser',
     components: {
         CheckRoles, 
     },
@@ -77,7 +77,7 @@ export default {
     computed: {
         disableSubmitBtn: function() {
             const data = this.$data;
-            console.log('DATA === ', data);
+            // console.log('DATA === ', data);
             let rule =  this.name.length === 0 || this.phone.length === 0 || 
                     this.password.length === 0 || this.password_confirmation.length === 0 || 
                     this.name_warning.length > 0 || this.phone_warning.length > 0 ||
@@ -108,10 +108,10 @@ export default {
 
             axios.post(`${Base_URL}/api/users`, formvalues)
                 .then(res => {
-                    console.log('Response === ', res);
+                    //console.log('Response === ', res);
                     this.handleResponse(res);
                 }).catch(error => {
-                    console.log('Error === ', error.response)
+                    //console.log('Error === ', error.response)
                 })
         }, 
         handleResponse(res) {
@@ -137,17 +137,17 @@ export default {
                 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
                 axios.post(`${ADMIN_URL}/api/user/assignroles`, formvalues)
                     .then(res => {
-                        console.log('And Final Response ', res)
+                        // console.log('And Final Response ', res)
                         alert('User create and Role assigned successfully');
                         this.$router.push({name: 'Users'});
                     }).catch(error => {
-                        console.log('Error ... ', error);
+                        // console.log('Error ... ', error);
                     });
             }
 
         }, 
         checkedRolesFun(parm) {
-            //console.log(JSON.stringify(parm));
+            // console.log(JSON.stringify(parm));
             this.checked_roles = parm;
             this.checked_roles_warning = '';
         },

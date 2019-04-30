@@ -20,8 +20,8 @@ export default {
       icon: 'fa fa-podcast'
     },
     {
-      name: 'Administrators',
-      url: '/administrators',
+      name: 'Users',
+      url: '/users',
       icon: 'fa fa-superpowers'
     },
     {

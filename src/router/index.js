@@ -69,18 +69,18 @@ const Login = () => import('@/views/login/Login')
 const Register = () => import('@/views/login/Register')
 
 // Users
-const Users = () => import('@/views/users/Users')
-const User = () => import('@/views/users/User')
+const CoreUiUsers = () => import('@/views/users/Users')
+const CoreUiUser = () => import('@/views/users/User')
 
 import Role from '../views/AccessControl/role/Role';
 import RoleShow from '../views/AccessControl/role/RoleShow';
 import CreateNewRole from '../views/AccessControl/role/CreateNewRole';
 import RoleEdit from '../views/AccessControl/role/RoleEdit';
 
-import Administrators from '../views/AccessControl/administrators/Administrators';
-import AdministratorShow from '../views/AccessControl/administrators/AdministratorShow';
-import CreateNewAdministrator from '../views/AccessControl/administrators/CreateNewAdministrator';
-import AdministratorEdit from '../views/AccessControl/administrators/AdministratorEdit';
+import Users from '../views/AccessControl/users/Users';
+import UserShow from '../views/AccessControl/users/UserShow';
+import CreateNewUser from '../views/AccessControl/users/CreateNewUser';
+import UserEdit from '../views/AccessControl/users/UserEdit';
 
 import store from '../store/store';
 Vue.use(Router)
@@ -135,31 +135,31 @@ const router =  new Router({
         ]
       },
       {
-        path: 'administrators',
-        redirect: '/administrators',
-        name: 'Administrators',
+        path: 'users',
+        redirect: '/users',
+        name: 'Users',
         component: {
           render (c) { return c('router-view') }
         },
         children: [
           {
             path: '',
-            component: Administrators
+            component: Users
           },
           {
             path: 'show/:id',
-            name: 'AdministratorShow',
-            component: AdministratorShow
+            name: 'UserShow',
+            component: UserShow
           },
           {
             path: 'new',
-            name: 'Create New Administrator',
-            component: CreateNewAdministrator
+            name: 'Create New User',
+            component: CreateNewUser
           },
           {
             path: 'edit/:id',
             name: 'Edit ',
-            component: AdministratorEdit
+            component: UserEdit
           }
         ]
       },
@@ -356,8 +356,8 @@ const router =  new Router({
           },
       */
       {
-        path: 'users',
-        meta: {label: 'Users'},
+        path: 'coreuiusers',
+        meta: {label: 'CoreUiUsers'},
         component: {
           render(c) {
             return c('router-view')
@@ -366,13 +366,13 @@ const router =  new Router({
         children: [
           {
             path: '',
-            component: Users,
+            component: CoreUiUsers,
           },
           {
             path: ':id',
             meta: {label: 'User Details'},
             name: 'User',
-            component: User,
+            component: CoreUiUser,
           },
         ]
       }

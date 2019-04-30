@@ -1,6 +1,6 @@
 <template>
     <div class="customcard">
-        <h3>Create a new administrator.</h3>
+        <h3>Create a new user.</h3>
         <div class="d-flex justify-content-center">
             <div class="col-8">
                 <form @submit.prevent>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 export default {
     name: 'CreateNewAdministrator',
@@ -83,23 +84,30 @@ export default {
             console.log('Yes , you are prepeared to do action. . . . ');
             const Base_URL = process.env.VUE_APP_ADMIN_URL;
             console.log(Base_URL);
-            //axios.post()
+            const formvalues = {};
+            formvalues.name = this.name;
+            formvalues.phone = this.phone
+            formvalues.password = this.password;
+            axios.post(`${Base_URL}/api/users`, formvalues)
+                .then(res => {
+                    console.log('Response === ', res);
+                }).catch(err => {
+                    console.log('Error === ', err)
+                })
         }, 
         handleNameKeyUp() { 
-                if (this.name.length === 0) {
-                    this.name_warning = 'Enter name';
-                }
-                else if (this.name.trim().length === 0) {
-                    this.name_warning = 'Name cant be empty';
-                }
-                else if (this.name.length > 100) {
-                    this.name_warning = 'Name must be less than 100 letters';
-                } else {
-                    this.name_warning = '';
-                }
-            },
+            if (this.name.length === 0) {
+                this.name_warning = 'Enter name';
+            } else if (this.name.trim().length === 0) {
+                this.name_warning = 'Name cant be empty';
+            } else if (this.name.length > 100) {
+                this.name_warning = 'Name must be less than 100 letters';
+            } else {
+                this.name_warning = '';
+            }
+        },
         handlePhoneKeyUp() {
-            const phoneIsValid = /(^()?(01){1}[23456789]{1}(\d){8})$/i.test(this.phone);
+            const phoneIsValid = this.$gbvar.is_valid_phone(this.phone);
             if (phoneIsValid === false) {
                 this.phone_warning = 'Invalid phone number';
             } else { 
@@ -107,19 +115,19 @@ export default {
             }
 
             if(this.phone.length < 11 || this.phone.length > 11) {
-                this.phone_warning = 'Enter 11 digit phone number';
+                this.phone_warning = 'Enter a valid phone number';
             } 
             if (this.phone.length === 0) { 
                 this.phone_warning = ''; 
             }
-            },
+        },
         handlePasswordKeyUp() {
             if (this.password.length < 6 && this.password.length > 0) {
                 this.password_warning = 'Password must be at least 6 char long';
             } else { 
                 this.password_warning = ''; 
             } 
-            },
+        },
         handlePasswordConfirmKeyUp() {
 
             if (this.password !==  this.password_confirmation) {
@@ -128,7 +136,7 @@ export default {
                  this.password_confirmation_warning = ''; 
             }
 
-            }
+        }
 
 
     }

@@ -3,7 +3,7 @@
     <b-row>
       <b-col sm="10"></b-col>
       <b-col sm="2" class="mb-3">
-        <router-link :to="{ name: 'LineitemCreate'}"><button class="btn btn-success">Create New Lineitem</button></router-link>
+        <router-link :to="{ name: 'LineItemCreate'}"><button class="btn btn-success">Create New Lineitem</button></router-link>
       </b-col>
     </b-row>
     <b-row>

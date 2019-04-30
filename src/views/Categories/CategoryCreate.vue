@@ -4,7 +4,7 @@
     <form @submit="onSubmit" enctype="multipart/form-data">
       <div class="form-group">
         <label>Select Service:</label>
-        <select class='form-control' v-model="service_id">
+        <select class='form-control' v-model="service_id" @change="getCategories">
           <option v-for="serv in services" :value="serv.id">{{ serv.name }}</option>
         </select>
       </div>
@@ -119,16 +119,22 @@
         .catch(e=>{
           //console.log("error occurs");
         });
-      axios.get(`${Base_URL}/api/categories`)
-        .then(response =>{
-          this.categories = response.data;
-        })
-        .catch(e=>{
-          //console.log("error occurs");
-        });
     },
     methods: {
 
+      getCategories(){
+        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${Base_URL}/api/categories`,{
+          service_id: this.service_id
+        })
+          .then(response =>{
+            this.categories = response.data;
+          })
+          .catch(e=>{
+            //console.log("error occurs");
+          });
+
+      },
       onSVGChange(e) {
         this.icon_svg = e.target.files[0];
       },

@@ -51,7 +51,7 @@
     },
     created(){
       const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/api/categories`)
+      axios.get(`${Base_URL}/api/all-categories`)
         .then(response =>{
           this.categories = response.data;
         })

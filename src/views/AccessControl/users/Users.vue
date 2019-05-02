@@ -38,17 +38,17 @@
                         </div>
                     </td>
                     <td>
-                        <router-link to="/users/show/1">
+                        <router-link :to="`/users/show/${row.id}`">
                             <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View">
                                 <i class="fa fa-search"></i>
                             </span>
                         </router-link>
 
-                        <router-link to="/users/edit/1">
+                        <router-link :to="`/users/edit/${row.id}`">
                             <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Edit"> <i class="fa fa-edit"></i></span>
                         </router-link>
-                        <router-link to="">
-                            <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
+                        <router-link to="" >
+                            <span @click="handleDelete" class="btn btn-danger btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
                         </router-link>
                     </td>
                 </tr>
@@ -71,11 +71,16 @@ export default {
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
         const request = axios.get(`${Base_URL}/api/users`);
         request.then(response => {
-            console.log('Response  === ', response);
+            // console.log('Response  === ', response);
             this.users = response.data; 
         }).catch(error => {
-            console.log('Error : ', error.response);
+            // console.log('Error : ', error.response);
         })
+    },
+    methods: {
+        handleDelete() {
+            alert('Not implemented yet.');
+        }
     }
 }
 </script>

@@ -1,6 +1,13 @@
 import axios from 'axios';
 const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
-const LS_TOKEN_KEY_NAME = 'token';
+import globalvariable from '../../globalvariables';
+
+/* 
+this.$gbvar is not working in vuex, because it's a vue instance, 
+So we have to go through like this, "in every palce in store". OR WILL FIX IN FUTURE */
+const LS_TOKEN_KEY_NAME =  globalvariable.LS_TOKEN_KEY_NAME; 
+const LS_PERMISSION_KEY_NAME = globalvariable.LS_PERMISSION_KEY_NAME; 
+
 
 const authModule = {
     namespaced: true, 
@@ -34,16 +41,18 @@ const authModule = {
             commit('auth_request');
             axios({ url: `${ROOT_URL}/api/login`, data: userdata, method: 'POST' })
               .then(resp => {
-
+                console.log('Login success', resp );
                 const token = resp.data.access_token;
                 const user = resp.data.user;
+                const user_permissions = resp.data.user_permissions;
 
                 localStorage.setItem(LS_TOKEN_KEY_NAME, token);
-                console.log('Login success', token, user);
-
+                /* Here we need to encode the user_permissions using Base64 or other encoding procudure?? */
+                localStorage.setItem(LS_PERMISSION_KEY_NAME, JSON.stringify(user_permissions));
                 // Add the following line:
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 axios.defaults.headers.common['Accept'] = 'application/json';
+                
                 commit('auth_success', {token, user});
                 resolve(resp);
               })

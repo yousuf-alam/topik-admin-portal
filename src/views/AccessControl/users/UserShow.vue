@@ -25,7 +25,7 @@
                 <tr>
                     <th scope="row">Roles</th>
                     <td>
-                        <div v-for="role in roles" :key="role.id" class="badge badge-warning">
+                        <div v-for="role in roles" :key="role.id" class="mx-1 badge badge-warning">
                             {{role.name}}
                         </div>
                     </td>

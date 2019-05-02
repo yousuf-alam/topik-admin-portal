@@ -108,7 +108,7 @@ const router =  new Router({
       {
         path: 'roles',
         redirect: '/roles',
-        name: 'Role',
+        name: 'Roles',
         component: {
           render (c) { return c('router-view') }
         },

@@ -1,9 +1,10 @@
-export default {
+import _ from 'lodash';
+const navitems = {
   items: [
     {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'icon-speedometer'
+      icon: 'icon-speedometer',
     },
     {
       title: true,
@@ -17,7 +18,8 @@ export default {
     {
       name: 'Roles',
       url: '/roles',
-      icon: 'fa fa-podcast'
+      icon: 'fa fa-podcast',
+      has_permission: 'manage roles'
     },
     {
       name: 'Users',
@@ -154,7 +156,33 @@ export default {
       url: '/documents',
       icon: 'fa fa-file-word-o'
     }
-
-
   ]
 }
+
+
+function userHasPermission( permission_name ) {
+  const user_permissions = ['get up', 'eat breakfast', 'go home', ];
+    return user_permissions.includes(permission_name) ? true : false;
+}
+
+const navItemsCopy = { ...navitems };
+
+function filterByPermissions(item) {
+  if (Object.prototype.hasOwnProperty.call(item, 'has_permission')) {
+    return userHasPermission(item.has_permission) ? item: null
+    /*
+      const user_permissions = ['get up', 'eat breakfast', 'go home', 'manage roles' ];
+      return user_permissions.includes(item.has_permission) ? item : null;
+    */
+   }
+   return item;
+}
+
+const filteredItems = _.filter(navItemsCopy.items, item => {
+  return filterByPermissions(item);
+})
+
+const finalObj = {};
+finalObj.items = filteredItems;
+
+export default  finalObj;

@@ -12,7 +12,7 @@
           <v-client-table :data="categories" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'Lineitem / Edit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
+                <router-link :to="{ name: 'LineItem / Edit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
                                     <i class="fa fa-edit"></i></span></router-link>
                 <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
               </div>
@@ -32,7 +32,7 @@
     data() {
       return {
         categories : [],
-        columns: ['id', 'name', 'service', 'lineitem' ,'published_status', 'created_at', 'action'],
+        columns: ['id', 'name', 'service', 'category', 'subcategory' ,'published_status', 'created_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,

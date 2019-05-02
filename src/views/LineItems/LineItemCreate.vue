@@ -48,26 +48,26 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Upload Banner (Web) *</label>
             <div class="col-sm-9">
-              <input class="form-control" type="file" v-on:change="onThumbnailChange">
+              <input class="form-control" type="file" v-on:change="onBwebChange">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Upload Banner (Tab) *</label>
             <div class="col-sm-9">
-              <input class="form-control" type="file" v-on:change="onThumbnailChange">
+              <input class="form-control" type="file" v-on:change="onBtabChange">
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Upload Banner (Android) *</label>
             <div class="col-sm-9">
-              <input class="form-control" type="file" v-on:change="onThumbnailChange">
+              <input class="form-control" type="file" v-on:change="onBandChange">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Upload Banner (iOS) *</label>
             <div class="col-sm-9">
-              <input class="form-control" type="file" v-on:change="onThumbnailChange">
+              <input class="form-control" type="file" v-on:change="onBiosChange">
             </div>
           </div>
 
@@ -142,17 +142,18 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Publish Status</label>
             <div class="col-sm-9">
-              <div class="custom-control mb-3 custom-checkbox">
-                <input class="custom-control-input" id="customCheck1" name="published_status" type="checkbox"
-                       value="1">
-                <label class="custom-control-label" for="customCheck1">Publish</label>
+              <div class="form-group">
+                <div class="form-check checkbox">
+                  <input class="form-check-input" type="checkbox" name="published_status" v-model="published_status">
+                  <label class="form-check-label" >Published</label>
+                </div>
               </div>
             </div>
           </div>
         </tab-content>
 
         <tab-content icon="ti-id-badge" title="DETAILS">
-
+          <div v-show="service_id ===1 || service_id ===3">
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Brand/ Ingredients used</label>
             <div class="col-sm-9">
@@ -180,13 +181,14 @@
               <input class="form-control" v-model="details.tips" type="text">
             </div>
           </div>
+          </div>
         </tab-content>
 
         <tab-content icon="ti-view-list-alt" title="QUESTION SET">
 
-          <div class="form-group row" v-show="pricing_type =='option' ">
+          <div class="form-group row" v-show="pricing_type ==='option' ">
 
-            <label class="col-sm-3 col-form-label" for="description">Question*</label>
+            <label class="col-sm-3 col-form-label">Question*</label>
             <div class="col-sm-9">
               <b-button @click="quesModal" class="btn btn-sm btn-success">
                 +Add Question
@@ -242,28 +244,19 @@
 
         <tab-content icon="ti-wallet" title="PRICING">
 
-          <section v-if="pricing_type =='fixed' ">
+          <section v-if="pricing_type ==='fixed' ">
             <div class="form-group row">
               <label class="col-sm-3 col-form-label" for="price">Preferred Price *</label>
               <div class="col-sm-9">
                 <input class="form-control" id="price" name="fixed_price" type="number">
               </div>
             </div>
-
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label" for="description">Description *</label>
-              <div class="col-sm-9">
-                <textarea class="form-control" id="description" name="fixed_description" rows="5"> </textarea>
-              </div>
-            </div>
-            questions
-
           </section>
 
-          <section v-if="pricing_type =='option' ">
+          <section v-if="pricing_type ==='option' ">
 
             <a @click="priceTable(questions)" class="btn btn-success" v-show="bool">Show Price table</a>
-            <a @click="updatePrice(amma)" class="btn btn-danger" >Update Price table</a>
+            <a @click="updatePrice(price)" class="btn btn-danger" >Update Price table</a>
             <div class="table-scrollable" id="priceTable">
               <table class="table table-striped table-bordered table-hover dt-responsive" width="100%">
                 <thead>
@@ -279,7 +272,7 @@
                                                              type="hidden"
                                                              v-model="item.value">{{item.value}}
                   </td>
-                  <td><input v-model="amma[index]" :name="'price['  + index + '][price]'" multiple type="number"></td>
+                  <td><input v-model="price[index]" multiple type="number"></td>
                 </tr>
                 </tbody>
               </table>
@@ -335,10 +328,11 @@
         option_price: '',
         pricing_type: '',
         published_status: '',
-        pricing_table: [],
+        price: [],
+        fixed_price : '',
+        price_table: [],
         question_data: [],
         bool: true,
-        amma: []
 
       }
     },
@@ -355,8 +349,24 @@
     methods:
       {
         updatePrice(){
-          let jsObj = this.question_data;
-          jsObj["workbookInformation"]["NewPropertyName"] ="Value of New Property";
+        let ques = this.question_data;
+        let price_table = [];
+        let price = this.price;
+          let nameObj = {};
+          for (let i in ques) {
+            let res = {};
+            for (let j in ques[i]) {
+              let key = "name" + j;
+              let nameObj = {};
+              nameObj[key] = ques[i][j]['value'];
+              Object.assign(res, nameObj)
+            }
+            nameObj['price'] = price[i];
+            Object.assign(res, nameObj);
+            price_table.push(res);
+          }
+          this.price_table =price_table;
+          console.log(price_table);
         },
         priceTable(questions) {
           questions = JSON.stringify(questions);
@@ -366,7 +376,7 @@
           })
             .then(response => {
 
-              console.log(response.data);
+              //console.log(response.data);
               this.question_data = response.data;
               this.bool = false;
 
@@ -486,15 +496,14 @@
           formData.append('service_id', this.service_id);
           formData.append('category_id', this.category_id);
           formData.append('subcategory_id', this.subcategory_id);
-          formData.append('short_description', this.short_description);
-          formData.append('long_description', this.long_description);
-          formData.append('meta_title', this.meta_title);
-          formData.append('meta_description', this.meta_description);
           formData.append('published_status', this.published_status);
+          formData.append('options', JSON.stringify(this.questions));
           formData.append('pricing_type', this.pricing_type);
-          formData.append('details', this.details);
-          formData.append('icon_svg', this.icon_svg);
-          formData.append('icon_pdf', this.icon_pdf);
+          formData.append('price_table', JSON.stringify(this.price_table));
+          formData.append('fixed_price', this.fixed_price);
+          formData.append('duration', this.duration);
+          formData.append('details', JSON.stringify(this.details));
+          formData.append('faq', JSON.stringify(this.faqs));
           formData.append('thumbnail', this.thumbnail);
           formData.append('banner_web', this.banner_web);
           formData.append('banner_tab', this.banner_tab);
@@ -503,7 +512,7 @@
 
           const Base_URL = process.env.VUE_APP_ADMIN_URL;
           console.log(this.name);
-          axios.post(`${Base_URL}/api/categories/create`, formData, config)
+          axios.post(`${Base_URL}/api/line-items/create`, formData, config)
             .then(response => {
               console.log('Success', response);
               currentObj.success = response.data.success;

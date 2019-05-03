@@ -61,18 +61,16 @@ export default {
     }
   },
   created() {
-    //console.log('defaultHeaderDropdownAccount created', window.location.origin)
+ 
   }, 
   methods: {
     logoutClicked(e) {
-      // console.log('inside logout Clicked', e);
       this.$store.dispatch('auth/logout')
         .then(result => {
-          // console.log('Logout success :: ', this.$router);
           this.$router.go(); // For reloading the page. . .
         })
         .catch(error => {
-          console.log('logout failure :: ', error.response);
+          //console.log('logout failure :: ', error.response);
         })
     }
   }

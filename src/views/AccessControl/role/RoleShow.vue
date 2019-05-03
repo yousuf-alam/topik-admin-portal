@@ -57,30 +57,8 @@ export default {
         }
     },
     created() {
-        /*
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        const role_id = this.$route.params.id;
-        axios.get(`${Base_URL}/api/roles/${role_id}`)
-            .then(response => {
-                console.log('RoleShow === === === ', response)
-                const allpermissions = response.data.allpermissions;
-                const role = response.data.role;
-                this.role.id = role.id;
-                this.role.name = role.name;
-                const permissionIdsUnderRole = _.map(role.permissions, 'id');
-                this.totalPermissions = allpermissions.map(el => ({ 
-                    ...el, ...{ rolehaspermission: permissionIdsUnderRole.includes(el.id) } }));
-                // console.log('Yesssssssssssssss', this.totalPermissions);
-                this.synchronizeCheckedBoxs();
-            }).catch(error => {
-                console.log('RoleShow, Error === ', error);
-            })
-        */
        this.fetchData();
-
     },
-
-
 
     methods: {
         fetchData() {
@@ -90,7 +68,7 @@ export default {
                     this.totalPermissions = this.$store.state.role.totalPermissions;
                     this.checkedPermissions  = this.$store.getters['role/checkedPermissions'];
                 }).catch(error => {
-                    console.log('RoleShow.vue, Error', error);
+                    //console.log('RoleShow.vue, Error', error);
                 })
         },
         checkAll(e) {
@@ -117,20 +95,8 @@ export default {
                     //console.log('-----', error.response);
                 })
 
-            console.log('handle Submit called. . . ');
         }
 
-    
-        /*
-        synchronizeCheckedBoxs() {
-            this.totalPermissions.forEach(element => {
-                if (element.rolehaspermission) {
-                    this.checkedPermissions.push(element);
-                }
-            }); 
-            console.log('###### ', this.totalPermissions);
-        }
-        */
     }
 }
 </script>

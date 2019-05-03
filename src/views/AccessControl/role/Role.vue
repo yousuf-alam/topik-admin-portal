@@ -74,7 +74,7 @@ export default {
             request.then(response => {
                 this.roles = response.data; 
             }).catch(error => {
-                console.log('Error : ', error.response);
+                //console.log('Error : ', error.response);
             })
          }, 
          handleDelete(role) {
@@ -98,7 +98,7 @@ export default {
                     }
                 })
              } else {
-                 console.log('No, I do not want to delete any role.');
+                 //console.log('No, I do not want to delete any role.');
              }
              
          }

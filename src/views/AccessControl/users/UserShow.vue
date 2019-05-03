@@ -74,11 +74,11 @@ export default {
         const axios = this.$gbvar.axios;
         axios.get(`${ADMIN_URL}/api/users/${user_id}`)
             .then(response => {
-                console.log('Response  ', response)
+                //console.log('Response  ', response)
                 this.user = response.data; 
                 this.roles = this.user.roles;
             }).catch(error => {
-                console.log('Error. .. .', error.response);
+                //console.log('Error. .. .', error.response);
                 const errResponse = error.response;
                 if (errResponse.status === 404) {
                     this.user_notfound = true;

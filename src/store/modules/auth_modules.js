@@ -43,7 +43,7 @@ const authModule = {
             commit('auth_request');
             axios({ url: `${ROOT_URL}/api/login`, data: userdata, method: 'POST' })
               .then(resp => {
-                console.log('Login success', resp );
+                // console.log('Login success', resp );
                 const token = resp.data.access_token;
                 const user = resp.data.user;
                 const user_permissions = _.map(resp.data.user_permissions, 'name');

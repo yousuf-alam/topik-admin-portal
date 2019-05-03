@@ -26,6 +26,7 @@ const authModule = {
           state.status = 'success'
           state.token = obj.token;
           state.user = obj.user;
+          state.user_permissions = obj.user_permissions;
         },
         auth_error(state) {
           state.status = 'error'
@@ -55,7 +56,7 @@ const authModule = {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 axios.defaults.headers.common['Accept'] = 'application/json';
                 
-                commit('auth_success', {token, user});
+                commit('auth_success', {token, user, user_permissions});
                 resolve(resp);
               })
               .catch(err => {
@@ -100,6 +101,9 @@ const authModule = {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
         hasPermission: state => (permission_name) => {
+          if (typeof(permission_name) === 'object') {
+            return permission_name.some(item => state.user_permissions.includes(item));  
+          }
           return state.user_permissions.includes(permission_name)
         },
     }

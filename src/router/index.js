@@ -85,6 +85,11 @@ import UserEdit from '../views/AccessControl/users/UserEdit';
 import store from '../store/store';
 Vue.use(Router)
 
+
+import globalvariable from '../globalvariables';
+const permissionsList = globalvariable.permissionsList;
+
+
 const router =  new Router({
   mode: 'history', // https://router.vuejs.org/api/#mode
   linkActiveClass: 'open active',
@@ -192,7 +197,7 @@ const router =  new Router({
         name: 'Orders',
         component: Orders,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.order
         },
       },
       {
@@ -200,7 +205,7 @@ const router =  new Router({
         name: 'Order / Show',
         component: OrderShow,
         meta: { 
-          permission_name: '' 
+          permission_name: 'order read' 
         },
       },
       {
@@ -208,7 +213,7 @@ const router =  new Router({
         name: 'OrderCreate',
         component: OrderCreate,
         meta: { 
-          permission_name: '' 
+          permission_name: 'order create' 
         },
       },
       {
@@ -216,7 +221,7 @@ const router =  new Router({
         name: 'Notification',
         component: Notifications,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.notification
         },
       },
       {
@@ -224,7 +229,7 @@ const router =  new Router({
         name: 'Notification / Edit',
         component: NotificationEdit,
         meta: { 
-          permission_name: '' 
+          permission_name: 'notification edit' 
         },
       },
       {
@@ -232,7 +237,7 @@ const router =  new Router({
         name: 'NotificationCreate',
         component: NotificationCreate,
         meta: { 
-          permission_name: '' 
+          permission_name: 'notification create' 
         },
       },
       {
@@ -240,7 +245,7 @@ const router =  new Router({
         name: 'Promo Codes',
         component: Promos,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.promocode
         },
       },
       {
@@ -248,7 +253,7 @@ const router =  new Router({
         name: 'Promo / Edit',
         component: PromoEdit,
         meta: { 
-          permission_name: '' 
+          permission_name: 'promocode edit' 
         },
       },
       {
@@ -256,7 +261,7 @@ const router =  new Router({
         name: 'PromoCreate',
         component: PromoCreate,
         meta: { 
-          permission_name: '' 
+          permission_name: 'promocode create' 
         },
       },
       {
@@ -264,7 +269,7 @@ const router =  new Router({
         name: 'Locations',
         component: Locations,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.location 
         },
       },
       {
@@ -272,7 +277,7 @@ const router =  new Router({
         name: 'Locations / Edit',
         component: LocationEdit,
         meta: { 
-          permission_name: '' 
+          permission_name: 'location edit' 
         },
       },
       {
@@ -280,7 +285,7 @@ const router =  new Router({
         name: 'Services',
         component: Services,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.service 
         },
       },
       {
@@ -288,7 +293,7 @@ const router =  new Router({
         name: 'Service / Edit',
         component: ServiceEdit,
         meta: { 
-          permission_name: '' 
+          permission_name: 'service edit' 
         },
       },
       {
@@ -296,7 +301,7 @@ const router =  new Router({
         name: 'ServiceCreate',
         component: ServiceCreate,
         meta: { 
-          permission_name: '' 
+          permission_name: 'service create' 
         },
       },
       {
@@ -304,7 +309,7 @@ const router =  new Router({
         name: 'Categories',
         component: Categories,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.category 
         },
       },
       {
@@ -312,7 +317,7 @@ const router =  new Router({
         name: 'Category / Edit',
         component: CategoryEdit,
         meta: { 
-          permission_name: '' 
+          permission_name: 'category edit' 
         },
       },
       {
@@ -320,7 +325,7 @@ const router =  new Router({
         name: 'CategoryCreate',
         component: CategoryCreate,
         meta: { 
-          permission_name: '' 
+          permission_name: 'category create' 
         },
       },
       {
@@ -328,7 +333,7 @@ const router =  new Router({
         name: 'LineItems',
         component: LineItems,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.lineitem 
         },
       },
       {
@@ -336,7 +341,7 @@ const router =  new Router({
         name: 'LineItem / Edit',
         component: LineItemEdit,
         meta: { 
-          permission_name: '' 
+          permission_name: 'lineitem edit' 
         },
       },
       {
@@ -344,7 +349,7 @@ const router =  new Router({
         name: 'LineItem / Show',
         component: LineItemShow,
         meta: { 
-          permission_name: '' 
+          permission_name: 'lineitem read' 
         },
       },
       {
@@ -352,7 +357,7 @@ const router =  new Router({
         name: 'LineItemCreate',
         component: LineItemCreate,
         meta: { 
-          permission_name: '' 
+          permission_name: 'lineitem create' 
         },
       },
       {
@@ -360,7 +365,7 @@ const router =  new Router({
         name: 'Partners',
         component: Partners,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.partner 
         },
       },
       {
@@ -368,7 +373,7 @@ const router =  new Router({
         name: 'Partner / Show',
         component: PartnerShow,
         meta: { 
-          permission_name: '' 
+          permission_name: 'partner read' 
         },
       },
       {
@@ -376,7 +381,7 @@ const router =  new Router({
         name: 'Resources',
         component: Resources,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.resource 
         },
       },
       {
@@ -384,7 +389,7 @@ const router =  new Router({
         name: 'Resource / Show',
         component: ResourceShow,
         meta: { 
-          permission_name: '' 
+          permission_name: 'resource read' 
         },
       },
       {
@@ -392,7 +397,7 @@ const router =  new Router({
         name: 'wallets',
         component: Wallets,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.partnerwallet
         },
       },
       {
@@ -400,7 +405,7 @@ const router =  new Router({
         name: 'Wallet / Show',
         component: WalletShow,
         meta: { 
-          permission_name: '' 
+          permission_name: 'partnerwallet read' 
         },
       },
       {
@@ -408,7 +413,7 @@ const router =  new Router({
         name: 'Top Banners',
         component: TopBanners,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.topbanner 
         },
       },
       {
@@ -416,7 +421,7 @@ const router =  new Router({
         name: 'TopBanner / Edit',
         component: TopBannerEdit,
         meta: { 
-          permission_name: '' 
+          permission_name: 'topbanner edit' 
         },
       },
       {
@@ -424,7 +429,7 @@ const router =  new Router({
         name: 'TopBannerCreate',
         component: TopBannerCreate,
         meta: { 
-          permission_name: '' 
+          permission_name: 'topbanner create' 
         },
       },
       {
@@ -432,7 +437,7 @@ const router =  new Router({
         name: 'Bottom Banners',
         component: BottomBanners,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.bottombanner 
         },
       },
       {
@@ -440,7 +445,7 @@ const router =  new Router({
         name: 'BottomBanner / Edit',
         component: BottomBannerEdit,
         meta: { 
-          permission_name: '' 
+          permission_name: 'bottombanner edit' 
         },
       },
       {
@@ -448,7 +453,7 @@ const router =  new Router({
         name: 'BottomBannerCreate',
         component: BottomBannerCreate,
         meta: { 
-          permission_name: '' 
+          permission_name: 'bottombanner create' 
         },
       },
       {
@@ -456,7 +461,7 @@ const router =  new Router({
         name: 'Complains',
         component: Complains,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.complain 
         },
       },
       {
@@ -464,7 +469,7 @@ const router =  new Router({
         name: 'Complain / Show',
         component: ComplainShow,
         meta: { 
-          permission_name: '' 
+          permission_name: 'complain read' 
         },
       },
       {
@@ -472,7 +477,7 @@ const router =  new Router({
         name: 'ComplainCreate',
         component: ComplainCreate,
         meta: { 
-          permission_name: '' 
+          permission_name: 'complain create' 
         },
       },
       {
@@ -480,7 +485,7 @@ const router =  new Router({
         name: 'Documents',
         component: Documents,
         meta: { 
-          permission_name: '' 
+          permission_name: permissionsList.document 
         },
       },
       /*

@@ -97,17 +97,24 @@ export default {
       const phoneIsValid = /(^()?(01){1}[23456789]{1}(\d){8})$/i.test(this.phone);
       if (phoneIsValid === false) {
         this.phone_warning = 'Invalid phone number';
-      } else { this.phone_warning = '';}
+      } else { 
+        this.phone_warning = '';
+      }
 
-      if(this.phone.length < 11 || this.phone.length > 11) {
+      if (this.phone.length < 11 || this.phone.length > 11) {
         this.phone_warning = 'Enter 11 digit phone number';
-      } if (this.phone.length === 0) { this.phone_warning = ''; }
+      } 
+      if (this.phone.length === 0) { 
+        this.phone_warning = ''; 
+      }
     },
 
     onKeyUpPassword(event) {
       if (this.password.length < 6 && this.password.length > 0) {
         this.password_warning = 'Password must be at least 6 char long';
-      } else { this.password_warning = ''; }
+      } else { 
+        this.password_warning = ''; 
+      }
     },
 
     handleFormSubmit(event) {

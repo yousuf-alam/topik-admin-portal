@@ -1,6 +1,7 @@
 import axios from 'axios';
 const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
 import globalvariable from '../../globalvariables';
+import _ from 'lodash';
 
 /* 
 this.$gbvar is not working in vuex, because it's a vue instance, 
@@ -14,6 +15,7 @@ const authModule = {
     state: {
         status: '',
         token: localStorage.getItem(LS_TOKEN_KEY_NAME) || '',
+        user_permissions: localStorage.getItem(LS_PERMISSION_KEY_NAME) || [], 
         user: { }
       },
     mutations: {
@@ -44,7 +46,7 @@ const authModule = {
                 console.log('Login success', resp );
                 const token = resp.data.access_token;
                 const user = resp.data.user;
-                const user_permissions = resp.data.user_permissions;
+                const user_permissions = _.map(resp.data.user_permissions, 'name');
 
                 localStorage.setItem(LS_TOKEN_KEY_NAME, token);
                 /* Here we need to encode the user_permissions using Base64 or other encoding procudure?? */
@@ -97,6 +99,9 @@ const authModule = {
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+        hasPermission: state => (permission_name) => {
+          return state.user_permissions.includes(permission_name)
+        },
     }
 }
 

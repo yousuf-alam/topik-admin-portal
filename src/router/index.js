@@ -115,7 +115,8 @@ const router =  new Router({
         children: [
           {
             path: '',
-            component: Role
+            component: Role,
+            meta: { permission_name: 'manage roles' },
           },
           {
             path: 'show/:id',
@@ -437,29 +438,38 @@ const router =  new Router({
 ]
 })
 
+function checkRoutePermission(to) {
+  const routeObj = to.matched[to.matched.length - 1];
+  if (Object.prototype.hasOwnProperty.call(routeObj.meta, 'permission_name')) {
+    return store.getters['auth/hasPermission'](routeObj.meta.permission_name) ? true : false
+  }
+  return true;
+}
+
 
 router.beforeEach((to, from, next) => {
   // let user_roles = JSON.parse(window.localStorage.getItem("user_roles"));
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
-  if (store.getters['auth/isLoggedIn']) {
-    next()
-    return
-  }
-  next('/login')
+    if (store.getters['auth/isLoggedIn']) {
+      if (checkRoutePermission(to)) {
+        next()      
+      }
+      return
+    }
+    next('/login')
 
-} else if (store.getters['auth/isLoggedIn']) {
-  if (to.matched.some(record => (record.name === 'Login' || record.name === 'Register') )) {
-    next('/dashboard')
+  } else if (store.getters['auth/isLoggedIn']) {
+    if (to.matched.some(record => (record.name === 'Login' || record.name === 'Register') )) {
+      next('/dashboard')
+    } else {
+      next()
+    }
+
   } else {
     next()
   }
 
-} else {
-  next()
-}
-
 })
-
 
 export default router

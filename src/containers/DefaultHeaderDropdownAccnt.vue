@@ -61,7 +61,7 @@ export default {
     }
   },
   created() {
-    console.log('defaultHeaderDropdownAccount created', window.location.origin)
+    //console.log('defaultHeaderDropdownAccount created', window.location.origin)
   }, 
   methods: {
     logoutClicked(e) {

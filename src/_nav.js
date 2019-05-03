@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import store from './store/store';
 const navitems = {
   items: [
     {
@@ -19,7 +20,7 @@ const navitems = {
       name: 'Roles',
       url: '/roles',
       icon: 'fa fa-podcast',
-      has_permission: 'manage roles'
+      permission_name: 'manage roles'
     },
     {
       name: 'Users',
@@ -159,30 +160,17 @@ const navitems = {
   ]
 }
 
-
-function userHasPermission( permission_name ) {
-  const user_permissions = ['get up', 'eat breakfast', 'go home', ];
-    return user_permissions.includes(permission_name) ? true : false;
-}
-
-const navItemsCopy = { ...navitems };
+// For filtering the nav items, based on permission_name . 
+const navItemsToShow = { ...navitems };
+navItemsToShow.items = _.filter(navItemsToShow.items, item => {
+  return filterByPermissions(item);
+});
 
 function filterByPermissions(item) {
-  if (Object.prototype.hasOwnProperty.call(item, 'has_permission')) {
-    return userHasPermission(item.has_permission) ? item: null
-    /*
-      const user_permissions = ['get up', 'eat breakfast', 'go home', 'manage roles' ];
-      return user_permissions.includes(item.has_permission) ? item : null;
-    */
+  if (Object.prototype.hasOwnProperty.call(item, 'permission_name')) {
+    return store.getters['auth/hasPermission'](item.permission_name) ? item : null
    }
    return item;
 }
 
-const filteredItems = _.filter(navItemsCopy.items, item => {
-  return filterByPermissions(item);
-})
-
-const finalObj = {};
-finalObj.items = filteredItems;
-
-export default  finalObj;
+export default navItemsToShow;

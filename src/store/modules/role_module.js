@@ -42,7 +42,7 @@ const roleModule = {
                     commit('SET_DATA', {role, totalPermissions })
                     resolve(response);
                 }).catch(error => {
-                    console.log('RoleShow, Error === ', error);
+                    //console.log('RoleShow, Error === ', error);
                     reject(error);
                 })
             });

@@ -39,7 +39,7 @@ export default {
             })
     },
     mounted() {
-        this.checkedRoles = this.savedCheckedRoles;
+        this.checkedRoles = this.savedCheckedRoles ? this.savedCheckedRoles : [];
     },
     methods: {
         handleCheckRole() {

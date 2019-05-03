@@ -116,22 +116,33 @@ const router =  new Router({
           {
             path: '',
             component: Role,
-            meta: { permission_name: 'manage roles' },
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           },
           {
             path: 'show/:id',
             name: 'RoleShow',
-            component: RoleShow
+            component: RoleShow,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           },
           {
             path: 'new',
             name: 'Create New Role',
-            component: CreateNewRole
+            component: CreateNewRole,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           },
           {
             path: 'edit/:id',
             name: 'Edit ',
-            component: RoleEdit
+            component: RoleEdit,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           }
         ]
       },
@@ -145,22 +156,34 @@ const router =  new Router({
         children: [
           {
             path: '',
-            component: Users
+            component: Users, 
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           },
           {
             path: 'show/:id',
             name: 'UserShow',
-            component: UserShow
+            component: UserShow,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           },
           {
             path: 'new',
             name: 'Create New User',
-            component: CreateNewUser
+            component: CreateNewUser,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           },
           {
             path: 'edit/:id',
             name: 'Edit ',
-            component: UserEdit
+            component: UserEdit,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           }
         ]
       },
@@ -168,186 +191,297 @@ const router =  new Router({
         path: 'orders',
         name: 'Orders',
         component: Orders,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/orders/details/:id',
         name: 'Order / Show',
-        component: OrderShow
+        component: OrderShow,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/orders/create',
         name: 'OrderCreate',
-        component: OrderCreate
+        component: OrderCreate,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'notifications',
         name: 'Notification',
-        component: Notifications
+        component: Notifications,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/notifications/edit/:id',
         name: 'Notification / Edit',
-        component: NotificationEdit
+        component: NotificationEdit,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/notifications/create',
         name: 'NotificationCreate',
-        component: NotificationCreate
+        component: NotificationCreate,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'promos',
         name: 'Promo Codes',
-        component: Promos
+        component: Promos,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/promos/edit/:id',
         name: 'Promo / Edit',
-        component: PromoEdit
+        component: PromoEdit,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/promos/create',
         name: 'PromoCreate',
-        component: PromoCreate
+        component: PromoCreate,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'locations',
         name: 'Locations',
-        component: Locations
+        component: Locations,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/locations/edit/:id',
         name: 'Locations / Edit',
-        component: LocationEdit
+        component: LocationEdit,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'services',
         name: 'Services',
-        component: Services
+        component: Services,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/services/edit/:id',
         name: 'Service / Edit',
-        component: ServiceEdit
+        component: ServiceEdit,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/services/create',
         name: 'ServiceCreate',
-        component: ServiceCreate
+        component: ServiceCreate,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'categories',
         name: 'Categories',
-        component: Categories
+        component: Categories,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/categories/edit/:id',
         name: 'Category / Edit',
-        component: CategoryEdit
+        component: CategoryEdit,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/categories/create',
         name: 'CategoryCreate',
-        component: CategoryCreate
+        component: CategoryCreate,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'line-items',
         name: 'LineItems',
-        component: LineItems
+        component: LineItems,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/line-items/edit/:id',
         name: 'LineItem / Edit',
-        component: LineItemEdit
+        component: LineItemEdit,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/line-items/show/:id',
         name: 'LineItem / Show',
-        component: LineItemShow
+        component: LineItemShow,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/line-items/create',
         name: 'LineItemCreate',
-        component: LineItemCreate
+        component: LineItemCreate,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'partners',
         name: 'Partners',
-        component: Partners
+        component: Partners,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/partners/show/:id',
         name: 'Partner / Show',
-        component: PartnerShow
+        component: PartnerShow,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'resources',
         name: 'Resources',
-        component: Resources
+        component: Resources,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/resources/show/:id',
         name: 'Resource / Show',
-        component: ResourceShow
+        component: ResourceShow,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'partner-wallets',
         name: 'wallets',
-        component: Wallets
+        component: Wallets,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/wallets/show/:id',
         name: 'Wallet / Show',
-        component: WalletShow
+        component: WalletShow,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'top-banners',
         name: 'Top Banners',
-        component: TopBanners
+        component: TopBanners,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/top-banners/edit/:id',
         name: 'TopBanner / Edit',
-        component: TopBannerEdit
+        component: TopBannerEdit,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/top-banners/create',
         name: 'TopBannerCreate',
-        component: TopBannerCreate
+        component: TopBannerCreate,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'bottom-banners',
         name: 'Bottom Banners',
-        component: BottomBanners
+        component: BottomBanners,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/bottom-banners/edit/:id',
         name: 'BottomBanner / Edit',
-        component: BottomBannerEdit
+        component: BottomBannerEdit,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/bottom-banners/create',
         name: 'BottomBannerCreate',
-        component: BottomBannerCreate
+        component: BottomBannerCreate,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'complains',
         name: 'Complains',
-        component: Complains
+        component: Complains,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/complains/show/:id',
         name: 'Complain / Show',
-        component: ComplainShow
+        component: ComplainShow,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: '/complains/create',
         name: 'ComplainCreate',
-        component: ComplainCreate
+        component: ComplainCreate,
+        meta: { 
+          permission_name: '' 
+        },
       },
       {
         path: 'documents',
         name: 'Documents',
-        component: Documents
+        component: Documents,
+        meta: { 
+          permission_name: '' 
+        },
       },
       /*
           {

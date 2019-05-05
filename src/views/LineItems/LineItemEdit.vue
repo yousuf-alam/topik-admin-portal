@@ -64,10 +64,10 @@
                                     </div>
 
                                     <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file"  name="banner">
-																	</span>
+                                            <span class="btn default btn-file">
+                                                <span class="fileinput-new"> Select image </span>
+                                                <input type="file"  name="banner">
+                                            </span>
                                     </div>
                                 </div>
                             </div>
@@ -82,10 +82,10 @@
                                     </div>
 
                                     <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file" name="app_banner"  data-show-preview="true">
-																	</span>
+                                        <span class="btn default btn-file">
+                                            <span class="fileinput-new"> Select image </span>
+                                            <input type="file" name="app_banner"  data-show-preview="true">
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -113,10 +113,10 @@
                                     </div>
 
                                     <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file"  name="banner">
-																	</span>
+                                            <span class="btn default btn-file">
+                                                <span class="fileinput-new"> Select image </span>
+                                                <input type="file"  name="banner">
+                                            </span>
                                     </div>
                                 </div>
                             </div>
@@ -131,10 +131,10 @@
                                     </div>
 
                                     <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file" name="app_banner"  data-show-preview="true">
-																	</span>
+                                        <span class="btn default btn-file">
+                                            <span class="fileinput-new"> Select image </span>
+                                            <input type="file" name="app_banner"  data-show-preview="true">
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -162,10 +162,10 @@
                                     </div>
 
                                     <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file"  name="banner">
-																	</span>
+                                            <span class="btn default btn-file">
+                                                <span class="fileinput-new"> Select image </span>
+                                                <input type="file"  name="banner">
+                                            </span>
                                     </div>
                                 </div>
                             </div>
@@ -180,10 +180,10 @@
                                     </div>
 
                                     <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file" name="app_banner"  data-show-preview="true">
-																	</span>
+                                            <span class="btn default btn-file">
+                                                <span class="fileinput-new"> Select image </span>
+                                                <input type="file" name="app_banner"  data-show-preview="true">
+                                            </span>
                                     </div>
                                 </div>
                             </div>

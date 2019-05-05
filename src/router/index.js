@@ -584,7 +584,6 @@ const router =  new Router({
 })
 
 function checkRoutePermission(to) {
-  console.log(' ----to -----', to);
   const routeObj = to.matched[to.matched.length - 1];
   if (Object.prototype.hasOwnProperty.call(routeObj.meta, 'permission_name')) {
     return store.getters['auth/hasPermission'](routeObj.meta.permission_name) ? true : false

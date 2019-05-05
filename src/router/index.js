@@ -144,7 +144,7 @@ const router =  new Router({
           },
           {
             path: 'edit/:id',
-            name: 'Edit ',
+            name: 'RoleEdit ',
             component: RoleEdit,
             meta: { 
               permission_name: 'manage roles' 
@@ -230,7 +230,7 @@ const router =  new Router({
         name: 'Notification / Edit',
         component: NotificationEdit,
         meta: { 
-          permission_name: 'notification edit' 
+          permission_name: 'notification update' 
         },
       },
       {
@@ -254,7 +254,7 @@ const router =  new Router({
         name: 'Promo / Edit',
         component: PromoEdit,
         meta: { 
-          permission_name: 'promocode edit' 
+          permission_name: 'promocode update' 
         },
       },
       {
@@ -278,7 +278,7 @@ const router =  new Router({
         name: 'Locations / Edit',
         component: LocationEdit,
         meta: { 
-          permission_name: 'location edit' 
+          permission_name: 'location update' 
         },
       },
       {
@@ -294,7 +294,7 @@ const router =  new Router({
         name: 'Service / Edit',
         component: ServiceEdit,
         meta: { 
-          permission_name: 'service edit' 
+          permission_name: ['service update'] 
         },
       },
       {
@@ -318,7 +318,7 @@ const router =  new Router({
         name: 'Category / Edit',
         component: CategoryEdit,
         meta: { 
-          permission_name: 'category edit' 
+          permission_name: 'category update' 
         },
       },
       {
@@ -347,7 +347,7 @@ const router =  new Router({
         name: 'LineItem / Edit',
         component: LineItemEdit,
         meta: { 
-          permission_name: 'lineitem edit' 
+          permission_name: 'lineitem update' 
         },
       },
       {
@@ -427,7 +427,7 @@ const router =  new Router({
         name: 'TopBanner / Edit',
         component: TopBannerEdit,
         meta: { 
-          permission_name: 'topbanner edit' 
+          permission_name: 'topbanner update' 
         },
       },
       {
@@ -451,7 +451,7 @@ const router =  new Router({
         name: 'BottomBanner / Edit',
         component: BottomBannerEdit,
         meta: { 
-          permission_name: 'bottombanner edit' 
+          permission_name: 'bottombanner update' 
         },
       },
       {
@@ -584,6 +584,7 @@ const router =  new Router({
 })
 
 function checkRoutePermission(to) {
+  console.log(' ----to -----', to);
   const routeObj = to.matched[to.matched.length - 1];
   if (Object.prototype.hasOwnProperty.call(routeObj.meta, 'permission_name')) {
     return store.getters['auth/hasPermission'](routeObj.meta.permission_name) ? true : false

@@ -28,13 +28,17 @@
 
 <script>
 
+
     export default {
         name: 'TopBanners',
         data() {
-            return {
+            return { 
                 columns: ['id', 'name', 'age', 'action'],
                 tableData: [
-                    {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},
+                    {id: 1, name: "John", age: "2018-12-18", action: {
+                        details: 'yes', delete: 'no'
+                        }
+                    },
                     {id: 2, name: "Jane", age: "2018-10-31"},
                     {id: 3, name: "Susan", age: "2018-10-31"},
                     {id: 4, name: "Chris", age: "2018-10-31"},
@@ -61,6 +65,7 @@
 
             }
         },
+
         methods: {
 
             delete(id) {

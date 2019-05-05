@@ -151,9 +151,31 @@
             </div>
           </div>
         </tab-content>
+        <tab-content   v-if="service_id ===2" icon="ti-id-badge" title="DESIGNS">
+          <div>
+            <b-card>
+              <div class="row justify-content-md-center m-4">
+                <div class="col-12 m-3">
+                  <b-button @click="NewDesign" class="btn btn-success">+ Add New Design</b-button>
+                  <b-button @click="saveDesign"class="btn btn-danger">+ Save Designs</b-button>
+                </div>
+                <div class="col-12 m-1" v-for="(des,index) in designs">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Upload Design -  {{index+1}}</label>
+                    <div class="col-sm-9">
+                      <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Delete Answer" @click="deleteDesign(index)"><i class="fa fa-close"></i></button>
+                      <input class="form-control" type="file" v-on:change="onDesignUpload">
+                    </div>
+                  </div>
+                </div>
 
-        <tab-content icon="ti-id-badge" title="DETAILS">
-          <div v-show="service_id ===1 || service_id ===3">
+
+            </div>
+            </b-card>
+          </div>
+        </tab-content>
+        <tab-content v-else icon="ti-id-badge" title="DETAILS">
+          <div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Brand/ Ingredients used</label>
             <div class="col-sm-9">
@@ -184,6 +206,7 @@
           </div>
         </tab-content>
 
+
         <tab-content icon="ti-view-list-alt" title="QUESTION SET">
 
           <div class="form-group row" v-show="pricing_type ==='option' ">
@@ -197,7 +220,7 @@
               <div v-for="(faq, index) in questions">
 
                 <b-button @click="quesIndexModal(index)" class="btn btn-sm btn-dark m-1">
-                  Question @{{ index+1 }}
+                  Question - {{ index+1 }}
                 </b-button>
 
                 <modal :name="'ques-'+index" height="auto" :scrollable="true">
@@ -229,11 +252,11 @@
                       <label for="question">Question</label>
                       <input class="form-control" id="spquestion" type="text" v-model="new_spquestion">
                     </div>
-                    <div class="form-group" v-for="ans in answer">
-                      <label for="answer">Answer</label>
+                    <div class="form-group" v-for="(ans,index) in answer">
+                      <label for="answer">Answer <a href="#" data-toggle="tooltip" title="Delete Answer" @click="deleteAns(index)"><i class="fa fa-close"></i></a></label>
                       <input class="form-control" id="spanswer" name="answer[]" type="text" v-model="ans.value">
                     </div>
-                    <button @click="addNewAnswer" class="btn btn-primary" type="button">Add Answer</button>
+                    <button @click="addNewAnswer" class="btn btn-success" type="button"><i class="fa fa-plus"></i> Add New Answer</button>
                     <button @click="addQuestion" class="btn btn-primary m-3" data-dismiss="modal" type="button">Submit
                     </button>
                   </div>
@@ -254,15 +277,12 @@
           </section>
 
           <section v-if="pricing_type ==='option' ">
-
-            <a @click="priceTable(questions)" class="btn btn-success" v-show="bool">Show Price table</a>
-            <a @click="updatePrice(price)" class="btn btn-danger" >Update Price table</a>
             <div class="table-scrollable" id="priceTable">
               <table class="table table-striped table-bordered table-hover dt-responsive" width="100%">
                 <thead>
                 <tr>
                   <th v-for="(question, index) in questions">Option {{index+1}}</th>
-                  <th>price</th>
+                  <th>Price</th>
                 </tr>
                 </thead>
 
@@ -272,7 +292,7 @@
                                                              type="hidden"
                                                              v-model="item.value">{{item.value}}
                   </td>
-                  <td><input v-model="price[index]" multiple type="number"></td>
+                  <td><input v-model="price[index]" multiple></td>
                 </tr>
                 </tbody>
               </table>
@@ -325,7 +345,7 @@
         new_spanswer: [],
         faqs: [],
         questions: [],
-        option_price: '',
+        ques_ans: [],
         pricing_type: '',
         published_status: '',
         price: [],
@@ -333,6 +353,8 @@
         price_table: [],
         question_data: [],
         bool: true,
+        designs: [],
+        new_design: ''
 
       }
     },
@@ -366,7 +388,20 @@
             price_table.push(res);
           }
           this.price_table =price_table;
-          console.log(price_table);
+
+          let option = this.questions;
+          let sub_arr = [];
+          for(let i in option)
+          {
+          let arr = [];
+          for(let j in option[i]['answer'])
+          {
+          arr.push(option[i]['answer'][j]['value']);
+          }
+          sub_arr.push({title : option[i]['title'], question : option[i]['question'], answer : arr});
+          }
+          this.ques_ans = sub_arr;
+          console.log('wow--',this.ques_ans);
         },
         priceTable(questions) {
           questions = JSON.stringify(questions);
@@ -396,6 +431,9 @@
         },
         addNewAnswer() {
           this.answer.push({value: ''});
+        },
+        deleteAns(ans) {
+          this.answer.splice(ans,1);
         },
         addData() {
           if (!this.new_question && !this.new_answer) return;
@@ -470,6 +508,7 @@
         },
         onThumbnailChange(e) {
           this.thumbnail = e.target.files[0];
+          console.log(this.thumbnail);
         },
         onBwebChange(e) {
           this.banner_web = e.target.files[0];
@@ -483,13 +522,81 @@
         onBiosChange(e) {
           this.banner_ios = e.target.files[0];
         },
+        NewDesign(){
+          this.designs.push('');
+          console.log('new new');
+        },
+        onDesignUpload(e) {
+          let index = this.designs.length -1;
+          this.designs.splice(index,1);
+
+          this.new_design = e.target.files[0];
+
+          this.designs.push(this.new_design);
+          this.new_design = '';
+
+        },
+        saveOneDesign(e){
+          e.preventDefault();
+          let currentObj = this;
+          const config = {
+            headers: {'content-type': 'multipart/form-data'}
+          };
+          const Base_URL = process.env.VUE_APP_ADMIN_URL;
+          console.log(this.designs);
+          let formData = new FormData();
+          formData.append('thumbnail', this.thumbnail);
+          axios.post(`${Base_URL}/api/line-items/design`,formData, config)
+            .then(response => {
+              console.log('Success', response);
+              currentObj.success = response.data.success;
+              console.log(response.data);
+            })
+            .catch(error => {
+              console.log('Error  ... ', error.response);
+              currentObj.output = error;
+              console.log(error);
+            });
+        },
+        saveDesign(e){
+          e.preventDefault();
+          let currentObj = this;
+          const config = {
+            headers: {'content-type': 'multipart/form-data'}
+          };
+          const Base_URL = process.env.VUE_APP_ADMIN_URL;
+          let formData = new FormData();
+          for( let i = 0; i < this.designs.length; i++ ){
+            let file = this.designs[i];
+
+
+            formData.append('designs[' + i + '][image]', file);
+          }
+          axios.post(`${Base_URL}/api/line-items/design`,formData, config)
+            .then(response => {
+              console.log('Success', response);
+              currentObj.success = response.data.success;
+              console.log(response.data);
+            })
+            .catch(error => {
+              console.log('Error  ... ', error.response);
+              currentObj.output = error;
+              console.log(error);
+            });
+        },
+        deleteDesign(index)
+        {
+          this.designs.splice(index,1);
+        },
         onSubmit(e) {
+
           e.preventDefault();
           let currentObj = this;
           const config = {
             headers: {'content-type': 'multipart/form-data'}
           };
 
+          this.updatePrice();
 
           let formData = new FormData();
           formData.append('name', this.name);
@@ -497,7 +604,7 @@
           formData.append('category_id', this.category_id);
           formData.append('subcategory_id', this.subcategory_id);
           formData.append('published_status', this.published_status);
-          formData.append('options', JSON.stringify(this.questions));
+          formData.append('options', JSON.stringify(this.ques_ans));
           formData.append('pricing_type', this.pricing_type);
           formData.append('price_table', JSON.stringify(this.price_table));
           formData.append('fixed_price', this.fixed_price);

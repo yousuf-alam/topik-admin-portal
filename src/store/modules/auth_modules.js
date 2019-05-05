@@ -2,6 +2,7 @@ import axios from 'axios';
 const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
 import globalvariable from '../../globalvariables';
 import _ from 'lodash';
+import CryptoJS from 'crypto-js';
 
 /* 
 this.$gbvar is not working in vuex, because it's a vue instance, 
@@ -15,7 +16,7 @@ const authModule = {
     state: {
         status: '',
         token: localStorage.getItem(LS_TOKEN_KEY_NAME) || '',
-        user_permissions: localStorage.getItem(LS_PERMISSION_KEY_NAME) || [], 
+        user_permissions: localStorage.getItem(LS_PERMISSION_KEY_NAME)? CryptoJS.AES.decrypt(localStorage.getItem(LS_PERMISSION_KEY_NAME)) : [], 
         user: { }
       },
     mutations: {
@@ -51,7 +52,9 @@ const authModule = {
 
                 localStorage.setItem(LS_TOKEN_KEY_NAME, token);
                 /* Here we need to encode the user_permissions using Base64 or other encoding procudure?? */
-                localStorage.setItem(LS_PERMISSION_KEY_NAME, JSON.stringify(user_permissions));
+                const stringUsrPerm = JSON.stringify(user_permissions);
+                const encodedUsrPerm = CryptoJS.AES.encrypt(stringUsrPerm, globalvariable.CYPHER_TEXT);
+                localStorage.setItem(LS_PERMISSION_KEY_NAME, encodedUsrPerm);
                 // Add the following line:
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 axios.defaults.headers.common['Accept'] = 'application/json';

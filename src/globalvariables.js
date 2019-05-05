@@ -22,6 +22,7 @@ export default {
         promocode:  ['promocode create', 'promocode read', 'promocode update', 'promocode delete',], 
         topbanner: ['topbanner create', 'topbanner read', 'topbanner update', 'topbanner delete',],
         bottombanner: ['bottombanner create', 'bottombanner read', 'bottombanner update', 'bottombanner delete',],
-        document: ['document create', 'document read', 'document update', 'document delete',]
-    }
+        document: ['document create', 'document read', 'document update', 'document delete',]   
+    },
+    CYPHER_TEXT: 'Where have all the flowers gone long time passing.' 
 }

@@ -17,7 +17,6 @@
                       type="text"
                       class="form-control"
                       placeholder="Phone no."
-                      autocomplete="phone"
                       @keyup="onKeyUpPhone"
                     />
                   </b-input-group>
@@ -31,7 +30,7 @@
                       type="password"
                       class="form-control"
                       placeholder="Password"
-                      autocomplete="current-password"
+                      autocomplete="off"
                       @keyup="onKeyUpPassword"
                     />
                   </b-input-group>
@@ -110,6 +109,10 @@ export default {
     },
 
     onKeyUpPassword(event) {
+      if (event.keyCode === 13) {
+        this.handleFormSubmit();
+        return;
+      }
       if (this.password.length < 6 && this.password.length > 0) {
         this.password_warning = 'Password must be at least 6 char long';
       } else { 
@@ -117,12 +120,14 @@ export default {
       }
     },
 
-    handleFormSubmit(event) {
+    handleFormSubmit() {
       this.$store.dispatch('auth/login', {phone: this.phone, password: this.password})
         .then((response) => {
+          console.log('Login Success .... ', response);
           this.$router.push({path: '/'});
         }).catch((error) => {
-          // console.log('Error ... ', error.response);
+          console.log('Login Error ... ', error.response);
+          this.password_warning = error.response.status === 401 ? "Credential doesn't match" : '';
         })
     }
   }

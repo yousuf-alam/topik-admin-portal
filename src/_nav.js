@@ -12,6 +12,7 @@ const navitems = {
     {
       title: true,
       name: 'Access Control',
+      permission_name: permissionsList.manage_roles,
       class: '',
       wrapper: {
         element: '',
@@ -33,6 +34,7 @@ const navitems = {
     {
       title: true,
       name: 'Order',
+      permission_name: [...permissionsList.order, ...permissionsList.complain],
       class: '',
       wrapper: {
         element: '',
@@ -55,6 +57,10 @@ const navitems = {
       title: true,
       name: 'Service',
       class: '',
+      permission_name: [ 
+        ...permissionsList.service, ...permissionsList.category, 
+        ...permissionsList.lineitem, ...permissionsList.location 
+      ], 
       wrapper: {
         element: '',
         attributes: {}
@@ -88,6 +94,7 @@ const navitems = {
       title: true,
       name: 'Finance',
       class: '',
+      permission_name: [],
       wrapper: {
         element: '',
         attributes: {}
@@ -103,6 +110,7 @@ const navitems = {
       title: true,
       name: 'Partner',
       class: '',
+      permission_name: [...permissionsList.partner, ...permissionsList.resource],
       wrapper: {
         element: '',
         attributes: {}
@@ -128,6 +136,10 @@ const navitems = {
     {
       title: true,
       name: 'Marketing',
+      permission_name: [
+        ...permissionsList.notification, ...permissionsList.promocode,
+        ...permissionsList.topbanner, ...permissionsList.bottombanner
+      ],
       class: '',
       wrapper: {
         element: '',
@@ -162,6 +174,7 @@ const navitems = {
     {
       title: true,
       name: 'Portal',
+      permission_name: [...permissionsList.document],
       class: '',
       wrapper: {
         element: '',
@@ -176,7 +189,6 @@ const navitems = {
     }
   ]
 }
-
 
 // For filtering the nav items, based on permission_name . 
 const navItemsToShow = { ...navitems };

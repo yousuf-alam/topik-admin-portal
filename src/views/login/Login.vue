@@ -17,7 +17,6 @@
                       type="text"
                       class="form-control"
                       placeholder="Phone no."
-                      autocomplete="phone"
                       @keyup="onKeyUpPhone"
                     />
                   </b-input-group>
@@ -31,7 +30,7 @@
                       type="password"
                       class="form-control"
                       placeholder="Password"
-                      autocomplete="current-password"
+                      autocomplete="off"
                       @keyup="onKeyUpPassword"
                     />
                   </b-input-group>
@@ -97,25 +96,38 @@ export default {
       const phoneIsValid = /(^()?(01){1}[23456789]{1}(\d){8})$/i.test(this.phone);
       if (phoneIsValid === false) {
         this.phone_warning = 'Invalid phone number';
-      } else { this.phone_warning = '';}
+      } else { 
+        this.phone_warning = '';
+      }
 
-      if(this.phone.length < 11 || this.phone.length > 11) {
+      if (this.phone.length < 11 || this.phone.length > 11) {
         this.phone_warning = 'Enter 11 digit phone number';
-      } if (this.phone.length === 0) { this.phone_warning = ''; }
+      } 
+      if (this.phone.length === 0) { 
+        this.phone_warning = ''; 
+      }
     },
 
     onKeyUpPassword(event) {
+      if (event.keyCode === 13) {
+        this.handleFormSubmit();
+        return;
+      }
       if (this.password.length < 6 && this.password.length > 0) {
         this.password_warning = 'Password must be at least 6 char long';
-      } else { this.password_warning = ''; }
+      } else { 
+        this.password_warning = ''; 
+      }
     },
 
-    handleFormSubmit(event) {
+    handleFormSubmit() {
       this.$store.dispatch('auth/login', {phone: this.phone, password: this.password})
         .then((response) => {
+          console.log('Login Success .... ', response);
           this.$router.push({path: '/'});
         }).catch((error) => {
-          // console.log('Error ... ', error.response);
+          console.log('Login Error ... ', error.response);
+          this.password_warning = error.response.status === 401 ? "Credential doesn't match" : '';
         })
     }
   }

@@ -70,19 +70,26 @@ const Login = () => import('@/views/login/Login')
 const Register = () => import('@/views/login/Register')
 
 // Users
-const Users = () => import('@/views/users/Users')
-const User = () => import('@/views/users/User')
+const CoreUiUsers = () => import('@/views/users/Users')
+const CoreUiUser = () => import('@/views/users/User')
 
 import Role from '../views/AccessControl/role/Role';
 import RoleShow from '../views/AccessControl/role/RoleShow';
 import CreateNewRole from '../views/AccessControl/role/CreateNewRole';
 import RoleEdit from '../views/AccessControl/role/RoleEdit';
 
-import Permission from '../views/AccessControl/permission/Permission';
-
+import Users from '../views/AccessControl/users/Users';
+import UserShow from '../views/AccessControl/users/UserShow';
+import CreateNewUser from '../views/AccessControl/users/CreateNewUser';
+import UserEdit from '../views/AccessControl/users/UserEdit';
 
 import store from '../store/store';
 Vue.use(Router)
+
+
+import globalvariable from '../globalvariables';
+const permissionsList = globalvariable.permissionsList;
+
 
 const router =  new Router({
   mode: 'history', // https://router.vuejs.org/api/#mode
@@ -107,116 +114,212 @@ const router =  new Router({
       {
         path: 'roles',
         redirect: '/roles',
-        name: 'Role',
+        name: 'Roles',
         component: {
           render (c) { return c('router-view') }
         },
         children: [
           {
             path: '',
-            component: Role
+            component: Role,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           },
           {
             path: 'show/:id',
             name: 'RoleShow',
-            component: RoleShow
+            component: RoleShow,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           },
           {
             path: 'new',
             name: 'Create New Role',
-            component: CreateNewRole
+            component: CreateNewRole,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           },
           {
             path: 'edit/:id',
             name: 'Edit ',
-            component: RoleEdit
+            component: RoleEdit,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
           }
         ]
       },
       {
-        path: 'permissions',
-        name: 'Permission',
-        component: Permission
+        path: 'users',
+        redirect: '/users',
+        name: 'Users',
+        component: {
+          render (c) { return c('router-view') }
+        },
+        children: [
+          {
+            path: '',
+            component: Users, 
+            meta: { 
+              permission_name: 'manage roles' 
+            },
+          },
+          {
+            path: 'show/:id',
+            name: 'UserShow',
+            component: UserShow,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
+          },
+          {
+            path: 'new',
+            name: 'Create New User',
+            component: CreateNewUser,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
+          },
+          {
+            path: 'edit/:id',
+            name: 'Edit ',
+            component: UserEdit,
+            meta: { 
+              permission_name: 'manage roles' 
+            },
+          }
+        ]
       },
       {
         path: 'orders',
         name: 'Orders',
         component: Orders,
+        meta: { 
+          permission_name: permissionsList.order
+        },
       },
       {
         path: '/orders/details/:id',
         name: 'Order / Show',
-        component: OrderShow
+        component: OrderShow,
+        meta: { 
+          permission_name: 'order read' 
+        },
       },
       {
         path: '/orders/create',
         name: 'OrderCreate',
-        component: OrderCreate
+        component: OrderCreate,
+        meta: { 
+          permission_name: 'order create' 
+        },
       },
       {
         path: 'notifications',
         name: 'Notification',
-        component: Notifications
+        component: Notifications,
+        meta: { 
+          permission_name: permissionsList.notification
+        },
       },
       {
         path: '/notifications/edit/:id',
         name: 'Notification / Edit',
-        component: NotificationEdit
+        component: NotificationEdit,
+        meta: { 
+          permission_name: 'notification edit' 
+        },
       },
       {
         path: '/notifications/create',
         name: 'NotificationCreate',
-        component: NotificationCreate
+        component: NotificationCreate,
+        meta: { 
+          permission_name: 'notification create' 
+        },
       },
       {
         path: 'promos',
         name: 'Promo Codes',
-        component: Promos
+        component: Promos,
+        meta: { 
+          permission_name: permissionsList.promocode
+        },
       },
       {
         path: '/promos/edit/:id',
         name: 'Promo / Edit',
-        component: PromoEdit
+        component: PromoEdit,
+        meta: { 
+          permission_name: 'promocode edit' 
+        },
       },
       {
         path: '/promos/create',
         name: 'PromoCreate',
-        component: PromoCreate
+        component: PromoCreate,
+        meta: { 
+          permission_name: 'promocode create' 
+        },
       },
       {
         path: 'locations',
         name: 'Locations',
-        component: Locations
+        component: Locations,
+        meta: { 
+          permission_name: permissionsList.location 
+        },
       },
       {
         path: '/locations/edit/:id',
         name: 'Locations / Edit',
-        component: LocationEdit
+        component: LocationEdit,
+        meta: { 
+          permission_name: 'location edit' 
+        },
       },
       {
         path: 'services',
         name: 'Services',
-        component: Services
+        component: Services,
+        meta: { 
+          permission_name: permissionsList.service 
+        },
       },
       {
         path: '/services/edit/:id',
         name: 'Service / Edit',
-        component: ServiceEdit
+        component: ServiceEdit,
+        meta: { 
+          permission_name: 'service edit' 
+        },
       },
       {
         path: '/services/create',
         name: 'ServiceCreate',
-        component: ServiceCreate
+        component: ServiceCreate,
+        meta: { 
+          permission_name: 'service create' 
+        },
       },
       {
         path: 'categories',
         name: 'Categories',
-        component: Categories
+        component: Categories,
+        meta: { 
+          permission_name: permissionsList.category 
+        },
       },
       {
         path: '/categories/edit/:id',
         name: 'Category / Edit',
-        component: CategoryEdit
+        component: CategoryEdit,
+        meta: { 
+          permission_name: 'category edit' 
+        },
       },
       {
         path: '/subcategories/edit/:id',
@@ -226,107 +329,170 @@ const router =  new Router({
       {
         path: '/categories/create',
         name: 'CategoryCreate',
-        component: CategoryCreate
+        component: CategoryCreate,
+        meta: { 
+          permission_name: 'category create' 
+        },
       },
       {
         path: 'line-items',
         name: 'LineItems',
-        component: LineItems
+        component: LineItems,
+        meta: { 
+          permission_name: permissionsList.lineitem 
+        },
       },
       {
         path: '/line-items/edit/:id',
         name: 'LineItem / Edit',
-        component: LineItemEdit
+        component: LineItemEdit,
+        meta: { 
+          permission_name: 'lineitem edit' 
+        },
       },
       {
         path: '/line-items/show/:id',
         name: 'LineItem / Show',
-        component: LineItemShow
+        component: LineItemShow,
+        meta: { 
+          permission_name: 'lineitem read' 
+        },
       },
       {
         path: '/line-items/create',
         name: 'LineItemCreate',
-        component: LineItemCreate
+        component: LineItemCreate,
+        meta: { 
+          permission_name: 'lineitem create' 
+        },
       },
       {
         path: 'partners',
         name: 'Partners',
-        component: Partners
+        component: Partners,
+        meta: { 
+          permission_name: permissionsList.partner 
+        },
       },
       {
         path: '/partners/show/:id',
         name: 'Partner / Show',
-        component: PartnerShow
+        component: PartnerShow,
+        meta: { 
+          permission_name: 'partner read' 
+        },
       },
       {
         path: 'resources',
         name: 'Resources',
-        component: Resources
+        component: Resources,
+        meta: { 
+          permission_name: permissionsList.resource 
+        },
       },
       {
         path: '/resources/show/:id',
         name: 'Resource / Show',
-        component: ResourceShow
+        component: ResourceShow,
+        meta: { 
+          permission_name: 'resource read' 
+        },
       },
       {
         path: 'partner-wallets',
         name: 'wallets',
-        component: Wallets
+        component: Wallets,
+        meta: { 
+          permission_name: permissionsList.partnerwallet
+        },
       },
       {
         path: '/wallets/show/:id',
         name: 'Wallet / Show',
-        component: WalletShow
+        component: WalletShow,
+        meta: { 
+          permission_name: 'partnerwallet read' 
+        },
       },
       {
         path: 'top-banners',
         name: 'Top Banners',
-        component: TopBanners
+        component: TopBanners,
+        meta: { 
+          permission_name: permissionsList.topbanner 
+        },
       },
       {
         path: '/top-banners/edit/:id',
         name: 'TopBanner / Edit',
-        component: TopBannerEdit
+        component: TopBannerEdit,
+        meta: { 
+          permission_name: 'topbanner edit' 
+        },
       },
       {
         path: '/top-banners/create',
         name: 'TopBannerCreate',
-        component: TopBannerCreate
+        component: TopBannerCreate,
+        meta: { 
+          permission_name: 'topbanner create' 
+        },
       },
       {
         path: 'bottom-banners',
         name: 'Bottom Banners',
-        component: BottomBanners
+        component: BottomBanners,
+        meta: { 
+          permission_name: permissionsList.bottombanner 
+        },
       },
       {
         path: '/bottom-banners/edit/:id',
         name: 'BottomBanner / Edit',
-        component: BottomBannerEdit
+        component: BottomBannerEdit,
+        meta: { 
+          permission_name: 'bottombanner edit' 
+        },
       },
       {
         path: '/bottom-banners/create',
         name: 'BottomBannerCreate',
-        component: BottomBannerCreate
+        component: BottomBannerCreate,
+        meta: { 
+          permission_name: 'bottombanner create' 
+        },
       },
       {
         path: 'complains',
         name: 'Complains',
-        component: Complains
+        component: Complains,
+        meta: { 
+          permission_name: permissionsList.complain 
+        },
       },
       {
         path: '/complains/show/:id',
         name: 'Complain / Show',
-        component: ComplainShow
+        component: ComplainShow,
+        meta: { 
+          permission_name: 'complain read' 
+        },
       },
       {
         path: '/complains/create',
         name: 'ComplainCreate',
-        component: ComplainCreate
+        component: ComplainCreate,
+        meta: { 
+          permission_name: 'complain create' 
+        },
       },
       {
         path: 'documents',
         name: 'Documents',
-        component: Documents
+        component: Documents,
+        meta: { 
+          permission_name: permissionsList.document 
+        },
       },
       /*
           {
@@ -336,8 +502,8 @@ const router =  new Router({
           },
       */
       {
-        path: 'users',
-        meta: {label: 'Users'},
+        path: 'coreuiusers',
+        meta: {label: 'CoreUiUsers'},
         component: {
           render(c) {
             return c('router-view')
@@ -346,13 +512,13 @@ const router =  new Router({
         children: [
           {
             path: '',
-            component: Users,
+            component: CoreUiUsers,
           },
           {
             path: ':id',
             meta: {label: 'User Details'},
             name: 'User',
-            component: User,
+            component: CoreUiUser,
           },
         ]
       }
@@ -417,29 +583,38 @@ const router =  new Router({
 ]
 })
 
+function checkRoutePermission(to) {
+  const routeObj = to.matched[to.matched.length - 1];
+  if (Object.prototype.hasOwnProperty.call(routeObj.meta, 'permission_name')) {
+    return store.getters['auth/hasPermission'](routeObj.meta.permission_name) ? true : false
+  }
+  return true;
+}
+
 
 router.beforeEach((to, from, next) => {
   // let user_roles = JSON.parse(window.localStorage.getItem("user_roles"));
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
-  if (store.getters['auth/isLoggedIn']) {
-    next()
-    return
-  }
-  next('/login')
+    if (store.getters['auth/isLoggedIn']) {
+      if (checkRoutePermission(to)) {
+        next()      
+      }
+      return
+    }
+    next('/login')
 
-} else if (store.getters['auth/isLoggedIn']) {
-  if (to.matched.some(record => (record.name === 'Login' || record.name === 'Register') )) {
-    next('/dashboard')
+  } else if (store.getters['auth/isLoggedIn']) {
+    if (to.matched.some(record => (record.name === 'Login' || record.name === 'Register') )) {
+      next('/dashboard')
+    } else {
+      next()
+    }
+
   } else {
     next()
   }
 
-} else {
-  next()
-}
-
 })
-
 
 export default router

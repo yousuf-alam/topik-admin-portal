@@ -3,9 +3,12 @@
     <b-col cols="12" xl="6">
       <transition name="slide">
       <b-card :header="caption">
-        <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage" @row-clicked="rowClicked">
+        <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" 
+          :fixed="fixed" responsive="sm" :items="items" :fields="fields" 
+          :current-page="currentPage" :per-page="perPage" @row-clicked="rowClicked"
+        >
           <template slot="id" slot-scope="data">
-            <strong>{{data.item.id}}</strong>
+            <strong>{{data.item.id}} </strong>
           </template>
           <template slot="name" slot-scope="data">
             <strong>{{data.item.name}}</strong>
@@ -26,7 +29,7 @@
 <script>
 import usersData from './UsersData'
 export default {
-  name: 'Users',
+  name: 'CoreUiUsers',
   props: {
     caption: {
       type: String,
@@ -81,7 +84,7 @@ export default {
       return items.length
     },
     userLink (id) {
-      return `users/${id.toString()}`
+      return `coreuiusers/${id.toString()}`
     },
     rowClicked (item) {
       const userLink = this.userLink(item.id)

@@ -11,7 +11,6 @@ import App from './App'
 
 import router from './router'
 
-
 import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import CKEditor from '@ckeditor/ckeditor5-vue';
@@ -58,7 +57,11 @@ const router = () => {
     return routes;
 };*/
 /* eslint-disable no-new */
+
 import store from './store/store';
+import globalvariables from './globalvariables';
+
+Vue.prototype.$gbvar = globalvariables;
 
 new Vue({
     el: '#app',

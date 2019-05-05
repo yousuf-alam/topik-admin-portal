@@ -1,7 +1,8 @@
 <template>
   <b-card class="m-4">
-
-    <b-tabs card pills>
+    <h3 v-if="loading===true">Loading...</h3>
+    
+    <b-tabs card pills v-if="loading===false">
       <b-tab active title="Basic Info">
         <b-card-text>
 
@@ -196,16 +197,17 @@
               <div class="col-sm-9">
                 <b-button  @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
                 </b-button>
-              </div>
+              </div> 
             </div>
         </b-card-text>
       </b-tab>
     </b-tabs>
-
+    
   </b-card>
 </template>
 
 <script>
+
   import axios from 'axios';
   export default {
     name: "ServiceEdit",
@@ -234,7 +236,7 @@
         src_bantab: '/images/service/banner_tab/',
         src_banios: '/images/service/banner_ios/',
         src_banand: '/images/service/banner_android/',
-
+        loading: true, 
       }
     },
     created(){
@@ -251,9 +253,9 @@
       axios.post(`${Base_URL}/api/services/edit`,
       {
         id: this.service.id
-      }).then(response =>{
+      }).then(response => {
           this.service = response.data;
-
+          this.loading = false
         })
         .catch(e=>{
           //console.log("error occurs");
@@ -283,12 +285,10 @@
         this.service.banner_ios = e.target.files[0];
       },
       onSubmit() {
-
         let currentObj = this;
         const config = {
           headers: {'content-type': 'multipart/form-data'}
         }
-
 
         let formData = new FormData();
         formData.append('id', this.service.id);

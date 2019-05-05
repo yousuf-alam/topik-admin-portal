@@ -1,13 +1,18 @@
-export default {
+import _ from 'lodash';
+import gbvar from './globalvariables';
+import store from './store/store';
+const permissionsList = gbvar.permissionsList;
+const navitems = {
   items: [
     {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'icon-speedometer'
+      icon: 'icon-speedometer',
     },
     {
       title: true,
       name: 'Access Control',
+      permission_name: permissionsList.manage_roles,
       class: '',
       wrapper: {
         element: '',
@@ -17,16 +22,19 @@ export default {
     {
       name: 'Roles',
       url: '/roles',
-      icon: 'fa fa-podcast'
+      icon: 'fa fa-podcast',
+      permission_name: permissionsList.manage_roles
     },
     {
-      name: 'Permissions',
-      url: '/permissions',
-      icon: 'fa fa-superpowers'
+      name: 'Users',
+      url: '/users',
+      icon: 'fa fa-superpowers',
+      permission_name: permissionsList.manage_roles
     },
     {
       title: true,
       name: 'Order',
+      permission_name: [...permissionsList.order, ...permissionsList.complain],
       class: '',
       wrapper: {
         element: '',
@@ -36,17 +44,23 @@ export default {
     {
       name: 'Orders',
       url: '/orders',
-      icon: 'fa fa-cart-plus'
+      icon: 'fa fa-cart-plus',
+      permission_name: permissionsList.order
     },
     {
       name: 'Complains',
       url: '/complains',
-      icon: 'fa fa-thumbs-down'
+      icon: 'fa fa-thumbs-down',
+      permission_name: permissionsList.complain
     },
     {
       title: true,
       name: 'Service',
       class: '',
+      permission_name: [ 
+        ...permissionsList.service, ...permissionsList.category, 
+        ...permissionsList.lineitem, ...permissionsList.location 
+      ], 
       wrapper: {
         element: '',
         attributes: {}
@@ -55,27 +69,32 @@ export default {
     {
       name: 'Service',
       url: '/services',
-      icon: 'fa fa-stumbleupon '
+      icon: 'fa fa-stumbleupon ',
+      permission_name: permissionsList.service
     },
     {
       name: 'Category',
       url: '/categories',
-      icon: 'fa fa-barcode'
+      icon: 'fa fa-barcode',
+      permission_name: permissionsList.category
     },
     {
       name: 'Line Item',
       url: '/line-items',
-      icon: 'fa fa-bars'
+      icon: 'fa fa-bars',
+      permission_name: permissionsList.lineitem
     },
     {
       name: 'Location',
       url: '/locations',
-      icon: 'icon-location-pin'
+      icon: 'icon-location-pin',
+      permission_name: permissionsList.location
     },
     {
       title: true,
       name: 'Finance',
       class: '',
+      permission_name: [],
       wrapper: {
         element: '',
         attributes: {}
@@ -84,12 +103,14 @@ export default {
     {
       name: 'Partner Wallet',
       url: '/partner-wallets',
-      icon: 'cui-credit-card'
+      icon: 'cui-credit-card',
+      permission_name: permissionsList.partnerwallet
     },
     {
       title: true,
       name: 'Partner',
       class: '',
+      permission_name: [...permissionsList.partner, ...permissionsList.resource],
       wrapper: {
         element: '',
         attributes: {}
@@ -98,12 +119,14 @@ export default {
     {
       name: 'Partners',
       url: '/partners',
-      icon: 'fa fa-user'
+      icon: 'fa fa-user',
+      permission_name: permissionsList.partner
     },
     {
       name: 'Resources',
       url: '/resources',
-      icon: 'fa fa-users'
+      icon: 'fa fa-users',
+      permission_name: permissionsList.resource
     },
 /*    {
       name: 'Partner Reorder',
@@ -113,6 +136,10 @@ export default {
     {
       title: true,
       name: 'Marketing',
+      permission_name: [
+        ...permissionsList.notification, ...permissionsList.promocode,
+        ...permissionsList.topbanner, ...permissionsList.bottombanner
+      ],
       class: '',
       wrapper: {
         element: '',
@@ -122,27 +149,32 @@ export default {
     {
       name: 'Notification',
       url: '/notifications',
-      icon: 'icon-bell'
+      icon: 'icon-bell',
+      permission_name: permissionsList.notification
     },
     {
       name: 'Promo Codes',
       url: '/promos',
-      icon: 'fa fa-plus-square'
+      icon: 'fa fa-plus-square',
+      permission_name:  permissionsList.promocode, 
     },
     {
       name: 'Top Banners',
       url: '/top-banners',
-      icon: 'fa fa-file-image-o'
+      icon: 'fa fa-file-image-o',
+      permission_name: permissionsList.topbanner
     },
     {
       name: 'Bottom Banners',
       url: '/bottom-banners',
-      icon: 'fa fa-image'
+      icon: 'fa fa-image',
+      permission_name: permissionsList.bottombanner
     },
 
     {
       title: true,
       name: 'Portal',
+      permission_name: [...permissionsList.document],
       class: '',
       wrapper: {
         element: '',
@@ -152,9 +184,23 @@ export default {
     {
       name: 'Documents',
       url: '/documents',
-      icon: 'fa fa-file-word-o'
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.document
     }
-
-
   ]
 }
+
+// For filtering the nav items, based on permission_name . 
+const navItemsToShow = { ...navitems };
+navItemsToShow.items = _.filter(navItemsToShow.items, item => {
+  return filterByPermissions(item);
+});
+
+function filterByPermissions(item) {
+  if (Object.prototype.hasOwnProperty.call(item, 'permission_name')) {
+    return store.getters['auth/hasPermission'](item.permission_name) ? item : null
+   }
+   return item;
+}
+
+export default navItemsToShow;

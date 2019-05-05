@@ -1,6 +1,13 @@
 import axios from 'axios';
 const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
-const LS_TOKEN_KEY_NAME = 'token';
+import globalvariable from '../../globalvariables';
+import _ from 'lodash';
+
+/* 
+this.$gbvar is not working in vuex, because it's a vue instance, 
+So we have to go through like this, "in every palce in store". OR WILL FIX IN FUTURE */
+const LS_TOKEN_KEY_NAME =  globalvariable.LS_TOKEN_KEY_NAME; 
+const LS_PERMISSION_KEY_NAME = globalvariable.LS_PERMISSION_KEY_NAME; 
 
 
 const authModule = {
@@ -8,6 +15,7 @@ const authModule = {
     state: {
         status: '',
         token: localStorage.getItem(LS_TOKEN_KEY_NAME) || '',
+        user_permissions: localStorage.getItem(LS_PERMISSION_KEY_NAME) || [], 
         user: { }
       },
     mutations: {
@@ -18,6 +26,7 @@ const authModule = {
           state.status = 'success'
           state.token = obj.token;
           state.user = obj.user;
+          state.user_permissions = obj.user_permissions;
         },
         auth_error(state) {
           state.status = 'error'
@@ -35,16 +44,19 @@ const authModule = {
             commit('auth_request');
             axios({ url: `${ROOT_URL}/api/login`, data: userdata, method: 'POST' })
               .then(resp => {
-
+                // console.log('Login success', resp );
                 const token = resp.data.access_token;
                 const user = resp.data.user;
+                const user_permissions = _.map(resp.data.user_permissions, 'name');
 
                 localStorage.setItem(LS_TOKEN_KEY_NAME, token);
-                console.log('Login success', token, user);
-
+                /* Here we need to encode the user_permissions using Base64 or other encoding procudure?? */
+                localStorage.setItem(LS_PERMISSION_KEY_NAME, JSON.stringify(user_permissions));
                 // Add the following line:
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                commit('auth_success', {token, user});
+                axios.defaults.headers.common['Accept'] = 'application/json';
+                
+                commit('auth_success', {token, user, user_permissions});
                 resolve(resp);
               })
               .catch(err => {
@@ -55,6 +67,7 @@ const authModule = {
           })
         },
         register({ commit }, user) {
+          /*
           return new Promise((resolve, reject) => {
             commit('auth_request')
             axios({ url: `${ROOT_URL}/register`, data: user, method: 'POST' })
@@ -73,6 +86,7 @@ const authModule = {
                 reject(err)
               })
           })
+          */
         },
         logout({ commit }) {
           return new Promise((resolve /*, reject */) => {
@@ -86,6 +100,12 @@ const authModule = {
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+        hasPermission: state => (permission_name) => {
+          if (typeof(permission_name) === 'object') {
+            return permission_name.some(item => state.user_permissions.includes(item));  
+          }
+          return state.user_permissions.includes(permission_name)
+        },
     }
 }
 

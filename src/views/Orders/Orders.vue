@@ -14,7 +14,7 @@
                     <v-client-table :data="tableData" :columns="columns" :options="options">
                         <template slot="action" slot-scope="props">
                             <div>
-                                <router-link :to="{ name: 'Order / Show', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
+                                <router-link :to="{ name: 'OrderShow', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
                                     <i class="fa fa-search"></i></span></router-link>
                                 <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit">
                                     <i class="fa fa-edit"></i></span>

@@ -12,7 +12,7 @@
                 <v-client-table :data="services" :columns="columns" :options="options">
                     <template slot="action" slot-scope="props">
                         <div>
-                            <router-link :to="{ name: 'Service / Edit', params: { id: props.row.id }}">
+                            <router-link :to="{ name: 'ServiceEdit', params: { id: props.row.id }}">
                             <span 
                                 class="btn btn-warning btn-sm m-1" data-toggle="tooltip" 
                                 title="Edit" :href="props.row.id"

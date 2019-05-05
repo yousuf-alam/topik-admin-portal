@@ -6,9 +6,9 @@
                     <v-client-table :data="tableData" :columns="columns" :options="options">
                         <template slot="action" slot-scope="props">
                             <div>
-                                <router-link :to="{ name: 'Partner / Show', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
+                                <router-link :to="{ name: 'PartnerShow', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
                                     <i class="fa fa-search"></i></span></router-link>
-                                <router-link :to="{ name: 'Partner / Edit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit">
+                                <router-link :to="{ name: 'PartnerEdit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit">
                                     <i class="fa fa-edit"></i></span></router-link>
                                 <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
                                     <i class="fa fa-trash"></i></span>

@@ -20,6 +20,18 @@ const getDecodedUserPermissions = () => {
    return [];
 }
 
+const setKeyEncodedValueInLS = (lsKey, value) => {
+  let stringValue = '';
+  if (typeof value === 'string') {
+    stringValue = value;
+  } else if (typeof value === 'object') {
+    stringValue = JSON.stringify(value);
+  }
+  const ciphertext = CryptoJS.AES.encrypt(stringValue, globalvariables.SECRET_KEY).toString();
+  localStorage.setItem(lsKey, ciphertext);
+
+}
+
 const authModule = {
     namespaced: true, 
     state: {
@@ -60,7 +72,7 @@ const authModule = {
                 const user_permissions = _.map(resp.data.user_permissions, 'name');
 
                 localStorage.setItem(LS_TOKEN_KEY_NAME, token);
-                
+
                 /* Here we need to encode THE user_permission by crypto-js*/
                 const user_permissions_cyphertext = CryptoJS.AES.encrypt(JSON.stringify(user_permissions), globalvariables.SECRET_KEY).toString();
                 localStorage.setItem(LS_PERMISSION_KEY_NAME, user_permissions_cyphertext);

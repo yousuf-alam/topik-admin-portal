@@ -130,8 +130,8 @@ const authModule = {
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+        authUser: state => state.user,
         hasPermission: state => (permission_name) => {
-          console.log('STATE === ', state);
           if (typeof(permission_name) === 'object') {
             return permission_name.some(item => state.user_permissions.includes(item));  
           }

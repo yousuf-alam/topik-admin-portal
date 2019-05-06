@@ -8,6 +8,10 @@
     </template>
     <template slot="dropdown">
       <b-dropdown-header tag="div" class="text-center"><strong>Account</strong></b-dropdown-header>
+           <b-dropdown-item class="logged-in-user">
+             <div > {{ loggedInUser.name }}  </div>
+           </b-dropdown-item>
+
            <b-dropdown-item><i class="fa fa-bell-o" /> Updates
              <b-badge variant="info">{{ itemsCount }}</b-badge>
            </b-dropdown-item>
@@ -63,6 +67,11 @@ export default {
   created() {
  
   }, 
+  computed: {
+    loggedInUser() {
+      return this.$store.getters['auth/authUser'];
+    }
+  },
   methods: {
     logoutClicked(e) {
       this.$store.dispatch('auth/logout')
@@ -76,3 +85,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.logged-in-user {
+  background-color: rgb(187, 202, 243);
+  text-align: center;
+  font-weight: 600;
+}
+
+</style>

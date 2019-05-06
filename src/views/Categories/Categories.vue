@@ -3,7 +3,9 @@
     <b-row>
       <b-col sm="10"></b-col>
       <b-col sm="2" class="mb-3">
-        <router-link :to="{ name: 'CategoryCreate'}"><button class="btn btn-success">Create New Category</button></router-link>
+        <router-link :to="{ name: 'CategoryCreate'}" v-if="elementHasPermission('category create')">
+          <button class="btn btn-success">Create New Category</button>
+        </router-link>
       </b-col>
     </b-row>
     <b-row>
@@ -12,13 +14,30 @@
           <v-client-table :data="categories" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div v-if="props.row.category === 'none'">
-                <router-link :to="{ name: 'CategoryEdit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
-                                    <i class="fa fa-edit"></i></span></router-link>
+                <router-link :to="{ name: 'CategoryEdit', params: { id: props.row.id }}"
+                v-if="elementHasPermission('category update')">
+                    <span 
+                      class="btn btn-warning btn-sm m-1" 
+                      data-toggle="tooltip" 
+                      title="Edit" 
+                      :href="props.row.id">
+                        <i class="fa fa-edit"></i>
+                      </span>
+                  </router-link>
                 <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
               </div>
               <div v-else>
-                <router-link :to="{ name: 'SubcategoryEdit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
-                                    <i class="fa fa-edit"></i></span></router-link>
+                <router-link :to="{ name: 'SubcategoryEdit', params: { id: props.row.id }}"
+                v-if="elementHasPermission('category delete')">
+                  <span
+                    class="btn btn-warning btn-sm m-1" 
+                    data-toggle="tooltip" 
+                    title="Edit" 
+                    :href="props.row.id"
+                  >
+                    <i class="fa fa-edit"></i>
+                  </span>
+                </router-link>
                 <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
               </div>
             </template>
@@ -58,6 +77,13 @@
         .catch(e=>{
           //console.log("error occurs");
         });
+    },
+    computed: {
+      elementHasPermission(permission_name) {
+        return (permission_name) => {
+          return this.$store.getters['auth/hasPermission'](permission_name) ? true : false;
+        }
+      }
     },
     methods: {
 

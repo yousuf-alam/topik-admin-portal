@@ -8,37 +8,43 @@ import CryptoJS from 'crypto-js';
 this.$gbvar is not working in vuex, because it's a vue instance, 
 So we have to go through like this, "in every palce in store". OR WILL FIX IN FUTURE */
 const LS_TOKEN_KEY_NAME =  globalvariables.LS_TOKEN_KEY_NAME; 
+const LS_USER_KEY_NAME = globalvariables.LS_USER_KEY_NAME;
 const LS_PERMISSION_KEY_NAME = globalvariables.LS_PERMISSION_KEY_NAME; 
 
-const getDecodedUserPermissions = () => {
-  if( localStorage.getItem(LS_PERMISSION_KEY_NAME)) {
-    const ciphertext = localStorage.getItem(LS_PERMISSION_KEY_NAME); 
-    const bytes  = CryptoJS.AES.decrypt(ciphertext, globalvariables.SECRET_KEY);
-    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    return decryptedData;
-   }  
-   return [];
+export const getDecodedValueFromLS = (lsKey, dataType) => {
+  if( localStorage.getItem(lsKey)) {
+    const ciphertext = localStorage.getItem(lsKey); 
+    const bytes = CryptoJS.AES.decrypt(ciphertext, globalvariables.SECRET_KEY);
+    const decryptedStringData = bytes.toString(CryptoJS.enc.Utf8);
+    if (dataType === 'string') {
+      return decryptedStringData;
+    }
+    return JSON.parse(decryptedStringData);
+   } 
+  if (dataType === 'string') {
+    return '';
+  } else if (dataType === 'array') {
+    return [];
+  } else if (dataType === 'object') {
+    return { };
+  }  
 }
 
+
+
 const setKeyEncodedValueInLS = (lsKey, value) => {
-  let stringValue = '';
-  if (typeof value === 'string') {
-    stringValue = value;
-  } else if (typeof value === 'object') {
-    stringValue = JSON.stringify(value);
-  }
+  const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
   const ciphertext = CryptoJS.AES.encrypt(stringValue, globalvariables.SECRET_KEY).toString();
   localStorage.setItem(lsKey, ciphertext);
-
 }
 
 const authModule = {
     namespaced: true, 
     state: {
         status: '',
-        token: localStorage.getItem(LS_TOKEN_KEY_NAME) || '',
-        user_permissions: getDecodedUserPermissions(),
-        user: { }
+        token: getDecodedValueFromLS(LS_TOKEN_KEY_NAME, 'string') ,
+        user_permissions: getDecodedValueFromLS(LS_PERMISSION_KEY_NAME, 'array'),
+        user: getDecodedValueFromLS(LS_USER_KEY_NAME, 'object'),
       },
     mutations: {
         auth_request(state) {
@@ -71,12 +77,11 @@ const authModule = {
                 const user = resp.data.user;
                 const user_permissions = _.map(resp.data.user_permissions, 'name');
 
-                localStorage.setItem(LS_TOKEN_KEY_NAME, token);
+                // localStorage.setItem();
+                setKeyEncodedValueInLS(LS_TOKEN_KEY_NAME, token);
+                setKeyEncodedValueInLS(LS_USER_KEY_NAME, user);
+                setKeyEncodedValueInLS(LS_PERMISSION_KEY_NAME, user_permissions);
 
-                /* Here we need to encode THE user_permission by crypto-js*/
-                const user_permissions_cyphertext = CryptoJS.AES.encrypt(JSON.stringify(user_permissions), globalvariables.SECRET_KEY).toString();
-                localStorage.setItem(LS_PERMISSION_KEY_NAME, user_permissions_cyphertext);
-                
                 // Add the following line:
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 axios.defaults.headers.common['Accept'] = 'application/json';

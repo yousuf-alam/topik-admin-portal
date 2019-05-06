@@ -4,7 +4,6 @@ import globalvariables from '../../globalvariables';
 import _ from 'lodash';
 import CryptoJS from 'crypto-js';
 
-
 /* 
 this.$gbvar is not working in vuex, because it's a vue instance, 
 So we have to go through like this, "in every palce in store". OR WILL FIX IN FUTURE */
@@ -61,6 +60,7 @@ const authModule = {
                 const user_permissions = _.map(resp.data.user_permissions, 'name');
 
                 localStorage.setItem(LS_TOKEN_KEY_NAME, token);
+                
                 /* Here we need to encode THE user_permission by crypto-js*/
                 const user_permissions_cyphertext = CryptoJS.AES.encrypt(JSON.stringify(user_permissions), globalvariables.SECRET_KEY).toString();
                 localStorage.setItem(LS_PERMISSION_KEY_NAME, user_permissions_cyphertext);

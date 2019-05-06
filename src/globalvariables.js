@@ -26,5 +26,5 @@ export default {
         document: ['document create', 'document read', 'document update', 'document delete',]
     },
     SECRET_KEY: 'Kali Nagin Ke Jaisi Julfe Teri Kali Kali',
-
+    
 }

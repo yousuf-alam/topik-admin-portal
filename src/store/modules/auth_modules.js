@@ -1,21 +1,32 @@
 import axios from 'axios';
 const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
-import globalvariable from '../../globalvariables';
+import globalvariables from '../../globalvariables';
 import _ from 'lodash';
+import CryptoJS from 'crypto-js';
+
 
 /* 
 this.$gbvar is not working in vuex, because it's a vue instance, 
 So we have to go through like this, "in every palce in store". OR WILL FIX IN FUTURE */
-const LS_TOKEN_KEY_NAME =  globalvariable.LS_TOKEN_KEY_NAME; 
-const LS_PERMISSION_KEY_NAME = globalvariable.LS_PERMISSION_KEY_NAME; 
+const LS_TOKEN_KEY_NAME =  globalvariables.LS_TOKEN_KEY_NAME; 
+const LS_PERMISSION_KEY_NAME = globalvariables.LS_PERMISSION_KEY_NAME; 
 
+const getDecodedUserPermissions = () => {
+  if( localStorage.getItem(LS_PERMISSION_KEY_NAME)) {
+    const ciphertext = localStorage.getItem(LS_PERMISSION_KEY_NAME); 
+    const bytes  = CryptoJS.AES.decrypt(ciphertext, globalvariables.SECRET_KEY);
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    return decryptedData;
+   }  
+   return [];
+}
 
 const authModule = {
     namespaced: true, 
     state: {
         status: '',
         token: localStorage.getItem(LS_TOKEN_KEY_NAME) || '',
-        user_permissions: localStorage.getItem(LS_PERMISSION_KEY_NAME) || [], 
+        user_permissions: getDecodedUserPermissions(),
         user: { }
       },
     mutations: {
@@ -50,8 +61,10 @@ const authModule = {
                 const user_permissions = _.map(resp.data.user_permissions, 'name');
 
                 localStorage.setItem(LS_TOKEN_KEY_NAME, token);
-                /* Here we need to encode the user_permissions using Base64 or other encoding procudure?? */
-                localStorage.setItem(LS_PERMISSION_KEY_NAME, JSON.stringify(user_permissions));
+                /* Here we need to encode THE user_permission by crypto-js*/
+                const user_permissions_cyphertext = CryptoJS.AES.encrypt(JSON.stringify(user_permissions), globalvariables.SECRET_KEY).toString();
+                localStorage.setItem(LS_PERMISSION_KEY_NAME, user_permissions_cyphertext);
+                
                 // Add the following line:
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 axios.defaults.headers.common['Accept'] = 'application/json';
@@ -101,6 +114,7 @@ const authModule = {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
         hasPermission: state => (permission_name) => {
+          console.log('STATE === ', state);
           if (typeof(permission_name) === 'object') {
             return permission_name.some(item => state.user_permissions.includes(item));  
           }

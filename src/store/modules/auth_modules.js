@@ -1,8 +1,9 @@
 import axios from 'axios';
-const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
-import globalvariables from '../../globalvariables';
 import _ from 'lodash';
 import CryptoJS from 'crypto-js';
+
+const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
+import globalvariables from '../../globalvariables';
 
 /* 
 this.$gbvar is not working in vuex, because it's a vue instance, 

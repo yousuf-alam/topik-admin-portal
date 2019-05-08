@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 import AuthModule, { getDecodedValueFromLS } from './modules/auth_modules';
 import RoleModule from './modules/role_module';
- import globalvariables from '../globalvariables';
+import globalvariables from '../globalvariables';
 
 if (localStorage.token) {
   const token = getDecodedValueFromLS(globalvariables.LS_TOKEN_KEY_NAME, 'string')

@@ -1,5 +1,8 @@
 <template>
     <div class="animated fadeIn">
+        <div v-if="showTestNoti">
+            <TestNoti />
+        </div>
         <b-row>
             <b-col sm="10"></b-col>
             <b-col sm="2" class="mb-3">
@@ -27,11 +30,16 @@
 
 
 <script>
-
+import TestNoti from './TestNoti';
     export default {
         name: 'Notifications',
+        components: {
+            TestNoti,
+
+        },
         data() {
             return {
+                showTestNoti: true,
                 columns: ['id', 'name', 'age', 'action'],
                 tableData: [
                     {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},

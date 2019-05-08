@@ -62,6 +62,21 @@ import store from './store/store';
 import globalvariables from './globalvariables';
 
 Vue.prototype.$gbvar = globalvariables;
+import Echo from 'laravel-echo';
+const bearerToken = store.getters['auth/bearerToken'] ;
+console.log('main.js === ', store.getters['auth/bearerToken'] );
+
+window.Pusher = require('pusher-js');
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: globalvariables.PUSHER_CREDENTIALS.APP_KEY,
+    cluster: 'ap2',
+    encrypted: true,
+    authEndpoint: 'http://romoni-new.test/api/broadcasting/auth',
+    auth: {headers: {Authorization: "Bearer " + bearerToken}}
+})
+
 
 new Vue({
     el: '#app',

@@ -78,6 +78,7 @@ const authModule = {
                 const user_permissions = _.map(resp.data.user_permissions, 'name');
 
                 // localStorage.setItem();
+                //localStorage.setItem('token', token)
                 setKeyEncodedValueInLS(LS_TOKEN_KEY_NAME, token);
                 setKeyEncodedValueInLS(LS_USER_KEY_NAME, user);
                 setKeyEncodedValueInLS(LS_PERMISSION_KEY_NAME, user_permissions);
@@ -131,6 +132,7 @@ const authModule = {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
         authUser: state => state.user,
+        bearerToken: state => state.token,
         hasPermission: state => (permission_name) => {
           if (typeof(permission_name) === 'object') {
             return permission_name.some(item => state.user_permissions.includes(item));  

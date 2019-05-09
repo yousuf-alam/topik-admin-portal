@@ -15,6 +15,12 @@ export default {
         }
     },
     created() {
+        /*
+
+
+
+
+        */
         this.listenPrivateChannel();
     },
     methods: {

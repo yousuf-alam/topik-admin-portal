@@ -4,37 +4,48 @@
             <div class="resource-identity col-sm-8  d-flex justify-content-center align-items-center flex-column">
                 <img src="https://www.w3schools.com/html/img_girl.jpg" class="rounded-circle" width="100px">
                 <div>
-                    <h3>SP Name</h3>
+                    <h3>{{partner.name}}</h3>
                 </div>
                 <div>
                     <h4 class="status-badge">
-                        Verified
+                        {{partner.status}}
                     </h4>
                 </div>
                 <div>
-                    <div class="change-log-modal" v-b-modal.modal-1>
+                    <span class="change-log-modal" @click="statusModal">
                         Change Log
-                    </div>
+                    </span>
 
                     <!-- Modal Component -->
-                    <b-modal id="modal-1" title="Change Log of SP">
-                        <div class="my-4">
-                            <div class="form-check">
-                                <div class="radio">
-                                    <label><input type="radio" name="optradio" checked> Not Verified </label>
-                                </div>
-                                <div class="radio">
-                                    <label><input type="radio" name="optradio"> Verified </label>
-                                </div>
-                                <div class="radio">
-                                    <label><input type="radio" name="optradio"> Rejected </label>
-                                </div>
-                            </div>
+                  <modal name="modal-status" height="auto">
+                    <div class="m-3 p-3">
+                      <b-row>
+                        <h3 class="mb-3">Change Status of SP</h3>
+                      </b-row>
+                      <b-row>
+                        <div class="form-group">
+                          <div class="radio">
+                            <label><input type="radio" v-model="partner.status" value="pending"> Pending </label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" v-model="partner.status" value="verified"> Verified </label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" v-model="partner.status" value="rejected"> Rejected </label>
+                          </div>
                         </div>
-                    </b-modal>
+                      </b-row>
+                      <b-row>
+                        <button @click="changeStatus" class="btn btn-primary" data-dismiss="modal" type="button">Submit</button>
+                      </b-row>
+                    </div>
+                  </modal>
+
                 </div>
 
+
             </div>
+
             <div class="resource-job-summary col-sm-4 table-responsive">
                 <div class="mt-2 ">
                     <h3 class="p-1 bg-primary">Job Summary</h3>
@@ -63,32 +74,44 @@
         </div>
         <div class="resource-body">
             <b-tabs content-class="mt-3" pills card>
-                <b-tab title="Basic Info" active>
+                <b-tab class="pl-5 ml-5 mr-5 pr-5" title="Basic Info" active>
                     <table class="table">
                         <tr>
-                            <th>Bank Name</th>
-                            <td>bank</td>
+                            <th>Company Name</th>
+                            <td>{{partner.name}}</td>
                         </tr>
                         <tr>
-                            <th>Branch Name</th>
-                            <td>bank</td>
+                            <th>Type</th>
+                            <td>{{partner.type}} ( {{partner.booking_type}} ) </td>
                         </tr>
                         <tr>
-                            <th>Routing No.</th>
-                            <td>12245</td>
+                            <th>Phone</th>
+                            <td>{{partner.user.phone}}</td>
                         </tr>
                         <tr>
-                            <th>Account No.</th>
-                            <td>1343</td>
+                            <th>Status</th>
+                            <td>{{partner.status}}</td>
                         </tr>
                         <tr>
-                            <th>BKash No.</th>
-                            <td>other</td>
+                            <th>Admin Name</th>
+                            <td>{{partner.admin_name}}</td>
+                        </tr>
+                        <tr>
+                          <th>Bkash No</th>
+                          <td>{{partner.bkash_no}}</td>
+                        </tr>
+                        <tr>
+                          <th>City</th>
+                          <td>{{partner.city}}</td>
+                        </tr>
+                        <tr v-if="partner.booking_type === 'on-demand'">
+                          <th>Service Areas</th>
+                          <td>{{partner.service_areas}}</td>
                         </tr>
                     </table>
                 </b-tab>
 
-                <b-tab title="Resources">
+                <!--<b-tab title="Resources">
                     <v-client-table :data="tableData" :columns="columns" :options="options"></v-client-table>
                 </b-tab>
 
@@ -101,61 +124,70 @@
                 </b-tab>
                 <b-tab title="Line Item">
                     <v-client-table :data="tableData" :columns="columns" :options="options"></v-client-table>
-                </b-tab>
+                </b-tab>-->
             </b-tabs>
         </div>
     </div>
 </template>
 
 <script>
-
+  import axios from 'axios';
     export default {
         name: 'PartnerShow',
         components: {},
         data() {
             return {
-                columns: ['id', 'name', 'age'],
-                tableData: [
-                    {id: 1, name: "John", age: "2018-12-18"},
-                    {id: 2, name: "Jane", age: "2018-10-31"},
-                    {id: 3, name: "Susan", age: "2018-10-31"},
-                    {id: 4, name: "Chris", age: "2018-10-31"},
-                    {id: 5, name: "Dan", age: "2018-12-30"},
-                    {id: 11, name: "John", age: "2018-10-31"},
-                    {id: 12, name: "Jane", age: "2018-08-31"},
-                    {id: 13, name: "Susan", age: "2018-08-03"},
-                    {id: 14, name: "Chris", age: "2018-09-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"},
-                    {id: 11, name: "John", age: "2018-12-31"},
-                    {id: 12, name: "Jane", age: "2018-12-31"},
-                    {id: 13, name: "Susan", age: "2018-12-31"},
-                    {id: 14, name: "Chris", age: "2018-12-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"}
-                ],
-                options: {
+              partner: [],
+
+              options: {
                     pagination: {nav: 'fixed'},
                     perPage: 5,
                     filterByColumn: true,
-                    dateColumns: ['age'],
                     toMomentFormat: 'YYYY-MM-DD',
                     sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
-                }
+              }
 
             }
         },
-        methods: {
+      created(){
+        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        let partner_id = window.location.pathname.split("/").pop();
+        this.id = partner_id;
+        axios.post(`${Base_URL}/api/partners/show`,
+          {
+            id: this.id
+          }).then(response =>{
+          this.partner = response.data;
+          console.log(response.data);
+        })
+          .catch(e=>{
+            console.log("error occurs",e);
+          });
 
-            delete(id) {
-                // The id can be fetched from the slot-scope row object when id is in columns
-                console.log('hi');
-            }
+      },
+        methods: {
+          statusModal(){
+            this.$modal.show('modal-status');
+          },
+          changeStatus(){
+            this.$modal.hide('modal-status');
+            const Base_URL = process.env.VUE_APP_ADMIN_URL;
+            axios.post(`${Base_URL}/api/partners/change-status`,
+              {
+                id: this.partner.id,
+                status: this.partner.status
+              }).then(response =>{
+                console.log(response.data);
+            })
+              .catch(e=>{
+                console.log("error occurs",e);
+              });
+          }
         },
     }
 </script>
 
-}
-</script>
 
 <style scoped>
     .status-badge {

@@ -22,7 +22,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div v-if="service_id !== 2" class="form-group row">
             <label class="col-sm-3 col-form-label">SubCategory *</label>
             <div class="col-sm-9">
               <select class='form-control' v-model="subcategory_id">
@@ -75,7 +75,7 @@
             <label class="col-sm-3 col-form-label">Pricing Type *</label>
             <div class="col-sm-9">
               <select class="form-control" name="pricing_type" v-model="pricing_type">
-                <option value="fixed">Fixed</option>
+                <option value="fixed" selected>Fixed</option>
                 <option value="option">Option</option>
               </select>
             </div>
@@ -157,7 +157,6 @@
               <div class="row justify-content-md-center m-4">
                 <div class="col-12 m-3">
                   <b-button @click="NewDesign" class="btn btn-success">+ Add New Design</b-button>
-                  <b-button @click="saveDesign"class="btn btn-danger">+ Save Designs</b-button>
                 </div>
                 <div class="col-12 m-1" v-for="(des,index) in designs">
                   <div class="form-group row">
@@ -269,9 +268,9 @@
 
           <section v-if="pricing_type ==='fixed' ">
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label" for="price">Preferred Price *</label>
+              <label class="col-sm-3 col-form-label">Preferred Price *</label>
               <div class="col-sm-9">
-                <input class="form-control" id="price" name="fixed_price" type="number">
+                <input class="form-control" v-model="fixed_price" type="number">
               </div>
             </div>
           </section>
@@ -302,7 +301,7 @@
 
         </tab-content>
 
-        <button class="btn btn-success" slot="finish" type="submit">Submit</button>
+        <button class="btn btn-lg btn-success" slot="finish" type="submit">Submit Line-item</button>
       </form-wizard>
     </form>
   </div>
@@ -406,7 +405,7 @@
         priceTable(questions) {
           questions = JSON.stringify(questions);
           const Base_URL = process.env.VUE_APP_ADMIN_URL;
-          axios.post(`${Base_URL}/api/lineitems/price-combination`, {
+          axios.post(`${Base_URL}/api/line-items/price-combination`, {
             data: questions
           })
             .then(response => {
@@ -526,6 +525,10 @@
           this.designs.push('');
           console.log('new new');
         },
+        deleteDesign(index)
+        {
+          this.designs.splice(index,1);
+        },
         onDesignUpload(e) {
           let index = this.designs.length -1;
           this.designs.splice(index,1);
@@ -565,14 +568,14 @@
             headers: {'content-type': 'multipart/form-data'}
           };
           const Base_URL = process.env.VUE_APP_ADMIN_URL;
-          let formData = new FormData();
+          let designData = new FormData();
           for( let i = 0; i < this.designs.length; i++ ){
             let file = this.designs[i];
 
 
-            formData.append('designs[' + i + '][image]', file);
+            designData.append('designs[' + i + '][image]', file);
           }
-          axios.post(`${Base_URL}/api/line-items/design`,formData, config)
+          axios.post(`${Base_URL}/api/line-items/design`,designData, config)
             .then(response => {
               console.log('Success', response);
               currentObj.success = response.data.success;
@@ -583,10 +586,6 @@
               currentObj.output = error;
               console.log(error);
             });
-        },
-        deleteDesign(index)
-        {
-          this.designs.splice(index,1);
         },
         onSubmit(e) {
 
@@ -616,6 +615,11 @@
           formData.append('banner_tab', this.banner_tab);
           formData.append('banner_android', this.banner_android);
           formData.append('banner_ios', this.banner_android);
+
+          for( let i = 0; i < this.designs.length; i++ ){
+            let file = this.designs[i];
+            formData.append('designs[' + i + '][image]', file);
+          }
 
           const Base_URL = process.env.VUE_APP_ADMIN_URL;
           console.log(this.name);

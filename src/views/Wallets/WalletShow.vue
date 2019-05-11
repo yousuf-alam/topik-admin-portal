@@ -2,7 +2,7 @@
     <div class="">
         <div class="walletHead card">
             <div class="card-body">
-                <h1 class="card-description"> SP Name</h1>
+                <h1 class="card-description"> {{partner.name}}</h1>
                 <div class="wallet-forhead">
                     <div class="leftside">
                     </div>
@@ -18,7 +18,7 @@
         <b-tabs card>
             <b-tab title="Transaction History" active>
                 <b-card>
-                    <v-client-table :data="tableData" :columns="columns" :options="options">
+                    <v-client-table :data="wallet_history" :columns="columns" :options="options">
                         <template slot="action" slot-scope="props">
                             <div>
                                 <router-link :to="{ name: 'Order / Show', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
@@ -59,24 +59,9 @@
         name: 'WalletShow',
         data() {
             return {
-                columns: ['id', 'name', 'age', 'action'],
-                tableData: [
-                    {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},
-                    {id: 2, name: "Jane", age: "2018-10-31"},
-                    {id: 3, name: "Susan", age: "2018-10-31"},
-                    {id: 4, name: "Chris", age: "2018-10-31"},
-                    {id: 5, name: "Dan", age: "2018-12-30"},
-                    {id: 11, name: "John", age: "2018-10-31"},
-                    {id: 12, name: "Jane", age: "2018-08-31"},
-                    {id: 13, name: "Susan", age: "2018-08-03"},
-                    {id: 14, name: "Chris", age: "2018-09-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"},
-                    {id: 11, name: "John", age: "2018-12-31"},
-                    {id: 12, name: "Jane", age: "2018-12-31"},
-                    {id: 13, name: "Susan", age: "2018-12-31"},
-                    {id: 14, name: "Chris", age: "2018-12-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"}
-                ],
+              partner: [],
+              wallet_history: [],
+                columns: ['date', 'id', 'description','debit','credit','balance', 'action'],
                 options: {
                     pagination: {nav: 'fixed'},
                     filterByColumn: true,
@@ -88,6 +73,22 @@
 
             }
         },
+      created(){
+        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        let partner_id = window.location.pathname.split("/").pop();
+        this.id = partner_id;
+        axios.post(`${Base_URL}/api/partners/show`,
+          {
+            id: this.id
+          }).then(response =>{
+          this.partner = response.data;
+          console.log(response.data);
+        })
+          .catch(e=>{
+            console.log("error occurs",e);
+          });
+
+      },
         methods: {
 
             delete(id) {

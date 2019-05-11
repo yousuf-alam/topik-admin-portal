@@ -3,10 +3,30 @@
         <b-row>
             <b-col sm="10"></b-col>
             <b-col sm="2" class="mb-3">
-                <router-link :to="{ name: 'OrderCreate'}">
-                    <button class="btn btn-success">Create New Order</button>
-                </router-link>
+                <button @click="modalType" class="btn btn-success">Create New Order</button>
             </b-col>
+          <modal name="modal-order_type" height="auto" :adaptive="true">
+            <div class="m-3 p-3">
+              <b-row class="p-2">
+                <h4>Choose Order Type</h4><br><br>
+              </b-row>
+              <b-row class="p-2">
+                <div class="center-div">
+                  <router-link :to="{ name: 'OrderCreate'}">
+                    <button class="btn btn-romoni-secondary m-2">Beauty On-Demand</button>
+                  </router-link>
+                  <router-link :to="{ name: 'OrderCreate'}">
+                    <button class="btn btn-primary m-2">Beauty Appointment</button>
+                  </router-link>
+                  <router-link :to="{ name: 'OrderCreate'}">
+                    <button class="btn btn-romoni-secondary m-2">Tailor On-Demand</button>
+                  </router-link>
+                </div>
+
+              </b-row>
+
+            </div>
+          </modal>
         </b-row>
         <b-row>
             <b-col>
@@ -67,6 +87,9 @@
             }
         },
         methods: {
+          modalType(){
+            this.$modal.show('modal-order_type');
+          },
 
             delete(id) {
                 // The id can be fetched from the slot-scope row object when id is in columns

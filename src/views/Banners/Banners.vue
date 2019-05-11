@@ -1,14 +1,24 @@
 <template>
   <div>
     <b-row>
+      <b-col sm="10"></b-col>
+      <b-col sm="2" class="mb-3">
+        <router-link :to="{ name: 'BannerCreate'}"><button class="btn btn-success">Create New Banner</button></router-link>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col>
         <b-card>
-          <v-client-table :data="partners" :columns="columns" :options="options">
+          <v-client-table :data="banner" :columns="columns" :options="options">
+            <template slot="image" slot-scope="props">
+              <div class="center-div">
+                <img :src="src_image + props.row.image" style="width: 60px;height: 60px;">
+              </div>
+
+            </template>
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'Partner / Show', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.id">
-                                    <i class="fa fa-search"></i></span></router-link>
-                <router-link :to="{ name: 'Partner / Show', params: { id: props.row.id }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Go to Partner Profile" :href="props.row.id">
+                <router-link :to="{ name: 'Banner / Edit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
                                     <i class="fa fa-edit"></i></span></router-link>
                 <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
               </div>
@@ -24,15 +34,15 @@
 <script>
   import axios from 'axios';
   export default {
-    name: 'Partners',
+    name: 'Banners',
     data() {
       return {
-        partners : [],
-        columns: ['id', 'name', 'type', 'booking type', 'phone' ,'status', 'created_at', 'action'],
+        banner : [],
+        src_image : '/images/banners/',
+        columns: ['image', 'title', 'service', 'type', 'status', 'created_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,
-          //dateColumns: ['created_at'],
           toMomentFormat: 'YYYY-MM-DD',
           sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
@@ -42,9 +52,10 @@
     },
     created(){
       const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/api/all-partners`)
+      axios.get(`${Base_URL}/api/banners`)
         .then(response =>{
-          this.partners = response.data;
+          this.banner = response.data;
+          this.src_image = Base_URL + this.src_image;
         })
         .catch(e=>{
           //console.log("error occurs");

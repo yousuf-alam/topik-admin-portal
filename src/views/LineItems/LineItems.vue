@@ -46,7 +46,7 @@
     },
     created(){
       const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/api/lineitems`)
+      axios.get(`${Base_URL}/api/line-items`)
         .then(response =>{
           this.categories = response.data;
         })

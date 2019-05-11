@@ -42,7 +42,7 @@ const navitems = {
       }
     },
     {
-      name: 'Orders',
+      name: 'Order / Appointment',
       url: '/orders',
       icon: 'fa fa-cart-plus',
       permission_name: permissionsList.order
@@ -147,7 +147,7 @@ const navitems = {
       }
     },
     {
-      name: 'Notification',
+      name: 'Notifications',
       url: '/notifications',
       icon: 'icon-bell',
       permission_name: permissionsList.notification
@@ -159,18 +159,11 @@ const navitems = {
       permission_name:  permissionsList.promocode, 
     },
     {
-      name: 'Top Banners',
-      url: '/top-banners',
+      name: 'Banners',
+      url: '/banners',
       icon: 'fa fa-file-image-o',
       permission_name: permissionsList.topbanner
     },
-    {
-      name: 'Bottom Banners',
-      url: '/bottom-banners',
-      icon: 'fa fa-image',
-      permission_name: permissionsList.bottombanner
-    },
-
     {
       title: true,
       name: 'Portal',

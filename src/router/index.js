@@ -47,13 +47,9 @@ const ResourceShow = () => import('../views/Resources/ResourceShow')
 const Wallets = () => import('@/views/Wallets/Wallets')
 const WalletShow = () => import('../views/Wallets/WalletShow')
 
-const TopBanners = () => import('@/views/Top Banners/TopBanners')
-const TopBannerCreate = () => import('../views/Top Banners/TopBannerCreate')
-const TopBannerEdit = () => import('../views/Top Banners/TopBannerEdit')
-
-const BottomBanners = () => import('@/views/Bottom Banners/BottomBanners')
-const BottomBannerCreate = () => import('../views/Bottom Banners/BottomBannerCreate')
-const BottomBannerEdit = () => import('../views/Bottom Banners/BottomBannerEdit')
+const Banners = () => import('@/views/Banners/Banners')
+const BannerCreate = () => import('../views/Banners/BannerCreate')
+const BannerEdit = () => import('../views/Banners/BannerEdit')
 
 const Complains = () => import('@/views/Complains/Complains')
 const ComplainCreate = () => import('@/views/Complains/ComplainCreate')
@@ -144,7 +140,7 @@ const router =  new Router({
           },
           {
             path: 'edit/:id',
-            name: 'Edit ',
+            name: 'RoleEdit ',
             component: RoleEdit,
             meta: { 
               permission_name: 'manage roles' 
@@ -230,7 +226,7 @@ const router =  new Router({
         name: 'Notification / Edit',
         component: NotificationEdit,
         meta: { 
-          permission_name: 'notification edit' 
+          permission_name: 'notification update'
         },
       },
       {
@@ -254,7 +250,7 @@ const router =  new Router({
         name: 'Promo / Edit',
         component: PromoEdit,
         meta: { 
-          permission_name: 'promocode edit' 
+          permission_name: 'promocode update'
         },
       },
       {
@@ -278,7 +274,7 @@ const router =  new Router({
         name: 'Locations / Edit',
         component: LocationEdit,
         meta: { 
-          permission_name: 'location edit' 
+          permission_name: 'location update'
         },
       },
       {
@@ -294,7 +290,7 @@ const router =  new Router({
         name: 'Service / Edit',
         component: ServiceEdit,
         meta: { 
-          permission_name: 'service edit' 
+          permission_name: 'service update'
         },
       },
       {
@@ -318,7 +314,7 @@ const router =  new Router({
         name: 'Category / Edit',
         component: CategoryEdit,
         meta: { 
-          permission_name: 'category edit' 
+          permission_name: 'category update'
         },
       },
       {
@@ -347,7 +343,7 @@ const router =  new Router({
         name: 'LineItem / Edit',
         component: LineItemEdit,
         meta: { 
-          permission_name: 'lineitem edit' 
+          permission_name: 'lineitem update'
         },
       },
       {
@@ -415,51 +411,27 @@ const router =  new Router({
         },
       },
       {
-        path: 'top-banners',
-        name: 'Top Banners',
-        component: TopBanners,
+        path: 'banners',
+        name: 'Banners',
+        component: Banners,
         meta: { 
-          permission_name: permissionsList.topbanner 
+          permission_name: permissionsList.topbanner
         },
       },
       {
-        path: '/top-banners/edit/:id',
-        name: 'TopBanner / Edit',
-        component: TopBannerEdit,
+        path: '/banners/edit/:id',
+        name: 'Banner / Edit',
+        component: BannerEdit,
         meta: { 
-          permission_name: 'topbanner edit' 
+          permission_name: 'banner update'
         },
       },
       {
-        path: '/top-banners/create',
-        name: 'TopBannerCreate',
-        component: TopBannerCreate,
+        path: '/banners/create',
+        name: 'BannerCreate',
+        component: BannerCreate,
         meta: { 
-          permission_name: 'topbanner create' 
-        },
-      },
-      {
-        path: 'bottom-banners',
-        name: 'Bottom Banners',
-        component: BottomBanners,
-        meta: { 
-          permission_name: permissionsList.bottombanner 
-        },
-      },
-      {
-        path: '/bottom-banners/edit/:id',
-        name: 'BottomBanner / Edit',
-        component: BottomBannerEdit,
-        meta: { 
-          permission_name: 'bottombanner edit' 
-        },
-      },
-      {
-        path: '/bottom-banners/create',
-        name: 'BottomBannerCreate',
-        component: BottomBannerCreate,
-        meta: { 
-          permission_name: 'bottombanner create' 
+          permission_name: 'banner create' 
         },
       },
       {

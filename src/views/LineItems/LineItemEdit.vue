@@ -1,306 +1,423 @@
 <template>
-    <b-card class="m-4">
+  <b-card class="m-4">
 
-        <b-tabs pills card>
-            <b-tab title="Basic Info" active>
-                <b-card-text>
-                    <div class="form-group">
-                        <label for="name">Name*</label>
+    <b-tabs card pills>
+      <b-tab active title="Basic Info">
+        <b-card-text>
+          <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" type="text" v-model="lineitem.name">
+          </div>
+          <div v-show="lineitem.pricing_type==='fixed'" class="form-group">
+            <label>Price</label>
+            <input class="form-control" type="number" v-model="lineitem.fixed_price">
+          </div>
+          <div class="form-group">
+            <label>Duration</label>
+            <input class="form-control" type="text" v-model="lineitem.duration">
+          </div>
+          <div class="form-group">
+            <input name="published_status" type="radio" v-model="lineitem.published_status" value="pending">
+            <label>Unpublished</label><br>
+            <input name="published_status" type="radio" v-model="lineitem.published_status" value="published">
+            <label>Published</label>
+          </div>
 
-                        <input type="text" name="name" class="form-control" id="name">
-                    </div>
+          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+          </b-button>
+        </b-card-text>
+      </b-tab>
+      <b-tab title="Change Thumbnail">
+        <b-card-text>
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Thumbnail</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_thumbnail+lineitem.thumbnail" style="width: 200px; height: 150px;">
+                </div>
+                <div>
+                    <span class="btn default btn-file">
+                      <span class="fileinput-new"> Thumbnail </span>
+                      <input name="thumbnail" type="file" v-on:change="onThumbnailChange">
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+              <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+              </b-button>
+            </div>
+          </div>
+        </b-card-text>
+      </b-tab>
+      <b-tab title="Change Banner">
+        <b-card-text>
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Banner (Web)</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_banweb+lineitem.banner_web" style="width: 200px; height: 150px;">
+                </div>
+                <div>
+                    <span class="btn default btn-file">
+                      <span class="fileinput-new"> Banner (Web) </span>
+                      <input name="banner_web" type="file" v-on:change="onBwebChange">
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                    <div class="form-group">
-                        <label for="category_description">Short Description</label>
-                        <textarea class="form-control" name="short_description" id="category_description"
-                                  rows="3"></textarea>
-                    </div>
+          <div class="form-group row">
+            <label class="col-md-3 control-label">Banner (Tab)</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_bantab+lineitem.banner_tab" style="width: 200px; height: 150px;">
+                </div>
+                <div>
+                    <span class="btn default btn-file">
+                      <span class="fileinput-new"> Banner (Tab) </span>
+                      <input name="banner_android" type="file" v-on:change="onBtabChange">
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Banner (Android)</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_banand+lineitem.banner_android" style="width: 200px; height: 150px;">
+                </div>
+                <div>
+                    <span class="btn default btn-file">
+                      <span class="fileinput-new"> Banner (Android) </span>
+                      <input name="banner_android" type="file" v-on:change="onBandChange">
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                    <div class="form-group">
-                        <label for="simpleMde">Long Description</label>
-                        <textarea class="form-control" name="long_description" rows="10" id="tinyMceExample"></textarea>
+          <div class="form-group row ">
+            <label class="col-md-3 control-label">Banner (iOS)</label>
+            <div class="col-md-9">
+              <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail">
+                  <img :src="src_banios+lineitem.banner_ios" style="width: 200px; height: 150px;">
+                </div>
+                <div>
+                    <span class="btn default btn-file">
+                      <span class="fileinput-new"> Banner (iOS)</span>
+                      <input name="banner_ios" type="file" v-on:change="onBiosChange">
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+              <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+              </b-button>
+            </div>
+          </div>
+        </b-card-text>
+      </b-tab>
+      <b-tab v-if="lineitem.service_id===2" title="Designs">
+        <div>
+            <div class="row justify-content-md-center m-4">
+              <div class="col-12 m-3">
+                <b-button @click="designModal" class="btn btn-success m-2">+ Add New Design</b-button>
+                <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+                </b-button>
+              </div>
+              <div class="col-12 m-1" v-for="(des,index) in lineitem.designs">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Design -  {{index+1}}</label>
+                  <div class="col-sm-9">
+                    <img :src="src_designs+des.image" style="width: 200px; height: 150px;">
+                    <button class="btn btn-sm btn-danger top" data-toggle="tooltip" title="Delete Design" @click="deleteDesign(index)"><i class="fa fa-close"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <modal name="modal-design" height="auto" :scrollable="true" :adaptive="true">
+          <div class="row justify-content-md-center m-4">
+            <div class="col-12 m-3">
+              <b-button @click="NewDesign" class="btn btn-success">+ Add More</b-button>
+            </div>
+            <div class="col-12 m-1" v-for="(des,index) in up_designs">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Design -  {{index+1}}</label>
+                <div class="col-sm-9">
+                  <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Delete Answer" @click="deleteUpDesign(index)"><i class="fa fa-close"></i></button>
+                  <input class="form-control" type="file" v-on:change="onDesignUpload">
+                </div>
+              </div>
+            </div>
+            <div class="col-12 m-3">
+              <b-button @click="saveUpDesign" class="btn btn-primary float-right">Update</b-button>
+            </div>
+          </div>
+        </modal>
+      </b-tab>
+      <b-tab v-else title="Service Details">
+        <b-card-text>
+            <div class="form-group">
+              <label>Brand/ Ingredients Used</label>
+              <input class="form-control" v-model="lineitem.details.brand" type="text">
+            </div>
+            
+            <div class="form-group">
+              <label>Recommended For</label>
+              <input class="form-control" v-model="lineitem.details.recommendation" type="text">
+            </div>
+          <div class="form-group">
+            <label>Benefits</label>
+            <input class="form-control" v-model="lineitem.details.benefits" type="text">
+          </div>
+            <div class="form-group">
+              <label>Tips For Customer</label>
+              <input class="form-control" v-model="lineitem.details.tips" type="text">
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"></label>
+              <div class="col-sm-9">
+                <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+                </b-button>
+              </div>
+            </div>
+        </b-card-text>
+      </b-tab>
+      <b-tab v-if="lineitem.pricing_type ==='option'" title="Change Pricing">
+        <b-card-text>
+          <table class="table table-striped table-bordered dt-responsive" width="100%">
+            <thead>
+            <tr>
+              <th  v-for="(option,index) in lineitem.options">Option {{ index+1 }}</th>
+              <th> Price </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(price,index) in lineitem.price_table">
+              <td v-for="(option,key) in lineitem.options">
+                {{ price[`name${key}`] }}
+              </td>
+              <td>
+                <input  type="number" v-model="price.price"  multiple>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <b-row>
+            <b-col>
+          <div class="float-right">
+              <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+              </b-button>
+          </div>
+            </b-col>
+          </b-row>
+        </b-card-text>
+      </b-tab>
+    </b-tabs>
 
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="meta_titile">Meta Title</label>
-
-                        <input type="text" name="meta_titile" class="form-control" id="meta_titile">
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="meta_description">Meta Description</label>
-                        <textarea class="form-control" name="meta_description" id="meta_description"
-                                  rows="10"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="video_link">video Link</label>
-
-                        <input type="text" name="video_link" class="form-control" id="video_link">
-                    </div>
-
-                    <div class="custom-control mb-3 custom-checkbox">
-                        <input type="checkbox" name="published_status" class="custom-control-input" value="1"
-                               id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1">publish</label>
-                    </div>
-                    <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
-                    </b-button>
-                </b-card-text>
-            </b-tab>
-            <b-tab title="Change Banner">
-                <b-card-text>
-                    <form>
-                        <div class="form-group row ">
-                            <label class="col-md-3 control-label">Banner *</label>
-                            <div class="col-md-9">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img src="">
-                                    </div>
-
-                                    <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file"  name="banner">
-																	</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row ">
-                            <label class="col-md-3 control-label">App Banner *</label>
-                            <div class="col-md-9">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img src="" >
-                                    </div>
-
-                                    <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file" name="app_banner"  data-show-preview="true">
-																	</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-3 col-form-label"></label>
-                            <div class="col-sm-9">
-                                <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
-                                </b-button>
-                            </div>
-                        </div>
-                    </form>
-                </b-card-text>
-            </b-tab>
-            <b-tab title="Change Thumbnail">
-                <b-card-text>
-                    <form>
-                        <div class="form-group row ">
-                            <label class="col-md-3 control-label">Banner *</label>
-                            <div class="col-md-9">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img src="">
-                                    </div>
-
-                                    <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file"  name="banner">
-																	</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row ">
-                            <label class="col-md-3 control-label">App Banner *</label>
-                            <div class="col-md-9">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img src="" >
-                                    </div>
-
-                                    <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file" name="app_banner"  data-show-preview="true">
-																	</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-3 col-form-label"></label>
-                            <div class="col-sm-9">
-                                <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
-                                </b-button>
-                            </div>
-                        </div>
-                    </form>
-                </b-card-text>
-            </b-tab>
-            <b-tab title="Change Icon">
-                <b-card-text>
-                    <form>
-                        <div class="form-group row ">
-                            <label class="col-md-3 control-label">Banner *</label>
-                            <div class="col-md-9">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img src="">
-                                    </div>
-
-                                    <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file"  name="banner">
-																	</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row ">
-                            <label class="col-md-3 control-label">App Banner *</label>
-                            <div class="col-md-9">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img src="" >
-                                    </div>
-
-                                    <div>
-																	<span class="btn default btn-file">
-																		<span class="fileinput-new"> Select image </span>
-																		<input type="file" name="app_banner"  data-show-preview="true">
-																	</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-3 col-form-label"></label>
-                            <div class="col-sm-9">
-                                <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
-                                </b-button>
-                            </div>
-                        </div>
-                    </form>
-                </b-card-text>
-            </b-tab>
-            <b-tab title="Service Details">
-                <b-card-text>
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Brand</label>
-
-                            <input type="text" name="name" class="form-control" id="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Ingredients</label>
-
-                            <input type="text" name="name" class="form-control" id="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Recommended For</label>
-
-                            <input type="text" name="name" class="form-control" id="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Tips For Customer</label>
-
-                            <input type="text" name="name" class="form-control" id="name">
-                        </div>
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-3 col-form-label"></label>
-                            <div class="col-sm-9">
-                                <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
-                                </b-button>
-                            </div>
-                        </div>
-                    </form>
-                </b-card-text>
-            </b-tab>
-            <b-tab title="Change Pricing">
-                <b-card-text>
-                        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%">
-                            <thead>
-                            <tr>
-
-                                <th >Option 1</th>
-                                <th >Option 2</th>
-                                <th> price </th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <tr>
-                                <td >
-                                    Makeup
-                                </td>
-                                <td >
-                                    Makeup
-                                </td>
-                                <td >
-                                    <input  type="number" name="price[0]" value="100"  multiple>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td >
-                                    Makeup
-                                </td>
-                                <td >
-                                    Makeup
-                                </td>
-                                <td >
-                                    <input  type="number" name="price[1]" value="100"  multiple>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td >
-                                    Makeup
-                                </td>
-                                <td >
-                                    Makeup
-                                </td>
-                                <td >
-                                    <input  type="number" name="price[2]" value="100"  multiple>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                </b-card-text>
-            </b-tab>
-        </b-tabs>
-
-    </b-card>
+  </b-card>
 </template>
 
 <script>
-    export default {
-        name: "LineItemEdit"
+
+  import axios from 'axios';
+
+  export default {
+    name: "LineItemEdit",
+    data() {
+      return {
+        lineitem: {
+          id: '',
+          name: '',
+          service_id: '',
+          category_id: '',
+          subcategory_id: '',
+          published_status: '',
+          thumbnail: '',
+          banner_web: '',
+          banner_tab: '',
+          banner_android: '',
+          banner_ios: '',
+          details: {
+            brand: '',
+            recommendation: '',
+            tips: '',
+            benefits: '',
+          },
+          duration: '',
+          pricing_type: '',
+          fixed_price : '',
+          price_table: [],
+          question_data: [],
+          bool: true,
+          designs: [],
+        },
+        src_thumbnail: '/images/lineitem/thumbnail/',
+        src_banweb: '/images/lineitem/banner_web/',
+        src_bantab: '/images/lineitem/banner_tab/',
+        src_banios: '/images/lineitem/banner_ios/',
+        src_banand: '/images/lineitem/banner_android/',
+        src_designs:'/images/lineitem/designs/',
+        up_designs: [],
+        new_design: '',
+        loading: true,
+
+      }
+    },
+    created() {
+      const Base_URL = process.env.VUE_APP_ADMIN_URL;
+      this.src_thumbnail = Base_URL + this.src_thumbnail;
+      this.src_banweb = Base_URL + this.src_banweb;
+      this.src_bantab = Base_URL + this.src_bantab;
+      this.src_banios = Base_URL + this.src_banios;
+      this.src_banand = Base_URL + this.src_banand;
+      this.src_designs = Base_URL + this.src_designs;
+      let id = window.location.pathname.split("/").pop();
+      this.lineitem.id = id;
+      axios.post(`${Base_URL}/api/line-items/getLineitem`,
+        {
+          id: this.lineitem.id
+        }).then(response => {
+        this.lineitem = response.data;
+        this.lineitem.fixed_price = response.data.price;
+        this.lineitem.options = JSON.parse(response.data.options);
+        this.lineitem.price_table = JSON.parse(response.data.price_table);
+        this.lineitem.details = JSON.parse(response.data.details);
+        this.lineitem.designs = JSON.parse(response.data.designs);
+        this.loading = false
+      })
+        .catch(e => {
+          //console.log("error occurs");
+        });
+
+    },
+    methods: {
+      onThumbnailChange(e) {
+        this.lineitem.thumbnail = e.target.files[0];
+      },
+      onBwebChange(e) {
+        this.lineitem.banner_web = e.target.files[0];
+      },
+      onBtabChange(e) {
+        this.lineitem.banner_tab = e.target.files[0];
+      },
+      onBandChange(e) {
+        this.lineitem.banner_android = e.target.files[0];
+      },
+      onBiosChange(e) {
+        this.lineitem.banner_ios = e.target.files[0];
+      },
+      designModal(){
+        this.$modal.show('modal-design');
+        this.up_designs.push('');
+      },
+      NewDesign(){
+        this.up_designs.push('');
+        console.log('new new');
+      },
+      deleteDesign(index)
+      {
+        this.lineitem.designs.splice(index,1);
+      },
+      deleteUpDesign(index)
+      {
+        this.up_designs.splice(index,1);
+      },
+      onDesignUpload(e) {
+        let index = this.up_designs.length -1;
+        this.up_designs.splice(index,1);
+
+        this.new_design = e.target.files[0];
+
+        this.up_designs.push(this.new_design);
+        this.new_design = '';
+
+      },
+      saveUpDesign(){
+        let currentObj = this;
+        const config = {
+          headers: {'content-type': 'multipart/form-data'}
+        };
+        let formData = new FormData();
+        formData.append('id', this.lineitem.id);
+        for( let i = 0; i < this.up_designs.length; i++ ){
+          let file = this.up_designs[i];
+          formData.append('updesigns[' + i + '][image]', file);
+        }
+
+        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${Base_URL}/api/line-items/new-design`, formData, config)
+          .then(function (response) {
+            currentObj.success = response.data.success;
+            location.reload();
+          })
+          .catch(function (error) {
+            currentObj.output = error;
+            console.log(error);
+          });
+      },
+      onSubmit() {
+        let currentObj = this;
+        const config = {
+          headers: {'content-type': 'multipart/form-data'}
+        };
+        let formData = new FormData();
+        formData.append('id', this.lineitem.id);
+        formData.append('name', this.lineitem.name);
+        formData.append('published_status', this.lineitem.published_status);
+        formData.append('details', JSON.stringify(this.lineitem.details));
+        formData.append('duration', this.lineitem.duration);
+        formData.append('price_table', JSON.stringify(this.lineitem.price_table));
+        formData.append('designs', JSON.stringify(this.lineitem.designs));
+        formData.append('thumbnail', this.lineitem.thumbnail);
+        formData.append('banner_web', this.lineitem.banner_web);
+        formData.append('banner_tab', this.lineitem.banner_tab);
+        formData.append('banner_android', this.lineitem.banner_android);
+        formData.append('banner_ios', this.lineitem.banner_android);
+
+
+        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${Base_URL}/api/line-items/update`, formData, config)
+          .then(function (response) {
+            currentObj.success = response.data.success;
+          })
+          .catch(function (error) {
+            currentObj.output = error;
+            console.log(error);
+          });
+      }
     }
+  }
 </script>
 
 <style scoped>
-    .nav-pills .nav-link {
-        border-radius: 1.5rem;
-        border: 1px solid #d0d2d4;
-    }
-    .nav-link {
-        display: block;
-        padding: 0.5rem 2rem;
-        margin: 0rem 2rem;
-    }
+  .nav-pills .nav-link {
+    border-radius: 1.5rem;
+    border: 1px solid #d0d2d4;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 0.5rem 2rem;
+    margin: 0rem 2rem;
+  }
+  .top{
+    vertical-align: top;
+  }
 </style>

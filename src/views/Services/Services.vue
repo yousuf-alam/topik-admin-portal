@@ -2,8 +2,10 @@
     <div>
         <b-row>
             <b-col sm="10"></b-col>
-            <b-col sm="2" class="mb-3">
-                <router-link :to="{ name: 'ServiceCreate'}"><button class="btn btn-success">Create New Service</button></router-link>
+            <b-col sm="2" class="mb-3" v-if="elementHasPermission('service create')">
+                <router-link :to="{ name: 'ServiceCreate'}">
+                    <button class="btn btn-success">Create New Service</button>
+                </router-link>
             </b-col>
         </b-row>
         <b-row>
@@ -11,8 +13,9 @@
                 <b-card>
                 <v-client-table :data="services" :columns="columns" :options="options">
                     <template slot="action" slot-scope="props">
-                        <div>
-                            <router-link :to="{ name: 'Service / Edit', params: { id: props.row.id }}">
+                        <div >
+                            <router-link  :to="{ name: 'ServiceEdit', params: { id: props.row.id }}" 
+                            v-if="elementHasPermission('service update')">
                             <span 
                                 class="btn btn-warning btn-sm m-1" data-toggle="tooltip" 
                                 title="Edit" :href="props.row.id"
@@ -62,7 +65,14 @@ import axios from 'axios';
         		.catch(e=>{
         			//console.log("error occurs");
         		});
-        	},
+            },
+        computed: {
+            elementHasPermission(permission_name) {
+                return (permission_name) => {
+                    return this.$store.getters['auth/hasPermission'](permission_name) ? true : false;
+                }
+            }
+        },
         methods: {
 
         },

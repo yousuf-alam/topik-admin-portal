@@ -240,26 +240,8 @@
       }
     },
     created(){
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      this.src_svg = Base_URL + this.src_svg;
-      this.src_pdf = Base_URL + this.src_pdf;
-      this.src_thumbnail = Base_URL + this.src_thumbnail;
-      this.src_banweb = Base_URL + this.src_banweb;
-      this.src_bantab = Base_URL + this.src_bantab;
-      this.src_banios = Base_URL + this.src_banios;
-      this.src_banand = Base_URL + this.src_banand;
-      let id = window.location.pathname.split("/").pop();
-      this.service.id = id;
-      axios.post(`${Base_URL}/api/services/edit`,
-      {
-        id: this.service.id
-      }).then(response => {
-          this.service = response.data;
-          this.loading = false
-        })
-        .catch(e=>{
-          //console.log("error occurs");
-        });
+      const parm = "from_created";
+      this.fetchServiceData(parm);
 
     },
     methods: {
@@ -308,12 +290,42 @@
         console.log(formData);
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
         axios.post(`${Base_URL}/api/services/update`, formData, config)
-          .then(function (response) {
+          .then( response => {
             currentObj.success = response.data.success;
+            alert('Service Updated Successfully.')
+            const parm = "after_update";
+            this.fetchServiceData(parm);
           })
           .catch(function (error) {
             currentObj.output = error;
             console.log(error);
+          });
+      },
+      fetchServiceData(parm) {
+        let Base_URL = process.env.VUE_APP_ADMIN_URL;
+        if (parm === 'after_update') {
+           Base_URL = '';
+        } 
+        this.src_svg = Base_URL + this.src_svg;
+        this.src_pdf = Base_URL + this.src_pdf;
+        this.src_thumbnail = Base_URL + this.src_thumbnail;
+        this.src_banweb = Base_URL + this.src_banweb;
+        this.src_bantab = Base_URL + this.src_bantab;
+        this.src_banios = Base_URL + this.src_banios;
+        this.src_banand = Base_URL + this.src_banand;
+        let id = window.location.pathname.split("/").pop();
+        this.service.id = id;
+
+        axios.post(`${process.env.VUE_APP_ADMIN_URL}/api/services/edit`,
+        {
+          id: this.service.id
+        }).then(response => {
+            console.log('fetch Service Data == ', response.data);
+            this.service = response.data;
+            this.loading = false
+          })
+          .catch(e=>{
+            console.log("error occurs", e.response);
           });
       }
     }

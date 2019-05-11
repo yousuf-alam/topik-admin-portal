@@ -41,7 +41,6 @@
           sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
         }
-
       }
     },
     created(){

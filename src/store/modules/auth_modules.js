@@ -1,22 +1,51 @@
 import axios from 'axios';
-const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
-import globalvariable from '../../globalvariables';
 import _ from 'lodash';
+import CryptoJS from 'crypto-js';
+
+const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
+import globalvariables from '../../globalvariables';
 
 /* 
 this.$gbvar is not working in vuex, because it's a vue instance, 
 So we have to go through like this, "in every palce in store". OR WILL FIX IN FUTURE */
-const LS_TOKEN_KEY_NAME =  globalvariable.LS_TOKEN_KEY_NAME; 
-const LS_PERMISSION_KEY_NAME = globalvariable.LS_PERMISSION_KEY_NAME; 
+const LS_TOKEN_KEY_NAME =  globalvariables.LS_TOKEN_KEY_NAME; 
+const LS_USER_KEY_NAME = globalvariables.LS_USER_KEY_NAME;
+const LS_PERMISSION_KEY_NAME = globalvariables.LS_PERMISSION_KEY_NAME; 
 
+export const getDecodedValueFromLS = (lsKey, dataType) => {
+  if( localStorage.getItem(lsKey)) {
+    const ciphertext = localStorage.getItem(lsKey); 
+    const bytes = CryptoJS.AES.decrypt(ciphertext, globalvariables.SECRET_KEY);
+    const decryptedStringData = bytes.toString(CryptoJS.enc.Utf8);
+    if (dataType === 'string') {
+      return decryptedStringData;
+    }
+    return JSON.parse(decryptedStringData);
+   } 
+  if (dataType === 'string') {
+    return '';
+  } else if (dataType === 'array') {
+    return [];
+  } else if (dataType === 'object') {
+    return { };
+  }  
+}
+
+
+
+const setKeyEncodedValueInLS = (lsKey, value) => {
+  const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
+  const ciphertext = CryptoJS.AES.encrypt(stringValue, globalvariables.SECRET_KEY).toString();
+  localStorage.setItem(lsKey, ciphertext);
+}
 
 const authModule = {
     namespaced: true, 
     state: {
         status: '',
-        token: localStorage.getItem(LS_TOKEN_KEY_NAME) || '',
-        user_permissions: localStorage.getItem(LS_PERMISSION_KEY_NAME) || [], 
-        user: { }
+        token: getDecodedValueFromLS(LS_TOKEN_KEY_NAME, 'string') ,
+        user_permissions: getDecodedValueFromLS(LS_PERMISSION_KEY_NAME, 'array'),
+        user: getDecodedValueFromLS(LS_USER_KEY_NAME, 'object'),
       },
     mutations: {
         auth_request(state) {
@@ -49,9 +78,12 @@ const authModule = {
                 const user = resp.data.user;
                 const user_permissions = _.map(resp.data.user_permissions, 'name');
 
-                localStorage.setItem(LS_TOKEN_KEY_NAME, token);
-                /* Here we need to encode the user_permissions using Base64 or other encoding procudure?? */
-                localStorage.setItem(LS_PERMISSION_KEY_NAME, JSON.stringify(user_permissions));
+                // localStorage.setItem();
+                //localStorage.setItem('token', token)
+                setKeyEncodedValueInLS(LS_TOKEN_KEY_NAME, token);
+                setKeyEncodedValueInLS(LS_USER_KEY_NAME, user);
+                setKeyEncodedValueInLS(LS_PERMISSION_KEY_NAME, user_permissions);
+
                 // Add the following line:
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 axios.defaults.headers.common['Accept'] = 'application/json';
@@ -100,6 +132,8 @@ const authModule = {
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+        authUser: state => state.user,
+        bearerToken: state => state.token,
         hasPermission: state => (permission_name) => {
           if (typeof(permission_name) === 'object') {
             return permission_name.some(item => state.user_permissions.includes(item));  

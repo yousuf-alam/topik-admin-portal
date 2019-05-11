@@ -4,6 +4,7 @@ export default {
     axios: axios,
     LS_TOKEN_KEY_NAME: 'token', 
     LS_PERMISSION_KEY_NAME: 'user_permissions',
+    LS_USER_KEY_NAME: 'user',
     ADMIN_URL: ADMIN_URL,
     is_valid_phone: phoneNo =>  /(^()?(01){1}[23456789]{1}(\d){8})$/i.test( phoneNo ),
 
@@ -23,5 +24,13 @@ export default {
         topbanner: ['topbanner create', 'topbanner read', 'topbanner update', 'topbanner delete',],
         bottombanner: ['bottombanner create', 'bottombanner read', 'bottombanner update', 'bottombanner delete',],
         document: ['document create', 'document read', 'document update', 'document delete',]
+    },
+    SECRET_KEY: 'Kali Nagin Ke Jaisi Julfe Teri Kali Kali',
+    PUSHER_CREDENTIALS: {
+        APP_ID:'743021',
+        APP_KEY:'8671a1da7b105f413bb1',
+        APP_SECRET:'21f6c57273a0c5cab00f',
+        APP_CLUSTER:'ap2'
     }
+    
 }

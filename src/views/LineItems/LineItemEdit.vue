@@ -1,6 +1,5 @@
 <template>
   <b-card class="m-4">
-
     <b-tabs card pills>
       <b-tab active title="Basic Info">
         <b-card-text>
@@ -230,7 +229,6 @@
         </b-card-text>
       </b-tab>
     </b-tabs>
-
   </b-card>
 </template>
 

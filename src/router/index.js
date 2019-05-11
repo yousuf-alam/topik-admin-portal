@@ -199,7 +199,7 @@ const router =  new Router({
       },
       {
         path: '/orders/details/:id',
-        name: 'Order / Show',
+        name: 'OrderShow',
         component: OrderShow,
         meta: { 
           permission_name: 'order read' 
@@ -223,9 +223,9 @@ const router =  new Router({
       },
       {
         path: '/notifications/edit/:id',
-        name: 'Notification / Edit',
+        name: 'NotificationEdit',
         component: NotificationEdit,
-        meta: { 
+        meta: {
           permission_name: 'notification update'
         },
       },
@@ -247,9 +247,9 @@ const router =  new Router({
       },
       {
         path: '/promos/edit/:id',
-        name: 'Promo / Edit',
+        name: 'PromoEdit',
         component: PromoEdit,
-        meta: { 
+        meta: {
           permission_name: 'promocode update'
         },
       },
@@ -271,9 +271,9 @@ const router =  new Router({
       },
       {
         path: '/locations/edit/:id',
-        name: 'Locations / Edit',
+        name: 'LocationsEdit',
         component: LocationEdit,
-        meta: { 
+        meta: {
           permission_name: 'location update'
         },
       },
@@ -287,9 +287,9 @@ const router =  new Router({
       },
       {
         path: '/services/edit/:id',
-        name: 'Service / Edit',
+        name: 'ServiceEdit',
         component: ServiceEdit,
-        meta: { 
+        meta: {
           permission_name: 'service update'
         },
       },
@@ -311,15 +311,15 @@ const router =  new Router({
       },
       {
         path: '/categories/edit/:id',
-        name: 'Category / Edit',
+        name: 'CategoryEdit',
         component: CategoryEdit,
-        meta: { 
+        meta: {
           permission_name: 'category update'
         },
       },
       {
         path: '/subcategories/edit/:id',
-        name: 'Subcategory / Edit',
+        name: 'SubcategoryEdit',
         component: SubategoryEdit
       },
       {
@@ -340,15 +340,15 @@ const router =  new Router({
       },
       {
         path: '/line-items/edit/:id',
-        name: 'LineItem / Edit',
+        name: 'LineItemEdit',
         component: LineItemEdit,
-        meta: { 
+        meta: {
           permission_name: 'lineitem update'
         },
       },
       {
         path: '/line-items/show/:id',
-        name: 'LineItem / Show',
+        name: 'LineItemShow',
         component: LineItemShow,
         meta: { 
           permission_name: 'lineitem read' 
@@ -372,7 +372,7 @@ const router =  new Router({
       },
       {
         path: '/partners/show/:id',
-        name: 'Partner / Show',
+        name: 'PartnerShow',
         component: PartnerShow,
         meta: { 
           permission_name: 'partner read' 
@@ -388,7 +388,7 @@ const router =  new Router({
       },
       {
         path: '/resources/show/:id',
-        name: 'Resource / Show',
+        name: 'ResourceShow',
         component: ResourceShow,
         meta: { 
           permission_name: 'resource read' 
@@ -404,7 +404,7 @@ const router =  new Router({
       },
       {
         path: '/wallets/show/:id',
-        name: 'Wallet / Show',
+        name: 'WalletShow',
         component: WalletShow,
         meta: { 
           permission_name: 'partnerwallet read' 
@@ -444,7 +444,7 @@ const router =  new Router({
       },
       {
         path: '/complains/show/:id',
-        name: 'Complain / Show',
+        name: 'ComplainShow',
         component: ComplainShow,
         meta: { 
           permission_name: 'complain read' 

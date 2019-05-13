@@ -38,6 +38,7 @@ export default {
     },
     methods: {
         listenPrivateChannel() {
+            /*
             const { APP_KEY, APP_CLUSTER } = this.$gbvar.PUSHER_CREDENTIALS;
             window.Echo.private('orders')
                 .listen("TestOrderStatusUpdated", e => {
@@ -45,6 +46,21 @@ export default {
                     this.notiCounter++;
                     this.notifications.push(e);
                 });
+            */
+
+           
+            const user = this.$store.getters['auth/authUser'];
+            const userId = user.id; 
+            // This works fine. 
+            window.Echo.private('App.User.' + userId)
+                    .notification((notification) => {
+                        console.log(notification.type);
+                        this.notiCounter++;
+                        this.notifications.push(notification.order);
+                    });
+            
+           
+        
         },
         handleClick() {
             this.showNotiPanel = true;

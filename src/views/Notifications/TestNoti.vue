@@ -18,6 +18,7 @@
 
 <script>
 import Pusher from 'pusher-js';
+import axios from 'axios';
 
 export default {
     name: 'testnoti',
@@ -31,36 +32,40 @@ export default {
         }
     },
     created() {
-        /*
-        
-        */
         this.listenPrivateChannel();
+        this.countUnreadNoti();
     },
     methods: {
         listenPrivateChannel() {
             /*
-            const { APP_KEY, APP_CLUSTER } = this.$gbvar.PUSHER_CREDENTIALS;
-            window.Echo.private('orders')
-                .listen("TestOrderStatusUpdated", e => {
-                    console.log('Listened By laravel-echo ', e);
-                    this.notiCounter++;
-                    this.notifications.push(e);
-                });
+                // As we have no custom event named orders, So this will not works
+                const { APP_KEY, APP_CLUSTER } = this.$gbvar.PUSHER_CREDENTIALS;
+                window.Echo.private('orders')
+                    .listen("TestOrderStatusUpdated", e => {
+                        console.log('Listened By laravel-echo ', e);
+                        this.notiCounter++;
+                        this.notifications.push(e);
+                    });
             */
-
-           
             const user = this.$store.getters['auth/authUser'];
             const userId = user.id; 
             // This works fine. 
             window.Echo.private('App.User.' + userId)
-                    .notification((notification) => {
-                        console.log(notification.type);
-                        this.notiCounter++;
-                        this.notifications.push(notification.order);
-                    });
+                .notification((notification) => {
+                    // console.log(notification.type);
+                    this.notiCounter++;
+                    this.notifications.push(notification.order);
+                });
             
-           
-        
+        },
+        countUnreadNoti() {
+            const ADMIN_URL = this.$gbvar.ADMIN_URL;
+            axios.get(`${ADMIN_URL}/api/count-unread-noti`)
+                .then(res => {
+                    this.notiCounter = res.data;
+                }).catch(error => {
+
+                });
         },
         handleClick() {
             this.showNotiPanel = true;

@@ -5,9 +5,10 @@
             <div>
                 <span class="btn noti-button" @click="handleClick">{{notiCounter}}</span>
                 <br>
-                <div v-if="showNotiPanel">
+                <div v-if="showNotiPanel" class="notiPanel" @scroll="infiniteScroll">
+                    <div>Test Noti Panel.</div>
                     <div class="border" v-for="(noti, index) in notifications" :key="index">
-                        <div>{{noti}}</div>
+                        <div>{{ noti.data.body }}</div>
                     </div>
                 </div>
             </div>
@@ -19,6 +20,7 @@
 <script>
 import Pusher from 'pusher-js';
 import axios from 'axios';
+import _ from 'lodash';
 
 export default {
     name: 'testnoti',
@@ -29,6 +31,8 @@ export default {
             showNotiPanel: false,
             notifications: [],
 
+            perPageItem: 10,
+            pageNumber: 0
         }
     },
     created() {
@@ -66,10 +70,32 @@ export default {
                 }).catch(error => {
 
                 });
+            
         },
         handleClick() {
-            this.showNotiPanel = true;
-            console.log('inside handle click...');
+            //console.log('inside handle click...');
+            //console.log('handleClick, total notifications === ', this.notifications);
+            this.fetchNotifications();
+        },
+        fetchNotifications() {
+            const ADMIN_URL = this.$gbvar.ADMIN_URL;
+            axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
+                .then(res => {
+                    this.notifications = _.map(res.data.notifications, item => {
+                        return {...item, ...{data: JSON.parse(item.data)}};
+                    });
+                    this.showNotiPanel = true;
+                    this.pageNumber++;
+                    console.log('this. noti === ', this.notifications );
+                }).catch(error => {
+                    //console.log('TestNoti.vue Error === ', error.response);
+                })
+        },
+        infiniteScroll(event) {
+            if ((event.target.scrollTop + event.target.offsetHeight + 1) >= 
+                event.target.scrollHeight) {
+                this.fetchNotifications();
+            }
         }
     }
 

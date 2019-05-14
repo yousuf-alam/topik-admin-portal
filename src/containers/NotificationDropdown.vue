@@ -151,14 +151,52 @@ export default {
             const ADMIN_URL = this.$gbvar.ADMIN_URL;
             axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
                 .then(res => {
+                    console.log('Response success', res);
                     const newNoti = _.map(res.data.notifications, item => {
                         return {...item, ...{data: JSON.parse(item.data)}};
                     });
                     this.pageNumber++;
+                    /*
                     this.notifications = [...this.notifications, ...newNoti];
                     if (this.notifications.length === this.allNotiCounter) {
                         this.showLoading = false;
                     }
+                    */
+
+                    const notificationsObj = _.keyBy(this.notifications, 'id');
+                    const newNotiObj = _.keyBy(newNoti, 'id');
+                  
+                    let mergedNotiObj = Object.assign({}, notificationsObj);
+                    mergedNotiObj = Object.assign(mergedNotiObj, newNotiObj);
+                   
+                    const mergedNotiArray = [];
+                    for (let key in mergedNotiObj) {
+                        if (mergedNotiObj.hasOwnProperty(key)) {
+                                mergedNotiArray.push(mergedNotiObj[key])
+                        }
+                    }
+                    this.notifications = [...mergedNotiArray];
+                    if (this.notifications.length === this.allNotiCounter) {
+                        this.showLoading = false;
+                    }
+
+                    this.notifications.sort(function(a, b) {
+                        const dateA = new Date(a.created_at);
+                        const dateB = new Date(b.created_at);
+                        return dateB - dateA;
+                    });
+
+                    console.log('this.notifications ==== ', this.notifications);
+                    
+                    /*
+                    this.notifications.sort(function(a, b) {
+                        const dateA = new Date(a.created_at);
+                        const dateB = new Date(b.created);
+                        return dateA - dateB;
+                    });
+                    */
+
+
                     console.log(
                         'this.pageNumber === ', this.pageNumber,
                         'this.notifications === ', this.notifications,
@@ -177,11 +215,32 @@ export default {
                         return {...item, ...{data: JSON.parse(item.data)}};
                     });
                     this.pageNumber++;
-                    this.notifications = [...newNoti, ...this.notifications, ];
+                    // this.notifications = [...newNoti, ...this.notifications, ];
+
+
+                    const notificationsObj = _.keyBy(this.notifications, 'id');
+                    const newNotiObj = _.keyBy(newNoti, 'id');
+                  
+                    let mergedNotiObj = Object.assign({}, notificationsObj);
+                    mergedNotiObj = Object.assign(mergedNotiObj, newNotiObj);
+                   
+                    const mergedNotiArray = [];
+                    for (let key in mergedNotiObj) {
+                        if (mergedNotiObj.hasOwnProperty(key)) {
+                                mergedNotiArray.push(mergedNotiObj[key])
+                        }
+                    }
+                    this.notifications = [...mergedNotiArray];
                     if (this.notifications.length === this.allNotiCounter) {
                         this.showLoading = false;
                     }
-                
+
+                    this.notifications.sort(function(a, b) {
+                        const dateA = new Date(a.created_at);
+                        const dateB = new Date(b.created_at);
+                        return dateB - dateA;
+                    });
+
                     
                 }).catch(error => {
                     //console.log('TestNoti.vue Error === ', error.response);

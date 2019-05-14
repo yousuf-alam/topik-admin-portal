@@ -144,7 +144,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .noti-button {
   color: white;
   border-radius: 50%; 

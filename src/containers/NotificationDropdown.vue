@@ -106,9 +106,8 @@ export default {
             window.Echo.private('App.User.' + userId)
                 .notification((notification) => {
                     this.unreadNotiCounter++;
-                    this.fetchNotifications();
-
-
+                    this.pageNumber = 0;
+                    this.fetchNotiAfterPusherListen();
 
                     /*
                     // this.notifications.push(notification.order); 
@@ -165,6 +164,24 @@ export default {
                         'this.notifications === ', this.notifications,
                         'this.notifications.length === ', this.notifications.length,
                         'this.countAllNoti === ', this.allNotiCounter );
+                    
+                }).catch(error => {
+                    //console.log('TestNoti.vue Error === ', error.response);
+                })
+        },
+        fetchNotiAfterPusherListen() {
+            const ADMIN_URL = this.$gbvar.ADMIN_URL;
+            axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${0}`)
+                .then(res => {
+                    const newNoti = _.map(res.data.notifications, item => {
+                        return {...item, ...{data: JSON.parse(item.data)}};
+                    });
+                    this.pageNumber++;
+                    this.notifications = [...newNoti, ...this.notifications, ];
+                    if (this.notifications.length === this.allNotiCounter) {
+                        this.showLoading = false;
+                    }
+                
                     
                 }).catch(error => {
                     //console.log('TestNoti.vue Error === ', error.response);

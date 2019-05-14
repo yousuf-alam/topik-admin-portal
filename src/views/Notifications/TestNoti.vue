@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="btn">
+            aaaaaaaaaaaaaaa
+        </div>
         <div class="customcard">
             <h3>Test Pusher Notification in vue</h3>
             <div>
@@ -9,11 +12,11 @@
                     <!-- <div>Test Noti Panel.</div> -->
                     <div class="item-card" v-for="(noti, index) in notifications" :key="index">
                         <div class="thumbnail"></div>
-                        <div class="title">
-                            <div>
+                        <div class="detail">
+                            <div class="title">
                                 {{ noti.data.body }}
                             </div>
-                            <span><small> {{noti.created_at | moment}} </small></span>
+                            <span class="datetime"><small> {{noti.created_at | moment}} </small></span>
                         </div>
                     </div>
                     <div v-if="showLoading" class="loader">
@@ -149,8 +152,6 @@ export default {
   align-items:center;
 }
 
-
-
 .item-container {
   width: 100%;
   height: 60vh;
@@ -164,19 +165,34 @@ export default {
 .item-card {
   display: flex;
   margin-bottom: 5px;
+  border-radius: 0.25rem;
   border: 1px solid orange;
 }
+.item-card:hover {
+    background: #e8ebe6;
+    cursor: pointer;
+}
+
 .item-card > .thumbnail {
-  background-color: #c7e7ef;
+  background-color: #a6dbd7;
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
-.item-card > .title {
+.item-card > .detail {
   margin: 5px 10px;
   font-size: 14px;
   color: #00badd;
 }
+.item-card > .detail > .title{
+  font-size: 14px;
+  color: #00badd;
+}
+.item-card > .detail > .datetime{
+  font-size: 14px;
+  color: #7f817e;
+}
+
 .loader {
   width: 100%;
   height: 100px;
@@ -196,7 +212,8 @@ export default {
   animation: loading 1s infinite;
 }
 .loader > p {
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 600;
   color: blue;
 }
  @keyframes loading {
@@ -204,6 +221,7 @@ export default {
     transform: translateX(70%);
   }
 } 
+
 
 
 

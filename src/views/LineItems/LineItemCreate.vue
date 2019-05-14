@@ -608,7 +608,10 @@
           formData.append('price_table', JSON.stringify(this.price_table));
           formData.append('fixed_price', this.fixed_price);
           formData.append('duration', this.duration);
-          formData.append('details', JSON.stringify(this.details));
+          formData.append('brand', this.details.brand);
+          formData.append('tips', this.details.tips);
+          formData.append('benefits', this.details.benefits);
+          formData.append('recommendation', this.details.recommendation);
           formData.append('faq', JSON.stringify(this.faqs));
           formData.append('thumbnail', this.thumbnail);
           formData.append('banner_web', this.banner_web);

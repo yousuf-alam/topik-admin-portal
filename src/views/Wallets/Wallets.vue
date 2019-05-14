@@ -6,7 +6,7 @@
           <v-client-table :data="partners" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'Wallet / Show', params: { id: props.row.id }}">
+                <router-link :to="{ name: 'WalletShow', params: { id: props.row.id }}">
                   <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.id"><i class="fa fa-search"></i></span>
                 </router-link>
                 </div>

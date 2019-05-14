@@ -22,6 +22,7 @@ const PromoCreate = () => import('../views/Promos/PromoCreate')
 const PromoEdit = () => import('../views/Promos/PromoEdit')
 
 const Locations = () => import('@/views/Locations/Locations')
+const LocationCreate = () => import('@/views/Locations/LocationCreate')
 const LocationEdit = () => import('../views/Locations/LocationEdit')
 
 const Services = () => import('@/views/Services/Services')
@@ -35,7 +36,7 @@ const SubategoryEdit = () => import('../views/Categories/SubcategoryEdit')
 
 const LineItems = () => import('@/views/LineItems/LineItems')
 const LineItemCreate = () => import('../views/LineItems/LineItemCreate')
-const LineItemEdit = () => import('../views/LineItems/LineItemEdit')
+const LineitemEdit = () => import('../views/LineItems/LineitemEdit')
 const LineItemShow = () => import('../views/LineItems/LineItemShow')
 
 const Partners = () => import('@/views/Partners/Partners')
@@ -270,6 +271,14 @@ const router =  new Router({
         },
       },
       {
+        path: 'locations/create',
+        name: 'LocationCreate',
+        component: LocationCreate,
+        meta: {
+          permission_name: permissionsList.location
+        },
+      },
+      {
         path: '/locations/edit/:id',
         name: 'LocationsEdit',
         component: LocationEdit,
@@ -340,8 +349,8 @@ const router =  new Router({
       },
       {
         path: '/line-items/edit/:id',
-        name: 'LineItemEdit',
-        component: LineItemEdit,
+        name: 'LineitemEdit',
+        component: LineitemEdit,
         meta: {
           permission_name: 'lineitem update'
         },

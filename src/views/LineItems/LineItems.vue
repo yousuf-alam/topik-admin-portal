@@ -14,7 +14,7 @@
           <v-client-table :data="categories" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'LineItemEdit', params: { id: props.row.id }}"
+                <router-link :to="{ name: 'LineitemEdit', params: { id: props.row.id }}"
                 v-if="elementHasPermission('lineitem update')">
                   <span 
                       class="btn btn-warning btn-sm m-1" 

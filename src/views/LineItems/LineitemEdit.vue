@@ -133,22 +133,22 @@
       </b-tab>
       <b-tab v-if="lineitem.service_id===2" title="Designs">
         <div>
-            <div class="row justify-content-md-center m-4">
-              <div class="col-12 m-3">
-                <b-button @click="designModal" class="btn btn-success m-2">+ Add New Design</b-button>
-                <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
-                </b-button>
-              </div>
-              <div class="col-12 m-1" v-for="(des,index) in lineitem.designs">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Design -  {{index+1}}</label>
-                  <div class="col-sm-9">
-                    <img :src="src_designs+des.image" style="width: 200px; height: 150px;">
-                    <button class="btn btn-sm btn-danger top" data-toggle="tooltip" title="Delete Design" @click="deleteDesign(index)"><i class="fa fa-close"></i></button>
-                  </div>
+          <div class="row justify-content-md-center m-4">
+            <div class="col-12 m-3">
+              <b-button @click="designModal" class="btn btn-success m-2">+ Add New Design</b-button>
+              <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+              </b-button>
+            </div>
+            <div class="col-12 m-1" v-for="(des,index) in lineitem.designs">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Design -  {{index+1}}</label>
+                <div class="col-sm-9">
+                  <img :src="src_designs+des.image" style="width: 200px; height: 150px;">
+                  <button class="btn btn-sm btn-danger top" data-toggle="tooltip" title="Delete Design" @click="deleteDesign(index)"><i class="fa fa-close"></i></button>
                 </div>
               </div>
             </div>
+          </div>
         </div>
         <modal name="modal-design" height="auto" :scrollable="true" :adaptive="true">
           <div class="row justify-content-md-center m-4">
@@ -172,30 +172,30 @@
       </b-tab>
       <b-tab v-else title="Service Details">
         <b-card-text>
-            <div class="form-group">
-              <label>Brand/ Ingredients Used</label>
-              <input class="form-control" v-model="lineitem.details.brand" type="text">
-            </div>
-            
-            <div class="form-group">
-              <label>Recommended For</label>
-              <input class="form-control" v-model="lineitem.details.recommendation" type="text">
-            </div>
+          <div class="form-group">
+            <label>Brand/ Ingredients Used</label>
+            <input class="form-control" v-model="lineitem.brandInfo" type="text">
+          </div>
+
+          <div class="form-group">
+            <label>Recommended For</label>
+            <input class="form-control" v-model="lineitem.recommendation" type="text">
+          </div>
           <div class="form-group">
             <label>Benefits</label>
-            <input class="form-control" v-model="lineitem.details.benefits" type="text">
+            <input class="form-control" v-model="lineitem.benefits" type="text">
           </div>
-            <div class="form-group">
-              <label>Tips For Customer</label>
-              <input class="form-control" v-model="lineitem.details.tips" type="text">
+          <div class="form-group">
+            <label>Tips For Customer</label>
+            <input class="form-control" v-model="lineitem.tips" type="text">
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+              <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+              </b-button>
             </div>
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label"></label>
-              <div class="col-sm-9">
-                <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
-                </b-button>
-              </div>
-            </div>
+          </div>
         </b-card-text>
       </b-tab>
       <b-tab v-if="lineitem.pricing_type ==='option'" title="Change Pricing">
@@ -220,10 +220,10 @@
           </table>
           <b-row>
             <b-col>
-          <div class="float-right">
-              <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
-              </b-button>
-          </div>
+              <div class="float-right">
+                <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+                </b-button>
+              </div>
             </b-col>
           </b-row>
         </b-card-text>
@@ -237,7 +237,7 @@
   import axios from 'axios';
 
   export default {
-    name: "LineItemEdit",
+    name: "LineitemEdit",
     data() {
       return {
         lineitem: {
@@ -296,7 +296,6 @@
         this.lineitem.fixed_price = response.data.price;
         this.lineitem.options = JSON.parse(response.data.options);
         this.lineitem.price_table = JSON.parse(response.data.price_table);
-        this.lineitem.details = JSON.parse(response.data.details);
         this.lineitem.designs = JSON.parse(response.data.designs);
         this.loading = false
       })
@@ -379,7 +378,10 @@
         formData.append('id', this.lineitem.id);
         formData.append('name', this.lineitem.name);
         formData.append('published_status', this.lineitem.published_status);
-        formData.append('details', JSON.stringify(this.lineitem.details));
+        formData.append('brand', this.lineitem.brandInfo);
+        formData.append('tips', this.lineitem.tips);
+        formData.append('benefits', this.lineitem.benefits);
+        formData.append('recommendation', this.lineitem.recommendation);
         formData.append('duration', this.lineitem.duration);
         formData.append('price_table', JSON.stringify(this.lineitem.price_table));
         formData.append('designs', JSON.stringify(this.lineitem.designs));

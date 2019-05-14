@@ -1,5 +1,13 @@
 <template>
     <div class="animated fadeIn">
+      <b-row>
+        <b-col sm="10"></b-col>
+        <b-col sm="2" class="mb-3">
+          <router-link :to="{ name: 'LocationCreate'}">
+            <button class="btn btn-success">Create New Location</button>
+          </router-link>
+        </b-col>
+      </b-row>
         <b-row>
             <b-col>
                 <b-card>

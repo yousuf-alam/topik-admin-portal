@@ -152,9 +152,7 @@ export default {
   align-items:center;
 }
 
-.isRead {
-    background: #2ed3d311;
-}
+
 
 .item-container {
   width: 100%;
@@ -170,7 +168,7 @@ export default {
   display: flex;
   margin-bottom: 5px;
   border-radius: 0.25rem;
-  border: 1px solid orange;
+  border: 1px solid rgb(207, 206, 205);
 }
 .item-card:hover {
     background: #e8ebe6;
@@ -225,6 +223,33 @@ export default {
     transform: translateX(70%);
   }
 } 
+
+
+.isRead {
+   /* background: #2ed3d311; */
+   background: #dddde0;
+}
+
+.isRead > .detail > .title {
+    color: rgb(167, 99, 11);
+}
+
+.isRead > .detail > .datetime {
+    color: rgb(17, 16, 16);
+}
+
+.isRead:hover {
+   /* background: #2ed3d311; */
+   background: #5a5d5f ;
+}
+
+.isRead:hover > .detail > .title {
+    color: bisque;
+}
+
+.isRead:hover > .detail > .datetime {
+    color: white;
+}
 
 
 

@@ -13,7 +13,7 @@
                             <div>
                                 {{ noti.data.body }}
                             </div>
-                            <p><small> {{noti.created_at | moment}} </small></p>
+                            <span><small> {{noti.created_at | moment}} </small></span>
                         </div>
                     </div>
                     <div v-if="showLoading" class="loader">
@@ -157,9 +157,9 @@ export default {
   overflow-y: auto;
 }
 .item-card {
-  width: 90%;
-  height: 40px;
-
+  width: 100%;
+  height: auto;
+  
 }
 .item-card {
   display: flex;
@@ -168,11 +168,12 @@ export default {
 }
 .item-card > .thumbnail {
   background-color: #c7e7ef;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 .item-card > .title {
-  margin: 10px;
+  margin: 5px 10px;
   font-size: 14px;
   color: #00badd;
 }

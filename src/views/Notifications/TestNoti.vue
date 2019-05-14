@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div class="btn">
-            aaaaaaaaaaaaaaa
-        </div>
         <div class="customcard">
             <h3>Test Pusher Notification in vue</h3>
             <div>
@@ -10,7 +7,8 @@
                 <br>
                 <div class="item-container" v-if="showNotiPanel" @scroll="infiniteScroll">
                     <!-- <div>Test Noti Panel.</div> -->
-                    <div class="item-card" v-for="(noti, index) in notifications" :key="index">
+                    <div class="item-card" :class="noti.read_at === null ? 'isRead': ''" 
+                    v-for="(noti, index) in notifications" :key="index">
                         <div class="thumbnail"></div>
                         <div class="detail">
                             <div class="title">
@@ -47,7 +45,9 @@ export default {
             showLoading: true,
 
             perPageItem: 10,
-            pageNumber: 0
+            pageNumber: 0,
+
+            isRead: '',
         }
     },
     created() {
@@ -150,6 +150,10 @@ export default {
   display: flex;
   justify-content:center;
   align-items:center;
+}
+
+.isRead {
+    background: #2ed3d311;
 }
 
 .item-container {

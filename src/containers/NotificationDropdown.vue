@@ -25,8 +25,11 @@
                 <div> 
                     <div class="item-container" @scroll="infiniteScroll">
                         <!-- <div>Test Noti Panel.</div> -->
-                        <div class="item-card" :class="noti.read_at === null ? 'notReadYet': ''" 
-                        v-for="(noti, index) in notifications" :key="index">
+                        <div class="item-card" 
+                        :class="noti.read_at === null ? 'notReadYet': ''" 
+                        v-for="(noti, index) in notifications" :key="index"
+                        @click="singleNotiAction(noti)"
+                        >
                             <div class="thumbnail"></div>
                             <div class="detail">
                                 <div class="title">
@@ -157,7 +160,24 @@ export default {
                 event.target.scrollHeight) {
                 this.fetchNotifications();
             }
+        },
+        singleNotiAction(notiObj) {
+            console.log('single noti action', notiObj.read_at);
+            if (notiObj.read_at === null) {
+                this.notiMarkAsRead(notiObj.id);
+            }
+        },
+        notiMarkAsRead(noti_id) {
+            const ADMIN_URL = this.$gbvar.ADMIN_URL;
+            axios.get(`${ADMIN_URL}/api/mark-as-read/${noti_id}`)
+                .then(res => {
+                    console.log('notiMarkAsRead Res === ', res);
+                    this.$router.go();
+                }).catch(error => {
+                    console.log('notiMarkAsRead Error ===', error.response);
+                })
         }
+
     }
 }
 </script>
@@ -185,7 +205,7 @@ export default {
     }
     .item-card {
         display: flex;
-        margin-bottom: 5px;
+        margin-top: 5px;
         border-radius: 0.25rem;
         border: 1px solid rgb(207, 206, 205);
     }

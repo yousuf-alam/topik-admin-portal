@@ -108,15 +108,12 @@ export default {
                     this.unreadNotiCounter++;
                     this.pageNumber = 0;
                     this.fetchNotiAfterPusherListen();
-
                     /*
                     // this.notifications.push(notification.order); 
                     Ai line ta likhle error khabe, karon, axios diye je notification
                     gulo ami niye aschi, Segulor moddhe aro onke key (not_id, created_at) ache.
                     Kintu aikhane sudhu order object. Tai notifications array te push korle vue
                     template a jeye error khabe.
-
-
                     */
                 });
             
@@ -147,62 +144,16 @@ export default {
             }
         },
         fetchNotifications() {
-            console.log('fetchNotifications called ');
+            //console.log('fetchNotifications called ');
             const ADMIN_URL = this.$gbvar.ADMIN_URL;
             axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
                 .then(res => {
-                    console.log('Response success', res);
+                    //console.log('Response success', res);
                     const newNoti = _.map(res.data.notifications, item => {
                         return {...item, ...{data: JSON.parse(item.data)}};
                     });
                     this.pageNumber++;
-                    /*
-                    this.notifications = [...this.notifications, ...newNoti];
-                    if (this.notifications.length === this.allNotiCounter) {
-                        this.showLoading = false;
-                    }
-                    */
-
-                    const notificationsObj = _.keyBy(this.notifications, 'id');
-                    const newNotiObj = _.keyBy(newNoti, 'id');
-                  
-                    let mergedNotiObj = Object.assign({}, notificationsObj);
-                    mergedNotiObj = Object.assign(mergedNotiObj, newNotiObj);
-                   
-                    const mergedNotiArray = [];
-                    for (let key in mergedNotiObj) {
-                        if (mergedNotiObj.hasOwnProperty(key)) {
-                                mergedNotiArray.push(mergedNotiObj[key])
-                        }
-                    }
-                    this.notifications = [...mergedNotiArray];
-                    if (this.notifications.length === this.allNotiCounter) {
-                        this.showLoading = false;
-                    }
-
-                    this.notifications.sort(function(a, b) {
-                        const dateA = new Date(a.created_at);
-                        const dateB = new Date(b.created_at);
-                        return dateB - dateA;
-                    });
-
-                    console.log('this.notifications ==== ', this.notifications);
-                    
-                    /*
-                    this.notifications.sort(function(a, b) {
-                        const dateA = new Date(a.created_at);
-                        const dateB = new Date(b.created);
-                        return dateA - dateB;
-                    });
-                    */
-
-
-                    console.log(
-                        'this.pageNumber === ', this.pageNumber,
-                        'this.notifications === ', this.notifications,
-                        'this.notifications.length === ', this.notifications.length,
-                        'this.countAllNoti === ', this.allNotiCounter );
-                    
+                    this.mergeNewNotiToExistingNotificationsArray(newNoti);                    
                 }).catch(error => {
                     //console.log('TestNoti.vue Error === ', error.response);
                 })
@@ -215,36 +166,35 @@ export default {
                         return {...item, ...{data: JSON.parse(item.data)}};
                     });
                     this.pageNumber++;
-                    // this.notifications = [...newNoti, ...this.notifications, ];
-
-
-                    const notificationsObj = _.keyBy(this.notifications, 'id');
-                    const newNotiObj = _.keyBy(newNoti, 'id');
-                  
-                    let mergedNotiObj = Object.assign({}, notificationsObj);
-                    mergedNotiObj = Object.assign(mergedNotiObj, newNotiObj);
-                   
-                    const mergedNotiArray = [];
-                    for (let key in mergedNotiObj) {
-                        if (mergedNotiObj.hasOwnProperty(key)) {
-                                mergedNotiArray.push(mergedNotiObj[key])
-                        }
-                    }
-                    this.notifications = [...mergedNotiArray];
-                    if (this.notifications.length === this.allNotiCounter) {
-                        this.showLoading = false;
-                    }
-
-                    this.notifications.sort(function(a, b) {
-                        const dateA = new Date(a.created_at);
-                        const dateB = new Date(b.created_at);
-                        return dateB - dateA;
-                    });
-
+                    this.mergeNewNotiToExistingNotificationsArray(newNoti);
                     
                 }).catch(error => {
                     //console.log('TestNoti.vue Error === ', error.response);
                 })
+        },
+        mergeNewNotiToExistingNotificationsArray(newNoti) {
+            const notificationsObj = _.keyBy(this.notifications, 'id');
+            const newNotiObj = _.keyBy(newNoti, 'id');
+            
+            let mergedNotiObj = Object.assign({}, notificationsObj);
+            mergedNotiObj = Object.assign(mergedNotiObj, newNotiObj);
+            
+            const mergedNotiArray = [];
+            for (let key in mergedNotiObj) {
+                if (mergedNotiObj.hasOwnProperty(key)) {
+                        mergedNotiArray.push(mergedNotiObj[key])
+                }
+            }
+            this.notifications = [...mergedNotiArray];
+            if (this.notifications.length === this.allNotiCounter) {
+                this.showLoading = false;
+            }
+
+            this.notifications.sort(function(a, b) {
+                const dateA = new Date(a.created_at);
+                const dateB = new Date(b.created_at);
+                return dateB - dateA;
+            });
         },
         infiniteScroll(event) {
             if ((event.target.scrollTop + event.target.offsetHeight ) >= 
@@ -253,7 +203,7 @@ export default {
             }
         },
         singleNotiAction(notiObj) {
-            console.log('single noti action', notiObj.read_at);
+            //console.log('single noti action', notiObj.read_at);
             if (notiObj.read_at === null) {
                 this.notiMarkAsRead(notiObj.id);
             }
@@ -262,10 +212,10 @@ export default {
             const ADMIN_URL = this.$gbvar.ADMIN_URL;
             axios.get(`${ADMIN_URL}/api/mark-as-read/${noti_id}`)
                 .then(res => {
-                    console.log('notiMarkAsRead Res === ', res);
+                    //console.log('notiMarkAsRead Res === ', res);
                     this.$router.go();
                 }).catch(error => {
-                    console.log('notiMarkAsRead Error ===', error.response);
+                    //console.log('notiMarkAsRead Error ===', error.response);
                 })
         }
 

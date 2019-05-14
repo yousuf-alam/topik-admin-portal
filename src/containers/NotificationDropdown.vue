@@ -54,7 +54,11 @@
 </template>
 
 <script>
+import Pusher from 'pusher-js';
 import axios from 'axios';
+import _ from 'lodash';
+import moment from 'moment';
+
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue';
 export default {
     name: 'NotificationDropdown',
@@ -101,9 +105,20 @@ export default {
             // This works fine. 
             window.Echo.private('App.User.' + userId)
                 .notification((notification) => {
-                    // console.log(notification.type);
                     this.unreadNotiCounter++;
-                    this.notifications.push(notification.order);
+                    this.fetchNotifications();
+
+
+
+                    /*
+                    // this.notifications.push(notification.order); 
+                    Ai line ta likhle error khabe, karon, axios diye je notification
+                    gulo ami niye aschi, Segulor moddhe aro onke key (not_id, created_at) ache.
+                    Kintu aikhane sudhu order object. Tai notifications array te push korle vue
+                    template a jeye error khabe.
+
+
+                    */
                 });
             
         },

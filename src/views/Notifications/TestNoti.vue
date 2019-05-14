@@ -3,12 +3,21 @@
         <div class="customcard">
             <h3>Test Pusher Notification in vue</h3>
             <div>
-                <span class="btn noti-button" @click="handleClick">{{notiCounter}}</span>
+                <span class="btn noti-button" @click="handleClick">{{unreadNotiCounter}}</span>
                 <br>
-                <div v-if="showNotiPanel" class="notiPanel" @scroll="infiniteScroll">
-                    <div>Test Noti Panel.</div>
-                    <div class="border" v-for="(noti, index) in notifications" :key="index">
-                        <div>{{ noti.data.body }}</div>
+                <div class="item-container" v-if="showNotiPanel" @scroll="infiniteScroll">
+                    <!-- <div>Test Noti Panel.</div> -->
+                    <div class="item-card" v-for="(noti, index) in notifications" :key="index">
+                        <div class="thumbnail"></div>
+                        <div class="title">
+                            <div>
+                                {{ noti.data.body }}
+                            </div>
+                            <p><small> {{noti.created_at | moment}} </small></p>
+                        </div>
+                    </div>
+                    <div v-if="showLoading" class="loader">
+                        <p>Loading...</p>
                     </div>
                 </div>
             </div>
@@ -21,15 +30,18 @@
 import Pusher from 'pusher-js';
 import axios from 'axios';
 import _ from 'lodash';
+import moment from 'moment';
 
 export default {
     name: 'testnoti',
     data() {
         return {
             keyValue: 0,
-            notiCounter: 0,
+            allNotiCounter: 0,
+            unreadNotiCounter: 0,
             showNotiPanel: false,
             notifications: [],
+            showLoading: true,
 
             perPageItem: 10,
             pageNumber: 0
@@ -37,8 +49,13 @@ export default {
     },
     created() {
         this.listenPrivateChannel();
+        this.countAllNoti();
         this.countUnreadNoti();
+        
     },
+    filters: {
+        moment: (date) => moment(date).format('MMMM Do YYYY, h:mm:ss a')
+    }, 
     methods: {
         listenPrivateChannel() {
             /*
@@ -47,7 +64,7 @@ export default {
                 window.Echo.private('orders')
                     .listen("TestOrderStatusUpdated", e => {
                         console.log('Listened By laravel-echo ', e);
-                        this.notiCounter++;
+                        this.unreadNotiCounter++;
                         this.notifications.push(e);
                     });
             */
@@ -57,16 +74,25 @@ export default {
             window.Echo.private('App.User.' + userId)
                 .notification((notification) => {
                     // console.log(notification.type);
-                    this.notiCounter++;
+                    this.unreadNotiCounter++;
                     this.notifications.push(notification.order);
                 });
             
+        },
+        countAllNoti() {
+            const ADMIN_URL = this.$gbvar.ADMIN_URL;
+            axios.get(`${ADMIN_URL}/api/count-all-noti`)
+                .then(res => {
+                    this.allNotiCounter = res.data;
+                }).catch(error => {
+
+                }); 
         },
         countUnreadNoti() {
             const ADMIN_URL = this.$gbvar.ADMIN_URL;
             axios.get(`${ADMIN_URL}/api/count-unread-noti`)
                 .then(res => {
-                    this.notiCounter = res.data;
+                    this.unreadNotiCounter = res.data;
                 }).catch(error => {
 
                 });
@@ -81,18 +107,26 @@ export default {
             const ADMIN_URL = this.$gbvar.ADMIN_URL;
             axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
                 .then(res => {
-                    this.notifications = _.map(res.data.notifications, item => {
+                    const newNoti = _.map(res.data.notifications, item => {
                         return {...item, ...{data: JSON.parse(item.data)}};
                     });
                     this.showNotiPanel = true;
                     this.pageNumber++;
-                    console.log('this. noti === ', this.notifications );
+                    this.notifications = [...this.notifications, ...newNoti];
+                    if (this.notifications.length === this.allNotiCounter) {
+                        this.showLoading = false;
+                    }
+                    console.log(
+                        'this.pageNumber === ', this.pageNumber,
+                        'this.notifications === ', this.notifications,
+                        'this.notifications.length === ', this.notifications.length,
+                        'this.countAllNoti === ', this.allNotiCounter );
                 }).catch(error => {
                     //console.log('TestNoti.vue Error === ', error.response);
                 })
         },
         infiniteScroll(event) {
-            if ((event.target.scrollTop + event.target.offsetHeight + 1) >= 
+            if ((event.target.scrollTop + event.target.offsetHeight ) >= 
                 event.target.scrollHeight) {
                 this.fetchNotifications();
             }
@@ -114,6 +148,61 @@ export default {
   justify-content:center;
   align-items:center;
 }
+
+
+
+.item-container {
+  width: 100%;
+  height: 60vh;
+  overflow-y: auto;
+}
+.item-card {
+  width: 90%;
+  height: 40px;
+
+}
+.item-card {
+  display: flex;
+  margin-bottom: 5px;
+  border: 1px solid orange;
+}
+.item-card > .thumbnail {
+  background-color: #c7e7ef;
+  width: 40px;
+  height: 40px;
+}
+.item-card > .title {
+  margin: 10px;
+  font-size: 14px;
+  color: #00badd;
+}
+.loader {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.loader::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  transform: translateX(30%);
+  animation: loading 1s infinite;
+}
+.loader > p {
+  font-size: 16px;
+  color: blue;
+}
+ @keyframes loading {
+  100% {
+    transform: translateX(70%);
+  }
+} 
 
 
 

@@ -7,7 +7,7 @@
                 <br>
                 <div class="item-container" v-if="showNotiPanel" @scroll="infiniteScroll">
                     <!-- <div>Test Noti Panel.</div> -->
-                    <div class="item-card" :class="noti.read_at === null ? 'isRead': ''" 
+                    <div class="item-card" :class="noti.read_at === null ? 'notReadYet': ''" 
                     v-for="(noti, index) in notifications" :key="index">
                         <div class="thumbnail"></div>
                         <div class="detail">
@@ -47,7 +47,7 @@ export default {
             perPageItem: 10,
             pageNumber: 0,
 
-            isRead: '',
+            notReadYet: '',
         }
     },
     created() {
@@ -225,29 +225,29 @@ export default {
 } 
 
 
-.isRead {
+.notReadYet {
    /* background: #2ed3d311; */
    background: #dddde0;
 }
 
-.isRead > .detail > .title {
+.notReadYet > .detail > .title {
     color: rgb(167, 99, 11);
 }
 
-.isRead > .detail > .datetime {
+.notReadYet > .detail > .datetime {
     color: rgb(17, 16, 16);
 }
 
-.isRead:hover {
+.notReadYet:hover {
    /* background: #2ed3d311; */
    background: #5a5d5f ;
 }
 
-.isRead:hover > .detail > .title {
+.notReadYet:hover > .detail > .title {
     color: bisque;
 }
 
-.isRead:hover > .detail > .datetime {
+.notReadYet:hover > .detail > .datetime {
     color: white;
 }
 

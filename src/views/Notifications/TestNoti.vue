@@ -104,7 +104,12 @@ export default {
         handleClick() {
             //console.log('inside handle click...');
             //console.log('handleClick, total notifications === ', this.notifications);
-            this.fetchNotifications();
+            if( this.showNotiPanel === false) {
+                this.fetchNotifications();
+            } else {
+                this.showNotiPanel = false;
+            }
+
         },
         fetchNotifications() {
             const ADMIN_URL = this.$gbvar.ADMIN_URL;

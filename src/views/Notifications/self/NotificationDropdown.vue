@@ -46,7 +46,7 @@
 
                 <div class="text-center mt-1">
                     <hr class="m-0 p-0">
-                        <span class="btn" @click="goToAll" style="color:blue">See All</span>
+                        <span class="btn see-all" @click="goToAll" style="color:blue">See All</span>
                 </div>
             </div>
         </template>
@@ -336,4 +336,8 @@ export default {
         color: white;
     }
 /* ------ END: Scrolling Portion CSS ------- */
+
+.see-all:hover {
+    text-decoration: underline;
+}
 </style>

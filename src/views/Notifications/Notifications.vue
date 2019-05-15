@@ -20,29 +20,32 @@
             <table class="table table-hover">
             <thead class="bg-success">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Verified</th>
-                    <th scope="col">Verified At</th>
+                    <th scope="col">Body</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Read At</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                <tr v-for="noti in notifications" :key="noti.id" 
+                :class="noti.read_at === null ? 'notReadYet': ''" >
+                    <td scope="row">{{noti.data.body}}</td>
                     <td>
-                        <router-link to="/resources/show/1">
-                            <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </router-link>
-
-                        <router-link to="/resources/edit/1">
+                        <span :class="setStatusColor(`${noti.data.status}`)">
+                            {{noti.data.status}} 
+                        </span>
+                    </td>
+                    <td>{{noti.created_at }}</td>
+                    <td >
+                        <span>{{noti.read_at === null ? 'Not Read' : noti.read_at }}</span>
+                    </td>
+                    <td>
+                        <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" 
+                            data-placement="top" title="View" @click="singleNotiAction(noti)">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        <router-link :to="`/notifications/edit/${noti.id}`">
                             <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Edit"> <i class="fa fa-edit"></i></span>
                         </router-link>
                         <router-link to="">
@@ -56,8 +59,8 @@
     </div>
     <div>
         <paginate
-            :pageCount="20"
-            :clickHandler="functionName"
+            :pageCount="totalPageCount"
+            :clickHandler="onPaginateClick"
             :prevText="'Prev'"
             :nextText="'Next'"
             :container-class="'pagination'">
@@ -69,6 +72,7 @@
 
 <script>
 //import TestNoti from './TestNoti';
+import axios from 'axios';
 import paginate from 'vuejs-paginate';
 
 export default {
@@ -80,58 +84,131 @@ export default {
     },
     data() {
         return {
-
+            totalPageCount: 0,
+            perPageItem: 10, // Only set this value 
+            pageNumber: 0,
+            allNotiCounter: 0,
+            notifications: [],
 
 
         }
+    },
+    created() {
+        this.countAllNoti();
+        this.fetchNotifications();
     },
     methods: {
-        functionName(parm) {
-            console.log(parm);
+        onPaginateClick(parm) {
+            this.pageNumber = parm - 1; // As api start from "pageNumber 0"
+            this.fetchNotifications();
+        },
+        countAllNoti() {
+            const ADMIN_URL = this.$gbvar.ADMIN_URL;
+            axios.get(`${ADMIN_URL}/api/count-all-noti`)
+                .then(res => {
+                    this.allNotiCounter = res.data;
+                    this.totalPageCount = Math.ceil(this.allNotiCounter / this.perPageItem);
+                }).catch(error => {
+
+                }); 
+        },
+        fetchNotifications() {
+            const ADMIN_URL = this.$gbvar.ADMIN_URL;        
+            axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
+                .then(response => {
+                    this.notifications = _.map(response.data.notifications, item => {
+                            return {...item, ...{data: JSON.parse(item.data)}};
+                        });
+                    console.log('=========== ', this.notifications);
+                }).catch(error => {
+                    console.log('Error === ', error.response);
+                })
+        },
+        singleNotiAction(notiObj) {
+            //console.log('single noti action', notiObj.read_at);
+            if (notiObj.read_at === null) {
+                this.notiMarkAsRead(notiObj.id);
+            }
+        },
+        notiMarkAsRead(noti_id) {
+            const ADMIN_URL = this.$gbvar.ADMIN_URL;
+            axios.get(`${ADMIN_URL}/api/mark-as-read/${noti_id}`)
+                .then(res => {
+                    //console.log('notiMarkAsRead Res === ', res);
+                    this.$router.go();
+                }).catch(error => {
+                    //console.log('notiMarkAsRead Error ===', error.response);
+                })
         }
 
     },
+    computed: {
+        setStatusColor: () => {
+            return (parm) => {
+                if (parm === 'pending') { 
+                    return 'badge badge-warning';
+                } else if (parm === 'accepted') { 
+                    return 'badge badge-primary';
+                } else if (parm === 'started') { 
+                    return 'badge badge-secondary';
+                } else if (parm === 'completed') { 
+                    return 'badge badge-success'
+                } else if (parm === 'rejected') { 
+                    return 'badge badge-dark'
+                } else if (parm === 'cancelled') { 
+                    return 'badge badge-danger'
+                } 
+                // badge badge-primary
+                
+            }
+        }
+    }
+
 }
 </script>
 <style lang="scss">
-
-$primaryColor: rgb(236, 245, 235); 
-$bgColor: rgb(120, 125, 136); 
-$selectdItemColor: $bgColor;
-
-.pagination {
-  margin: 5px 0px;
-  font-size: 16px;
-
-}
-.pagination > li > a {
-    border-radius: 5%;
-    position: relative;
-    float: left;
-    padding: 6px 12px;
-    margin-left: -1px;
-    line-height: 1.42857143;
-    color: $primaryColor;
-    text-decoration: none;
-    background-color: $bgColor;
-    border: 1px solid #ddd;
-}
-.pagination > .active > a {
-    border-radius: 5%;
-    z-index: 2;
-    color: $selectdItemColor;
-    cursor: default;
-    background-color:$primaryColor;
-    border-color: $primaryColor;
+.notReadYet {
+    background: rgb(202, 201, 201);
 }
 
- .disabled >a {
-    color: #777;
-    cursor: not-allowed;
-    background-color: $bgColor;
-    border-color: #ddd;
-}
 
+/* Start: Pagination Styling using SCSS */
+    $primaryColor: rgb(55, 143, 5); 
+    $bgColor: rgb(255, 255, 255); 
+    $selectdItemColor: $bgColor;
+
+    .pagination {
+        margin: 5px 0px;
+        font-size: 16px;
+    }
+    .pagination > li > a {
+        border-radius: 5%;
+        position: relative;
+        float: left;
+        padding: 6px 12px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: $primaryColor;
+        text-decoration: none;
+        background-color: $bgColor;
+        border: 1px solid #ddd;
+    }
+    .pagination > .active > a {
+        border-radius: 5%;
+        z-index: 2;
+        color: $selectdItemColor;
+        cursor: default;
+        background-color:$primaryColor;
+        border-color: $primaryColor;
+    }
+
+    .disabled >a {
+        color: #777;
+        cursor: not-allowed;
+        background-color: $bgColor;
+        border-color: #ddd;
+    }
+/* End: Pagination Styling  using SCSS */
 
 
 </style>

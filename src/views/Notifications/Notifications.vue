@@ -93,13 +93,17 @@ export default {
     },
 }
 </script>
-<style >
+<style lang="scss">
+
+$primaryColor: rgb(236, 245, 235); 
+$bgColor: rgb(120, 125, 136); 
+$selectdItemColor: $bgColor;
+
 .pagination {
   margin: 5px 0px;
   font-size: 16px;
 
 }
-
 .pagination > li > a {
     border-radius: 5%;
     position: relative;
@@ -107,25 +111,27 @@ export default {
     padding: 6px 12px;
     margin-left: -1px;
     line-height: 1.42857143;
-    color: #337ab7;
+    color: $primaryColor;
     text-decoration: none;
-    background-color: #fff;
+    background-color: $bgColor;
     border: 1px solid #ddd;
 }
 .pagination > .active > a {
     border-radius: 5%;
     z-index: 2;
-    color: #fff;
+    color: $selectdItemColor;
     cursor: default;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color:$primaryColor;
+    border-color: $primaryColor;
 }
 
  .disabled >a {
     color: #777;
     cursor: not-allowed;
-    background-color: #fff;
+    background-color: $bgColor;
     border-color: #ddd;
 }
+
+
 
 </style>

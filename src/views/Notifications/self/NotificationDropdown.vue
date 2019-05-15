@@ -221,6 +221,7 @@ export default {
         },
         goToAll() {
             this.$router.push({ name: 'SelfAllNotifications'})
+            this.$router.go();
         }
 
     }

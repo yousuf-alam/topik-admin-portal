@@ -106,14 +106,15 @@ export default {
             window.Echo.private('App.User.' + userId)
                 .notification((notification) => {
                     this.unreadNotiCounter++;
+                    this.allNotiCounter++;
                     this.pageNumber = 0;
                     this.fetchNotiAfterPusherListen();
                     /*
-                    // this.notifications.push(notification.order); 
-                    Ai line ta likhle error khabe, karon, axios diye je notification
-                    gulo ami niye aschi, Segulor moddhe aro onke key (not_id, created_at) ache.
-                    Kintu aikhane sudhu order object. Tai notifications array te push korle vue
-                    template a jeye error khabe.
+                        // this.notifications.push(notification.order); 
+                        Ai line ta likhle error khabe, karon, axios diye je notification
+                        gulo ami niye aschi, Segulor moddhe aro onke key (not_id, created_at) ache.
+                        Kintu aikhane sudhu order object. Tai notifications array te push korle vue
+                        template a jeye error khabe.
                     */
                 });
             

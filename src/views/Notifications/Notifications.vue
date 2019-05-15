@@ -1,80 +1,131 @@
 <template>
-    <div class="animated fadeIn">
-        <div v-if="showTestNoti">
+<div class="animated fadeIn">
+    <!--         
+        <div >
             <TestNoti />
         </div>
-        <b-row>
-            <b-col sm="10"></b-col>
-            <b-col sm="2" class="mb-3">
-                <router-link :to="{ name: 'NotificationCreate'}"><button class="btn btn-success">Create New Notification</button></router-link>
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col>
-                <b-card>
-                    <v-client-table :data="tableData" :columns="columns" :options="options">
-                        <template slot="action" slot-scope="props">
-                            <div>
-                                <router-link :to="{ name: 'NotificationEdit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
-                                    <i class="fa fa-edit"></i></span></router-link>
-                                <span class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Delete">
-                                    <i class="fa fa-upload"></i></span>
-                            </div>
-                        </template>
-                    </v-client-table>
-                </b-card>
-            </b-col>
-        </b-row>
+    -->
+    <div class="customcard">
+        <div class="cardheading">
+            <div>
+                <h2>All Notifications</h2>
+            </div>
+            <div>
+                <router-link :to="{ name: 'NotificationCreate'}">
+                    <button class="btn btn-success">Create New Notification</button>
+                </router-link>
+            </div>
+        </div>
+        <div class="resourcesTable table-responsive">
+            <table class="table table-hover">
+            <thead class="bg-success">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Verified</th>
+                    <th scope="col">Verified At</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>
+                        <router-link to="/resources/show/1">
+                            <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </router-link>
+
+                        <router-link to="/resources/edit/1">
+                            <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Edit"> <i class="fa fa-edit"></i></span>
+                        </router-link>
+                        <router-link to="">
+                            <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
+                        </router-link>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
     </div>
+    <div>
+        <paginate
+            :pageCount="20"
+            :clickHandler="functionName"
+            :prevText="'Prev'"
+            :nextText="'Next'"
+            :container-class="'pagination'">
+        </paginate>
+    </div>
+</div>
 </template>
 
 
 <script>
-import TestNoti from './TestNoti';
-    export default {
-        name: 'Notifications',
-        components: {
-            TestNoti,
+//import TestNoti from './TestNoti';
+import paginate from 'vuejs-paginate';
 
-        },
-        data() {
-            return {
-                showTestNoti: true,
-                columns: ['id', 'name', 'age', 'action'],
-                tableData: [
-                    {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},
-                    {id: 2, name: "Jane", age: "2018-10-31"},
-                    {id: 3, name: "Susan", age: "2018-10-31"},
-                    {id: 4, name: "Chris", age: "2018-10-31"},
-                    {id: 5, name: "Dan", age: "2018-12-30"},
-                    {id: 11, name: "John", age: "2018-10-31"},
-                    {id: 12, name: "Jane", age: "2018-08-31"},
-                    {id: 13, name: "Susan", age: "2018-08-03"},
-                    {id: 14, name: "Chris", age: "2018-09-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"},
-                    {id: 11, name: "John", age: "2018-12-31"},
-                    {id: 12, name: "Jane", age: "2018-12-31"},
-                    {id: 13, name: "Susan", age: "2018-12-31"},
-                    {id: 14, name: "Chris", age: "2018-12-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"}
-                ],
-                options: {
-                    pagination: {nav: 'fixed'},
-                    filterByColumn: true,
-                    dateColumns: ['age'],
-                    toMomentFormat: 'YYYY-MM-DD',
-                    sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
+export default {
+    name: 'Notifications',
+    components: {
+        // TestNoti,
+        paginate,
+        
+    },
+    data() {
+        return {
 
-                }
 
-            }
-        },
-        methods: {
 
-            delete(id) {
-                // The id can be fetched from the slot-scope row object when id is in columns
-                console.log('hi');
-            }
-        },
-    }
+        }
+    },
+    methods: {
+        functionName(parm) {
+            console.log(parm);
+        }
+
+    },
+}
 </script>
+<style >
+.pagination {
+  margin: 5px 0px;
+  font-size: 16px;
+
+}
+
+.pagination > li > a {
+    border-radius: 5%;
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+.pagination > .active > a {
+    border-radius: 5%;
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+ .disabled >a {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+</style>

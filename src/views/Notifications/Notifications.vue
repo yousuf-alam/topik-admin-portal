@@ -16,156 +16,75 @@
                 </router-link>
             </div>
         </div>
-        <div class="resourcesTable table-responsive">
-            <table class="table table-hover">
-            <thead class="bg-success">
-                <tr>
-                    <th scope="col">Body</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Read At</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="noti in notifications" :key="noti.id" 
-                :class="noti.read_at === null ? 'notReadYet': ''" >
-                    <td scope="row">{{noti.data.body}}</td>
-                    <td>
-                        <span :class="setStatusColor(`${noti.data.status}`)">
-                            {{noti.data.status}} 
-                        </span>
-                    </td>
-                    <td>{{noti.created_at }}</td>
-                    <td >
-                        <span>{{noti.read_at === null ? 'Not Read' : noti.read_at }}</span>
-                    </td>
-                    <td>
-                        <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" 
-                            data-placement="top" title="View" @click="singleNotiAction(noti)">
-                            <i class="fa fa-search"></i>
-                        </span>
-                        <router-link :to="`/notifications/edit/${noti.id}`">
-                            <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Edit"> <i class="fa fa-edit"></i></span>
-                        </router-link>
-                        <router-link to="">
-                            <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
-                        </router-link>
-                    </td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
-    </div>
-    <div>
-        <paginate
-            :pageCount="totalPageCount"
-            :clickHandler="onPaginateClick"
-            :prevText="'Prev'"
-            :nextText="'Next'"
-            :container-class="'pagination'">
-        </paginate>
+        <b-row>
+            <b-col>
+                <b-card>
+                    <v-client-table :data="tableData" :columns="columns" :options="options">
+                        <template slot="action" slot-scope="props">
+                            <div>
+                                <router-link :to="{ name: 'Notification / Edit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
+                                    <i class="fa fa-edit"></i></span></router-link>
+                                <span class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Delete">
+                                    <i class="fa fa-upload"></i></span>
+                            </div>
+                        </template>
+                    </v-client-table>
+                </b-card>
+            </b-col>
+        </b-row>
+
     </div>
 </div>
 </template>
 
 
+
+
 <script>
-//import TestNoti from './TestNoti';
-import axios from 'axios';
-import paginate from 'vuejs-paginate';
 
-export default {
-    name: 'Notifications',
-    components: {
-        // TestNoti,
-        paginate,
-        
-    },
-    data() {
-        return {
-            totalPageCount: 0,
-            perPageItem: 10, // Only set this value 
-            pageNumber: 0,
-            allNotiCounter: 0,
-            notifications: [],
+    export default {
+        name: 'Notifications',
+        data() {
+            return {
+                columns: ['id', 'name', 'age', 'action'],
+                tableData: [
+                    {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},
+                    {id: 2, name: "Jane", age: "2018-10-31"},
+                    {id: 3, name: "Susan", age: "2018-10-31"},
+                    {id: 4, name: "Chris", age: "2018-10-31"},
+                    {id: 5, name: "Dan", age: "2018-12-30"},
+                    {id: 11, name: "John", age: "2018-10-31"},
+                    {id: 12, name: "Jane", age: "2018-08-31"},
+                    {id: 13, name: "Susan", age: "2018-08-03"},
+                    {id: 14, name: "Chris", age: "2018-09-31"},
+                    {id: 15, name: "Dan", age: "2018-12-31"},
+                    {id: 11, name: "John", age: "2018-12-31"},
+                    {id: 12, name: "Jane", age: "2018-12-31"},
+                    {id: 13, name: "Susan", age: "2018-12-31"},
+                    {id: 14, name: "Chris", age: "2018-12-31"},
+                    {id: 15, name: "Dan", age: "2018-12-31"}
+                ],
+                options: {
+                    pagination: {nav: 'fixed'},
+                    filterByColumn: true,
+                    dateColumns: ['age'],
+                    toMomentFormat: 'YYYY-MM-DD',
+                    sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
+                }
 
-        }
-    },
-    created() {
-        this.countAllNoti();
-        this.fetchNotifications();
-    },
-    methods: {
-        onPaginateClick(parm) {
-            this.pageNumber = parm - 1; // As api start from "pageNumber 0"
-            this.fetchNotifications();
-        },
-        countAllNoti() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/count-all-noti`)
-                .then(res => {
-                    this.allNotiCounter = res.data;
-                    this.totalPageCount = Math.ceil(this.allNotiCounter / this.perPageItem);
-                }).catch(error => {
-
-                }); 
-        },
-        fetchNotifications() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;        
-            axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
-                .then(response => {
-                    this.notifications = _.map(response.data.notifications, item => {
-                            return {...item, ...{data: JSON.parse(item.data)}};
-                        });
-                    console.log('=========== ', this.notifications);
-                }).catch(error => {
-                    console.log('Error === ', error.response);
-                })
-        },
-        singleNotiAction(notiObj) {
-            //console.log('single noti action', notiObj.read_at);
-            if (notiObj.read_at === null) {
-                this.notiMarkAsRead(notiObj.id);
             }
         },
-        notiMarkAsRead(noti_id) {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/mark-as-read/${noti_id}`)
-                .then(res => {
-                    //console.log('notiMarkAsRead Res === ', res);
-                    this.$router.go();
-                }).catch(error => {
-                    //console.log('notiMarkAsRead Error ===', error.response);
-                })
-        }
+        methods: {
 
-    },
-    computed: {
-        setStatusColor: () => {
-            return (parm) => {
-                if (parm === 'pending') { 
-                    return 'badge badge-warning';
-                } else if (parm === 'accepted') { 
-                    return 'badge badge-primary';
-                } else if (parm === 'started') { 
-                    return 'badge badge-secondary';
-                } else if (parm === 'completed') { 
-                    return 'badge badge-success'
-                } else if (parm === 'rejected') { 
-                    return 'badge badge-dark'
-                } else if (parm === 'cancelled') { 
-                    return 'badge badge-danger'
-                } 
-                // badge badge-primary
-                
+            delete(id) {
+                // The id can be fetched from the slot-scope row object when id is in columns
+                console.log('hi');
             }
-        }
+        },
     }
-
-}
 </script>
+
 <style lang="scss">
 .notReadYet {
     background: rgb(202, 201, 201);

@@ -13,6 +13,7 @@ const OrderShow = () => import('../views/Orders/Order_Show')
 const OrderCreate = () => import('../views/Orders/OrderCreate')
 
 
+import SelfAllNotifications from '../views/Notifications/self/SelfAllNotifications';
 const Notifications = () => import('@/views/Notifications/Notifications')
 const NotificationCreate = () => import('../views/Notifications/NotificationCreate')
 const NotificationEdit = () => import('../views/Notifications/NotificationEdit')
@@ -224,6 +225,11 @@ const router =  new Router({
         meta: { 
           permission_name: permissionsList.notification
         },
+      },
+      {
+        path: 'notifications/self',
+        name: 'SelfAllNotifications',
+        component: SelfAllNotifications,
       },
       {
         path: '/notifications/edit/:id',

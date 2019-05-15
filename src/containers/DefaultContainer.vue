@@ -59,7 +59,7 @@ import nav from '@/_nav'
 import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarMinimizer, SidebarNav, Aside as AppAside, AsideToggler, Footer as TheFooter, Breadcrumb } from '@coreui/vue'
 import DefaultAside from './DefaultAside'
 import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt'
-import NotificationDropdown from './NotificationDropdown';
+import NotificationDropdown from '../views/Notifications/self/NotificationDropdown';
 
 export default {
   name: 'DefaultContainer',

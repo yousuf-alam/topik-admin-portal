@@ -29,9 +29,8 @@
                     >
                         <b-dropdown-item class="my-0 py-0">
                             <div class="d-flex justify-content-around">
-                                <div >
-                                    <i class="fa fa-bell-o text-success" /> 
-                                </div>
+                                    <i :class="noti.icon"  /> 
+
                                 <div class="m-0 p-0">
                                    <div class="m-0 p-0" style="width:170px"
                                     v-html="resizeText(noti.data.body)" />
@@ -97,7 +96,6 @@ export default {
     computed: {
         resizeText: () => {
             return (bodyText) => {
-                console.log('body text === ', bodyText);
                 let strArray = bodyText.split(" ");
                 let newStr = '';
                 let counter = 1;
@@ -110,6 +108,9 @@ export default {
                 }
                 return newStr;
             }
+        },
+        notiIconStyle: () => { 
+           return 'text-success my-auto';
         }
     },
     methods: {
@@ -220,6 +221,7 @@ export default {
                 const dateB = new Date(b.created_at);
                 return dateB - dateA;
             });
+            console.log('this.notifications === ', this.notifications);
         },
         infiniteScroll(event) {
             if ((event.target.scrollTop + event.target.offsetHeight ) >= 
@@ -262,7 +264,7 @@ export default {
 /* ------START: Scrolling Portion CSS ------- */
     .item-container {
         width: 100%;
-        height: 60vh;
+        height: 400px; /*IN_FUTURE:  media query can be added*/ 
         overflow-y: auto;
     }
     .item-card {

@@ -32,8 +32,11 @@
                                 <div >
                                     <i class="fa fa-bell-o text-success" /> 
                                 </div>
-                                <div class=" m-0 p-0">
-                                    {{ noti.data.body }}
+                                <div class="m-0 p-0">
+                                   <div class="m-0 p-0" style="width:170px"
+                                    v-html="resizeText(noti.data.body)" />
+                                     
+
                                     <div class="datetime m-0 p-0">
                                         <small> {{noti.created_at | moment}} </small>
                                     </div>
@@ -89,8 +92,26 @@ export default {
         
     },
     filters: {
-        moment: (date) => moment(date).format('MMMM Do YYYY, h:mm:ss a')
+        moment: (date) => moment(date).format('MMMM Do YYYY, h:mm:ss a'),
     }, 
+    computed: {
+        resizeText: () => {
+            return (bodyText) => {
+                console.log('body text === ', bodyText);
+                let strArray = bodyText.split(" ");
+                let newStr = '';
+                let counter = 1;
+                for (let i=0; i<strArray.length; i++) {
+                    newStr+= strArray[i] + " ";
+                    if(newStr.length > 25*counter ) {
+                        counter++;
+                        newStr+='<br>';
+                    }
+                }
+                return newStr;
+            }
+        }
+    },
     methods: {
         listenPrivateChannel() {
             /*

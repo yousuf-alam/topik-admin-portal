@@ -13,7 +13,6 @@
                     </b-nav-item>             
                 -->
             </div>
-
         </template>
         <template slot="dropdown" >
 
@@ -21,32 +20,36 @@
                 <b-dropdown-header tag="div" class="text-center">
                     <strong>Your Notifications</strong>
                 </b-dropdown-header>
-
-                <div> 
-                    <div class="item-container" @scroll="infiniteScroll">
-                        <!-- <div>Test Noti Panel.</div> -->
-                        <div class="item-card" 
-                        :class="noti.read_at === null ? 'notReadYet': ''" 
-                        v-for="(noti, index) in notifications" :key="index"
-                        @click="singleNotiAction(noti)"
-                        >
-                            <div class="thumbnail"></div>
-                            <div class="detail">
-                                <div class="title">
-                                    {{ noti.data.body }}
+                
+                <div class="item-container" @scroll="infiniteScroll">
+                    <div class="item-card" 
+                    :class="noti.read_at === null ? 'notReadYet': ''" 
+                    v-for="(noti, index) in notifications" :key="index"
+                    @click="singleNotiAction(noti)"
+                    >
+                        <b-dropdown-item class="my-0 py-0">
+                            <div class="d-flex justify-content-around">
+                                <div >
+                                    <i class="fa fa-bell-o text-success" /> 
                                 </div>
-                                <span class="datetime"><small> {{noti.created_at | moment}} </small></span>
+                                <div class=" m-0 p-0">
+                                    {{ noti.data.body }}
+                                    <div class="datetime m-0 p-0">
+                                        <small> {{noti.created_at | moment}} </small>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div v-if="showLoading" class="loader">
-                            <p>Loading...</p>
-                        </div>
-                    </div> 
+
+                        </b-dropdown-item>
+                    </div>
+                    <div v-if="showLoading" class="loader">
+                        <p>Loading...</p>
+                    </div>
+
                 </div>
 
-                <div class="text-center mt-1">
-                    <hr class="m-0 p-0">
-                        <span class="btn see-all" @click="goToAll" style="color:blue">See All</span>
+                <div class="text-center border-top">
+                        <span class="btn see-all " @click="goToAll" style="color:blue">See All</span>
                 </div>
             </div>
         </template>
@@ -228,13 +231,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .notificationCard {
     padding: 0;
     margin: 0;
-    width: 400px;
+    width: 100%;
 }
-
 
 /* ------START: Scrolling Portion CSS ------- */
     .item-container {
@@ -243,41 +245,7 @@ export default {
         overflow-y: auto;
     }
     .item-card {
-        /* width: 100%; */
-        margin-left: 5px;
-        margin-right: 5px;
-        height: auto;
-    
-    }
-    .item-card {
-        display: flex;
-        margin-top: 5px;
-        border-radius: 0.25rem;
-        border: 1px solid rgb(207, 206, 205);
-    }
-    .item-card:hover {
-        background: #e8ebe6;
-        cursor: pointer;
-    }
-
-    .item-card > .thumbnail {
-        background-color: #a6dbd7;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-    }
-    .item-card > .detail {
-        margin: 5px 10px;
-        font-size: 14px;
-        color: #00badd;
-    }
-    .item-card > .detail > .title{
-        font-size: 14px;
-        color: #00badd;
-    }
-    .item-card > .detail > .datetime{
-        font-size: 14px;
-        color: #7f817e;
+        border-bottom: 1px solid rgb(207, 206, 205);
     }
 
     .loader {
@@ -301,7 +269,7 @@ export default {
     .loader > p {
         font-size: 16px;
         font-weight: 600;
-        color: blue;
+        color: rgb(85, 187, 241);;
     }
     @keyframes loading {
         100% {
@@ -309,31 +277,8 @@ export default {
         }
     } 
 
-
     .notReadYet {
-        /* background: #2ed3d311; */
-        background: #dddde0;
-    }
-
-    .notReadYet > .detail > .title {
-        color: rgb(167, 99, 11);
-    }
-
-    .notReadYet > .detail > .datetime {
-        color: rgb(17, 16, 16);
-    }
-
-    .notReadYet:hover {
-        /* background: #2ed3d311; */
-        background: #5a5d5f ;
-    }
-
-    .notReadYet:hover > .detail > .title {
-        color: bisque;
-    }
-
-    .notReadYet:hover > .detail > .datetime {
-        color: white;
+        background: rgb(204, 224, 235);
     }
 /* ------ END: Scrolling Portion CSS ------- */
 

@@ -212,7 +212,7 @@ const router =  new Router({
         component: OrderCreate,
         props: true,
         meta: { 
-          permission_name: 'order create' 
+         permission_name: 'order create'
         },
       },
       {

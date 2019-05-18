@@ -57,7 +57,7 @@ import axios from 'axios';
             const Base_URL = process.env.VUE_APP_ADMIN_URL;
             // console.log('Base url ==== ===========', Base_URL);
 
-            axios.get(`${Base_URL}/api/services`)
+            axios.get(`${Base_URL}/services`)
         		.then(response =>{
                     this.services = response.data;
                     console.log('Services.vue, Response === ', response.data);        

@@ -118,7 +118,7 @@
       this.src_avatar = Base_URL + this.src_avatar;
       let resource_id = window.location.pathname.split("/").pop();
       this.id = resource_id;
-      axios.post(`${Base_URL}/api/resources/show`,
+      axios.post(`${Base_URL}/resources/show`,
         {
           id: this.id
         }).then(response =>{
@@ -137,7 +137,7 @@
       changeStatus(){
         this.$modal.hide('modal-status');
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/resources/change-status`,
+        axios.post(`${Base_URL}/resources/change-status`,
           {
             id: this.resource.id,
             status: this.resource.status

@@ -1,5 +1,5 @@
 <template>
-  <div class="card m-4 p-4">
+  <div class="card m-4">
     <div class="card-body">
       <div class="col-sm-12 black-bg">
         <h3 class="text-center">Available Service Providers</h3>
@@ -20,7 +20,7 @@
                 <p v-if="partner.is_booked ===1" class="booked mt-2">[ Booked for the selected time ]</p>
               </div>
               <div class="col-sm-4 text-right">
-                <h5 class="font-weight-bold">৳ {{ partner.price }}</h5>
+                <h6>৳ {{ partner.price }}</h6>
               </div>
             </div>
           </div>

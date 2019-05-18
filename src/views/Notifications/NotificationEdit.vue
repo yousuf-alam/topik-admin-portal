@@ -45,7 +45,7 @@
       this.src_image = Base_URL + this.src_image;
       this.id = window.location.pathname.split("/").pop();
 
-      axios.post(`${Base_URL}/api/push-notifications/show`,
+      axios.post(`${Base_URL}/push-notifications/show`,
         {
           id: this.id
         }).then(response => {
@@ -78,7 +78,7 @@
         formData.append('image', this.notification.image);
 
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/push-notifications/edit`,formData,config)
+        axios.post(`${Base_URL}/push-notifications/edit`,formData,config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

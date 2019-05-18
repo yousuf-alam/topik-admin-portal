@@ -94,7 +94,7 @@ export default {
         fetchPermissions() {
             const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
             const role_id = this.$route.params.id;
-            this.$gbvar.axios.get(`${ADMIN_URL}/api/permissions`)
+            this.$gbvar.axios.get(`${ADMIN_URL}/permissions`)
                 .then(response => {
                     this.totalPermissions = response.data;
                     this.loaded = true;
@@ -106,7 +106,7 @@ export default {
             const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
             const formvalus = {};
             formvalus.name = this.name;
-            this.$gbvar.axios.post(`${ADMIN_URL}/api/roles`, formvalus)
+            this.$gbvar.axios.post(`${ADMIN_URL}/roles`, formvalus)
                 .then(response => {
                     if (response.status == 201) {
                         this.role = response.data;

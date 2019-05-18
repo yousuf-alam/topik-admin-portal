@@ -51,8 +51,9 @@
       }
     },
     created(){
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/api/banners`)
+      const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+      const Base_URL  = process.env.VUE_APP_BASE_URL;
+      axios.get(`${Admin_URL}/banners`)
         .then(response =>{
           this.banner = response.data;
           this.src_image = Base_URL + this.src_image;

@@ -62,7 +62,7 @@
           formData.append('image', this.image);
 
           const Base_URL = process.env.VUE_APP_ADMIN_URL;
-          axios.post(`${Base_URL}/api/push-notifications/create`,formData,config)
+          axios.post(`${Base_URL}/push-notifications/create`,formData,config)
             .then(response => {
               console.log('Success', response);
               currentObj.success = response.data.success;

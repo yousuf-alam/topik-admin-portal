@@ -73,7 +73,7 @@
               <input class="form-control" type="text" v-model="place_radius">
             </div>
           </div>
-            <b-btn class="btn btn-romoni-secondary float-right">Add New Location</b-btn>
+            <b-btn @click="onSubmit" class="btn btn-romoni-secondary float-right">Add New Location</b-btn>
           </b-card>
         </div>
       </div>
@@ -85,6 +85,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   export default {
     name: "LocationCreate",
     data() {
@@ -127,6 +128,26 @@
           this.latitude = this.marker.position.lat;
           this.longitude = this.marker.position.lng;
         }
+      },
+      onSubmit()
+      {
+        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${Base_URL}/locations/create`,
+          {
+            city      : this.city,
+            name      : this.name,
+            latitude  : this.latitude,
+            longitude : this.longitude,
+            radius    : this.place_radius
+          })
+          .then(response => {
+            console.log('Success', response);
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.log('Error  ... ', error.response);
+            console.log(error);
+          });
       }
     }
   }

@@ -45,7 +45,7 @@
     },
     created(){
       const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/api/push-notifications`)
+      axios.get(`${Base_URL}/push-notifications`)
         .then(response =>{
           this.notifications = response.data;
         })
@@ -57,7 +57,7 @@
       publish(notification_id)
       {
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/push-notifications/publish`,
+        axios.post(`${Base_URL}/push-notifications/publish`,
           {
             id: notification_id
           })

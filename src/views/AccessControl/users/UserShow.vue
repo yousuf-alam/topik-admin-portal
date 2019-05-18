@@ -72,7 +72,7 @@ export default {
         const user_id = this.$route.params.id;
         const ADMIN_URL = this.$gbvar.ADMIN_URL;
         const axios = this.$gbvar.axios;
-        axios.get(`${ADMIN_URL}/api/users/${user_id}`)
+        axios.get(`${ADMIN_URL}/users/${user_id}`)
             .then(response => {
                 //console.log('Response  ', response)
                 this.user = response.data; 

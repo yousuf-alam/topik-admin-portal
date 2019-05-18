@@ -18,7 +18,7 @@
 		</div>
         <div class="usersTable table-responsive">
             <table class="table table-hover">
-            <thead class="bg-success">
+            <thead class="bg-dark">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
@@ -69,7 +69,7 @@ export default {
     },
     created() {
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        const request = axios.get(`${Base_URL}/api/users`);
+        const request = axios.get(`${Base_URL}/users`);
         request.then(response => {
             // console.log('Response  === ', response);
             this.users = response.data; 

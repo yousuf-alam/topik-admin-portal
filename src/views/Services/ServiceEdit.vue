@@ -289,7 +289,7 @@
         formData.append('banner_ios', this.service.banner_android);
         console.log(formData);
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/services/update`, formData, config)
+        axios.post(`${Base_URL}/services/update`, formData, config)
           .then( response => {
             currentObj.success = response.data.success;
             alert('Service Updated Successfully.')
@@ -316,7 +316,7 @@
         let id = window.location.pathname.split("/").pop();
         this.service.id = id;
 
-        axios.post(`${process.env.VUE_APP_ADMIN_URL}/api/services/edit`,
+        axios.post(`${process.env.VUE_APP_ADMIN_URL}/services/edit`,
         {
           id: this.service.id
         }).then(response => {

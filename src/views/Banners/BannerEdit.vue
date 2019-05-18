@@ -63,13 +63,14 @@
       }
     },
     created() {
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
+      const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+      const Base_URL  = process.env.VUE_APP_BASE_URL;
       this.src_image = Base_URL + this.src_image;
       this.banner.id= window.location.pathname.split("/").pop();
       this.getServices();
       this.getCategories();
       this.getSubcategories();
-      axios.post(`${Base_URL}/api/banners/show`,
+      axios.post(`${Admin_URL}/banners/show`,
         {
           id: this.banner.id
         }).then(response =>{
@@ -84,8 +85,8 @@
     methods: {
 
       getServices() {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.get(`${Base_URL}/api/services`)
+        const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.get(`${Admin_URL}/services`)
           .then(response => {
             this.services = response.data;
           })
@@ -94,8 +95,8 @@
           });
       },
       getCategories() {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/categories`, {
+        const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${Admin_URL}/categories`, {
           service_id: this.banner.service_id
         })
           .then(response => {
@@ -107,8 +108,8 @@
 
       },
       getSubcategories() {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/subcategories`, {
+        const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${Admin_URL}/subcategories`, {
           category_id: this.banner.category_id
         })
           .then(response => {
@@ -141,8 +142,8 @@
         formData.append('type', this.banner.type);
         formData.append('image', this.banner.image);
 
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/banners/create`,formData,config)
+        const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${Admin_URL}/banners/create`,formData,config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

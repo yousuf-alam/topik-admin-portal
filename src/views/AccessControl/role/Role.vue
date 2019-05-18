@@ -21,7 +21,7 @@
         </div>
         <div class="rolesTable table-responsive"> 
             <table class="table table-hover">
-            <thead class="bg-success">
+            <thead class="bg-dark">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
@@ -70,7 +70,7 @@ export default {
      methods: {
          fetchData() {
             const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-            const request = axios.get(`${ADMIN_URL}/api/roles`);
+            const request = axios.get(`${ADMIN_URL}/roles`);
             request.then(response => {
                 this.roles = response.data; 
             }).catch(error => {
@@ -81,7 +81,7 @@ export default {
              const role_id = role.id;
              const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
              if (confirm('Are you sure to delete this role? ')) {
-                const request = axios.delete(`${ADMIN_URL}/api/roles/${role_id}`);
+                const request = axios.delete(`${ADMIN_URL}/roles/${role_id}`);
                 request.then(response => {
                     if (response.status === 200) {
                         alert('Role deleted successfully');

@@ -1,5 +1,5 @@
 <template>
-    <b-card class="h-100 p-4 m-4">
+    <b-card class="h-100 p-5 m-4">
         <h5 class="mb-4">Customer Info</h5>
         <b-form-group>
           <label >Delivery Mobile</label>

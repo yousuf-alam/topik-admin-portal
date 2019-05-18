@@ -150,7 +150,7 @@
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
 
         console.log(this.name);
-        axios.post(`${Base_URL}/api/services/create`,formData,config)
+        axios.post(`${Base_URL}/services/create`,formData,config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

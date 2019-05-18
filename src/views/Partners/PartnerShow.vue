@@ -154,7 +154,7 @@
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
         let partner_id = window.location.pathname.split("/").pop();
         this.id = partner_id;
-        axios.post(`${Base_URL}/api/partners/show`,
+        axios.post(`${Base_URL}/partners/show`,
           {
             id: this.id
           }).then(response =>{
@@ -173,7 +173,7 @@
           changeStatus(){
             this.$modal.hide('modal-status');
             const Base_URL = process.env.VUE_APP_ADMIN_URL;
-            axios.post(`${Base_URL}/api/partners/change-status`,
+            axios.post(`${Base_URL}/partners/change-status`,
               {
                 id: this.partner.id,
                 status: this.partner.status

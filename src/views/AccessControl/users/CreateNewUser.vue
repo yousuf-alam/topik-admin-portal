@@ -106,7 +106,7 @@ export default {
             formvalues.password = this.password;
             formvalues.password_confirmation = this.password_confirmation;
 
-            axios.post(`${Base_URL}/api/users`, formvalues)
+            axios.post(`${Base_URL}/users`, formvalues)
                 .then(res => {
                     //console.log('Response === ', res);
                     this.handleResponse(res);
@@ -135,7 +135,7 @@ export default {
                 const role_ids = _.map(this.checked_roles, 'id');
                 const formvalues = {user_id, role_ids};
                 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-                axios.post(`${ADMIN_URL}/api/user/assignroles`, formvalues)
+                axios.post(`${ADMIN_URL}/user/assignroles`, formvalues)
                     .then(res => {
                         // console.log('And Final Response ', res)
                         alert('User create and Role assigned successfully');

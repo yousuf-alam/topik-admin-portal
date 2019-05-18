@@ -9,7 +9,7 @@
                     <div class="rightside">
                         <img src="https://partner.staging180601.romoni.xyz/site_assets/img/wallet-pink.png" width="30%"
                              alt="wallet-icon">
-                        <div class="badge badge-success money">৳ 1050</div>
+                        <div class="badge badge-success money">৳ {{partner.balance}}</div>
                         <div class="money-condition">Credit</div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
         let partner_id = window.location.pathname.split("/").pop();
         this.id = partner_id;
-        axios.post(`${Base_URL}/api/partners/show`,
+        axios.post(`${Base_URL}/partners/show`,
           {
             id: this.id
           }).then(response =>{

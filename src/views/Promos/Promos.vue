@@ -46,7 +46,7 @@
     },
     created(){
       const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/api/all-promos`)
+      axios.get(`${Base_URL}/all-promos`)
         .then(response =>{
           this.promos = response.data;
         })
@@ -58,7 +58,7 @@
       publish(promo_id)
       {
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/push-promos/publish`,
+        axios.post(`${Base_URL}/push-promos/publish`,
           {
             id: promo_id
           })

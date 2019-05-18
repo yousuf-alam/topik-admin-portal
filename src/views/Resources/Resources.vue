@@ -42,7 +42,7 @@
     },
     created(){
       const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/api/all-resources`)
+      axios.get(`${Base_URL}/all-resources`)
         .then(response =>{
           this.resources = response.data;
         })

@@ -1,5 +1,5 @@
 <template>
-    <b-card class="m-4 p-4">
+    <b-card class="m-4">
         <h5 class="mb-4">Date & Schedule</h5>
         <b-form-group label="Select Date">
           <datepicker @change="addSchedule" v-model="schedule.selected_date" :disabledDates="disabledDates"></datepicker>
@@ -44,18 +44,7 @@
       };
     },
     methods: {
-      changeDateFormat(){
-        let d = this.selected_date;
-        let month = '' + (d.getMonth() + 1);
-        let day = '' + d.getDate();
-        let year = d.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        this.selected_date =  [year, month, day].join('-');
-      },
       addSchedule() {
-        this.changeDateFormat();
         EventBus.$emit('schedule:add',this.schedule);
       }
     }

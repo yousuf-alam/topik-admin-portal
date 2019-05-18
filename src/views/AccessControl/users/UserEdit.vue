@@ -90,7 +90,7 @@ export default {
 
             const config = { headers: {'Content-Type': 'application/json'} };
             const user_id = this.$route.params.id;
-            const URL = `${ADMIN_URL}/api/users/${user_id}`;
+            const URL = `${ADMIN_URL}/users/${user_id}`;
             axios.put(URL, formvalues, config)
                 .then(response => {
                     // console.log('Update Response === ', response);
@@ -149,7 +149,7 @@ export default {
         fetchUserById() {
             const user_id = this.$route.params.id;
             const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/users/${user_id}`)
+            axios.get(`${ADMIN_URL}/users/${user_id}`)
                 .then(res => {
                     const respData = {...res.data};
                     this.checked_roles = respData.roles;

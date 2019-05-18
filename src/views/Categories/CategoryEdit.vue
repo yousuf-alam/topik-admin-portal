@@ -248,7 +248,7 @@
       this.src_banand = Base_URL + this.src_banand;
       let id = window.location.pathname.split("/").pop();
       this.category.id = id;
-      axios.post(`${Base_URL}/api/categories/edit`,
+      axios.post(`${Base_URL}/categories/edit`,
         {
           id: this.category.id
         }).then(response =>{
@@ -309,7 +309,7 @@
         formData.append('banner_ios', this.category.banner_android);
         console.log(this.category.service_id);
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/categories/update`, formData, config)
+        axios.post(`${Base_URL}/categories/update`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
           })

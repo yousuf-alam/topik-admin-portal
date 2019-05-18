@@ -31,7 +31,7 @@ export default {
     },
     created() {
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.get(`${ADMIN_URL}/api/roles`)
+        axios.get(`${ADMIN_URL}/roles`)
             .then(resp => {
                 this.allRoles = resp.data;
             }).catch(error => {

@@ -235,7 +235,8 @@
 <script>
 
   import axios from 'axios';
-
+  const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+  const Base_URL  = process.env.VUE_APP_BASE_URL;
   export default {
     name: "LineitemEdit",
     data() {
@@ -279,7 +280,7 @@
       }
     },
     created() {
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
+
       this.src_thumbnail = Base_URL + this.src_thumbnail;
       this.src_banweb = Base_URL + this.src_banweb;
       this.src_bantab = Base_URL + this.src_bantab;
@@ -288,7 +289,7 @@
       this.src_designs = Base_URL + this.src_designs;
       let id = window.location.pathname.split("/").pop();
       this.lineitem.id = id;
-      axios.post(`${Base_URL}/api/line-items/getLineitem`,
+      axios.post(`${Admin_URL}/line-items/getLineitem`,
         {
           id: this.lineitem.id
         }).then(response => {
@@ -358,8 +359,7 @@
           formData.append('updesigns[' + i + '][image]', file);
         }
 
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/line-items/new-design`, formData, config)
+        axios.post(`${Admin_URL}/line-items/new-design`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
             location.reload();
@@ -392,8 +392,7 @@
         formData.append('banner_ios', this.lineitem.banner_android);
 
 
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/api/line-items/update`, formData, config)
+        axios.post(`${Admin_URL}/line-items/update`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
           })

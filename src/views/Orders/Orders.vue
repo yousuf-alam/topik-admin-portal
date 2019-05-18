@@ -12,15 +12,9 @@
               </b-row>
               <b-row class="p-2">
                 <div class="center-div">
-                  <router-link :to="{ name: 'OrderCreate'}">
-                    <button class="btn btn-romoni-secondary m-2">Beauty On-Demand</button>
-                  </router-link>
-                  <router-link :to="{ name: 'OrderCreate'}">
-                    <button class="btn btn-primary m-2">Beauty Appointment</button>
-                  </router-link>
-                  <router-link :to="{ name: 'OrderCreate'}">
-                    <button class="btn btn-romoni-secondary m-2">Tailor On-Demand</button>
-                  </router-link>
+                  <button @click="createOrder('Beauty On-Demand')" class="btn btn-romoni-secondary m-2">Beauty On-Demand</button>
+                  <button @click="createOrder('Beauty Appointment')"class="btn btn-primary m-2">Beauty Appointment</button>
+                  <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button>
                 </div>
 
               </b-row>
@@ -34,7 +28,7 @@
                     <v-client-table :data="tableData" :columns="columns" :options="options">
                         <template slot="action" slot-scope="props">
                             <div>
-                                <router-link :to="{ name: 'OrderShow', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
+                                <router-link :to="{ customer: 'OrderShow', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
                                     <i class="fa fa-search"></i></span></router-link>
                                 <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit">
                                     <i class="fa fa-edit"></i></span>
@@ -51,29 +45,18 @@
 
 
 <script>
-
-
     export default {
-        name: 'Orders',
+        customer: 'Orders',
         data() {
             return {
-                columns: ['id', 'name', 'age', 'action'],
+                columns: ['id', 'type', 'booking' ,'platform', 'customer', 'partner', 'bill', 'action'],
+                type : 'gaga',
                 tableData: [
-                    {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},
-                    {id: 2, name: "Jane", age: "2018-10-31"},
-                    {id: 3, name: "Susan", age: "2018-10-31"},
-                    {id: 4, name: "Chris", age: "2018-10-31"},
-                    {id: 5, name: "Dan", age: "2018-12-30"},
-                    {id: 11, name: "John", age: "2018-10-31"},
-                    {id: 12, name: "Jane", age: "2018-08-31"},
-                    {id: 13, name: "Susan", age: "2018-08-03"},
-                    {id: 14, name: "Chris", age: "2018-09-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"},
-                    {id: 11, name: "John", age: "2018-12-31"},
-                    {id: 12, name: "Jane", age: "2018-12-31"},
-                    {id: 13, name: "Susan", age: "2018-12-31"},
-                    {id: 14, name: "Chris", age: "2018-12-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"}
+                    {id: 1, type: 'beauty', booking: 'on-demand',platform: 'admin_portal', customer: "John", partner: "Sansa",bill: "1200", created_at: "2018-12-18", action: {details: 'yes', delete: 'no'}},
+                    {id: 2, type: 'tailor', booking: 'on-demand',platform: 'admin_portal',customer: "Jane", partner: "Sansa",bill: "1200",created_at: "2018-10-31"},
+                    {id: 3, type: 'beauty', booking: 'appointment',platform: 'admin_portal', customer: "Susan",partner: "Sansa",bill: "1200",created_at: "2018-10-31"},
+                    {id: 4, type: 'beauty', booking: 'on-demand',platform: 'admin_portal',customer: "Chris",partner: "Sansa",bill: "1200", created_at: "2018-10-31"},
+                    {id: 5, type: 'tailor', booking: 'on-demand',platform: 'admin_portal',customer: "Dan",  partner: "Sansa",bill: "1200",created_at: "2018-12-30"},
                 ],
                 options: {
                     pagination: {nav: 'fixed'},
@@ -90,11 +73,18 @@
           modalType(){
             this.$modal.show('modal-order_type');
           },
-
-            delete(id) {
-                // The id can be fetched from the slot-scope row object when id is in columns
-                console.log('hi');
+          createOrder(type)
+          {
+            if(type!=='Beauty Appointment')
+            {
+              this.$router.push({ customer: 'OrderCreate', params: { type } })
             }
+            else
+            {
+              this.$router.push({ customer: 'AppointmentCreate'})
+            }
+
+          }
         },
     }
 </script>

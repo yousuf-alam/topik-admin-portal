@@ -11,7 +11,7 @@ const Dashboard = () => import('@/views/Dashboard')
 const Orders = () => import('@/views/Orders/Orders')
 const OrderShow = () => import('../views/Orders/Order_Show')
 const OrderCreate = () => import('../views/Orders/OrderCreate')
-
+const AppointmentCreate = () => import('../views/Orders/AppointmentCreate')
 
 const Notifications = () => import('@/views/Notifications/Notifications')
 const NotificationCreate = () => import('../views/Notifications/NotificationCreate')
@@ -210,8 +210,18 @@ const router =  new Router({
         path: '/orders/create',
         name: 'OrderCreate',
         component: OrderCreate,
+        props: true,
         meta: { 
           permission_name: 'order create' 
+        },
+      },
+      {
+        path: '/orders/create-appointment',
+        name: 'AppointmentCreate',
+        component: AppointmentCreate,
+        props: true,
+        meta: {
+          permission_name: 'order create'
         },
       },
       {
@@ -432,7 +442,7 @@ const router =  new Router({
         name: 'Banner / Edit',
         component: BannerEdit,
         meta: { 
-          permission_name: 'banner update'
+          permission_name: permissionsList.topbanner
         },
       },
       {

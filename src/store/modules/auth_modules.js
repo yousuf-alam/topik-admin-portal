@@ -71,7 +71,7 @@ const authModule = {
           // console.log('auth_modules .... login.... fired');
           return new Promise((resolve, reject) => {
             commit('auth_request');
-            axios({ url: `${ROOT_URL}/api/login`, data: userdata, method: 'POST' })
+            axios({ url: `${ROOT_URL}/login`, data: userdata, method: 'POST' })
               .then(resp => {
                 // console.log('Login success', resp );
                 const token = resp.data.access_token;

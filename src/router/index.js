@@ -253,7 +253,7 @@ const router =  new Router({
         name: 'Promo Codes',
         component: Promos,
         meta: { 
-          permission_name: permissionsList.promocode
+          //permission_name: permissionsList.promocode
         },
       },
       {
@@ -261,7 +261,7 @@ const router =  new Router({
         name: 'PromoEdit',
         component: PromoEdit,
         meta: {
-          permission_name: 'promocode update'
+         // permission_name: 'promocode update'
         },
       },
       {
@@ -269,7 +269,7 @@ const router =  new Router({
         name: 'PromoCreate',
         component: PromoCreate,
         meta: { 
-          permission_name: 'promocode create' 
+         // permission_name: 'promocode create'
         },
       },
       {
@@ -290,10 +290,10 @@ const router =  new Router({
       },
       {
         path: '/locations/edit/:id',
-        name: 'LocationsEdit',
+        name: 'LocationEdit',
         component: LocationEdit,
         meta: {
-          permission_name: 'location update'
+         // permission_name: 'location update'
         },
       },
       {
@@ -450,7 +450,7 @@ const router =  new Router({
         name: 'BannerCreate',
         component: BannerCreate,
         meta: { 
-          permission_name: 'banner create' 
+          //permission_name: 'banner create'
         },
       },
       {

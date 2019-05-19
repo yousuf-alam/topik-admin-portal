@@ -84,6 +84,8 @@ import UserShow from '../views/AccessControl/users/UserShow';
 import CreateNewUser from '../views/AccessControl/users/CreateNewUser';
 import UserEdit from '../views/AccessControl/users/UserEdit';
 
+import TestComponent from '../views/Test/TestComponent';
+
 import store from '../store/store';
 Vue.use(Router)
 
@@ -246,6 +248,12 @@ const router =  new Router({
         meta: { 
           permission_name: 'notification create' 
         },
+      },
+      {
+        /* ------ ------- This Route Has Been Made for Test Purpose ------- --------*/
+        path: '/test',
+        name: 'TestComponent',
+        component: TestComponent,
       },
       {
         path: 'promos',

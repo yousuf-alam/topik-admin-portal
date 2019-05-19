@@ -40,7 +40,8 @@ const setKeyEncodedValueInLS = (lsKey, value) => {
 }
 
 const authModule = {
-    namespaced: true, 
+    namespaced: true, //This is V.V.I for module wise accessing, 
+    // Otherwise this obj will be available globally .
     state: {
         status: '',
         token: getDecodedValueFromLS(LS_TOKEN_KEY_NAME, 'string') ,

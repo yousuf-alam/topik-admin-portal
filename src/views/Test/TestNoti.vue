@@ -51,6 +51,7 @@ export default {
         }
     },
     created() {
+        
         this.listenPrivateChannel();
         this.countAllNoti();
         this.countUnreadNoti();
@@ -60,6 +61,7 @@ export default {
         moment: (date) => moment(date).format('MMMM Do YYYY, h:mm:ss a')
     }, 
     methods: {
+
         listenPrivateChannel() {
             /*
                 // As we have no custom event named orders, So this will not works

@@ -3,7 +3,8 @@ const ROOT_URL = process.env.VUE_APP_ADMIN_URL;
 import _ from 'lodash';
 
 const roleModule = {
-    namespaced: true, 
+    namespaced: true, // //This is V.V.I for module wise accessing, 
+    // Otherwise this obj will be available globally .
     state: { 
         loadingStatus: 'initial',
         role: {id: '', name: ''},
@@ -21,7 +22,6 @@ const roleModule = {
 
      },
     actions: { 
-
         getSingleRoleAndPermissions({ commit }, role_id) {
             return new Promise((resolve, reject ) => {
                 commit('SET_LOADING_STATUS', 'Loading...')

@@ -29,13 +29,12 @@
                     >
                         <b-dropdown-item class="my-0 py-0">
                             <div class="d-flex justify-content-around">
-                                    <i :class="[noti.data.icon, notiIconStyle]"  /> 
+                                <i :class="[noti.data.icon, notiIconStyle]"  /> 
 
                                 <div class="m-0 p-0">
                                    <div class="m-0 p-0" style="width:170px"
                                     v-html="resizeText(noti.data.body)" />
                                      
-
                                     <div class="datetime m-0 p-0">
                                         <small> {{noti.created_at | moment}} </small>
                                     </div>
@@ -63,6 +62,8 @@ import Pusher from 'pusher-js';
 import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
+
+
 
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue';
 export default {

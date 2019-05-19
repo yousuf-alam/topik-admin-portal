@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 import AuthModule, { getDecodedValueFromLS } from './modules/auth_modules';
 import RoleModule from './modules/role_module';
+import NotiModule from './modules/noti_modules';
 import globalvariables from '../globalvariables';
 
 if (localStorage.token) {
@@ -20,7 +21,8 @@ const store = new Vuex.Store({
   modules: {
     auth: AuthModule,
     role: RoleModule,
-    
+    noti: NotiModule, 
+
   }, 
   state: { 
     

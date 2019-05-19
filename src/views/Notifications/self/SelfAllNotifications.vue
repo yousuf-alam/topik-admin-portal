@@ -196,6 +196,16 @@ export default {
             }
 
         }
+    },
+    beforeDestroy() {
+        // Wanted to unsubscribe from pusher here, 
+        // But that dosen't needed as pusher lister not fired if I do not access
+        // this component (this route.)
+        
+        //console.log('Notifications/self/SelfAllNotifications.vue, beforeDestroy. ')
+    },
+    destroyed() {
+        // console.log('Notifications/self/SelfAllNotifications.vue, destroyeeeeeeeeeeeeeeed');
     }
 
 }

@@ -29,7 +29,7 @@
                     >
                         <b-dropdown-item class="my-0 py-0">
                             <div class="d-flex justify-content-around">
-                                    <i :class="noti.icon"  /> 
+                                    <i :class="[noti.data.icon, notiIconStyle]"  /> 
 
                                 <div class="m-0 p-0">
                                    <div class="m-0 p-0" style="width:170px"
@@ -221,7 +221,9 @@ export default {
                 const dateB = new Date(b.created_at);
                 return dateB - dateA;
             });
-            console.log('this.notifications === ', this.notifications);
+
+
+            console.log('this notifications length === ', this.notifications.length);
         },
         infiniteScroll(event) {
             if ((event.target.scrollTop + event.target.offsetHeight ) >= 
@@ -255,11 +257,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.notificationCard {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
+    .notificationCard {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
 
 /* ------START: Scrolling Portion CSS ------- */
     .item-container {
@@ -305,7 +307,7 @@ export default {
     }
 /* ------ END: Scrolling Portion CSS ------- */
 
-.see-all:hover {
-    text-decoration: underline;
-}
+    .see-all:hover {
+        text-decoration: underline;
+    }
 </style>

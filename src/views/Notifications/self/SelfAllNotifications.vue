@@ -20,6 +20,7 @@
             <table class="table table-hover">
             <thead class="bg-success">
                 <tr>
+                    <th scope="col">Icon</th>
                     <th scope="col">Body</th>
                     <th scope="col">Status</th>
                     <th scope="col">Created At</th>
@@ -30,6 +31,9 @@
             <tbody>
                 <tr v-for="noti in notifications" :key="noti.id" 
                 :class="noti.read_at === null ? 'notReadYet': ''" >
+                    <td scope="row"> 
+                        <i :class="[noti.data.icon, ]"  :style="notiIconStyle"/> 
+                    </td>
                     <td scope="row">{{noti.data.body}}</td>
                     <td>
                         <span :class="setStatusColor(`${noti.data.status}`)">
@@ -96,8 +100,30 @@ export default {
     created() {
         this.countAllNoti();
         this.fetchNotifications();
+        this.listenPrivateChannel();
     },
     methods: {
+            listenPrivateChannel() {
+
+            const user = this.$store.getters['auth/authUser'];
+            const userId = user.id; 
+            // This works fine. 
+            window.Echo.private('App.User.' + userId)
+                .notification((notification) => {
+                    this.unreadNotiCounter++;
+                    this.allNotiCounter++;
+                    this.totalPageCount = Math.ceil(this.allNotiCounter / this.perPageItem);
+                    this.fetchNotifications();
+                    /*
+                        // this.notifications.push(notification.order); 
+                        Ai line ta likhle error khabe, karon, axios diye je notification
+                        gulo ami niye aschi, Segulor moddhe aro onke key (not_id, created_at) ache.
+                        Kintu aikhane sudhu order object. Tai notifications array te push korle vue
+                        template a jeye error khabe.
+                    */
+                });
+            
+        },
         onPaginateClick(parm) {
             this.pageNumber = parm - 1; // As api start from "pageNumber 0"
             this.fetchNotifications();
@@ -119,9 +145,8 @@ export default {
                     this.notifications = _.map(response.data.notifications, item => {
                             return {...item, ...{data: JSON.parse(item.data)}};
                         });
-                    console.log('=========== ', this.notifications);
                 }).catch(error => {
-                    console.log('Error === ', error.response);
+                    // console.log('Error === ', error.response);
                 })
         },
         singleNotiAction(notiObj) {
@@ -161,6 +186,15 @@ export default {
                 // badge badge-primary
                 
             }
+        },
+        notiIconStyle: () => {
+            return {
+                fontSize: '20px',
+                color: 'green',
+                marginTop: 'auto',
+                marginBottom: 'auto',
+            }
+
         }
     }
 
@@ -168,13 +202,13 @@ export default {
 </script>
 <style lang="scss">
 .notReadYet {
-    background: rgb(202, 201, 201);
+    background: rgb(204, 224, 235);
 }
 
 
 /* Start: Pagination Styling using SCSS */
-    $primaryColor: rgb(55, 143, 5); 
-    $bgColor: rgb(255, 255, 255); 
+    $primaryColor: rgb(238, 238, 238); 
+    $bgColor: rgb(77, 148, 138); 
     $selectdItemColor: $bgColor;
 
     .pagination {

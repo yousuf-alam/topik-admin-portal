@@ -196,6 +196,10 @@ export default {
                 this.fetchNotifications();
             }
         },
+
+
+
+    
         singleNotiAction(notiObj) {
             if (notiObj.read_at === null) {
                 this.notiMarkAsRead(notiObj.id);

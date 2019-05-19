@@ -18,7 +18,6 @@ export default {
     },
     methods: {
         countAllNoti() {
-            
            this.$store.dispatch('noti/countAllNoti')
                 .then(res => {
                     console.log(res.data);

@@ -62,8 +62,8 @@ import Pusher from 'pusher-js';
 import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
-
-
+import globalvariables from '../../../globalvariables';
+const ADMIN_URL = globalvariables.ADMIN_URL;
 
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue';
 export default {
@@ -146,22 +146,14 @@ export default {
             
         },
         countAllNoti() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
             axios.get(`${ADMIN_URL}/api/count-all-noti`)
-                .then(res => {
-                    this.allNotiCounter = res.data;
-                }).catch(error => {
-
-                }); 
+                .then(res => { this.allNotiCounter = res.data;})
+                .catch(error => {    }); 
         },
         countUnreadNoti() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
             axios.get(`${ADMIN_URL}/api/count-unread-noti`)
-                .then(res => {
-                    this.unreadNotiCounter = res.data;
-                }).catch(error => {
-
-                });
+                .then(res => { this.unreadNotiCounter = res.data; })
+                .catch(error => {    });
             
         },
         handleClick() {
@@ -171,60 +163,32 @@ export default {
             }
         },
         fetchNotifications() {
-            //console.log('fetchNotifications called ');
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
-                .then(res => {
-                    //console.log('Response success', res);
-                    const newNoti = _.map(res.data.notifications, item => {
-                        return {...item, ...{data: JSON.parse(item.data)}};
-                    });
-                    this.pageNumber++;
-                    this.mergeNewNotiToExistingNotificationsArray(newNoti);                    
-                }).catch(error => {
-                    //console.log('TestNoti.vue Error === ', error.response);
-                })
+            const parmObj = { 
+                perPageItem: this.perPageItem, 
+                pageNumber: this.pageNumber 
+            };
+            this.dispatchFetchScrollNotifications(parmObj);
         },
+
         fetchNotiAfterPusherListen() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${0}`)
-                .then(res => {
-                    const newNoti = _.map(res.data.notifications, item => {
-                        return {...item, ...{data: JSON.parse(item.data)}};
-                    });
-                    this.pageNumber++;
-                    this.mergeNewNotiToExistingNotificationsArray(newNoti);
-                    
-                }).catch(error => {
-                    //console.log('TestNoti.vue Error === ', error.response);
-                })
+            const parmObj = { 
+                perPageItem: this.perPageItem, 
+                pageNumber: 0 
+            };
+            this.dispatchFetchScrollNotifications(parmObj);
         },
-        mergeNewNotiToExistingNotificationsArray(newNoti) {
-            const notificationsObj = _.keyBy(this.notifications, 'id');
-            const newNotiObj = _.keyBy(newNoti, 'id');
-            
-            let mergedNotiObj = Object.assign({}, notificationsObj);
-            mergedNotiObj = Object.assign(mergedNotiObj, newNotiObj);
-            
-            const mergedNotiArray = [];
-            for (let key in mergedNotiObj) {
-                if (mergedNotiObj.hasOwnProperty(key)) {
-                        mergedNotiArray.push(mergedNotiObj[key])
-                }
-            }
-            this.notifications = [...mergedNotiArray];
-            if (this.notifications.length === this.allNotiCounter) {
-                this.showLoading = false;
-            }
+        dispatchFetchScrollNotifications(parmObj) {
+            this.$store.dispatch('noti/fetchScrollNotifications', parmObj)
+                .then(res => {
+                    this.pageNumber++;
+                    const merged_notifications = this.$store.getters['noti/merged_notifications'];
+                    if (merged_notifications.length === this.allNotiCounter) {
+                        this.showLoading = false;
+                    }
+                    this.notifications = merged_notifications;
+                }).catch(error => {
 
-            this.notifications.sort(function(a, b) {
-                const dateA = new Date(a.created_at);
-                const dateB = new Date(b.created_at);
-                return dateB - dateA;
-            });
-
-
-            console.log('this notifications length === ', this.notifications.length);
+                })
         },
         infiniteScroll(event) {
             if ((event.target.scrollTop + event.target.offsetHeight ) >= 
@@ -233,7 +197,6 @@ export default {
             }
         },
         singleNotiAction(notiObj) {
-            //console.log('single noti action', notiObj.read_at);
             if (notiObj.read_at === null) {
                 this.notiMarkAsRead(notiObj.id);
             }

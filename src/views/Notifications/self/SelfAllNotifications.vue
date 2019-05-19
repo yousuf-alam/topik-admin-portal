@@ -139,15 +139,17 @@ export default {
                 }); 
         },
         fetchNotifications() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;        
-            axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
-                .then(response => {
-                    this.notifications = _.map(response.data.notifications, item => {
-                            return {...item, ...{data: JSON.parse(item.data)}};
-                        });
-                }).catch(error => {
-                    // console.log('Error === ', error.response);
-                })
+            const parmObj = {
+                perPageItem: this.perPageItem, 
+                pageNumber: this.pageNumber
+            };
+            this.$store.dispatch('noti/fetchNotifications', parmObj)
+            .then(newNoti => {
+                this.notifications = newNoti;
+            }).catch(error => {
+
+            })
+            
         },
         singleNotiAction(notiObj) {
             //console.log('single noti action', notiObj.read_at);

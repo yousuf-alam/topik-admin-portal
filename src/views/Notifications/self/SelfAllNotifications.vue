@@ -18,7 +18,7 @@
         </div>
         <div class="resourcesTable table-responsive">
             <table class="table table-hover">
-            <thead class="bg-success">
+            <thead class="thead-dark">
                 <tr>
                     <th scope="col">Icon</th>
                     <th scope="col">Body</th>

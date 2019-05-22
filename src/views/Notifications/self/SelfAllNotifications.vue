@@ -40,9 +40,9 @@
                             {{noti.data.status}} 
                         </span>
                     </td>
-                    <td>{{noti.created_at }}</td>
+                    <td>{{ makeNotiTimeReadable(noti.created_at) }}</td>
                     <td >
-                        <span>{{noti.read_at === null ? 'Not Read' : noti.read_at }}</span>
+                        <span>{{noti.read_at === null ? 'Not Read' : makeNotiTimeReadable(noti.read_at) }}</span>
                     </td>
                     <td>
                         <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" 
@@ -170,6 +170,11 @@ export default {
 
     },
     computed: {
+        makeNotiTimeReadable: () => {
+            return (date) => {
+                return moment(date).format('MMMM Do YYYY, h:mm:ss a');
+            }
+        },
         setStatusColor: () => {
             return (parm) => {
                 if (parm === 'pending') { 

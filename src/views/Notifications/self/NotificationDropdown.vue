@@ -36,7 +36,7 @@
                                     v-html="resizeText(noti.data.body)" />
                                      
                                     <div class="datetime m-0 p-0">
-                                        <small> {{noti.created_at | moment}} </small>
+                                        <small> {{ makeNotiTimeReadable(noti.created_at) }} </small>
                                     </div>
                                 </div>
                             </div>
@@ -91,9 +91,6 @@ export default {
         this.countUnreadNoti();
         
     },
-    filters: {
-        moment: (date) => moment(date).format('MMMM Do YYYY, h:mm:ss a'),
-    }, 
     computed: {
         resizeText: () => {
             return (bodyText) => {
@@ -112,7 +109,12 @@ export default {
         },
         notiIconStyle: () => { 
            return 'text-success my-auto';
-        }
+        },
+        makeNotiTimeReadable: () => {
+            return (date) => {
+                return moment(date).format('MMMM Do YYYY, h:mm:ss a');
+            }
+        },
     },
     methods: {
         listenPrivateChannel() {

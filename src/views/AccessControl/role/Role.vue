@@ -2,14 +2,14 @@
     <div class="customcard">
         <div class="cardheading">
 			<div class="">
-				<h1 class="my-auto ">
-                    Roles List:
-				</h1>
+				<h2 class="my-auto ">
+                    Roles List
+				</h2>
 			</div>
 			<div class="">
 				<router-link to="/roles/new">				
                     <p class="my-2">
-                    <span class="badge badge-success new-cat-btn-name p-3">
+                    <span class="btn btn-success new-cat-btn-name p-2">
                         Create New Role <b> + </b>
                     </span>
                     </p> 
@@ -107,7 +107,11 @@ export default {
 </script>
 
 <style scoped>
-
+.aaa {
+    font-weight: 400;
+    font-size: 20px;
+    border: 1px solid gray;
+}
 
 
 </style>

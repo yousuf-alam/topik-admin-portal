@@ -86,7 +86,7 @@
 
 <script>
   import axios from 'axios';
-  const Base_URL = process.env.VUE_APP_ADMIN_URL;
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
   export default {
     name: "LocationEdit",
     data() {
@@ -111,7 +111,7 @@
     },
     created(){
       let id = window.location.pathname.split("/").pop();
-      axios.get(`${Base_URL}/locations/show`,{
+      axios.get(`${ADMIN_URL}/locations/show`,{
         params : {
           id : id
         }
@@ -147,7 +147,7 @@
       },
       onSubmit()
       {
-        axios.post(`${Base_URL}/locations/edit`,
+        axios.post(`${ADMIN_URL}/locations/edit`,
           {
             id        : this.location.id,
             city      : this.location.city,

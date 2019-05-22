@@ -94,8 +94,8 @@
         EventBus.$emit('service:add', this.services);
       },
       fetchCategories() {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/categories`, {
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${ADMIN_URL}/categories`, {
           service_id: 1
         })
           .then(response => {
@@ -106,8 +106,8 @@
           });
       },
       fetchSubcategories() {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/subcategories`, {
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${ADMIN_URL}/subcategories`, {
           category_id: this.selected_category
         })
           .then(response => {
@@ -118,8 +118,8 @@
           });
       },
       fetchServices() {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.get(`${Base_URL}/line-items/appointment`, {
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.get(`${ADMIN_URL}/line-items/appointment`, {
           params : {
             subcategory_id: this.selected_subcategory,
             partner_id: this.selected_partner.id

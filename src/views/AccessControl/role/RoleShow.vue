@@ -83,8 +83,8 @@ export default {
             }
             const permission_ids = _.map(this.checkedPermissions, 'id');
 
-            const Base_URL = process.env.VUE_APP_ADMIN_URL;
-            const URL = `${Base_URL}/roles/${this.$route.params.id}`;
+            const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+            const URL = `${ADMIN_URL}/roles/${this.$route.params.id}`;
             const config = { headers: {'Content-Type': 'application/json'} };
             axios.put(URL, permission_ids, config)
                 .then(response => {

@@ -68,8 +68,8 @@ export default {
         }
     },
     created() {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        const request = axios.get(`${Base_URL}/users`);
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        const request = axios.get(`${ADMIN_URL}/users`);
         request.then(response => {
             // console.log('Response  === ', response);
             this.users = response.data; 

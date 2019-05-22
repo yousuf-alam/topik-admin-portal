@@ -19,7 +19,7 @@
 <script>
   import axios from 'axios';
   import EventBus from '../../../utils/EventBus'
-  const Base_URL = process.env.VUE_APP_ADMIN_URL;
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
   export default {
     name: "Location",
 
@@ -36,7 +36,7 @@
     methods : {
       getLocation()
       {
-        axios.get(`${Base_URL}/locations-by-city`, {
+        axios.get(`${ADMIN_URL}/locations-by-city`, {
           params : {
             city : this.city
           }

@@ -48,8 +48,8 @@
             }
         },
         created(){
-          const Base_URL = process.env.VUE_APP_ADMIN_URL;
-          axios.get(`${Base_URL}/locations`)
+          const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+          axios.get(`${ADMIN_URL}/locations`)
             .then(response =>{
               this.locations = response.data;
             })

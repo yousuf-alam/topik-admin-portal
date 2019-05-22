@@ -75,7 +75,7 @@
   import EventBus from '../../../utils/EventBus';
   import axios from 'axios';
   const Admin_URL = process.env.VUE_APP_ADMIN_URL;
-  const Base_URL = process.env.VUE_APP_BASE_URL;
+  const BASE_URL = process.env.VUE_APP_BASE_URL;
 
   export default {
     name: "Service",
@@ -178,7 +178,7 @@
 
       fetchQuestion() {
         this.item_designs = JSON.parse(this.selected_service.designs);
-        this.src_item_design = Base_URL + this.src_item_design;
+        this.src_item_design = BASE_URL + this.src_item_design;
         this.questions = _.map(this.options, option => {
           return {
             question: option.question,

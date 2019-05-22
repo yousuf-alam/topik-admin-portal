@@ -64,8 +64,8 @@
     },
     created() {
       const Admin_URL = process.env.VUE_APP_ADMIN_URL;
-      const Base_URL  = process.env.VUE_APP_BASE_URL;
-      this.src_image = Base_URL + this.src_image;
+      const BASE_URL  = process.env.VUE_APP_BASE_URL;
+      this.src_image = BASE_URL + this.src_image;
       this.banner.id= window.location.pathname.split("/").pop();
       this.getServices();
       this.getCategories();

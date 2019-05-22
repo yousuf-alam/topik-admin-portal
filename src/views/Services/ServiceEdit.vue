@@ -288,8 +288,8 @@
         formData.append('banner_android', this.service.banner_android);
         formData.append('banner_ios', this.service.banner_android);
         console.log(formData);
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/services/update`, formData, config)
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${ADMIN_URL}/services/update`, formData, config)
           .then( response => {
             currentObj.success = response.data.success;
             alert('Service Updated Successfully.')
@@ -302,17 +302,17 @@
           });
       },
       fetchServiceData(parm) {
-        let Base_URL = process.env.VUE_APP_ADMIN_URL;
+        let ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         if (parm === 'after_update') {
-           Base_URL = '';
+           ADMIN_URL = '';
         } 
-        this.src_svg = Base_URL + this.src_svg;
-        this.src_pdf = Base_URL + this.src_pdf;
-        this.src_thumbnail = Base_URL + this.src_thumbnail;
-        this.src_banweb = Base_URL + this.src_banweb;
-        this.src_bantab = Base_URL + this.src_bantab;
-        this.src_banios = Base_URL + this.src_banios;
-        this.src_banand = Base_URL + this.src_banand;
+        this.src_svg = ADMIN_URL + this.src_svg;
+        this.src_pdf = ADMIN_URL + this.src_pdf;
+        this.src_thumbnail = ADMIN_URL + this.src_thumbnail;
+        this.src_banweb = ADMIN_URL + this.src_banweb;
+        this.src_bantab = ADMIN_URL + this.src_bantab;
+        this.src_banios = ADMIN_URL + this.src_banios;
+        this.src_banand = ADMIN_URL + this.src_banand;
         let id = window.location.pathname.split("/").pop();
         this.service.id = id;
 

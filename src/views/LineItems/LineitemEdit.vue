@@ -236,7 +236,7 @@
 
   import axios from 'axios';
   const Admin_URL = process.env.VUE_APP_ADMIN_URL;
-  const Base_URL  = process.env.VUE_APP_BASE_URL;
+  const BASE_URL  = process.env.VUE_APP_BASE_URL;
   export default {
     name: "LineitemEdit",
     data() {
@@ -281,12 +281,12 @@
     },
     created() {
 
-      this.src_thumbnail = Base_URL + this.src_thumbnail;
-      this.src_banweb = Base_URL + this.src_banweb;
-      this.src_bantab = Base_URL + this.src_bantab;
-      this.src_banios = Base_URL + this.src_banios;
-      this.src_banand = Base_URL + this.src_banand;
-      this.src_designs = Base_URL + this.src_designs;
+      this.src_thumbnail = BASE_URL + this.src_thumbnail;
+      this.src_banweb = BASE_URL + this.src_banweb;
+      this.src_bantab = BASE_URL + this.src_bantab;
+      this.src_banios = BASE_URL + this.src_banios;
+      this.src_banand = BASE_URL + this.src_banand;
+      this.src_designs = BASE_URL + this.src_designs;
       let id = window.location.pathname.split("/").pop();
       this.lineitem.id = id;
       axios.post(`${Admin_URL}/line-items/getLineitem`,

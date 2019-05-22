@@ -44,7 +44,7 @@
 <script>
   import EventBus from '../../../utils/EventBus';
 
-  const Base_URL = process.env.VUE_APP_BASE_URL;
+  const BASE_URL = process.env.VUE_APP_BASE_URL;
 
   export default {
     name: 'Partner',
@@ -56,7 +56,7 @@
       }
     },
     created() {
-      this.src_avatar = Base_URL + '/'+ this.src_avatar;
+      this.src_avatar = BASE_URL + '/'+ this.src_avatar;
     },
     methods: {
       selectPartner(partner){

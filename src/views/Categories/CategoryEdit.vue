@@ -238,17 +238,17 @@
       }
     },
     created(){
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      this.src_svg = Base_URL + this.src_svg;
-      this.src_pdf = Base_URL + this.src_pdf;
-      this.src_thumbnail = Base_URL + this.src_thumbnail;
-      this.src_banweb = Base_URL + this.src_banweb;
-      this.src_bantab = Base_URL + this.src_bantab;
-      this.src_banios = Base_URL + this.src_banios;
-      this.src_banand = Base_URL + this.src_banand;
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      this.src_svg = ADMIN_URL + this.src_svg;
+      this.src_pdf = ADMIN_URL + this.src_pdf;
+      this.src_thumbnail = ADMIN_URL + this.src_thumbnail;
+      this.src_banweb = ADMIN_URL + this.src_banweb;
+      this.src_bantab = ADMIN_URL + this.src_bantab;
+      this.src_banios = ADMIN_URL + this.src_banios;
+      this.src_banand = ADMIN_URL + this.src_banand;
       let id = window.location.pathname.split("/").pop();
       this.category.id = id;
-      axios.post(`${Base_URL}/categories/edit`,
+      axios.post(`${ADMIN_URL}/categories/edit`,
         {
           id: this.category.id
         }).then(response =>{
@@ -308,8 +308,8 @@
         formData.append('banner_android', this.category.banner_android);
         formData.append('banner_ios', this.category.banner_android);
         console.log(this.category.service_id);
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/categories/update`, formData, config)
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${ADMIN_URL}/categories/update`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
           })

@@ -47,7 +47,7 @@
   import Cart     from './AppointmentCreate/Cart'
   import Partner  from './AppointmentCreate/Partner'
   import OrderSummary  from './AppointmentCreate/Summary'
-  const Base_URL = process.env.VUE_APP_ADMIN_URL;
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
   export default {
     name: "OrderCreate",
     components: {
@@ -98,8 +98,8 @@
         this.invoice = this.invoiceFormatter();
       },
       fetchPartner() {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.get(`${Base_URL}/appointment-partners`, {
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.get(`${ADMIN_URL}/appointment-partners`, {
           params: {
             location_id : this.location
           }
@@ -153,7 +153,7 @@
         formData.append('discount', this.invoice.discount);
 
 
-        axios.post(`${Base_URL}/place-order`, formData, config)
+        axios.post(`${ADMIN_URL}/place-order`, formData, config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

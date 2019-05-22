@@ -98,15 +98,15 @@ export default {
                 return; 
             }
             // console.log('Yes , you are prepeared to do action. . . . ');
-            const Base_URL = process.env.VUE_APP_ADMIN_URL;
-            // console.log(Base_URL);
+            const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+            // console.log(ADMIN_URL);
             const formvalues = {};
             formvalues.name = this.name;
             formvalues.phone = this.phone
             formvalues.password = this.password;
             formvalues.password_confirmation = this.password_confirmation;
 
-            axios.post(`${Base_URL}/users`, formvalues)
+            axios.post(`${ADMIN_URL}/users`, formvalues)
                 .then(res => {
                     //console.log('Response === ', res);
                     this.handleResponse(res);

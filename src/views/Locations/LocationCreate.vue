@@ -127,8 +127,8 @@
       },
       onSubmit()
       {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/locations/create`,
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${ADMIN_URL}/locations/create`,
           {
             city      : this.city,
             name      : this.name,

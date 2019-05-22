@@ -69,8 +69,8 @@
       }
     },
     created(){
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/all-categories`)
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      axios.get(`${ADMIN_URL}/all-categories`)
         .then(response =>{
           this.categories = response.data;
         })

@@ -111,8 +111,8 @@
       }
     },
     created(){
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/services`)
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      axios.get(`${ADMIN_URL}/services`)
         .then(response =>{
           this.services = response.data;
         })
@@ -123,8 +123,8 @@
     methods: {
 
       getCategories(){
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/categories`,{
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${ADMIN_URL}/categories`,{
           service_id: this.service_id
         })
           .then(response =>{
@@ -181,9 +181,9 @@
         formData.append('banner_android', this.banner_android);
         formData.append('banner_ios', this.banner_android);
 
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         console.log(this.name);
-        axios.post(`${Base_URL}/categories/create`,formData,config)
+        axios.post(`${ADMIN_URL}/categories/create`,formData,config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

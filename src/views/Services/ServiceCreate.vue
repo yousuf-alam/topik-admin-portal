@@ -78,8 +78,8 @@
   export default {
     name: "ServiceCreate",
     created() {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        console.log('Service Create Base_URL === ', Base_URL);
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        console.log('Service Create ADMIN_URL === ', ADMIN_URL);
     },
     data() {
       return {
@@ -147,10 +147,10 @@
         formData.append('banner_android', this.banner_android);
         formData.append('banner_ios', this.banner_android);
 
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
         console.log(this.name);
-        axios.post(`${Base_URL}/services/create`,formData,config)
+        axios.post(`${ADMIN_URL}/services/create`,formData,config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

@@ -52,11 +52,11 @@
     },
     created(){
       const Admin_URL = process.env.VUE_APP_ADMIN_URL;
-      const Base_URL  = process.env.VUE_APP_BASE_URL;
+      const BASE_URL  = process.env.VUE_APP_BASE_URL;
       axios.get(`${Admin_URL}/banners`)
         .then(response =>{
           this.banner = response.data;
-          this.src_image = Base_URL + this.src_image;
+          this.src_image = BASE_URL + this.src_image;
         })
         .catch(e=>{
           //console.log("error occurs");

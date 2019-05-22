@@ -358,8 +358,8 @@
       }
     },
     created() {
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/services`)
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      axios.get(`${ADMIN_URL}/services`)
         .then(response => {
           this.services = response.data;
         })
@@ -404,8 +404,8 @@
         },
         priceTable(questions) {
           questions = JSON.stringify(questions);
-          const Base_URL = process.env.VUE_APP_ADMIN_URL;
-          axios.post(`${Base_URL}/line-items/price-combination`, {
+          const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+          axios.post(`${ADMIN_URL}/line-items/price-combination`, {
             data: questions
           })
             .then(response => {
@@ -480,8 +480,8 @@
           this.questions.splice(index, 1);
         },
         getCategories() {
-          const Base_URL = process.env.VUE_APP_ADMIN_URL;
-          axios.post(`${Base_URL}/categories`, {
+          const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+          axios.post(`${ADMIN_URL}/categories`, {
             service_id: this.service_id
           })
             .then(response => {
@@ -493,8 +493,8 @@
 
         },
         getSubcategories() {
-          const Base_URL = process.env.VUE_APP_ADMIN_URL;
-          axios.post(`${Base_URL}/subcategories`, {
+          const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+          axios.post(`${ADMIN_URL}/subcategories`, {
             category_id: this.category_id
           })
             .then(response => {
@@ -545,11 +545,11 @@
           const config = {
             headers: {'content-type': 'multipart/form-data'}
           };
-          const Base_URL = process.env.VUE_APP_ADMIN_URL;
+          const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
           console.log(this.designs);
           let formData = new FormData();
           formData.append('thumbnail', this.thumbnail);
-          axios.post(`${Base_URL}/line-items/design`,formData, config)
+          axios.post(`${ADMIN_URL}/line-items/design`,formData, config)
             .then(response => {
               console.log('Success', response);
               currentObj.success = response.data.success;
@@ -567,7 +567,7 @@
           const config = {
             headers: {'content-type': 'multipart/form-data'}
           };
-          const Base_URL = process.env.VUE_APP_ADMIN_URL;
+          const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
           let designData = new FormData();
           for( let i = 0; i < this.designs.length; i++ ){
             let file = this.designs[i];
@@ -575,7 +575,7 @@
 
             designData.append('designs[' + i + '][image]', file);
           }
-          axios.post(`${Base_URL}/line-items/design`,designData, config)
+          axios.post(`${ADMIN_URL}/line-items/design`,designData, config)
             .then(response => {
               console.log('Success', response);
               currentObj.success = response.data.success;
@@ -624,9 +624,9 @@
             formData.append('designs[' + i + '][image]', file);
           }
 
-          const Base_URL = process.env.VUE_APP_ADMIN_URL;
+          const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
           console.log(this.name);
-          axios.post(`${Base_URL}/line-items/create`, formData, config)
+          axios.post(`${ADMIN_URL}/line-items/create`, formData, config)
             .then(response => {
               console.log('Success', response);
               currentObj.success = response.data.success;

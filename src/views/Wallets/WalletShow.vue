@@ -75,10 +75,10 @@
             }
         },
       created(){
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         let partner_id = window.location.pathname.split("/").pop();
         this.id = partner_id;
-        axios.post(`${Base_URL}/partners/show`,
+        axios.post(`${ADMIN_URL}/partners/show`,
           {
             id: this.id
           }).then(response =>{

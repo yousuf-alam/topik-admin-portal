@@ -45,8 +45,8 @@
       }
     },
     created(){
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/all-promos`)
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      axios.get(`${ADMIN_URL}/all-promos`)
         .then(response =>{
           this.promos = response.data;
         })
@@ -57,8 +57,8 @@
     methods: {
       publish(promo_id)
       {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/push-promos/publish`,
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${ADMIN_URL}/push-promos/publish`,
           {
             id: promo_id
           })

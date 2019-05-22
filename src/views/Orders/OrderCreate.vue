@@ -68,7 +68,7 @@
   import Design from './OrderCreate/Design'
   import Accessories from './OrderCreate/Accessories'
 
-  const Base_URL = process.env.VUE_APP_ADMIN_URL;
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
   export default {
     name: "OrderCreate",
@@ -138,7 +138,7 @@
       },
       fetchPartner() {
 
-        axios.post(`${Base_URL}/available-partners`, {
+        axios.post(`${ADMIN_URL}/available-partners`, {
           location : this.location,
           date : this.schedule.selected_date,
           time : this.schedule.selected_time,
@@ -202,7 +202,7 @@
         }
 
         console.log(this.name);
-        axios.post(`${Base_URL}/place-order`, formData, config)
+        axios.post(`${ADMIN_URL}/place-order`, formData, config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

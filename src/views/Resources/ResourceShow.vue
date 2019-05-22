@@ -114,11 +114,11 @@
       }
     },
     created(){
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      this.src_avatar = Base_URL + this.src_avatar;
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      this.src_avatar = ADMIN_URL + this.src_avatar;
       let resource_id = window.location.pathname.split("/").pop();
       this.id = resource_id;
-      axios.post(`${Base_URL}/resources/show`,
+      axios.post(`${ADMIN_URL}/resources/show`,
         {
           id: this.id
         }).then(response =>{
@@ -136,8 +136,8 @@
       },
       changeStatus(){
         this.$modal.hide('modal-status');
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/resources/change-status`,
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.post(`${ADMIN_URL}/resources/change-status`,
           {
             id: this.resource.id,
             status: this.resource.status

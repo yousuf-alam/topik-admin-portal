@@ -108,7 +108,8 @@
             service_name: this.selected_service.name,
             quantity: this.quantity,
             price: this.selected_service.price,
-            answer: this.questionFormat
+            answer: this.questionFormat,
+            design: this.selected_item_design.image
           }
         },
         questionFormat() {

@@ -14,10 +14,6 @@
           <GmapMap :center="center"
                    :zoom="15"
                    style="width: 800px; height: 500px">
-            <GmapMarker :clickable="true"
-                        :draggable="true"
-                        :position="marker.position"
-            />
             <GmapMarker
               :position="{
                 lat: this.place.geometry.location.lat(),

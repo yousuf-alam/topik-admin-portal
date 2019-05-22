@@ -20,6 +20,14 @@
                        {{ phone_warning }}
                     </span>
                 </div>
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" aria-describedby="nameHelp" placeholder="Enter Address"
+                           v-model="address" @keyup="nameKeyUp">
+                    <span  class="form-text text-danger">
+                        {{name_warning}}
+                    </span>
+                  </div>
 
                 <div class="mx-1 my-2">
                     <h3 class="text-danger"> {{ role_warning }} </h3>
@@ -50,7 +58,7 @@ export default {
             name_warning: '',
             phone: '',
             phone_warning: '',
-            
+            address : '',
             role_warning: '',
 
             checked_roles: [], 
@@ -86,6 +94,7 @@ export default {
             const formvalues = {};
             formvalues.name = this.name;
             formvalues.phone = this.phone;
+            formvalues.address = this.address;
             formvalues.role_ids = _.map(this.checked_roles, 'id');
 
             const config = { headers: {'Content-Type': 'application/json'} };
@@ -158,6 +167,7 @@ export default {
                     })
                     this.name = res.data.name;
                     this.phone = res.data.phone;
+                    this.address = res.data.address;
                     this.initial_data_fetched = true;
                     
                 }).catch(err => {

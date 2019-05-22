@@ -1,41 +1,30 @@
 <template>
   <div class="card m-4">
     <div class="card-body">
-      <div class="col-sm-12 black-bg">
-        <h3 class="text-center">Available Service Providers</h3>
-      </div>
+        <h3 class="text-center mb-4">Available Service Providers</h3>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="tab-pane list-group partners in active show" style="max-height: 40rem;overflow-y: scroll;">
 
-      <div class="col-sm-12 p-3" style="max-height: 40rem;
-    overflow-y: scroll;" >
-
-        <div class="tab-pane list-group partners in active show">
-
-          <div class="list-group-item list-group-item-action" v-for="(partner, i) in partners" :key="i" @click="selectPartner(partner)" :class="{active: selected_partner === partner , disabledSP: partner.is_booked ===1}">
-            <div class="row">
-              <div class="col-sm-2">
-                <img class="partner-thumb" :src="src_avatar + partner.avatar">
-              </div>
-              <div class="col-sm-6">
-                <h4 class="p-name">{{ partner.name }}</h4>
-                <p v-if="partner.is_booked ===1" class="booked mt-2">[ Booked for the selected time ]</p>
-              </div>
-              <div class="col-sm-4 text-right">
-                <h6>৳ {{ partner.price }}</h6>
+            <div class="list-group-item list-group-item-action" v-for="(partner, i) in partners" :key="i" @click="selectPartner(partner)" :class="{active: selected_partner === partner , disabledSP: partner.is_booked ===1}">
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="partner-thumb" :src="src_avatar + partner.avatar">
+                </div>
+                <div class="col-md-10">
+                  <h4 class="p-name">{{ partner.name }}</h4>
+                </div>
               </div>
             </div>
           </div>
+          <h4 class="mt-4" v-if="selected_partner">
+            Selected SP:
+            <span class="font-weight-bold">{{ selected_partner.name }}</span>
+          </h4>
         </div>
       </div>
-
-
       <div class="col-sm-12 mt-5">
-        <h4 class="float-left" v-if="selected_partner">
-          Selected SP:
-          <span class="font-weight-bold">{{ selected_partner.name }}</span>
-        </h4>
-        <div class="float-right" v-if="partners.length">
-          <button class="btn btn-lg btn-primary" :disabled="selected_partner === null" @click="onConfirm()">Confirm</button>
-        </div>
+
       </div>
     </div>
   </div>
@@ -61,9 +50,6 @@
     methods: {
       selectPartner(partner){
         this.selected_partner = partner;
-
-      },
-      onConfirm(){
         EventBus.$emit('partner:confirm', this.selected_partner);
       }
     }

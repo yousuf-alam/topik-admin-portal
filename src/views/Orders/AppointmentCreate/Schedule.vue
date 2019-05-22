@@ -1,5 +1,5 @@
 <template>
-    <b-card class="m-4">
+    <b-card class="m-4 p-4">
         <h5 class="mb-4">Date & Schedule</h5>
         <b-form-group label="Select Date">
           <datepicker @change="addSchedule" v-model="schedule.selected_date" :disabledDates="disabledDates"></datepicker>
@@ -14,9 +14,6 @@
             <option value="06:00PM - 08:00PM">06:00 PM - 08:00 PM</option>
             <option value="08:00PM - 10:00PM">08:00 PM - 10:00 PM</option>
           </select>
-        </b-form-group>
-        <b-form-group label="Delivery Address">
-            <b-form-input @keyup="addSchedule" type="text" v-model="schedule.delivery_address"></b-form-input>
         </b-form-group>
     </b-card>
 </template>
@@ -44,7 +41,18 @@
       };
     },
     methods: {
+      changeDateFormat(){
+        let d = this.schedule.selected_date;
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        let year = d.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        this.schedule.selected_date =  [year, month, day].join('-');
+      },
       addSchedule() {
+        this.changeDateFormat();
         EventBus.$emit('schedule:add',this.schedule);
       }
     }

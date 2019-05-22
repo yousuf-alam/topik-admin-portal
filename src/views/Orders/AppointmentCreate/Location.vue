@@ -1,5 +1,5 @@
 <template>
-  <b-card class="h-100 m-4">
+  <b-card class="h-100 m-4 p-4">
     <h5 class="mb-4">Location</h5>
     <b-form-group label="Select City">
         <select class="form-control" @change="getLocation" v-model="city">

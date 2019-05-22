@@ -10,7 +10,7 @@
         </b-row>
         <b-row>
             <b-col>
-                <schedule></schedule>
+                <schedule :type="type"></schedule>
             </b-col>
         </b-row>
         <b-row v-if="type==='Beauty On-Demand'">
@@ -93,6 +93,9 @@
         schedule: [],
         services: [],
         designs: [],
+        accessories: [],
+        measurement_type: '',
+        custom_measurement: '',
         selected_partner:null,
         invoice:[],
         payment_method: 'cash_on_delivery'
@@ -106,6 +109,8 @@
         EventBus.$on('design:add'     , this.designAdd.bind(this));
         EventBus.$on('cart:add'       , this.servicesAdd.bind(this));
         EventBus.$on('partner:confirm', this.partnerAdd.bind(this));
+        EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
+
     },
     methods : {
 
@@ -124,6 +129,12 @@
       servicesAdd(services) {
         this.services = services;
         this.fetchPartner();
+      },
+      accessoriesAdd(data) {
+        this.accessories = data.accessories;
+        this.measurement_type = data.measurement_type;
+        if(this.measurement_type==='own')
+          this.measurement_type = data.custom_measurement;
       },
       fetchPartner() {
 
@@ -144,11 +155,13 @@
       },
       partnerAdd(partner) {
         this.selected_partner = partner;
+
         this.invoice = this.invoiceFormatter();
       },
       invoiceFormatter(){
         return{
           price:this.selected_partner.price,
+          discount: 0,
           serviceNo: this.services.length,
           sp:this.selected_partner.name,
           address:this.schedule.delivery_address,
@@ -165,16 +178,22 @@
 
 
         let formData = new FormData();
-        formData.append('platform', 'web');
+        formData.append('type', this.type);
+        formData.append('platform', 'admin_portal');
         formData.append('partner_id', this.selected_partner.id);
         formData.append('location_id', this.location);
         formData.append('scheduled_time', this.schedule.selected_time);
-        formData.append('selected_date', this.schedule.selected_date);
+        formData.append('scheduled_date', this.schedule.selected_date);
         formData.append('shipping_name', this.customer.name);
         formData.append('shipping_address', this.schedule.delivery_address);
         formData.append('shipping_phone', this.customer.phone);
         formData.append('payment_method', this.payment_method);
+        formData.append('measurement', this.measurement_type);
+        formData.append('accessories', JSON.stringify(this.accessories));
         formData.append('services', JSON.stringify(this.services));
+        formData.append('price', this.invoice.price);
+        formData.append('discount', this.invoice.discount);
+
 
 
         for( let i = 0; i < this.designs.length; i++ ){

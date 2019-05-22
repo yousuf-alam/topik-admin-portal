@@ -1,5 +1,5 @@
 <template>
-  <div class="card m-4">
+  <div class="card m-4 p-4">
     <div class="card-body">
       <h4 class="card-title text-center mb-5">Order Summary</h4>
       <div class="row m-3">

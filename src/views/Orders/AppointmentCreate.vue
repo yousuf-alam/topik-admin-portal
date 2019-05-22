@@ -9,21 +9,21 @@
             </b-col>
         </b-row>
         <b-row>
+          <b-col>
+            <partner :partners="partners"></partner>
+          </b-col>
+        </b-row>
+        <b-row>
             <b-col>
                 <schedule></schedule>
             </b-col>
         </b-row>
         <b-row>
             <b-col sm="6" md="6">
-                <service></service>
+                <service :selected_partner="selected_partner"></service>
             </b-col>
             <b-col sm="6" md="6">
                 <cart></cart>
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col>
-                <partner :partners="partners"></partner>
             </b-col>
         </b-row>
         <b-row>
@@ -47,7 +47,7 @@
   import Cart     from './AppointmentCreate/Cart'
   import Partner  from './AppointmentCreate/Partner'
   import OrderSummary  from './AppointmentCreate/Summary'
-
+  const Base_URL = process.env.VUE_APP_ADMIN_URL;
   export default {
     name: "OrderCreate",
     components: {
@@ -61,6 +61,7 @@
     },
     data() {
       return {
+        type: 'Beauty Appointment',
         customer: [],
         location: '',
         categories: [],
@@ -87,21 +88,21 @@
       },
       locationAdd(location) {
         this.location = location;
+        this.fetchPartner();
       },
       scheduleAdd(schedule) {
         this.schedule = schedule;
       },
       servicesAdd(services) {
         this.services = services;
-        this.fetchPartner();
+        this.invoice = this.invoiceFormatter();
       },
       fetchPartner() {
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/available-partners`, {
-          location : this.location,
-          date : this.schedule.selected_date,
-          time : this.schedule.selected_time,
-          services : this.services
+        axios.get(`${Base_URL}/appointment-partners`, {
+          params: {
+            location_id : this.location
+          }
         })
           .then(response => {
             this.partners = response.data;
@@ -114,18 +115,55 @@
       },
       partnerAdd(partner) {
         this.selected_partner = partner;
-        this.invoice = this.invoiceFormatter();
       },
       invoiceFormatter(){
         return{
           price:this.selected_partner.price,
+          discount: 0,
           serviceNo: this.services.length,
           sp:this.selected_partner.name,
           address:this.schedule.delivery_address,
           schedule:this.schedule
         }
       },
-      orderPlace() {
+      orderPlace(e) {
+
+        e.preventDefault();
+        let currentObj = this;
+        const config = {
+          headers: {'content-type': 'multipart/form-data'}
+        };
+
+
+        let formData = new FormData();
+        formData.append('type', this.type);
+        formData.append('platform', 'admin_portal');
+        formData.append('partner_id', this.selected_partner.id);
+        formData.append('location_id', this.location);
+        formData.append('scheduled_time', this.schedule.selected_time);
+        formData.append('scheduled_date', this.schedule.selected_date);
+        formData.append('shipping_name', this.customer.name);
+        formData.append('shipping_address', this.schedule.delivery_address);
+        formData.append('shipping_phone', this.customer.phone);
+        formData.append('payment_method', this.payment_method);
+        formData.append('measurement', this.measurement_type);
+        formData.append('accessories', JSON.stringify(this.accessories));
+        formData.append('services', JSON.stringify(this.services));
+        formData.append('price', this.invoice.price);
+        formData.append('discount', this.invoice.discount);
+
+
+        axios.post(`${Base_URL}/place-order`, formData, config)
+          .then(response => {
+            console.log('Success', response);
+            currentObj.success = response.data.success;
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.log('Error  ... ', error.response);
+            currentObj.output = error;
+            console.log(error);
+          });
 
       }
 

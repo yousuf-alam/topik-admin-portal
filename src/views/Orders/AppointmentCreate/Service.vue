@@ -1,5 +1,5 @@
 <template>
-    <b-card class="m-4">
+    <b-card class="m-4 p-4">
         <h5 class="mb-4">Select Line Item</h5>
         <div class="form-group">
             <label for="1">Select Category</label>
@@ -51,6 +51,7 @@
 
   export default {
     name: "Service",
+    props: ['selected_partner'],
       data() {
         return {
           categories: [],
@@ -118,8 +119,11 @@
       },
       fetchServices() {
         const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/line-items`, {
-          subcategory_id: this.selected_subcategory
+        axios.get(`${Base_URL}/line-items/appointment`, {
+          params : {
+            subcategory_id: this.selected_subcategory,
+            partner_id: this.selected_partner.id
+          }
         })
           .then(response => {
             this.servicesObject = response.data;

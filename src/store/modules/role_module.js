@@ -25,7 +25,7 @@ const roleModule = {
         getSingleRoleAndPermissions({ commit }, role_id) {
             return new Promise((resolve, reject ) => {
                 commit('SET_LOADING_STATUS', 'Loading...')
-                axios.get(`${ROOT_URL}/api/roles/${role_id}`)
+                axios.get(`${ROOT_URL}/roles/${role_id}`)
                 .then(response => {
                     commit('SET_LOADING_STATUS', 'Data Loaded Successfully');
                     const allpermissions = response.data.allpermissions;

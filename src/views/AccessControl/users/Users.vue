@@ -2,8 +2,8 @@
     <div class="customcard">
         <div class="cardheading">
 			<div class="">
-				<h1 class="my-auto ">
-                    Users:
+				<h1 class="my-auto tableName">
+                    Users
 				</h1>
 			</div>
 			<div class="">

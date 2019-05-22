@@ -2,8 +2,8 @@
     <div class="customcard">
         <div class="cardheading">
 			<div class="">
-				<h2 class="my-auto ">
-                    Roles List
+				<h2 class="my-auto tableName">
+                    Roles
 				</h2>
 			</div>
 			<div class="">
@@ -107,11 +107,6 @@ export default {
 </script>
 
 <style scoped>
-.aaa {
-    font-weight: 400;
-    font-size: 20px;
-    border: 1px solid gray;
-}
 
 
 </style>

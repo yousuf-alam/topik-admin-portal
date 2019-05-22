@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app ">
     <AppHeader fixed>
       <SidebarToggler class="d-lg-none" display="md" mobile />
       <b-link class="navbar-brand" to="#">
@@ -10,17 +10,20 @@
       <b-navbar-nav class="d-md-down-none">
         <b-nav-item class="px-3" to="/dashboard">Admin Dashboard</b-nav-item>
       </b-navbar-nav>
-      <b-navbar-nav class="ml-auto">
+      <b-navbar-nav class="ml-auto ">
+        <!-- 
         <b-nav-item class="d-md-down-none">
           <i class="icon-bell"></i>
           <b-badge pill variant="danger">5</b-badge>
-        </b-nav-item>
+        </b-nav-item> 
+        -->
+        <NotificationDropdown/>
         <DefaultHeaderDropdownAccnt/>
       </b-navbar-nav>
       <AsideToggler class="d-none d-lg-block" />
       <!--<AsideToggler class="d-lg-none" mobile />-->
     </AppHeader>
-    <div class="app-body">
+    <div class="app-body ">
       <AppSidebar fixed>
         <SidebarHeader/>
         <SidebarForm/>
@@ -42,7 +45,9 @@
     <TheFooter>
       <!--footer-->
       <div>
-        <a href="https://coreui.io">Romoni Services Ltd</a>
+        <a href="https://coreui.io">
+          Romoni Services Ltd
+        </a>
         <span class="ml-1">&copy; 2019 </span>
       </div>
     </TheFooter>
@@ -54,6 +59,7 @@ import nav from '@/_nav'
 import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarMinimizer, SidebarNav, Aside as AppAside, AsideToggler, Footer as TheFooter, Breadcrumb } from '@coreui/vue'
 import DefaultAside from './DefaultAside'
 import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt'
+import NotificationDropdown from '../views/Notifications/self/NotificationDropdown';
 
 export default {
   name: 'DefaultContainer',
@@ -66,6 +72,7 @@ export default {
     Breadcrumb,
     DefaultAside,
     DefaultHeaderDropdownAccnt,
+    NotificationDropdown,
     SidebarForm,
     SidebarFooter,
     SidebarToggler,

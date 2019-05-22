@@ -9,7 +9,7 @@
 			<div class="">
 				<router-link to="/roles/new">				
                     <p class="my-2">
-                    <span class="badge badge-secondary new-cat-btn-name p-3">
+                    <span class="badge badge-success new-cat-btn-name p-3">
                         Create New Role <b> + </b>
                     </span>
                     </p> 
@@ -21,7 +21,7 @@
         </div>
         <div class="rolesTable table-responsive"> 
             <table class="table table-hover">
-            <thead class="bg-dark">
+            <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
@@ -34,7 +34,7 @@
                     <td>{{row.name}}</td>
                     <td> 
                         <router-link :to="`/roles/show/${row.id}`"> 
-                            <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View"> 
+                            <span class="btn bg-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View"> 
                                 <i class="fa fa-search"></i>
                             </span> 
                         </router-link>                         

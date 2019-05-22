@@ -13,6 +13,7 @@ const OrderShow = () => import('../views/Orders/Order_Show')
 const OrderCreate = () => import('../views/Orders/OrderCreate')
 const AppointmentCreate = () => import('../views/Orders/AppointmentCreate')
 
+import SelfAllNotifications from '../views/Notifications/self/SelfAllNotifications';
 const Notifications = () => import('@/views/Notifications/Notifications')
 const NotificationCreate = () => import('../views/Notifications/NotificationCreate')
 const NotificationEdit = () => import('../views/Notifications/NotificationEdit')
@@ -79,6 +80,8 @@ import Users from '../views/AccessControl/users/Users';
 import UserShow from '../views/AccessControl/users/UserShow';
 import CreateNewUser from '../views/AccessControl/users/CreateNewUser';
 import UserEdit from '../views/AccessControl/users/UserEdit';
+
+import TestComponent from '../views/Test/TestComponent';
 
 import store from '../store/store';
 Vue.use(Router)
@@ -233,6 +236,11 @@ const router =  new Router({
         },
       },
       {
+        path: 'notifications/self',
+        name: 'SelfAllNotifications',
+        component: SelfAllNotifications,
+      },
+      {
         path: '/notifications/edit/:id',
         name: 'NotificationEdit',
         component: NotificationEdit,
@@ -247,6 +255,12 @@ const router =  new Router({
         meta: { 
           permission_name: 'notification create' 
         },
+      },
+      {
+        /* ------ ------- This Route Has Been Made for Test Purpose ------- --------*/
+        path: '/test',
+        name: 'TestComponent',
+        component: TestComponent,
       },
       {
         path: 'promos',

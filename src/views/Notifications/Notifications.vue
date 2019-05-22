@@ -9,12 +9,13 @@
     <b-row>
       <b-col>
         <b-card>
-          <v-client-table :data="notifications" :columns="columns" :options="options">
+          <v-client-table :data="tableData" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'Notification / Edit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
+                <router-link :to="{ name: 'Notification / Edit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
                                     <i class="fa fa-edit"></i></span></router-link>
-                <span @click="publish(props.row.id)" class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Publish"> <i class="fa fa-upload"></i></span>
+                <span class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Delete">
+                                    <i class="fa fa-upload"></i></span>
               </div>
             </template>
           </v-client-table>
@@ -26,13 +27,29 @@
 
 
 <script>
-  import axios from 'axios';
+
   export default {
     name: 'Notifications',
     data() {
       return {
-        notifications : [],
-        columns: ['id', 'title', 'description', 'status', 'created_at', 'action'],
+        columns: ['id', 'name', 'age', 'action'],
+        tableData: [
+          {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},
+          {id: 2, name: "Jane", age: "2018-10-31"},
+          {id: 3, name: "Susan", age: "2018-10-31"},
+          {id: 4, name: "Chris", age: "2018-10-31"},
+          {id: 5, name: "Dan", age: "2018-12-30"},
+          {id: 11, name: "John", age: "2018-10-31"},
+          {id: 12, name: "Jane", age: "2018-08-31"},
+          {id: 13, name: "Susan", age: "2018-08-03"},
+          {id: 14, name: "Chris", age: "2018-09-31"},
+          {id: 15, name: "Dan", age: "2018-12-31"},
+          {id: 11, name: "John", age: "2018-12-31"},
+          {id: 12, name: "Jane", age: "2018-12-31"},
+          {id: 13, name: "Susan", age: "2018-12-31"},
+          {id: 14, name: "Chris", age: "2018-12-31"},
+          {id: 15, name: "Dan", age: "2018-12-31"}
+        ],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,
@@ -41,32 +58,14 @@
           sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
         }
+
       }
     },
-    created(){
-      const Base_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${Base_URL}/push-notifications`)
-        .then(response =>{
-          this.notifications = response.data;
-        })
-        .catch(e=>{
-          //console.log("error occurs");
-        });
-    },
     methods: {
-      publish(notification_id)
-      {
-        const Base_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Base_URL}/push-notifications/publish`,
-          {
-            id: notification_id
-          })
-          .then(response =>{
-            window.location.reload();
-          })
-          .catch(e=>{
-            console.log("error occurs", e);
-          });
+
+      delete(id) {
+        // The id can be fetched from the slot-scope row object when id is in columns
+        console.log('hi');
       }
     },
   }

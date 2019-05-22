@@ -9,7 +9,7 @@
 			<div class="">
 				<router-link to="/users/new">
                     <p class="my-2">
-                    <span class="badge badge-secondary new-cat-btn-name p-3">
+                    <span class="badge badge-success new-cat-btn-name p-3">
                         Create New User <b> + </b>
                     </span>
                     </p>
@@ -18,7 +18,7 @@
 		</div>
         <div class="usersTable table-responsive">
             <table class="table table-hover">
-            <thead class="bg-dark">
+            <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
@@ -34,12 +34,12 @@
                     <td>{{row.phone}}</td>
                     <td>
                         <div v-for="role in row.roles" :key="role.id">
-                            <span class="mr-1 badge badge-warning">{{role.name}}</span>
+                            <span class="mr-1 badge badge-secondary">{{role.name}}</span>
                         </div>
                     </td>
                     <td>
                         <router-link :to="`/users/show/${row.id}`">
-                            <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View">
+                            <span class="btn bg-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View">
                                 <i class="fa fa-search"></i>
                             </span>
                         </router-link>
@@ -85,6 +85,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

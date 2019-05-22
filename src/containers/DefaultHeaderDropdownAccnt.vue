@@ -7,7 +7,9 @@
         alt="admin@bootstrapmaster.com" />
     </template>
     <template slot="dropdown">
-      <b-dropdown-header tag="div" class="text-center"><strong>Account</strong></b-dropdown-header>
+          <b-dropdown-header tag="div" class="text-center">
+            <strong>Account</strong>
+          </b-dropdown-header>
            <b-dropdown-item class="logged-in-user">
              <div > {{ loggedInUser.name }}  </div>
            </b-dropdown-item>

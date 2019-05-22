@@ -129,8 +129,8 @@ export default {
             this.fetchNotifications();
         },
         countAllNoti() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/count-all-noti`)
+            const BASE_URL = this.$gbvar.BASE_URL;
+            axios.get(`${BASE_URL}/api/count-all-noti`)
                 .then(res => {
                     this.allNotiCounter = res.data;
                     this.totalPageCount = Math.ceil(this.allNotiCounter / this.perPageItem);
@@ -158,8 +158,8 @@ export default {
             }
         },
         notiMarkAsRead(noti_id) {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/mark-as-read/${noti_id}`)
+            const BASE_URL = this.$gbvar.BASE_URL;
+            axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
                 .then(res => {
                     //console.log('notiMarkAsRead Res === ', res);
                     this.$router.go();

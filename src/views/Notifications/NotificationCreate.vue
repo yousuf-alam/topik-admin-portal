@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
           <label>Title</label>
-          <input type="text"class="form-control" v-model="title">
+          <input type="text" class="form-control" v-model="title">
         </div>
         <div class="form-group">
           <label>Description</label>

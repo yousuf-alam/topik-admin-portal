@@ -63,7 +63,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import globalvariables from '../../../globalvariables';
-const ADMIN_URL = globalvariables.ADMIN_URL;
+const BASE_URL = globalvariables.BASE_URL; //globalvariables.BASE_URL;
 
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue';
 export default {
@@ -146,12 +146,12 @@ export default {
             
         },
         countAllNoti() {
-            axios.get(`${ADMIN_URL}/api/count-all-noti`)
+            axios.get(`${BASE_URL}/api/count-all-noti`)
                 .then(res => { this.allNotiCounter = res.data;})
                 .catch(error => {    }); 
         },
         countUnreadNoti() {
-            axios.get(`${ADMIN_URL}/api/count-unread-noti`)
+            axios.get(`${BASE_URL}/api/count-unread-noti`)
                 .then(res => { this.unreadNotiCounter = res.data; })
                 .catch(error => {    });
             
@@ -206,8 +206,8 @@ export default {
             }
         },
         notiMarkAsRead(noti_id) {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/mark-as-read/${noti_id}`)
+            const BASE_URL = this.$gbvar.BASE_URL;
+            axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
                 .then(res => {
                     //console.log('notiMarkAsRead Res === ', res);
                     this.$router.go();

@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import globalvariables from '../../globalvariables';
 
-const ADMIN_URL = globalvariables.ADMIN_URL;
+const BASE_URL = globalvariables.BASE_URL;
 const notiModule = {
     namespaced: true, // This is V.V.I for module wise accessing, 
     // Otherwise this obj will be available globally .
@@ -37,7 +37,7 @@ const notiModule = {
         fetchNotifications({commit}, parmObj) {
             const { perPageItem, pageNumber } = parmObj;
             return new Promise((resolve, reject) => {
-                axios.get(`${ADMIN_URL}/api/notifications/${perPageItem}/${pageNumber}`)
+                axios.get(`${BASE_URL}/api/notifications/${perPageItem}/${pageNumber}`)
                 .then(res => {
                     const newNoti = _.map(res.data.notifications, item => {
                         return {...item, ...{data: JSON.parse(item.data)}};

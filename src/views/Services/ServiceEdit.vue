@@ -59,7 +59,7 @@
               <div class="col-md-9">
                 <div class="fileinput fileinput-new" data-provides="fileinput">
                   <div class="fileinput-new thumbnail">
-                    <img :src="src_svg+service.icon_svg" style="width: 200px; height: 150px;">
+                    <img :src="url_icon_svg" style="width: 200px; height: 150px;">
                   </div>
                   <div>
                     <span class="btn default btn-file">
@@ -76,7 +76,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_pdf+service.icon_pdf" style="width: 200px; height: 150px;">
+                  <img :src="`${url_icon_pdf}`" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -103,7 +103,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_thumbnail+service.thumbnail" style="width: 200px; height: 150px;">
+                  <img :src="`${url_thumbnail}`" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -131,7 +131,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_banweb+service.banner_web" style="width: 200px; height: 150px;">
+                  <img :src="`${url_banner_web}`" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -148,7 +148,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_bantab+service.banner_tab" style="width: 200px; height: 150px;">
+                  <img :src="`${url_banner_tab}`" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -164,7 +164,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_banand+service.banner_android" style="width: 200px; height: 150px;">
+                  <img :src="`${url_banner_android}`" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -181,7 +181,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_banios+service.banner_ios" style="width: 200px; height: 150px;">
+                  <img :src="`${url_banner_ios}`" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -229,6 +229,14 @@
           banner_android: '',
           banner_ios: '',
         },
+        url_icon_svg: '',
+        url_icon_pdf: '',
+        url_thumbnail: '',
+        url_banner_web: '',
+        url_banner_tab: '',
+        url_banner_android: '',
+        url_banner_ios: '',
+
         src_svg: '/images/service/icon_svg/',
         src_pdf: '/images/service/icon_pdf/',
         src_thumbnail: '/images/service/thumbnail/',
@@ -237,6 +245,7 @@
         src_banios: '/images/service/banner_ios/',
         src_banand: '/images/service/banner_android/',
         loading: true, 
+        BASE_URL: process.env.VUE_APP_BASE_URL,
       }
     },
     created(){
@@ -246,25 +255,60 @@
     },
     methods: {
       onSVGChange(e) {
-        this.service.icon_svg = e.target.files[0];
+        const file = e.target.files[0];
+        if (file === undefined) { 
+          return; 
+        } 
+        this.service.icon_svg = file;
+        this.url_icon_svg = URL.createObjectURL(file);
       },
       onPDFChange(e) {
-        this.service.icon_pdf = e.target.files[0];
+        const file = e.target.files[0];
+        if (file === undefined) {
+          return;
+        } 
+        this.service.icon_pdf = file;
+        this.url_icon_pdf = URL.createObjectURL(file);
       },
       onThumbnailChange(e) {
-        this.service.thumbnail = e.target.files[0];
+        const file = e.target.files[0];
+        if (file === undefined) {
+          return;
+        } 
+        this.service.thumbnail = file;
+        this.url_thumbnail = URL.createObjectURL(file);
       },
       onBwebChange(e) {
-        this.service.banner_web = e.target.files[0];
+        const file = e.target.files[0];
+        if (file === undefined) {
+          return;
+        } 
+        this.service.banner_web = file;
+        this.url_banner_web = URL.createObjectURL(file);
       },
       onBtabChange(e) {
-        this.service.banner_tab = e.target.files[0];
+        const file = e.target.files[0];
+        if (file === undefined) {
+          return;
+        } 
+        this.service.banner_tab = file;
+        this.url_banner_tab = URL.createObjectURL(file);
       },
       onBandChange(e) {
-        this.service.banner_android = e.target.files[0];
+        const file = e.target.files[0];
+        if (file === undefined) {
+          return;
+        } 
+        this.service.banner_android = file;
+        this.url_banner_android = URL.createObjectURL(file);
       },
       onBiosChange(e) {
-        this.service.banner_ios = e.target.files[0];
+        const file = e.target.files[0];
+        if (file === undefined) {
+          return;
+        } 
+        this.service.banner_ios = file;
+        this.url_banner_ios = URL.createObjectURL(file);
       },
       onSubmit() {
         let currentObj = this;
@@ -286,7 +330,7 @@
         formData.append('banner_web', this.service.banner_web);
         formData.append('banner_tab', this.service.banner_tab);
         formData.append('banner_android', this.service.banner_android);
-        formData.append('banner_ios', this.service.banner_android);
+        formData.append('banner_ios', this.service.banner_ios);
         console.log(formData);
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         axios.post(`${ADMIN_URL}/services/update`, formData, config)
@@ -307,13 +351,6 @@
         if (parm === 'after_update') {
            ADMIN_URL = '';
         } 
-        this.src_svg = BASE_URL + this.src_svg;
-        this.src_pdf = BASE_URL + this.src_pdf;
-        this.src_thumbnail = BASE_URL + this.src_thumbnail;
-        this.src_banweb = BASE_URL + this.src_banweb;
-        this.src_bantab = BASE_URL + this.src_bantab;
-        this.src_banios = BASE_URL + this.src_banios;
-        this.src_banand = BASE_URL + this.src_banand;
         let id = window.location.pathname.split("/").pop();
         this.service.id = id;
 
@@ -323,7 +360,15 @@
         }).then(response => {
             console.log('fetch Service Data == ', response.data);
             this.service = response.data;
-            this.loading = false
+            this.loading = false;
+
+            this.url_icon_svg = `${BASE_URL}${this.src_svg}${this.service.icon_svg}`;
+            this.url_icon_pdf = `${BASE_URL}${this.src_pdf}${this.service.icon_pdf}`;
+            this.url_thumbnail = `${BASE_URL}${this.src_thumbnail}${this.service.thumbnail}`;
+            this.url_banner_web = `${BASE_URL}${this.src_banweb}${this.service.banner_web}`;
+            this.url_banner_tab = `${BASE_URL}${this.src_bantab}${this.service.banner_tab}`;
+            this.url_banner_android = `${BASE_URL}${this.src_banand}${this.service.banner_android}`;
+            this.url_banner_ios = `${BASE_URL}${this.src_banios}${this.service.banner_ios}`;
           })
           .catch(e=>{
             console.log("error occurs", e.response);

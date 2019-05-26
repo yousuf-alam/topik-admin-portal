@@ -11,7 +11,7 @@
         <b-row>
             <b-col>
                 <b-card>
-                <v-client-table :data="services" :columns="columns" :options="options">
+                <v-client-table :data="services" :columns="columnsToShow" :options="options">
                     <template slot="action" slot-scope="props">
                         <div>
                             <router-link  :to="{ name: 'ServiceEdit', params: { id: props.row.id }}" 
@@ -73,7 +73,13 @@ import axios from 'axios';
                 }
             },
             columnsToShow() {
-                console.log('columns to show ---====----====----===---');
+                const permissionName = ['service update'];
+                const permission_ok = this.elementHasPermission(permissionName);
+                if (permission_ok === true) {
+                    return this.columns;
+                } else {
+                    return ['id', 'name', 'published_status', 'created_at'];
+                }
             }
         },
         methods: {

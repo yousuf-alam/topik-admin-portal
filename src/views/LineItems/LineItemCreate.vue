@@ -9,7 +9,7 @@
             <div class="col-sm-9">
               <select @change="getCategories" class='form-control' v-model="service_id">
                 <option disabled selected value="0">Select Service</option>
-                <option :value="serv.id" v-for="serv in services">{{ serv.name }}</option>
+                <option :value="serv.id" v-for="serv in services" :key="serv.id">{{ serv.name }}</option>
               </select>
             </div>
           </div>
@@ -17,7 +17,7 @@
             <label class="col-sm-3 col-form-label">Category *</label>
             <div class="col-sm-9">
               <select @change="getSubcategories" class='form-control' v-model="category_id">
-                <option :value="cat.id" v-for="cat in categories">{{ cat.name }}</option>
+                <option :value="cat.id" v-for="cat in categories" :key="cat.id">{{ cat.name }}</option>
               </select>
             </div>
           </div>
@@ -26,7 +26,7 @@
             <label class="col-sm-3 col-form-label">SubCategory *</label>
             <div class="col-sm-9">
               <select class='form-control' v-model="subcategory_id">
-                <option :value="subcat.id" v-for="subcat in subcategories">{{ subcat.name }}</option>
+                <option :value="subcat.id" v-for="subcat in subcategories" :key="subcat.id">{{ subcat.name }}</option>
               </select>
             </div>
           </div>
@@ -87,7 +87,7 @@
               <b-button @click="FAQmodal" class="btn btn-success">+ Add FAQ</b-button>
 
 
-              <div v-for="(faq, index) in faqs">
+              <div v-for="(faq, index) in faqs" :key="index">
 
                 <b-button @click="FAQindexModal(index)" class="btn btn-sm btn-dark m-1">FAQ - {{ index+1 }}</b-button>
 
@@ -158,7 +158,7 @@
                 <div class="col-12 m-3">
                   <b-button @click="NewDesign" class="btn btn-success">+ Add New Design</b-button>
                 </div>
-                <div class="col-12 m-1" v-for="(des,index) in designs">
+                <div class="col-12 m-1" v-for="(des,index) in designs" :key="index">
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Upload Design -  {{index+1}}</label>
                     <div class="col-sm-9">
@@ -216,7 +216,7 @@
                 +Add Question
               </b-button>
 
-              <div v-for="(faq, index) in questions">
+              <div v-for="(faq, index) in questions" :key="index+5000">
 
                 <b-button @click="quesIndexModal(index)" class="btn btn-sm btn-dark m-1">
                   Question - {{ index+1 }}
@@ -251,7 +251,7 @@
                       <label for="question">Question</label>
                       <input class="form-control" id="spquestion" type="text" v-model="new_spquestion">
                     </div>
-                    <div class="form-group" v-for="(ans,index) in answer">
+                    <div class="form-group" v-for="(ans,index) in answer" :key="index+4000">
                       <label for="answer">Answer <a href="#" data-toggle="tooltip" title="Delete Answer" @click="deleteAns(index)"><i class="fa fa-close"></i></a></label>
                       <input class="form-control" id="spanswer" name="answer[]" type="text" v-model="ans.value">
                     </div>
@@ -280,16 +280,18 @@
               <table class="table table-striped table-bordered table-hover dt-responsive" width="100%">
                 <thead>
                 <tr>
-                  <th v-for="(question, index) in questions">Option {{index+1}}</th>
+                  <th v-for="(question, index) in questions" :key="index+1000">Option {{index+1}}</th>
                   <th>Price</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <tr v-for="(question,index) in question_data">
-                  <td v-for="(item, cnt) in question"><input :name="'price['  + index + '][name'+ cnt+ ']'"
-                                                             type="hidden"
-                                                             v-model="item.value">{{item.value}}
+                <tr v-for="(question,index) in question_data" :key="index+2000">
+                  <td v-for="(item, cnt) in question" :key="cnt+3000">
+                    <input :name="'price['  + index + '][name'+ cnt+ ']'"
+                      type="hidden"
+                      v-model="item.value">
+                      {{item.value}}
                   </td>
                   <td><input v-model="price[index]" multiple></td>
                 </tr>

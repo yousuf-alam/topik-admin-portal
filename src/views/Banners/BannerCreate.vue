@@ -6,7 +6,7 @@
         <label >Select Service Page</label>
         <select @change="getCategories" class='form-control' v-model="service_id">
           <option disabled selected value="0">Select Service</option>
-          <option :value="serv.id" v-for="serv in services">{{ serv.name }}</option>
+          <option :value="serv.id" v-for="serv in services" :key="serv.id">{{ serv.name }}</option>
         </select>
       </div>
       <div class="form-group">
@@ -18,7 +18,7 @@
       </div>
       <div class="form-group">
         <label>Title</label>
-        <input type="text"class="form-control" v-model="title">
+        <input type="text" class="form-control" v-model="title">
       </div>
       <div class="form-group">
         <label>Description</label>
@@ -32,13 +32,13 @@
       <div class="form-group">
         <label>Select Landing Category</label>
         <select @change="getSubcategories" class='form-control' v-model="category_id">
-          <option :value="cat.id" v-for="cat in categories">{{ cat.name }}</option>
+          <option :value="cat.id" v-for="cat in categories" :key="cat.id">{{ cat.name }}</option>
         </select>
       </div>
       <div v-if="service_id !== 2" class="form-group">
         <label >Select Landing Subcategory</label>
         <select class='form-control' v-model="subcategory_id">
-          <option :value="subcat.id" v-for="subcat in subcategories">{{ subcat.name }}</option>
+          <option :value="subcat.id" v-for="subcat in subcategories" :key="subcat.id">{{ subcat.name }}</option>
         </select>
       </div>
       <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Add Banner</b-button>

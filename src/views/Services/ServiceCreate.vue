@@ -5,30 +5,34 @@
        <div class="form-group">
          <label>Name*</label>
 
-         <input type="text" name="name" class="form-control" v-model="name">
+         <input type="text" name="name" class="form-control" v-model="name" required>
        </div>
 
 
        <div class="form-group">
          <label>Short Description</label>
-         <textarea class="form-control" name="short_description" rows="3" v-model="short_description"></textarea>
+         <textarea 
+          class="form-control" name="short_description" rows="3" 
+          v-model="short_description" required></textarea>
        </div>
 
        <div class="form-group">
          <label>Long Description</label>
-         <textarea class="form-control" name="long_description" rows="10" v-model="long_description"></textarea>
+         <textarea class="form-control" name="long_description" rows="10" 
+         v-model="long_description" required></textarea>
 
        </div>
 
 
        <div class="form-group">
          <label>Meta Title</label>
-         <input type="text" name="meta_title" class="form-control" v-model="meta_title">
+         <input type="text" name="meta_title" class="form-control" v-model="meta_title" required>
        </div>
 
        <div class="form-group">
          <label>Meta Description</label>
-         <textarea class="form-control" name="meta_description" rows="10" v-model="meta_description"></textarea>
+         <textarea class="form-control" name="meta_description" rows="10" 
+         v-model="meta_description" required></textarea>
        </div>
 
        <div class="form-group">
@@ -147,19 +151,17 @@
         formData.append('banner_android', this.banner_android);
         formData.append('banner_ios', this.banner_android);
 
+        
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
-        console.log(this.name);
-        axios.post(`${ADMIN_URL}/services/create`,formData,config)
+        axios.post(`${ADMIN_URL}/services/create`, formData, config)
           .then(response => {
-            console.log('Success', response);
             currentObj.success = response.data.success;
-            console.log(response.data);
+            this.$router.push({name: 'Services'})
           })
           .catch(error => {
-            console.log('Error  ... ', error.response);
+            // console.log('Error  ... ', error.response);
             currentObj.output = error;
-            console.log(error);
           });
       }
     }

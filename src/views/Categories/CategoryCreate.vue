@@ -5,14 +5,14 @@
       <div class="form-group">
         <label>Select Service:</label>
         <select class='form-control' v-model="service_id" @change="getCategories">
-          <option v-for="serv in services" :value="serv.id">{{ serv.name }}</option>
+          <option v-for="serv in services" :value="serv.id" :key="serv.id">{{ serv.name }}</option>
         </select>
       </div>
       <div class="form-group">
         <label>Select Category:</label>
         <select class='form-control' v-model="group">
           <option selected value="none">Select none to add itself as a category </option>
-          <option v-for="cat in categories" :value="cat.id">{{ cat.name }}</option>
+          <option v-for="cat in categories" :value="cat.id" :key="cat.id">{{ cat.name }}</option>
         </select>
       </div>
       <div class="form-group">

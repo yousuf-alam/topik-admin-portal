@@ -76,7 +76,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="`${url_icon_pdf}`" style="width: 200px; height: 150px;">
+                  <img :src="url_icon_pdf" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -103,7 +103,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="`${url_thumbnail}`" style="width: 200px; height: 150px;">
+                  <img :src="url_thumbnail" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -131,7 +131,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="`${url_banner_web}`" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_web" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -148,7 +148,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="`${url_banner_tab}`" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_tab" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -164,7 +164,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="`${url_banner_android}`" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_android" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -181,7 +181,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="`${url_banner_ios}`" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_ios" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -362,13 +362,13 @@
             this.service = response.data;
             this.loading = false;
 
-            this.url_icon_svg = `${BASE_URL}${this.src_svg}${this.service.icon_svg}`;
-            this.url_icon_pdf = `${BASE_URL}${this.src_pdf}${this.service.icon_pdf}`;
-            this.url_thumbnail = `${BASE_URL}${this.src_thumbnail}${this.service.thumbnail}`;
-            this.url_banner_web = `${BASE_URL}${this.src_banweb}${this.service.banner_web}`;
-            this.url_banner_tab = `${BASE_URL}${this.src_bantab}${this.service.banner_tab}`;
-            this.url_banner_android = `${BASE_URL}${this.src_banand}${this.service.banner_android}`;
-            this.url_banner_ios = `${BASE_URL}${this.src_banios}${this.service.banner_ios}`;
+            this.url_icon_svg = this.service.icon_svg === null ? null : `${BASE_URL}${this.src_svg}${this.service.icon_svg}`;
+            this.url_icon_pdf = this.service.icon_pdf === null ? null : `${BASE_URL}${this.src_pdf}${this.service.icon_pdf}`;
+            this.url_thumbnail = this.service.thumbnail === null ? null : `${BASE_URL}${this.src_thumbnail}${this.service.thumbnail}`;
+            this.url_banner_web = this.service.banner_web === null ? null : `${BASE_URL}${this.src_banweb}${this.service.banner_web}`;
+            this.url_banner_tab = this.service.banner_tab === null ? null : `${BASE_URL}${this.src_bantab}${this.service.banner_tab}`;
+            this.url_banner_android = this.service.banner_android === null ? null : `${BASE_URL}${this.src_banand}${this.service.banner_android}`;
+            this.url_banner_ios = this.service.banner_ios === null ? null : `${BASE_URL}${this.src_banios}${this.service.banner_ios}`;
           })
           .catch(e=>{
             console.log("error occurs", e.response);

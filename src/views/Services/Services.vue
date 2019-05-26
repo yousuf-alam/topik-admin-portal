@@ -13,7 +13,7 @@
                 <b-card>
                 <v-client-table :data="services" :columns="columns" :options="options">
                     <template slot="action" slot-scope="props">
-                        <div >
+                        <div>
                             <router-link  :to="{ name: 'ServiceEdit', params: { id: props.row.id }}" 
                             v-if="elementHasPermission('service update')">
                             <span 
@@ -71,6 +71,9 @@ import axios from 'axios';
                 return (permission_name) => {
                     return this.$store.getters['auth/hasPermission'](permission_name) ? true : false;
                 }
+            },
+            columnsToShow() {
+                console.log('columns to show ---====----====----===---');
             }
         },
         methods: {

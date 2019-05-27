@@ -57,7 +57,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_svg+category.icon_svg" style="width: 200px; height: 150px;">
+                  <img :src="url_icon_svg" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -74,7 +74,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_pdf+category.icon_pdf" style="width: 200px; height: 150px;">
+                  <img :src="url_icon_pdf" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -101,7 +101,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_thumbnail+category.thumbnail" style="width: 200px; height: 150px;">
+                  <img :src="url_thumbnail" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -129,7 +129,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_banweb+category.banner_web" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_web" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -146,7 +146,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_bantab+category.banner_tab" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_tab" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -162,7 +162,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_banand+category.banner_android" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_android" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -179,7 +179,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_banios+category.banner_ios" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_ios" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -219,6 +219,7 @@
           meta_title: '',
           meta_description: '',
           published_status: '',
+
           icon_svg: '',
           icon_pdf: '',
           thumbnail: '',
@@ -227,6 +228,14 @@
           banner_android: '',
           banner_ios: '',
         },
+        url_icon_svg: '',
+        url_icon_pdf: '',
+        url_thumbnail: '',
+        url_banner_web: '',
+        url_banner_tab: '',
+        url_banner_android: '',
+        url_banner_ios: '',
+
         src_svg: '/images/category/icon_svg/',
         src_pdf: '/images/category/icon_pdf/',
         src_thumbnail: '/images/category/thumbnail/',
@@ -238,49 +247,67 @@
       }
     },
     created(){
-      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      this.src_svg = ADMIN_URL + this.src_svg;
-      this.src_pdf = ADMIN_URL + this.src_pdf;
-      this.src_thumbnail = ADMIN_URL + this.src_thumbnail;
-      this.src_banweb = ADMIN_URL + this.src_banweb;
-      this.src_bantab = ADMIN_URL + this.src_bantab;
-      this.src_banios = ADMIN_URL + this.src_banios;
-      this.src_banand = ADMIN_URL + this.src_banand;
-      let id = window.location.pathname.split("/").pop();
-      this.category.id = id;
-      axios.post(`${ADMIN_URL}/categories/edit`,
-        {
-          id: this.category.id
-        }).then(response =>{
-        this.category = response.data;
-
-      })
-        .catch(e=>{
-          //console.log("error occurs");
-        });
-
+      this.fetchData();
     },
     methods: {
+      fetchData() {
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        const BASE_URL = process.env.VUE_APP_BASE_URL;
+        
+        let id = window.location.pathname.split("/").pop();
+        this.category.id = id;
+        axios.post(`${ADMIN_URL}/categories/edit`,
+          {
+            id: this.category.id
+          }).then(response =>{
+          this.category = response.data;
+          
+          console.log('created,,, category ==== ', this.category);
+
+          this.url_icon_svg = this.category.icon_svg === null ? null : `${BASE_URL}${this.src_svg}${this.category.icon_svg}`;
+          this.url_icon_pdf = this.category.icon_pdf === null ? null : `${BASE_URL}${this.src_pdf}${this.category.icon_pdf}`;
+          this.url_thumbnail = this.category.thumbnail === null ? null : `${BASE_URL}${this.src_thumbnail}${this.category.thumbnail}`;
+          this.url_banner_web = this.category.banner_web === null ? null : `${BASE_URL}${this.src_banweb}${this.category.banner_web}`;
+          this.url_banner_tab = this.category.banner_tab === null ? null : `${BASE_URL}${this.src_bantab}${this.category.banner_tab}`;
+          this.url_banner_android = this.category.banner_android === null ? null : `${BASE_URL}${this.src_banand}${this.category.banner_android}`;
+          this.url_banner_ios = this.category.banner_ios === null ? null : `${BASE_URL}${this.src_banios}${this.category.banner_ios}`;
+
+        })
+          .catch(e=>{
+            //console.log("error occurs");
+          });
+
+      }, 
+
+      previewImage(e, file_name, file_url) {
+        const file = e.target.files[0];
+        if (file === undefined) { 
+          return; 
+        } 
+        this.category[file_name] = file;
+        this[file_url] = URL.createObjectURL(file);        
+      },
+
       onSVGChange(e) {
-        this.category.icon_svg = e.target.files[0];
+        this.previewImage(e, 'icon_svg', 'url_icon_svg');
       },
       onPDFChange(e) {
-        this.category.icon_pdf = e.target.files[0];
+        this.previewImage(e, 'icon_pdf', 'url_icon_pdf');
       },
       onThumbnailChange(e) {
-        this.category.thumbnail = e.target.files[0];
+        this.previewImage(e, 'thumbnail', 'url_thumbnail');
       },
       onBwebChange(e) {
-        this.category.banner_web = e.target.files[0];
+        this.previewImage(e, 'banner_web', 'url_banner_web');
       },
       onBtabChange(e) {
-        this.category.banner_tab = e.target.files[0];
+        this.previewImage(e, 'banner_tab', 'url_banner_tab');
       },
       onBandChange(e) {
-        this.category.banner_android = e.target.files[0];
+        this.previewImage(e, 'banner_android', 'url_banner_android');
       },
       onBiosChange(e) {
-        this.category.banner_ios = e.target.files[0];
+        this.previewImage(e, 'banner_ios', 'url_banner_ios');
       },
       onSubmit() {
 
@@ -289,7 +316,7 @@
           headers: {'content-type': 'multipart/form-data'}
         }
 
-
+        console.log('onSubmit , category === ', this.category);
         let formData = new FormData();
         formData.append('id', this.category.id);
         formData.append('name', this.category.name);
@@ -306,12 +333,13 @@
         formData.append('banner_web', this.category.banner_web);
         formData.append('banner_tab', this.category.banner_tab);
         formData.append('banner_android', this.category.banner_android);
-        formData.append('banner_ios', this.category.banner_android);
+        formData.append('banner_ios', this.category.banner_ios);
         console.log(this.category.service_id);
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         axios.post(`${ADMIN_URL}/categories/update`, formData, config)
-          .then(function (response) {
+          .then( (response) => {
             currentObj.success = response.data.success;
+            this.fetchData();
           })
           .catch(function (error) {
             currentObj.output = error;

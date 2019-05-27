@@ -221,6 +221,7 @@
           meta_title: '',
           meta_description: '',
           published_status: '',
+          
           icon_svg: '',
           icon_pdf: '',
           thumbnail: '',

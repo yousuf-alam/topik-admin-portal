@@ -25,7 +25,7 @@
         <b-row>
             <b-col>
                 <b-card>
-                    <v-client-table :data="tableData" :columns="columns" :options="options">
+                    <v-client-table :data="orders" :columns="columns" :options="options">
                         <template slot="action" slot-scope="props">
                             <div>
                                 <router-link :to="{ name: 'OrderShow', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
@@ -45,22 +45,18 @@
 
 
 <script>
+  import axios from 'axios';
+  const Admin_URL = process.env.VUE_APP_ADMIN_URL;
     export default {
       name: 'Orders',
         data() {
             return {
-                columns: ['id', 'service_type', 'booking' ,'platform', 'customer', 'partner', 'bill', 'action'],
-                tableData: [
-                    {id: 1, service_type: 'beauty', booking: 'on-demand',platform: 'admin_portal', customer: "John", partner: "Sansa",bill: "1200", created_at: "2018-12-18", action: {details: 'yes', delete: 'no'}},
-                    {id: 2, service_type: 'tailor', booking: 'on-demand',platform: 'admin_portal',customer: "Jane", partner: "Sansa",bill: "1200",created_at: "2018-10-31"},
-                    {id: 3, service_type: 'beauty', booking: 'appointment',platform: 'admin_portal', customer: "Susan",partner: "Sansa",bill: "1200",created_at: "2018-10-31"},
-                    {id: 4, service_type: 'beauty', booking: 'on-demand',platform: 'admin_portal',customer: "Chris",partner: "Sansa",bill: "1200", created_at: "2018-10-31"},
-                    {id: 5, service_type: 'tailor', booking: 'on-demand',platform: 'admin_portal',customer: "Dan",  partner: "Sansa",bill: "1200",created_at: "2018-12-30"},
-                ],
+                orders: [],
+                columns: ['id', 'service_type' ,'platform', 'status','customer', 'partner','scheduled_date', 'bill','created_at', 'action'],
                 options: {
                     pagination: {nav: 'fixed'},
                     filterByColumn: true,
-                    dateColumns: ['age'],
+                    dateColumns: ['created_at'],
                     toMomentFormat: 'YYYY-MM-DD',
                     sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
@@ -68,6 +64,16 @@
 
             }
         },
+      created(){
+
+        axios.get(`${Admin_URL}/orders`)
+          .then(response =>{
+            this.orders = response.data;
+          })
+          .catch(e=>{
+            console.log("error occurs",e);
+          });
+      },
         methods: {
           modalType(){
             this.$modal.show('modal-order_type');

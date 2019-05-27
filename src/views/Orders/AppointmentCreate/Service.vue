@@ -48,6 +48,7 @@
 <script>
   import EventBus from '../../../utils/EventBus';
   import axios from 'axios';
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
   export default {
     name: "Service",
@@ -94,7 +95,7 @@
         EventBus.$emit('service:add', this.services);
       },
       fetchCategories() {
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        
         axios.post(`${ADMIN_URL}/categories`, {
           service_id: 1
         })
@@ -106,7 +107,7 @@
           });
       },
       fetchSubcategories() {
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        
         axios.post(`${ADMIN_URL}/subcategories`, {
           category_id: this.selected_category
         })
@@ -118,7 +119,7 @@
           });
       },
       fetchServices() {
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        
         axios.get(`${ADMIN_URL}/line-items/appointment`, {
           params : {
             subcategory_id: this.selected_subcategory,

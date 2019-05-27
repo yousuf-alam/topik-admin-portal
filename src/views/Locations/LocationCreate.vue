@@ -7,9 +7,8 @@
         </GmapAutocomplete>
       </h4>
       <br>
-      <div class="row">
-        <div class="col-md-7">
-
+      <b-row>
+        <b-col md="7">
 
           <GmapMap :center="center"
                    :zoom="15"
@@ -33,8 +32,8 @@
               @radius_changed="getRadius"
             ></GmapCircle>
           </GmapMap>
-        </div>
-        <div class="col-md-5">
+        </b-col>
+        <b-col md="5">
           <b-card>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">City</label>
@@ -71,13 +70,10 @@
           </div>
             <b-btn @click="onSubmit" class="btn btn-romoni-secondary float-right">Add New Location</b-btn>
           </b-card>
-        </div>
-      </div>
+        </b-col>
+      </b-row>
     </b-card>
-
-
   </div>
-
 </template>
 
 <script>

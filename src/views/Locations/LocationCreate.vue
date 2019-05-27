@@ -9,10 +9,9 @@
       <br>
       <b-row>
         <b-col md="7">
-
           <GmapMap :center="center"
                    :zoom="15"
-                   style="width: 800px; height: 500px">
+                   style="width: auto; height: 500px">
             <GmapMarker
               :position="{
                 lat: this.place.geometry.location.lat(),

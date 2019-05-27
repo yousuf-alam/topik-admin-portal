@@ -38,7 +38,7 @@ const store = new Vuex.Store({
   }
 })
 
-
+console.log('Access Token === ', store.getters.auth);
 export default store;
 
 

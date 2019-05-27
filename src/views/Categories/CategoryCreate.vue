@@ -17,7 +17,9 @@
       </div>
       <div class="form-group">
         <label>Name*</label>
-        <input type="text" name="name" class="form-control" v-model="name">
+        <input type="text" name="name" class="form-control" v-model="name" 
+        @keyup="handleFieldChange" ref="name" required>
+        <span class="text-danger"> {{name_error}} </span>
       </div>
 
 
@@ -45,8 +47,8 @@
 
       <div class="form-group">
         <div class="form-check checkbox">
-          <input class="form-check-input" type="checkbox" name="published_status" v-model="published_status">
-          <label class="form-check-label" >Published</label>
+          <input class="form-check-input" type="checkbox" id="published_status" name="published_status" v-model="published_status">
+          <label class="form-check-label" for="published_status">Published</label>
         </div>
       </div>
 
@@ -108,9 +110,13 @@
         banner_tab: '',
         banner_android: '',
         banner_ios: '',
+
+        name_error: ''
+
       }
     },
     created(){
+      
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
       axios.get(`${ADMIN_URL}/services`)
         .then(response =>{
@@ -156,6 +162,12 @@
       onBiosChange(e) {
         this.banner_ios = e.target.files[0];
       },
+      handleFieldChange(e) {
+       const field_name = e.target.name;
+       if (field_name === 'name') {
+         this.name_error = ''
+       }
+      },
       onSubmit(e) {
         e.preventDefault();
         let currentObj = this;
@@ -182,17 +194,22 @@
         formData.append('banner_ios', this.banner_android);
 
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        console.log(this.name);
+        // console.log(this.name);
         axios.post(`${ADMIN_URL}/categories/create`,formData,config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;
+            alert('Data updated successfully');
+            this.$router.push({ name: 'Categories'})
             console.log(response.data);
           })
           .catch(error => {
             console.log('Error  ... ', error.response);
             currentObj.output = error;
-            console.log(error);
+            if (error.response.status === 422) {
+              this.name_error = error.response.data.errors.name[0];
+              this.$refs.name.focus();
+            }
           });
       }
     }

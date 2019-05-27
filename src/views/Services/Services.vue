@@ -5,7 +5,7 @@
             <b-col sm="2" class="mb-3" v-if="elementHasPermission('service create')">
                 <router-link :to="{ name: 'ServiceCreate'}">
                     <button class="btn btn-success">Create New Service</button>
-                </router-link>
+                </router-link>  
             </b-col>
         </b-row>
         <b-row>

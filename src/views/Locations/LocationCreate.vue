@@ -7,13 +7,13 @@
         </GmapAutocomplete>
       </h4>
       <br>
-      <div class="row">
+      <div class="row ">
         <div class="col-md-7">
 
 
           <GmapMap :center="center"
                    :zoom="15"
-                   style="width: 800px; height: 500px">
+                   style="width: auto; height: 500px">
             <GmapMarker
               :position="{
                 lat: this.place.geometry.location.lat(),
@@ -34,7 +34,7 @@
             ></GmapCircle>
           </GmapMap>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 ">
           <b-card>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">City</label>

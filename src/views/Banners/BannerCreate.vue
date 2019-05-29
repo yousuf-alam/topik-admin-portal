@@ -5,8 +5,9 @@
       <div class="form-group">
         <label >Select Service Page</label>
         <select @change="getCategories" class='form-control' v-model="service_id">
-          <option disabled selected value="0">Select Service</option>
+          <option disabled selected value="-1">Select Service</option>
           <option :value="serv.id" v-for="serv in services" :key="serv.id">{{ serv.name }}</option>
+          <option  value="0">Homepage</option>
         </select>
       </div>
       <div class="form-group">
@@ -29,18 +30,21 @@
         <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label>
         <input type="file" class="form-control" v-on:change="onImageChange">
       </div>
-      <div class="form-group">
-        <label>Select Landing Category</label>
-        <select @change="getSubcategories" class='form-control' v-model="category_id">
-          <option :value="cat.id" v-for="cat in categories" :key="cat.id">{{ cat.name }}</option>
-        </select>
+      <div v-if="service_id !== '0'">
+        <div class="form-group">
+          <label>Select Landing Category</label>
+          <select @change="getSubcategories" class='form-control' v-model="category_id">
+            <option :value="cat.id" v-for="cat in categories" :key="cat.id">{{ cat.name }}</option>
+          </select>
+        </div>
+        <div v-if="service_id !== 2" class="form-group">
+          <label >Select Landing Subcategory</label>
+          <select class='form-control' v-model="subcategory_id">
+            <option :value="subcat.id" v-for="subcat in subcategories" :key="subcat.id">{{ subcat.name }}</option>
+          </select>
+        </div>
       </div>
-      <div v-if="service_id !== 2" class="form-group">
-        <label >Select Landing Subcategory</label>
-        <select class='form-control' v-model="subcategory_id">
-          <option :value="subcat.id" v-for="subcat in subcategories" :key="subcat.id">{{ subcat.name }}</option>
-        </select>
-      </div>
+
       <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Add Banner</b-button>
     </form>
   </b-card>
@@ -48,6 +52,7 @@
 
 <script>
   import axios from 'axios';
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
   export default {
     name: "BannerCreate",
 
@@ -60,13 +65,13 @@
         services: '',
         categories: '',
         subcategories: '',
-        service_id: '0',
+        service_id: '-1',
         category_id: '',
         subcategory_id: '',
       }
     },
     created() {
-      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      
       axios.get(`${ADMIN_URL}/services`)
         .then(response => {
           this.services = response.data;
@@ -78,20 +83,28 @@
     methods: {
 
       getCategories() {
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${ADMIN_URL}/categories`, {
-          service_id: this.service_id
-        })
-          .then(response => {
-            this.categories = response.data;
-          })
-          .catch(e => {
-            //console.log("error occurs");
-          });
+         if(this.service_id === '0')
+         {
+           this.type = 'bottom-banner';
+         }
+         else
+         {
+           axios.post(`${ADMIN_URL}/categories`, {
+             service_id: this.service_id
+           })
+             .then(response => {
+               this.categories = response.data;
+             })
+             .catch(e => {
+               //console.log("error occurs");
+             });
+         }
+        
+
 
       },
       getSubcategories() {
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        
         axios.post(`${ADMIN_URL}/subcategories`, {
           category_id: this.category_id
         })
@@ -125,7 +138,7 @@
         formData.append('type', this.type);
         formData.append('image', this.image);
 
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        
         axios.post(`${ADMIN_URL}/banners/create`,formData,config)
           .then(response => {
             console.log('Success', response);

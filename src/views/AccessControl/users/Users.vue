@@ -1,19 +1,23 @@
 <template>
+  <div class="animated fadeIn">
+    <b-row>
+      <b-col sm="10"></b-col>
+      <b-col sm="2" class="mb-3">
+        <router-link to="/users/new">
+          <p class="my-2">
+                    <span class="btn btn-success">
+                        Create New User +
+                    </span>
+          </p>
+        </router-link>
+      </b-col>
+    </b-row>
     <div class="customcard">
         <div class="cardheading">
 			<div class="">
 				<h1 class="my-auto tableName">
                     Users
 				</h1>
-			</div>
-			<div class="">
-				<router-link to="/users/new">
-                    <p class="my-2">
-                    <span class="badge badge-success new-cat-btn-name p-3">
-                        Create New User <b> + </b>
-                    </span>
-                    </p>
-				</router-link>
 			</div>
 		</div>
         <div class="usersTable table-responsive">
@@ -56,6 +60,7 @@
             </table>
         </div>
     </div>
+  </div>
 </template>
 
 <script>

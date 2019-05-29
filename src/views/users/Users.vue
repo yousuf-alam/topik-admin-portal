@@ -1,4 +1,5 @@
 <template>
+  <div class="animated fadeIn">
   <b-row>
     <b-col cols="12" xl="6">
       <transition name="slide">
@@ -24,6 +25,7 @@
       </transition>
     </b-col>
   </b-row>
+  </div>
 </template>
 
 <script>

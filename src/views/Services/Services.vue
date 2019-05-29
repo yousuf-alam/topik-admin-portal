@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div class="animated fadeIn">
         <b-row>
             <b-col sm="10"></b-col>
             <b-col sm="2" class="mb-3" v-if="elementHasPermission('service create')">

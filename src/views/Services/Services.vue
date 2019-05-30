@@ -5,13 +5,11 @@
                     
                 </div>
                 <div class="">
-                    <router-link to="/roles/new">				
-                        <span sm="2" class="mb-3 my-2" v-if="elementHasPermission('service create')">
-                            <router-link :to="{ name: 'ServiceCreate'}">
-                                <button class="btn btn-success">Create New Service</button>
-                            </router-link>  
-                        </span>                        
-                    </router-link>
+                    <span sm="2" class="mb-3 my-2" v-if="elementHasPermission('service create')">
+                        <router-link :to="{ name: 'ServiceCreate'}">
+                            <button class="btn btn-success">Create New Service</button>
+                        </router-link>  
+                    </span>                        
                 </div>
             </div>
         <b-row>

@@ -1,13 +1,17 @@
 <template>
   <div>
-    <b-row>
-      <b-col sm="10"></b-col>
-      <b-col sm="2" class="mb-3">
-        <router-link :to="{ name: 'LineItemCreate'}" v-if="elementHasPermission('lineitem create')">
-          <button class="btn btn-success">Create New Lineitem</button>
-        </router-link>
-      </b-col>
-    </b-row>
+    <div class="cardheading ">
+      <div class="">
+          
+      </div>
+      <div class="">
+          <span sm="2" class="mb-3 my-2" v-if="elementHasPermission('lineitem create')">
+            <router-link :to="{ name: 'LineItemCreate'}">
+              <button class="btn btn-success">Create New Lineitem</button>
+            </router-link>
+          </span>                        
+      </div>
+    </div>
     <b-row>
       <b-col>
         <b-card>

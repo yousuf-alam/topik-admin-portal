@@ -61,14 +61,14 @@ export default {
     AppHeaderDropdown
   },
   data() {
-    return { 
-      itemsCount: 42, 
+    return {
+      itemsCount: 42,
       origin_url: window.location.origin
     }
   },
   created() {
- 
-  }, 
+
+  },
   computed: {
     loggedInUser() {
       return this.$store.getters['auth/authUser'];

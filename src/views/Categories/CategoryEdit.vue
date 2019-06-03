@@ -262,7 +262,7 @@
           }).then(response =>{
           this.category = response.data;
           
-          console.log('created,,, category ==== ', this.category);
+          //console.log('created,,, category ==== ', this.category);
 
           this.url_icon_svg = this.category.icon_svg === null ? null : `${BASE_URL}${this.src_svg}${this.category.icon_svg}`;
           this.url_icon_pdf = this.category.icon_pdf === null ? null : `${BASE_URL}${this.src_pdf}${this.category.icon_pdf}`;
@@ -316,7 +316,7 @@
           headers: {'content-type': 'multipart/form-data'}
         }
 
-        console.log('onSubmit , category === ', this.category);
+        //console.log('onSubmit , category === ', this.category);
         let formData = new FormData();
         formData.append('id', this.category.id);
         formData.append('name', this.category.name);
@@ -334,7 +334,7 @@
         formData.append('banner_tab', this.category.banner_tab);
         formData.append('banner_android', this.category.banner_android);
         formData.append('banner_ios', this.category.banner_ios);
-        console.log(this.category.service_id);
+        //console.log(this.category.service_id);
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         axios.post(`${ADMIN_URL}/categories/update`, formData, config)
           .then( (response) => {
@@ -343,7 +343,7 @@
           })
           .catch(function (error) {
             currentObj.output = error;
-            console.log(error);
+            //console.log(error);
           });
       }
     }

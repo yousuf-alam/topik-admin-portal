@@ -197,14 +197,14 @@
         // console.log(this.name);
         axios.post(`${ADMIN_URL}/categories/create`,formData,config)
           .then(response => {
-            console.log('Success', response);
+            //console.log('Success', response);
             currentObj.success = response.data.success;
             alert('Data updated successfully');
             this.$router.push({ name: 'Categories'})
-            console.log(response.data);
+            //console.log(response.data);
           })
           .catch(error => {
-            console.log('Error  ... ', error.response);
+            //console.log('Error  ... ', error.response);
             currentObj.output = error;
             if (error.response.status === 422) {
               this.name_error = error.response.data.errors.name[0];

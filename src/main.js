@@ -19,6 +19,7 @@ import {ServerTable} from 'vue-tables-2'
 import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import VueSweetalert2 from 'vue-sweetalert2';
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -52,6 +53,8 @@ Vue.use(ClientTable);
 Vue.use(ServerTable);
 Vue.use(VueAxios, axios);
 Vue.use(VModal)
+Vue.use(VueSweetalert2, { confirmButtonColor: '#41b882', cancelButtonColor: '#ff7674'})
+
 
 import router from './router'
 import store from './store/store';

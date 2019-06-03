@@ -33,7 +33,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_thumbnail+lineitem.thumbnail" style="width: 200px; height: 150px;">
+                  <img :src="url_thumbnail" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -61,7 +61,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_banweb+lineitem.banner_web" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_web" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -78,7 +78,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_bantab+lineitem.banner_tab" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_tab" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -94,7 +94,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_banand+lineitem.banner_android" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_android" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -111,7 +111,7 @@
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="src_banios+lineitem.banner_ios" style="width: 200px; height: 150px;">
+                  <img :src="url_banner_ios" style="width: 200px; height: 150px;">
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -143,7 +143,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Design -  {{index+1}}</label>
                 <div class="col-sm-9">
-                  <img :src="src_designs+des.image" style="width: 200px; height: 150px;">
+                  <img :src="BASE_URL+src_designs+des.image" style="width: 200px; height: 150px;">
                   <button class="btn btn-sm btn-danger top" data-toggle="tooltip" title="Delete Design" @click="deleteDesign(index)"><i class="fa fa-close"></i></button>
                 </div>
               </div>
@@ -235,12 +235,14 @@
 <script>
 
   import axios from 'axios';
+import { get } from 'https';
   const Admin_URL = process.env.VUE_APP_ADMIN_URL;
   const BASE_URL  = process.env.VUE_APP_BASE_URL;
   export default {
     name: "LineitemEdit",
     data() {
       return {
+        BASE_URL: BASE_URL,
         lineitem: {
           id: '',
           name: '',
@@ -267,6 +269,12 @@
           bool: true,
           designs: [],
         },
+        url_thumbnail: '',
+        url_banner_web: '',
+        url_banner_tab: '',
+        url_banner_android: '',
+        url_banner_ios: '',
+
         src_thumbnail: '/images/lineitem/thumbnail/',
         src_banweb: '/images/lineitem/banner_web/',
         src_bantab: '/images/lineitem/banner_tab/',
@@ -281,45 +289,67 @@
     },
     created() {
 
+      /*
       this.src_thumbnail = BASE_URL + this.src_thumbnail;
       this.src_banweb = BASE_URL + this.src_banweb;
       this.src_bantab = BASE_URL + this.src_bantab;
       this.src_banios = BASE_URL + this.src_banios;
       this.src_banand = BASE_URL + this.src_banand;
       this.src_designs = BASE_URL + this.src_designs;
-      let id = window.location.pathname.split("/").pop();
-      this.lineitem.id = id;
-      axios.post(`${Admin_URL}/line-items/getLineitem`,
-        {
-          id: this.lineitem.id
-        }).then(response => {
-        this.lineitem = response.data;
-        this.lineitem.fixed_price = response.data.price;
-        this.lineitem.options = JSON.parse(response.data.options);
-        this.lineitem.price_table = JSON.parse(response.data.price_table);
-        this.lineitem.designs = JSON.parse(response.data.designs);
-        this.loading = false
-      })
-        .catch(e => {
-          //console.log("error occurs");
-        });
+      */
+     this.fetchData();
+
 
     },
     methods: {
+      fetchData() {
+          let id = window.location.pathname.split("/").pop();
+          this.lineitem.id = id;
+          axios.post(`${Admin_URL}/line-items/getLineitem`, { id: this.lineitem.id})
+          .then(response => {
+            this.lineitem = response.data;
+            this.lineitem.fixed_price = response.data.price;
+            this.lineitem.options = JSON.parse(response.data.options);
+            this.lineitem.price_table = JSON.parse(response.data.price_table);
+            this.lineitem.designs = JSON.parse(response.data.designs);
+            this.loading = false
+
+            this.url_thumbnail = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_thumbnail}${this.lineitem.thumbnail}`;
+            this.url_banner_web = this.lineitem.banner_web === null ? null : `${BASE_URL}${this.src_banweb}${this.lineitem.banner_web}`;
+            this.url_banner_tab = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_bantab}${this.lineitem.banner_tab}`;
+            this.url_banner_android = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_banand}${this.lineitem.banner_android}`;
+            this.url_banner_ios = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_banios}${this.lineitem.banner_ios}`;
+
+          })
+          .catch(e => {
+              //console.log("error occurs");
+          });
+      },
+      
+      previewImage(e, file_name, file_url) {
+        const file = e.target.files[0];
+        if (file === undefined) { 
+          return; 
+        } 
+        this.lineitem[file_name] = file;
+        this[file_url] = URL.createObjectURL(file);        
+      },
+
+
       onThumbnailChange(e) {
-        this.lineitem.thumbnail = e.target.files[0];
+        this.previewImage(e, 'thumbnail', 'url_thumbnail');
       },
       onBwebChange(e) {
-        this.lineitem.banner_web = e.target.files[0];
+        this.previewImage(e, 'banner_web', 'url_banner_web');
       },
       onBtabChange(e) {
-        this.lineitem.banner_tab = e.target.files[0];
+        this.previewImage(e, 'banner_tab', 'url_banner_tab');
       },
       onBandChange(e) {
-        this.lineitem.banner_android = e.target.files[0];
+        this.previewImage(e, 'banner_android', 'url_banner_android')
       },
       onBiosChange(e) {
-        this.lineitem.banner_ios = e.target.files[0];
+        this.previewImage(e, 'banner_ios', 'url_banner_ios');
       },
       designModal(){
         this.$modal.show('modal-design');
@@ -398,7 +428,7 @@
           })
           .catch(function (error) {
             currentObj.output = error;
-            console.log(error);
+            // console.log(error);
           });
       }
     }

@@ -307,7 +307,7 @@
         formData.append('banner_tab', this.category.banner_tab);
         formData.append('banner_android', this.category.banner_android);
         formData.append('banner_ios', this.category.banner_android);
-        console.log(this.category.service_id);
+        //console.log(this.category.service_id);
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         axios.post(`${ADMIN_URL}/categories/update`, formData, config)
           .then(function (response) {

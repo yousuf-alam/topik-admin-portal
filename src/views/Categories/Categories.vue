@@ -70,7 +70,7 @@
     },
     created(){
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${ADMIN_URL}/all-categories`)
+      axios.get(`${ADMIN_URL}/all-categories-subcategories`)
         .then(response =>{
           console.log('All categories === ', response.data);
           this.categories = response.data;

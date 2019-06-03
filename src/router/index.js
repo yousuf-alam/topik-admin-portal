@@ -10,6 +10,7 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 const Dashboard = () => import('@/views/Dashboard')
 const Orders = () => import('@/views/Orders/Orders')
 const OrderShow = () => import('../views/Orders/Order_Show')
+const OrderEdit = () => import('../views/Orders/OrderEdit')
 const OrderCreate = () => import('../views/Orders/OrderCreate')
 const AppointmentCreate = () => import('../views/Orders/AppointmentCreate')
 
@@ -207,6 +208,14 @@ const router =  new Router({
         component: OrderShow,
         meta: { 
           permission_name: 'order read' 
+        },
+      },
+      {
+        path: '/orders/edit/:id',
+        name: 'OrderEdit',
+        component: OrderEdit,
+        meta: {
+          permission_name: 'order read'
         },
       },
       {

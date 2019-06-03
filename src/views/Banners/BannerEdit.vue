@@ -30,7 +30,7 @@
         <img :src="src_image+banner.image" style="width: 200px; height: 150px;">
         <input type="file" class="form-control" v-on:change="onImageChange">
       </div>
-      <!--<div class="form-group">
+      <div class="form-group">
         <label>Select Landing Category</label>
         <select @change="getSubcategories" class='form-control' v-model="banner.category_id">
           <option :value="cat.id" v-for="cat in categories">{{ cat.name }}</option>
@@ -41,7 +41,7 @@
         <select class='form-control' v-model="banner.subcategory_id">
           <option :value="subcat.id" v-for="subcat in subcategories">{{ subcat.name }}</option>
         </select>
-      </div>-->
+      </div>
       <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Edit Banner</b-button>
     </form>
   </b-card>
@@ -49,6 +49,8 @@
 
 <script>
   import axios from 'axios';
+  const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+  const BASE_URL  = process.env.VUE_APP_BASE_URL;
   export default {
     name: "BannerEdit",
 
@@ -63,8 +65,7 @@
       }
     },
     created() {
-      const Admin_URL = process.env.VUE_APP_ADMIN_URL;
-      const BASE_URL  = process.env.VUE_APP_BASE_URL;
+      
       this.src_image = BASE_URL + this.src_image;
       this.banner.id= window.location.pathname.split("/").pop();
       this.getServices();
@@ -75,7 +76,6 @@
           id: this.banner.id
         }).then(response =>{
         this.banner = response.data;
-        console.log(response.data);
       })
         .catch(e=>{
           console.log("error occurs",e);
@@ -85,7 +85,7 @@
     methods: {
 
       getServices() {
-        const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+        
         axios.get(`${Admin_URL}/services`)
           .then(response => {
             this.services = response.data;
@@ -95,9 +95,9 @@
           });
       },
       getCategories() {
-        const Admin_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Admin_URL}/categories`, {
-          service_id: this.banner.service_id
+        
+        axios.get(`${Admin_URL}/all-categories`, {
+         // service_id: this.banner.service_id
         })
           .then(response => {
             this.categories = response.data;
@@ -108,20 +108,21 @@
 
       },
       getSubcategories() {
-        const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+        
         axios.post(`${Admin_URL}/subcategories`, {
           category_id: this.banner.category_id
         })
           .then(response => {
             this.subcategories = response.data;
+            console.log(this.subcategories);
           })
           .catch(e => {
-            //console.log("error occurs");
+            console.log("error occurs",e);
           });
 
       },
       onImageChange(e) {
-        this.image = e.target.files[0];
+        this.banner.image = e.target.files[0];
       },
       onSubmit(e) {
         e.preventDefault();
@@ -134,6 +135,7 @@
         }
 
         let formData = new FormData();
+        formData.append('id', this.banner.id);
         formData.append('service_id', this.banner.service_id);
         formData.append('category_id', this.banner.category_id);
         formData.append('subcategory_id', this.banner.subcategory_id);
@@ -142,8 +144,8 @@
         formData.append('type', this.banner.type);
         formData.append('image', this.banner.image);
 
-        const Admin_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${Admin_URL}/banners/create`,formData,config)
+        
+        axios.post(`${Admin_URL}/banners/edit`,formData,config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

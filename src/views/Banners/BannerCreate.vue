@@ -30,7 +30,6 @@
         <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label>
         <input type="file" class="form-control" v-on:change="onImageChange">
       </div>
-      <div v-if="service_id !== '0'">
         <div class="form-group">
           <label>Select Landing Category</label>
           <select @change="getSubcategories" class='form-control' v-model="category_id">
@@ -43,8 +42,6 @@
             <option :value="subcat.id" v-for="subcat in subcategories" :key="subcat.id">{{ subcat.name }}</option>
           </select>
         </div>
-      </div>
-
       <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Add Banner</b-button>
     </form>
   </b-card>

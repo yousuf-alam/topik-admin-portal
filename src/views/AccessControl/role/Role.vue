@@ -3,53 +3,60 @@
         <div class="cardheading">
 			<div class="">
 				<h2 class="my-auto tableName">
-                    Roles
+
 				</h2>
 			</div>
 			<div class="">
-				<router-link to="/roles/new">				
+				<router-link to="/roles/new">
                     <p class="my-2">
                     <span class="btn btn-success new-cat-btn-name p-2">
                         Create New Role <b> + </b>
                     </span>
-                    </p> 
+                    </p>
 				</router-link>
 			</div>
-		</div>	
-        <div class="text-danger text-center" ref="role_delete_error" tabindex="0"> 
-            {{ role_delete_error }} 
+		</div>
+        <div class="text-danger text-center" ref="role_delete_error" tabindex="0">
+            {{ role_delete_error }}
         </div>
-        <div class="rolesTable table-responsive"> 
-            <table class="table table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="row in roles" :key="row.id">
-                    <th scope="row">{{row.id}}</th>
-                    <td>{{row.name}}</td>
-                    <td> 
-                        <router-link :to="`/roles/show/${row.id}`"> 
-                            <span class="btn bg-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View"> 
-                                <i class="fa fa-search"></i>
-                            </span> 
-                        </router-link>                         
-                <!--                         
-                        <router-link to="/roles/edit/1" v-if="row.name!=='superadmin'"> 
-                            <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Edit"> <i class="fa fa-edit"></i></span>
-                        </router-link>    
-                -->
-                        <router-link to="" v-if="row.name!=='superadmin'" >
-                            <span class="btn btn-danger btn-sm m-1" @click="handleDelete(row)" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
-                        </router-link> 
-                    </td>
-                </tr>
-            </tbody>
-            </table>
+
+        <div class="card" style="">
+          <div class="card-header">
+            <b>Roles</b>
+          </div>
+
+          <div class="rolesTable table-responsive">
+              <table class="table table-hover">
+              <thead class="thead-">
+                  <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="row in roles" :key="row.id">
+                      <th scope="row">{{row.id}}</th>
+                      <td>{{row.name}}</td>
+                      <td>
+                          <router-link :to="`/roles/show/${row.id}`">
+                              <span class="btn bg-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View">
+                                  <i class="fa fa-search"></i>
+                              </span>
+                          </router-link>
+                  <!--
+                          <router-link to="/roles/edit/1" v-if="row.name!=='superadmin'">
+                              <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Edit"> <i class="fa fa-edit"></i></span>
+                          </router-link>
+                  -->
+                          <router-link to="" v-if="row.name!=='superadmin'" >
+                              <span class="btn btn-danger btn-sm m-1" @click="handleDelete(row)" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
+                          </router-link>
+                      </td>
+                  </tr>
+              </tbody>
+              </table>
+          </div>
         </div>
     </div>
 </template>
@@ -64,7 +71,7 @@ export default {
              role_delete_error: ''
          }
      },
-     created() {        
+     created() {
          this.fetchData()
      },
      methods: {
@@ -72,11 +79,11 @@ export default {
             const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
             const request = axios.get(`${ADMIN_URL}/roles`);
             request.then(response => {
-                this.roles = response.data; 
+                this.roles = response.data;
             }).catch(error => {
                 //console.log('Error : ', error.response);
             })
-         }, 
+         },
          handleDelete(role) {
              const role_id = role.id;
              const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
@@ -85,8 +92,8 @@ export default {
                 request.then(response => {
                     if (response.status === 200) {
                         alert('Role deleted successfully');
-                        this.fetchData(); 
-                    } 
+                        this.fetchData();
+                    }
                 }).catch(error => {
                     if (error.response.status === 404 ) {
                         const msg = error.response.data;
@@ -100,7 +107,7 @@ export default {
              } else {
                  //console.log('No, I do not want to delete any role.');
              }
-             
+
          }
      }
 }

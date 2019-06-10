@@ -8,11 +8,11 @@
 			</div>
 			<div class="">
 				<router-link to="/users/new">
-                    <p class="my-2">
-                    <span class="btn btn-success new-cat-btn-name p-2">
-                        Create New User <b> + </b>
-                    </span>
-                    </p>
+                <p class="my-2">
+                <span class="btn btn-success new-cat-btn-name p-2">
+                    Create New User <b> + </b>
+                </span>
+                </p>
 				</router-link>
 			</div>
 		</div>

@@ -4,7 +4,7 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th>Service Name</th>
+            <th>Item Name</th>
             <th>Option Name</th>
             <th>Quantity</th>
             <th>Price</th>

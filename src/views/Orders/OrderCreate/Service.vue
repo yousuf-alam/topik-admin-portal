@@ -65,7 +65,7 @@
         </div>
       </modal>
       <b-row>
-        <button @click="addService" class="btn btn-romoni-secondary pl-5 pr-5">Add Service</button>
+        <button @click="addService" class="btn btn-romoni-secondary pl-5 pr-5">Add Line Item</button>
       </b-row>
 
     </b-card>
@@ -131,7 +131,7 @@
           serviceID = 1;
         else
           serviceID = 2;
-        
+
         axios.post(`${Admin_URL}/categories`, {
           service_id: serviceID
         })
@@ -147,7 +147,7 @@
         {
           this.fetchServices();
         }
-        else 
+        else
         {
           axios.post(`${Admin_URL}/subcategories`, {
             category_id: this.selected_category
@@ -159,10 +159,10 @@
               console.log("error occurs",e);
             });
         }
-        
+
       },
       fetchServices() {
-        
+
         axios.post(`${Admin_URL}/line-items`, {
           category_id: this.selected_category,
           subcategory_id: this.selected_subcategory

@@ -369,8 +369,7 @@
           //console.log("error occurs");
         });
     },
-    methods:
-      {
+    methods: {
         updatePrice(){
         let ques = this.question_data;
         let price_table = [];
@@ -464,14 +463,15 @@
         },
         updateQuestion(index) {
 
-         /* var x = document.getElementById("sptitle" + index);
+        /* 
+          var x = document.getElementById("sptitle" + index);
           var y = document.getElementById("spquestion" + index);
           var z = document.getElementById("spanswer" + index);
           console.log(z.value);
           this.questions[index].title = x.value;
           this.questions[index].question = y.value;
-          this.questions[index].answer = z;*/
-
+          this.questions[index].answer = z;
+        */
           this.$modal.hide('ques-' + index);
           this.priceTable(this.questions);
 
@@ -492,7 +492,6 @@
             .catch(e => {
               //console.log("error occurs");
             });
-
         },
         getSubcategories() {
           const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;

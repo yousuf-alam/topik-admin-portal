@@ -17,7 +17,7 @@
       </div>
       <div class="form-group">
         <label>Name*</label>
-        <input type="text" name="name" class="form-control" v-model="name" 
+        <input type="text" name="name" class="form-control" v-model="name"
         @keyup="handleFieldChange" ref="name" required>
         <span class="text-danger"> {{name_error}} </span>
       </div>
@@ -116,17 +116,24 @@
       }
     },
     created(){
-      
-      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${ADMIN_URL}/services`)
-        .then(response =>{
-          this.services = response.data;
-        })
-        .catch(e=>{
-          //console.log("error occurs");
-        });
+      this.fetchServiceData();
+
     },
     methods: {
+      fetchServiceData() {
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.get(`${ADMIN_URL}/services`)
+          .then(response => {
+            this.services = response.data;
+              // console.log('services ===== ==== ', response.data);
+              /* Below two lines added because of: Automatically loading categories of first service.*/
+              this.service_id = this.services[0].id;
+              this.getCategories();
+          })
+          .catch(e => {
+            // console.log("error occurs");
+          });
+      },
 
       getCategories(){
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;

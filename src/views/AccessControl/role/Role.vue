@@ -1,21 +1,19 @@
 <template>
     <div class="customcard">
         <div class="cardheading">
-			<div class="">
-				<h2 class="my-auto tableName">
-
-				</h2>
-			</div>
-			<div class="">
-				<router-link to="/roles/new">
-                    <p class="my-2">
+    			<div class="">
+    				<h2 class="my-auto tableName"> </h2>
+    			</div>
+    			<div class="">
+    				<router-link to="/roles/new">
+                <p class="my-2">
                     <span class="btn btn-success new-cat-btn-name p-2">
                         Create New Role <b> + </b>
                     </span>
-                    </p>
-				</router-link>
-			</div>
-		</div>
+                </p>
+    				</router-link>
+    			</div>
+		   </div>
         <div class="text-danger text-center" ref="role_delete_error" tabindex="0">
             {{ role_delete_error }}
         </div>

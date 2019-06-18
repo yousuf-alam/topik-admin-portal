@@ -7,7 +7,7 @@
     			</div>
     			<div class="">
     				<router-link to="/roles/new">
-                <p class="my-2">
+                <p class="my-0">
                     <span class="btn btn-success new-cat-btn-name p-2">
                         Create New Role <b> + </b>
                     </span>

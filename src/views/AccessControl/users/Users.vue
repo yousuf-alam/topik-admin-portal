@@ -9,7 +9,7 @@
   			</div>
   			<div class="">
   				<router-link to="/users/new">
-                  <p class="my-2">
+                  <p class="my-0">
                   <span class="btn btn-success new-cat-btn-name p-2">
                       Create New User <b> + </b>
                   </span>

@@ -1,13 +1,17 @@
 <template>
   <div class="animated fadeIn">
-    <b-row>
-      <b-col sm="10"></b-col>
-      <b-col sm="2" class="mb-3">
+    <div class="cardheading">
+      <div class="">
+        <h1 class="my-auto tableName">
+
+        </h1>
+      </div>
+      <div class="">
         <router-link :to="{ name: 'CategoryCreate'}" v-if="elementHasPermission('category create')">
           <button class="btn btn-success">Create New Category</button>
         </router-link>
-      </b-col>
-    </b-row>
+      </div>
+    </div>
     <b-row>
       <b-col>
         <b-card>
@@ -16,10 +20,10 @@
               <div v-if="props.row.category === 'none'">
                 <router-link :to="{ name: 'CategoryEdit', params: { id: props.row.id }}"
                 v-if="elementHasPermission('category update')">
-                    <span 
-                      class="btn btn-warning btn-sm m-1" 
-                      data-toggle="tooltip" 
-                      title="Edit" 
+                    <span
+                      class="btn btn-warning btn-sm m-1"
+                      data-toggle="tooltip"
+                      title="Edit"
                       :href="props.row.id">
                         <i class="fa fa-edit"></i>
                       </span>
@@ -30,9 +34,9 @@
                 <router-link :to="{ name: 'SubcategoryEdit', params: { id: props.row.id }}"
                 v-if="elementHasPermission('category delete')">
                   <span
-                    class="btn btn-warning btn-sm m-1" 
-                    data-toggle="tooltip" 
-                    title="Edit" 
+                    class="btn btn-warning btn-sm m-1"
+                    data-toggle="tooltip"
+                    title="Edit"
                     :href="props.row.id"
                   >
                     <i class="fa fa-edit"></i>

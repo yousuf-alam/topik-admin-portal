@@ -1,13 +1,17 @@
 <template>
   <div class="animated fadeIn">
-    <b-row>
-      <b-col sm="10"></b-col>
-      <b-col sm="2" class="mb-3">
+    <div class="cardheading">
+      <div class="">
+        <h1 class="my-auto tableName">
+
+        </h1>
+      </div>
+      <div class="">
         <router-link :to="{ name: 'LineItemCreate'}" v-if="elementHasPermission('lineitem create')">
           <button class="btn btn-success">Create New Lineitem</button>
         </router-link>
-      </b-col>
-    </b-row>
+      </div>
+    </div>
     <b-row>
       <b-col>
         <b-card>
@@ -16,17 +20,17 @@
               <div>
                 <router-link :to="{ name: 'LineitemEdit', params: { id: props.row.id }}"
                 v-if="elementHasPermission('lineitem update')">
-                  <span 
-                      class="btn btn-warning btn-sm m-1" 
-                      data-toggle="tooltip" title="Edit" 
+                  <span
+                      class="btn btn-warning btn-sm m-1"
+                      data-toggle="tooltip" title="Edit"
                       :href="props.row.id">
                     <i class="fa fa-edit"></i>
                   </span>
                 </router-link>
-                <span 
+                <span
                   v-if="elementHasPermission('lineitem delete')"
-                  class="btn btn-danger btn-sm m-1" 
-                  data-toggle="tooltip" title="Delete"> 
+                  class="btn btn-danger btn-sm m-1"
+                  data-toggle="tooltip" title="Delete">
                     <i class="fa fa-trash"></i>
                 </span>
               </div>
@@ -46,7 +50,10 @@
     data() {
       return {
         categories : [],
-        columns: ['id', 'name', 'service', 'category', 'subcategory' ,'published_status', 'created_at', 'action'],
+        columns: [
+          'id', 'name', 'service', 'category', 'subcategory',
+          'published_status', 'created_at', 'action'
+        ],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,
@@ -74,7 +81,7 @@
             return this.$store.getters['auth/hasPermission'](permission_name) ? true : false;
           }
       }
-    },    
+    },
     methods: {
 
     },

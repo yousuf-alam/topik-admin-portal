@@ -1,35 +1,39 @@
 <template>
   <div class="animated fadeIn">
-        <b-row>
-            <b-col sm="10"></b-col>
-            <b-col sm="2" class="mb-3" v-if="elementHasPermission('service create')">
-                <router-link :to="{ name: 'ServiceCreate'}">
-                    <button class="btn btn-success">Create New Service</button>
-                </router-link>  
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col>
-                <b-card>
-                <v-client-table :data="services" :columns="columnsToShow" :options="options">
-                    <template slot="action" slot-scope="props">
-                        <div>
-                            <router-link  :to="{ name: 'ServiceEdit', params: { id: props.row.id }}" 
-                            v-if="elementHasPermission('service update')">
-                            <span 
-                                class="btn btn-warning btn-sm m-1" data-toggle="tooltip" 
-                                title="Edit" :href="props.row.id"
-                            >
-                                    <i class="fa fa-edit"></i>
-                            </span>
-                            </router-link>
-                        </div>
-                    </template>
-                </v-client-table>
-                </b-card>
-            </b-col>
-        </b-row>
+    <div class="cardheading">
+      <div class="">
+        <h1 class="my-auto tableName">
+
+        </h1>
+      </div>
+      <div class="">
+        <router-link :to="{ name: 'ServiceCreate'}">
+            <button class="btn btn-success">Create New Service</button>
+        </router-link>
+      </div>
     </div>
+    <b-row>
+        <b-col>
+            <b-card>
+            <v-client-table :data="services" :columns="columnsToShow" :options="options">
+                <template slot="action" slot-scope="props">
+                    <div>
+                        <router-link  :to="{ name: 'ServiceEdit', params: { id: props.row.id }}"
+                        v-if="elementHasPermission('service update')">
+                        <span
+                            class="btn btn-warning btn-sm m-1" data-toggle="tooltip"
+                            title="Edit" :href="props.row.id"
+                        >
+                                <i class="fa fa-edit"></i>
+                        </span>
+                        </router-link>
+                    </div>
+                </template>
+            </v-client-table>
+            </b-card>
+        </b-col>
+    </b-row>
+  </div>
 </template>
 
 
@@ -60,7 +64,7 @@ import axios from 'axios';
             axios.get(`${ADMIN_URL}/services`)
         		.then(response =>{
                     this.services = response.data;
-                    console.log('Services.vue, Response === ', response.data);        
+                    console.log('Services.vue, Response === ', response.data);
         		})
         		.catch(e=>{
         			//console.log("error occurs");

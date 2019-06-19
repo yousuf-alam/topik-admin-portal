@@ -12,7 +12,12 @@
       </div>
       <div class="form-group">
         <label >Banner Type</label>
-        <select class='form-control' v-model="type">
+        <select class='form-control' v-model="type" v-if="service_id === '0'">
+          <option value="hot-deals">Hot Deals Banner</option>
+          <option value="beauty-on-demand">Beauty On-Demand Banner</option>
+          <option value="tailor-on-demand">Tailor On-Demand Banner</option>
+        </select>
+        <select class='form-control' v-model="type" v-else>
           <option value="top-banner">Top Banner</option>
           <option value="bottom-banner">Bottom Banner</option>
         </select>
@@ -68,7 +73,7 @@
       }
     },
     created() {
-      
+
       axios.get(`${ADMIN_URL}/services`)
         .then(response => {
           this.services = response.data;
@@ -96,12 +101,12 @@
                //console.log("error occurs");
              });
          }
-        
+
 
 
       },
       getSubcategories() {
-        
+
         axios.post(`${ADMIN_URL}/subcategories`, {
           category_id: this.category_id
         })
@@ -135,7 +140,7 @@
         formData.append('type', this.type);
         formData.append('image', this.image);
 
-        
+
         axios.post(`${ADMIN_URL}/banners/create`,formData,config)
           .then(response => {
             console.log('Success', response);

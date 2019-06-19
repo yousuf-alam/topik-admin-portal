@@ -36,7 +36,7 @@
           </div>
 
           <b-form-group label="Scheduled Date">
-            <datepicker input-class="date-input" v-model="order.scheduled_date" ></datepicker>
+            <datepicker input-class="date-input" @input="changeDateFormat()" v-model="order.scheduled_date" ></datepicker>
           </b-form-group>
           <b-form-group label="Scheduled Time">
             <select class="form-control" v-model="order.scheduled_time">
@@ -298,6 +298,8 @@
       },
       changeDateFormat(){
 
+        console.log('sdsd');
+
         let d = this.order.scheduled_date;
         let month = '' + (d.getMonth() + 1);
         let day = '' + d.getDate();
@@ -310,7 +312,7 @@
 
       updateOrder(e) {
 
-        this.changeDateFormat();
+        //this.changeDateFormat();
 
         e.preventDefault();
         let currentObj = this;

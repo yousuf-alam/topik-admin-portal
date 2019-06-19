@@ -42,7 +42,7 @@ const navitems = {
       }
     },
     {
-      name: 'Order / Appointment',
+      name: 'Orders',
       url: '/orders',
       icon: 'fa fa-cart-plus',
       permission_name: permissionsList.order
@@ -57,10 +57,10 @@ const navitems = {
       title: true,
       name: 'Service',
       class: '',
-      permission_name: [ 
-        ...permissionsList.service, ...permissionsList.category, 
-        ...permissionsList.lineitem, ...permissionsList.location 
-      ], 
+      permission_name: [
+        ...permissionsList.service, ...permissionsList.category,
+        ...permissionsList.lineitem, ...permissionsList.location
+      ],
       wrapper: {
         element: '',
         attributes: {}
@@ -156,7 +156,7 @@ const navitems = {
       name: 'Promo Codes',
       url: '/promos',
       icon: 'fa fa-plus-square',
-      permission_name:  permissionsList.promocode, 
+      permission_name:  permissionsList.promocode,
     },
     {
       name: 'Banners',
@@ -183,7 +183,7 @@ const navitems = {
   ]
 }
 
-// For filtering the nav items, based on permission_name . 
+// For filtering the nav items, based on permission_name .
 const navItemsToShow = { ...navitems };
 navItemsToShow.items = _.filter(navItemsToShow.items, item => {
   return filterByPermissions(item);

@@ -12,8 +12,8 @@
               </b-row>
               <b-row class="p-2">
                 <div class="center-div">
-                  <button @click="createOrder('Beauty On-Demand')" class="btn btn-romoni-secondary m-2">Beauty On-Demand</button>
-                  <button @click="createOrder('Beauty Appointment')" class="btn btn-primary m-2">Beauty Appointment</button>
+                  <button @click="createOrder('Beauty On-Demand')" class="btn btn-primary m-2">Beauty On-Demand</button>
+                  <!--<button @click="createOrder('Beauty Appointment')" class="btn btn-primary m-2">Beauty Appointment</button>-->
                   <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button>
                 </div>
 

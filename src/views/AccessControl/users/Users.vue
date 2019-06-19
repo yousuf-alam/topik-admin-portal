@@ -19,7 +19,7 @@
 
 				</h1>
 			</div>
-			<div class="">
+			<!--<div class="">
 				<router-link to="/users/new">
                 <p class="my-2">
                 <span class="btn btn-success new-cat-btn-name p-2">
@@ -27,7 +27,7 @@
                 </span>
                 </p>
 				</router-link>
-			</div>
+			</div>-->
 		</div>
     <div class="card" style="">
       <div class="card-header">

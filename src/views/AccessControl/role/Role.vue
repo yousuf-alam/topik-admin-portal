@@ -1,25 +1,13 @@
 <template>
   <div class="animated fadeIn">
-    <b-row>
-      <b-col sm="10"></b-col>
-      <b-col sm="2" class="mb-3">
-        <router-link to="/roles/new">
-          <p class="my-2">
-                    <span class="btn btn-success new-cat-btn-name">
-                        Create New Role +
-                    </span>
-          </p>
-        </router-link>
-      </b-col>
-    </b-row>
-    <div class="customcard">
+    <div class="">
         <div class="cardheading">
     			<div class="">
     				<h2 class="my-auto tableName"> </h2>
     			</div>
     			<!--<div class="">
     				<router-link to="/roles/new">
-                <p class="my-2">
+                <p class="my-0">
                     <span class="btn btn-success new-cat-btn-name p-2">
                         Create New Role <b> + </b>
                     </span>

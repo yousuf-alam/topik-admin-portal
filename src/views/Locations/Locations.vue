@@ -1,14 +1,18 @@
 <template>
     <div class="animated fadeIn">
-      <b-row>
-        <b-col sm="10"></b-col>
-        <b-col sm="2" class="mb-3">
+      <div class="cardheading">
+        <div class="">
+          <h1 class="my-auto tableName">
+
+          </h1>
+        </div>
+        <div class="">
           <router-link :to="{ name: 'LocationCreate'}">
             <button class="btn btn-success">Create New Location</button>
           </router-link>
-        </b-col>
-      </b-row>
-        <b-row>
+        </div>
+      </div>
+      <b-row>
             <b-col>
                 <b-card>
                     <v-client-table :data="locations" :columns="columns" :options="options">
@@ -23,7 +27,7 @@
                     </v-client-table>
                 </b-card>
             </b-col>
-        </b-row>
+      </b-row>
     </div>
 </template>
 

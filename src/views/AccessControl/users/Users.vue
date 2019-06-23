@@ -15,7 +15,7 @@
   				</router-link>
   			</div>
   		</div>
-    <div class="card" style="">
+    <div class="customcard" style="">
       <div class="card-header">
         <b>Users</b>
       </div>
@@ -57,7 +57,17 @@
               </tr>
           </tbody>
           </table>
+
       </div>
+    </div>
+    <div class="pl-1">
+        <paginate
+            :pageCount="totalPageCount"
+            :clickHandler="onPaginateClick"
+            :prevText="'Prev'"
+            :nextText="'Next'"
+            :container-class="'pagination'">
+        </paginate>
     </div>
 
     </div>
@@ -66,26 +76,42 @@
 
 <script>
 import axios from 'axios';
+import paginate from 'vuejs-paginate';
+const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
 export default {
     name: 'Users',
+    components: {
+        paginate,
+
+    },
     data() {
         return {
+            totalPageCount: 0,
+            perPageItem: 5, // Only set this value
+            pageNumber: 0,
             users: []
         }
     },
     created() {
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        const request = axios.get(`${ADMIN_URL}/users`);
-        request.then(response => {
-            // console.log('Response  === ', response);
-            this.users = response.data;
-        }).catch(error => {
-            // console.log('Error : ', error.response);
-        })
+        this.fetchUsers();
     },
     methods: {
         handleDelete() {
             alert('Not implemented yet.');
+        },
+        fetchUsers() {
+            axios.get(`${ADMIN_URL}/users/${this.perPageItem}/${this.pageNumber}`)
+            .then(response => {
+                this.users = response.data.users;
+                this.totalPageCount = Math.ceil(response.data.totalcount / this.perPageItem);
+            }).catch(error => {
+              
+            })
+        },
+        onPaginateClick(parm) {
+            this.pageNumber = parm - 1; // As api start from "pageNumber 0"
+            this.fetchUsers();
         }
     }
 }

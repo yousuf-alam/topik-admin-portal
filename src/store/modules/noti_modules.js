@@ -39,6 +39,7 @@ const notiModule = {
             return new Promise((resolve, reject) => {
                 axios.get(`${BASE_URL}/api/notifications/${perPageItem}/${pageNumber}`)
                 .then(res => {
+                    console.log('store, noti_module : ', res);
                     const newNoti = _.map(res.data.notifications, item => {
                         return {...item, ...{data: JSON.parse(item.data)}};
                     });

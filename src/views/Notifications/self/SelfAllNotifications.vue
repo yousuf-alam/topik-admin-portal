@@ -107,8 +107,7 @@ export default {
             pageNumber: 0,
             allNotiCounter: 0,
             notifications: [],
-
-
+            
         }
     },
     created() {
@@ -160,6 +159,7 @@ export default {
             this.$store.dispatch('noti/fetchNotifications', parmObj)
             .then(newNoti => {
                 this.notifications = newNoti;
+                console.log('new Noti ============ ', newNoti);
             }).catch(error => {
 
             })
@@ -239,8 +239,8 @@ export default {
 
 
 /* Start: Pagination Styling using SCSS */
-    $primaryColor: rgb(238, 238, 238);
-    $bgColor: rgb(77, 148, 138);
+    $primaryColor: rgb(248, 248, 248);
+    $bgColor: rgb(95, 91, 95);
     $selectdItemColor: $bgColor;
 
     .pagination {

@@ -16,7 +16,7 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Category *</label>
             <div class="col-sm-9">
-              <select @change="getSubcategories" class='form-control' v-model="category_id">
+              <select @change="getSubcategories" class='form-control' v-model="category_id" >
                 <option :value="cat.id" v-for="cat in categories" :key="cat.id">{{ cat.name }}</option>
               </select>
             </div>
@@ -34,7 +34,7 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Name *</label>
             <div class="col-sm-9">
-              <input class="form-control" name="name" type="text" v-model="name">
+              <input class="form-control" name="name" type="text" v-model="name" required>
             </div>
           </div>
 
@@ -255,7 +255,7 @@
                       <input :id="'spquestion'+index" :name="'question'+index" :value=faq.question class="form-control"
                              type="text">
                     </div>
-                    <div class="form-group" v-for="ans in faq.answer">
+                    <div class="form-group" v-for="(ans, index) in faq.answer" :key="index">
                       <label for="answer">Answer</label>
                       <input :id="'spanswer'+index" :name="'answer'+ index +'[]'" class="form-control" type="text"
                              v-model="ans.value">
@@ -346,6 +346,7 @@
       return {
         answer: [],
         new_question: "",
+
         services: '',
         categories: '',
         subcategories: '',
@@ -392,6 +393,7 @@
       this.src_url = Base_URL+ '/images/lineitem/designs/';
       axios.get(`${ADMIN_URL}/services`)
         .then(response => {
+          console.log('At created(), LineItemCreate ===== ', response);
           this.services = response.data;
         })
         .catch(e => {

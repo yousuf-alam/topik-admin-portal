@@ -200,6 +200,7 @@
       </b-tab>
       <b-tab v-if="lineitem.pricing_type ==='option'" title="Change Pricing">
         <b-card-text>
+        <div class="table-responsive">
           <table class="table table-striped table-bordered dt-responsive" width="100%">
             <thead>
             <tr>
@@ -218,6 +219,7 @@
             </tr>
             </tbody>
           </table>
+        </div>
           <b-row>
             <b-col>
               <div class="float-right">
@@ -307,6 +309,7 @@ import { get } from 'https';
           this.lineitem.id = id;
           axios.post(`${Admin_URL}/line-items/getLineitem`, { id: this.lineitem.id})
           .then(response => {
+            console.log('Response === === === ', response.data);
             this.lineitem = response.data;
             this.lineitem.fixed_price = response.data.price;
             this.lineitem.options = JSON.parse(response.data.options);
@@ -325,14 +328,14 @@ import { get } from 'https';
               //console.log("error occurs");
           });
       },
-      
+
       previewImage(e, file_name, file_url) {
         const file = e.target.files[0];
-        if (file === undefined) { 
-          return; 
-        } 
+        if (file === undefined) {
+          return;
+        }
         this.lineitem[file_name] = file;
-        this[file_url] = URL.createObjectURL(file);        
+        this[file_url] = URL.createObjectURL(file);
       },
 
 
@@ -413,6 +416,7 @@ import { get } from 'https';
         formData.append('benefits', this.lineitem.benefits);
         formData.append('recommendation', this.lineitem.recommendation);
         formData.append('duration', this.lineitem.duration);
+        formData.append('price', this.lineitem.fixed_price);
         formData.append('price_table', JSON.stringify(this.lineitem.price_table));
         formData.append('designs', JSON.stringify(this.lineitem.designs));
         formData.append('thumbnail', this.lineitem.thumbnail);
@@ -424,11 +428,12 @@ import { get } from 'https';
 
         axios.post(`${Admin_URL}/line-items/update`, formData, config)
           .then(function (response) {
+            console.log('Lineitem Update Successful === ', response);
             currentObj.success = response.data.success;
           })
           .catch(function (error) {
             currentObj.output = error;
-            // console.log(error);
+             console.log('Errorrrrr === ', error.response);
           });
       }
     }

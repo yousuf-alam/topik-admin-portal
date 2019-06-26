@@ -201,24 +201,27 @@ export default {
             }
         },
 
-
-
-
         singleNotiAction(notiObj) {
             if (notiObj.read_at === null) {
               this.notiMarkAsRead(notiObj);
+            } else {
+              this.redirectToURL(notiObj);
             }
+        },
+        redirectToURL(notiObj) {
+          if( notiObj.type === `App\\Notifications\\OrderStatusUpdated` ) {
+              const order_id = notiObj.data.order.id;
+              const origin = window.location.origin;
+              window.location.href = `${origin}/orders/details/${order_id}`;
+              //this.$router.push({ name: 'OrderShow', params: { id: order_id } }) // do not use this.
+          }
         },
         notiMarkAsRead(notiObj) {
             const noti_id = notiObj.id;
             const BASE_URL = this.$gbvar.BASE_URL;
             axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
                 .then(res => {
-                    if( notiObj.type === `App\\Notifications\\OrderStatusUpdated` ) {
-                        const order_id = notiObj.data.order.id;
-                        this.$router.push({ name: 'OrderShow', params: { id: order_id } })
-                        this.$router.go();
-                    }
+                  this.redirectToURL(notiObj);
                 }).catch(error => {
                     //console.log('notiMarkAsRead Error ===', error.response);
                 })

@@ -6,11 +6,11 @@
                 <b-badge pill variant="danger" >
                     {{unreadNotiCounter}}
                 </b-badge>
-                <!-- 
+                <!--
                     <b-nav-item class="d-md-down">
                         <i class="icon-bell"></i>
                         <b-badge pill variant="danger">5</b-badge>
-                    </b-nav-item>             
+                    </b-nav-item>
                 -->
             </div>
         </template>
@@ -20,21 +20,21 @@
                 <b-dropdown-header tag="div" class="text-center">
                     <strong>Your Notifications</strong>
                 </b-dropdown-header>
-                
+
                 <div class="item-container" @scroll="infiniteScroll">
-                    <div class="item-card" 
-                    :class="noti.read_at === null ? 'notReadYet': ''" 
+                    <div class="item-card"
+                    :class="noti.read_at === null ? 'notReadYet': ''"
                     v-for="(noti, index) in notifications" :key="index"
                     @click="singleNotiAction(noti)"
                     >
                         <b-dropdown-item class="my-0 py-0">
                             <div class="d-flex justify-content-around">
-                                <i :class="[noti.data.icon, notiIconStyle]"  /> 
+                                <i :class="[noti.data.icon, notiIconStyle]"  />
 
                                 <div class="m-0 p-0">
                                    <div class="m-0 p-0" style="width:170px"
                                     v-html="resizeText(noti.data.body)" />
-                                     
+
                                     <div class="datetime m-0 p-0">
                                         <small> {{ makeNotiTimeReadable(noti.created_at) }} </small>
                                     </div>
@@ -89,7 +89,7 @@ export default {
         this.listenPrivateChannel();
         this.countAllNoti();
         this.countUnreadNoti();
-        
+
     },
     computed: {
         resizeText: () => {
@@ -107,7 +107,7 @@ export default {
                 return newStr;
             }
         },
-        notiIconStyle: () => { 
+        notiIconStyle: () => {
            return 'text-success my-auto';
         },
         makeNotiTimeReadable: () => {
@@ -130,8 +130,8 @@ export default {
                     });
             */
             const user = this.$store.getters['auth/authUser'];
-            const userId = user.id; 
-            // This works fine. 
+            const userId = user.id;
+            // This works fine.
             window.Echo.private('App.User.' + userId)
                 .notification((notification) => {
                     this.unreadNotiCounter++;
@@ -139,44 +139,45 @@ export default {
                     this.pageNumber = 0;
                     this.fetchNotiAfterPusherListen();
                     /*
-                        // this.notifications.push(notification.order); 
+                        // this.notifications.push(notification.order);
                         Ai line ta likhle error khabe, karon, axios diye je notification
                         gulo ami niye aschi, Segulor moddhe aro onke key (not_id, created_at) ache.
                         Kintu aikhane sudhu order object. Tai notifications array te push korle vue
                         template a jeye error khabe.
                     */
                 });
-            
+
         },
         countAllNoti() {
             axios.get(`${BASE_URL}/api/count-all-noti`)
                 .then(res => { this.allNotiCounter = res.data;})
-                .catch(error => {    }); 
+                .catch(error => {    });
         },
         countUnreadNoti() {
             axios.get(`${BASE_URL}/api/count-unread-noti`)
                 .then(res => { this.unreadNotiCounter = res.data; })
                 .catch(error => {    });
-            
+
         },
         handleClick() {
+            console.log('handle CLick === ');
             if (this.notiBtnClicked === 0) {
                     this.fetchNotifications();
                     this.notiBtnClicked++;
             }
         },
         fetchNotifications() {
-            const parmObj = { 
-                perPageItem: this.perPageItem, 
-                pageNumber: this.pageNumber 
+            const parmObj = {
+                perPageItem: this.perPageItem,
+                pageNumber: this.pageNumber
             };
             this.dispatchFetchScrollNotifications(parmObj);
         },
 
         fetchNotiAfterPusherListen() {
-            const parmObj = { 
-                perPageItem: this.perPageItem, 
-                pageNumber: 0 
+            const parmObj = {
+                perPageItem: this.perPageItem,
+                pageNumber: 0
             };
             this.dispatchFetchScrollNotifications(parmObj);
         },
@@ -194,7 +195,7 @@ export default {
                 })
         },
         infiniteScroll(event) {
-            if ((event.target.scrollTop + event.target.offsetHeight ) >= 
+            if ((event.target.scrollTop + event.target.offsetHeight ) >=
                 event.target.scrollHeight) {
                 this.fetchNotifications();
             }
@@ -202,18 +203,22 @@ export default {
 
 
 
-    
+
         singleNotiAction(notiObj) {
             if (notiObj.read_at === null) {
-                this.notiMarkAsRead(notiObj.id);
+              this.notiMarkAsRead(notiObj);
             }
         },
-        notiMarkAsRead(noti_id) {
+        notiMarkAsRead(notiObj) {
+            const noti_id = notiObj.id;
             const BASE_URL = this.$gbvar.BASE_URL;
             axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
                 .then(res => {
-                    //console.log('notiMarkAsRead Res === ', res);
-                    this.$router.go();
+                    if( notiObj.type === `App\\Notifications\\OrderStatusUpdated` ) {
+                        const order_id = notiObj.data.order.id;
+                        this.$router.push({ name: 'OrderShow', params: { id: order_id } })
+                        this.$router.go();
+                    }
                 }).catch(error => {
                     //console.log('notiMarkAsRead Error ===', error.response);
                 })
@@ -237,7 +242,7 @@ export default {
 /* ------START: Scrolling Portion CSS ------- */
     .item-container {
         width: 100%;
-        height: 400px; /*IN_FUTURE:  media query can be added*/ 
+        height: 400px; /*IN_FUTURE:  media query can be added*/
         overflow-y: auto;
     }
     .item-card {
@@ -271,7 +276,7 @@ export default {
         100% {
             transform: translateX(70%);
         }
-    } 
+    }
 
     .notReadYet {
         background: rgb(204, 224, 235);

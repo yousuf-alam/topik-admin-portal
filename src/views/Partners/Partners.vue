@@ -10,7 +10,13 @@
                                     <i class="fa fa-search"></i></span></router-link>
                 <router-link :to="{ name: 'PartnerShow', params: { id: props.row.id }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Go to Partner Profile" :href="props.row.id">
                                     <i class="fa fa-edit"></i></span></router-link>
-                <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
+
+                <span class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Redirect"
+                  @click="handleForward">
+                    <i class="fa fa-forward"></i>
+                </span>
+
+
               </div>
             </template>
           </v-client-table>
@@ -41,17 +47,23 @@
       }
     },
     created(){
-      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${ADMIN_URL}/all-partners`)
-        .then(response =>{
-          this.partners = response.data;
-        })
-        .catch(e=>{
-          //console.log("error occurs");
-        });
+      this.fetchData();
     },
     methods: {
+      fetchData() {
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.get(`${ADMIN_URL}/all-partners`)
+          .then(response =>{
+            this.partners = response.data;
+          })
+          .catch(e=>{
+            //console.log("error occurs");
+          });
+      },
+      handleForward() {
+        console.log('handle Forward.........',);
 
+      }
     },
   }
 </script>

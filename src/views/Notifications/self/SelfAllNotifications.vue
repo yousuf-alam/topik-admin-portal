@@ -108,7 +108,6 @@ export default {
             allNotiCounter: 0,
             notifications: [],
 
-
         }
     },
     created() {
@@ -160,23 +159,33 @@ export default {
             this.$store.dispatch('noti/fetchNotifications', parmObj)
             .then(newNoti => {
                 this.notifications = newNoti;
+                console.log('new Noti ============ ', newNoti);
             }).catch(error => {
 
             })
 
         },
         singleNotiAction(notiObj) {
-            //console.log('single noti action', notiObj.read_at);
             if (notiObj.read_at === null) {
-                this.notiMarkAsRead(notiObj.id);
+              this.notiMarkAsRead(notiObj);
+            } else {
+              this.redirectToURL(notiObj);
             }
         },
-        notiMarkAsRead(noti_id) {
+        redirectToURL(notiObj) {
+          if( notiObj.type === `App\\Notifications\\OrderStatusUpdated` ) {
+              const order_id = notiObj.data.order.id;
+              const origin = window.location.origin;
+              window.location.href = `${origin}/orders/details/${order_id}`
+              //this.$router.push({ name: 'OrderShow', params: { id: order_id } }) // do not use this.
+          }
+        },
+        notiMarkAsRead(notiObj) {
+            const noti_id = notiObj.id;
             const BASE_URL = this.$gbvar.BASE_URL;
             axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
                 .then(res => {
-                    //console.log('notiMarkAsRead Res === ', res);
-                    this.$router.go();
+                    this.redirectToURL(notiObj);
                 }).catch(error => {
                     //console.log('notiMarkAsRead Error ===', error.response);
                 })
@@ -239,8 +248,8 @@ export default {
 
 
 /* Start: Pagination Styling using SCSS */
-    $primaryColor: rgb(238, 238, 238);
-    $bgColor: rgb(77, 148, 138);
+    $primaryColor: rgb(248, 248, 248);
+    $bgColor: rgb(95, 91, 95);
     $selectdItemColor: $bgColor;
 
     .pagination {

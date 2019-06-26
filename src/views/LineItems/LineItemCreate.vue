@@ -16,7 +16,7 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Category *</label>
             <div class="col-sm-9">
-              <select @change="getSubcategories" class='form-control' v-model="category_id">
+              <select @change="getSubcategories" class='form-control' v-model="category_id" >
                 <option :value="cat.id" v-for="cat in categories" :key="cat.id">{{ cat.name }}</option>
               </select>
             </div>
@@ -34,7 +34,7 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Name *</label>
             <div class="col-sm-9">
-              <input class="form-control" name="name" type="text" v-model="name">
+              <input class="form-control" name="name" type="text" v-model="name" required>
             </div>
           </div>
 
@@ -157,13 +157,39 @@
               <div class="row justify-content-md-center m-4">
                 <div class="col-12 m-3">
                   <b-button @click="NewDesign" class="btn btn-success">+ Add New Design</b-button>
+                  <modal name="new-design-modal" height="auto" :scrollable="true">
+                    <div class="m-3 p-3">
+                      <div class="form-group row">
+                      <label>Design Name</label>
+                      <input class="form-control" type="text" v-model="new_design.name">
+                      </div>
+                      <div class="form-group row">
+                      <label>Design Description</label>
+                      <input class="form-control" type="text" v-model="new_design.description">
+                      </div>
+                      <div class="form-group row">
+                      <label>Upload Design</label>
+                      <input class="form-control" type="file" @change="onDesignUpload">
+                      </div>
+
+                      <b-button @click="onDesignSave" class="btn btn-success float-right mb-3">Save Design</b-button>
+
+                    </div>
+                  </modal>
                 </div>
                 <div class="col-12 m-1" v-for="(des,index) in designs" :key="index">
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Upload Design -  {{index+1}}</label>
                     <div class="col-sm-9">
-                      <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Delete Answer" @click="deleteDesign(index)"><i class="fa fa-close"></i></button>
-                      <input class="form-control" type="file" v-on:change="onDesignUpload">
+                      <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Delete Answer" @click="deleteDesign(index)"><i class="fa fa-close"></i></button><br>
+                      <div class="border p-3">
+                      <label>Design Name</label>
+                      <input class="form-control" type="text" v-model="des.name">
+                      <label>Design Description</label>
+                      <input class="form-control" type="text" v-model="des.description">
+                      <label>Design</label><br>
+                      <img :src="des.tmp_image" style="width: 200px; height: 150px;">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -229,7 +255,7 @@
                       <input :id="'spquestion'+index" :name="'question'+index" :value=faq.question class="form-control"
                              type="text">
                     </div>
-                    <div class="form-group" v-for="ans in faq.answer">
+                    <div class="form-group" v-for="(ans, index) in faq.answer" :key="index">
                       <label for="answer">Answer</label>
                       <input :id="'spanswer'+index" :name="'answer'+ index +'[]'" class="form-control" type="text"
                              v-model="ans.value">
@@ -320,6 +346,7 @@
       return {
         answer: [],
         new_question: "",
+
         services: '',
         categories: '',
         subcategories: '',
@@ -355,14 +382,18 @@
         question_data: [],
         bool: true,
         designs: [],
-        new_design: ''
+        new_design: {},
+        src_url: ''
 
       }
     },
     created() {
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      const Base_URL = process.env.VUE_APP_BASE_URL;
+      this.src_url = Base_URL+ '/images/lineitem/designs/';
       axios.get(`${ADMIN_URL}/services`)
         .then(response => {
+          console.log('At created(), LineItemCreate ===== ', response);
           this.services = response.data;
         })
         .catch(e => {
@@ -463,7 +494,7 @@
         },
         updateQuestion(index) {
 
-        /* 
+        /*
           var x = document.getElementById("sptitle" + index);
           var y = document.getElementById("spquestion" + index);
           var z = document.getElementById("spanswer" + index);
@@ -523,21 +554,23 @@
           this.banner_ios = e.target.files[0];
         },
         NewDesign(){
-          this.designs.push('');
-          console.log('new new');
+          this.$modal.show('new-design-modal');
         },
-        deleteDesign(index)
-        {
+        deleteDesign(index) {
           this.designs.splice(index,1);
         },
-        onDesignUpload(e) {
-          let index = this.designs.length -1;
-          this.designs.splice(index,1);
 
-          this.new_design = e.target.files[0];
+        onDesignUpload(e) {
+
+          this.new_design.image = e.target.files[0];
+          this.new_design.tmp_image = URL.createObjectURL(this.new_design.image);
+
+        },
+        onDesignSave(){
+          this.$modal.hide('new-design-modal');
 
           this.designs.push(this.new_design);
-          this.new_design = '';
+          this.new_design = {};
 
         },
         saveOneDesign(e){
@@ -620,9 +653,14 @@
           formData.append('banner_android', this.banner_android);
           formData.append('banner_ios', this.banner_android);
 
+
           for( let i = 0; i < this.designs.length; i++ ){
-            let file = this.designs[i];
+            let file = this.designs[i]['image'];
+            let name = this.designs[i]['name'];
+            let desc = this.designs[i]['description'];
             formData.append('designs[' + i + '][image]', file);
+            formData.append('designs[' + i + '][name]', name);
+            formData.append('designs[' + i + '][description]', desc);
           }
 
           const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;

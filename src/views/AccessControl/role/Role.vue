@@ -5,7 +5,7 @@
     			<div class="">
     				<h2 class="my-auto tableName"> </h2>
     			</div>
-    			<div class="">
+    			<!--<div class="">
     				<router-link to="/roles/new">
                 <p class="my-0">
                     <span class="btn btn-success new-cat-btn-name p-2">
@@ -13,7 +13,7 @@
                     </span>
                 </p>
     				</router-link>
-    			</div>
+    			</div>-->
 		   </div>
         <div class="text-danger text-center" ref="role_delete_error" tabindex="0">
             {{ role_delete_error }}

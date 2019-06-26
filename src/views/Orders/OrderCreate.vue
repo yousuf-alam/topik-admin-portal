@@ -190,7 +190,7 @@
         formData.append('payment_method', this.payment_method);
         formData.append('measurement', this.measurement_type);
         formData.append('accessories', JSON.stringify(this.accessories));
-        formData.append('services', JSON.stringify(this.services));
+        formData.append('items', JSON.stringify(this.services));
         formData.append('price', this.invoice.price);
         formData.append('discount', this.invoice.discount);
 

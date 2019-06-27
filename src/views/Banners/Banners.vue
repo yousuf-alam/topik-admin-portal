@@ -64,7 +64,7 @@
       const BASE_URL  = process.env.VUE_APP_BASE_URL;
       axios.get(`${Admin_URL}/banners`)
         .then(response => {
-          console.log('Banners.vue, response === ', response.data);
+          // console.log('Banners.vue, response === ', response.data);
           this.banner = response.data;
         })
         .catch(e=>{

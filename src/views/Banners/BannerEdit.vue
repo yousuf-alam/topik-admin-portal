@@ -11,12 +11,12 @@
       </div>-->
       <div class="form-group">
         <label >Banner Type</label>
-        <!-- <select class='form-control' v-model="type" v-if="service_id === '0'">
+        <select class='form-control' v-model="banner.type" v-if="banner.service_id === 0">
           <option value="hot-deals">Hot Deals Banner</option>
           <option value="beauty-on-demand">Beauty On-Demand Banner</option>
           <option value="tailor-on-demand">Tailor On-Demand Banner</option>
-        </select> -->
-        <select class='form-control' v-model="type">
+        </select> 
+        <select class='form-control' v-model="banner.type" v-else>
           <option value="top-banner">Top Banner</option>
           <option value="bottom-banner">Bottom Banner</option>
         </select>
@@ -32,7 +32,7 @@
       <div class="form-group">
         <label>Image</label><br>
         <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label><br>
-        <img :src="src_image+banner.image" style="width: 200px; height: 150px;">
+        <img :src="image_url" style="width: 200px; height: 150px;">
         <input type="file" class="form-control" v-on:change="onImageChange">
       </div>
       <div class="form-group">
@@ -67,6 +67,7 @@
       return {
         banner: [],
         src_image : '/images/banners/',
+        image_url: '', 
         services: '',
         categories: '',
         subcategories: '',
@@ -75,16 +76,18 @@
     },
     created() {
       
-      this.src_image = BASE_URL + this.src_image;
       this.banner.id= window.location.pathname.split("/").pop();
       this.getServices();
       this.getCategories();
-      this.getSubcategories();
       axios.post(`${Admin_URL}/banners/show`,
         {
           id: this.banner.id
-        }).then(response =>{
-        this.banner = response.data;
+        }).then(response => {
+          console.log('Response data ===== ', response.data);
+          this.banner = response.data;
+          this.image_url = BASE_URL + this.src_image + response.data.image;
+
+          this.getSubcategories();
       })
         .catch(e=>{
           console.log("error occurs",e);
@@ -110,6 +113,8 @@
         })
           .then(response => {
             this.categories = response.data;
+            console.log('Categories == ', this.categories);
+
           })
           .catch(e => {
             //console.log("error occurs");
@@ -123,7 +128,7 @@
         })
           .then(response => {
             this.subcategories = response.data;
-            console.log(this.subcategories);
+            //console.log('Subcategories == ', response.data);
           })
           .catch(e => {
             console.log("error occurs",e);
@@ -131,7 +136,13 @@
 
       },
       onImageChange(e) {
-        this.banner.image = e.target.files[0];
+        const file = e.target.files[0];
+        if (file === undefined) { 
+          return; 
+        } 
+        this.banner.image = file;
+        this.image_url = URL.createObjectURL(file); 
+
       },
       onSubmit(e) {
         e.preventDefault();
@@ -147,18 +158,23 @@
         formData.append('id', this.banner.id);
         formData.append('service_id', this.banner.service_id);
         formData.append('category_id', this.banner.category_id);
-        formData.append('subcategory_id', this.banner.subcategory_id);
+        formData.append('subcategory_id', this.banner.subcategory_id == null ? '': this.banner.subcategory_id);
         formData.append('title', this.banner.title);
         formData.append('description', this.banner.description);
         formData.append('type', this.banner.type);
         formData.append('image', this.banner.image);
 
-        
+
         axios.post(`${Admin_URL}/banners/edit`,formData,config)
           .then(response => {
-            console.log('Success', response);
+            //console.log('Success', response);
             currentObj.success = response.data.success;
-            console.log(response.data);
+            this.$swal('Success', "Data Updated Successfully", 'success')
+              .then(response => {
+                if (response.value) {
+                  this.$router.push({ name: 'Banners'});
+                }
+              })
           })
           .catch(error => {
             console.log('Error  ... ', error.response);

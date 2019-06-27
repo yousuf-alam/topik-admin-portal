@@ -21,7 +21,7 @@
             </template>
           </v-client-table>
           <div>
-            <iframe id="ifrLoad" :src="`${PARTNER_HOST}/ReceiverForAdminLogin.html`" style="display: none;">
+            <iframe id="ifrLoad" :src="`${PARTNER_FRONTEND_DOMAIN}/ReceiverForAdminLogin.html`" style="display: none;">
               <p>Oops!. Your browser does not support iframes.</p>
             </iframe>
           </div>
@@ -37,12 +37,12 @@
   import CryptoJS from 'crypto-js';
   import globalvariables from '../../globalvariables';
   const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-
+  const PARTNER_FRONTEND_DOMAIN = process.env.VUE_APP_PARTNER_FRONTEND_DOMAIN;
   export default {
     name: 'Partners',
     data() {
       return {
-        PARTNER_HOST: `http://localhost:8080`, /* TO_EDIT_THIS_PLACE */
+        PARTNER_FRONTEND_DOMAIN: PARTNER_FRONTEND_DOMAIN, /* TO_EDIT_THIS_PLACE */
         partners : [],
         columns: ['id', 'name', 'type', 'booking type', 'phone' ,'status', 'created_at', 'action'],
         options: {
@@ -93,8 +93,8 @@
 
             const myIfr = window.frames['ifrLoad'].contentWindow;
             // console.log("Firstworld Sender, myIfr === ", myIfr);
-            myIfr.postMessage(toSendObj, `${this.PARTNER_HOST}/ReceiverForAdminLogin.html`);
-            window.open(this.PARTNER_HOST);
+            myIfr.postMessage(toSendObj, `${PARTNER_FRONTEND_DOMAIN}/ReceiverForAdminLogin.html`);
+            window.open(PARTNER_FRONTEND_DOMAIN);
 
           }).catch(error => {
             console.log('Error Response', error.response);

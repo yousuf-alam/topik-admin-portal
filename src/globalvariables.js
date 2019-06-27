@@ -28,7 +28,7 @@ export default {
         document: ['document create', 'document read', 'document update', 'document delete',]
     },
     SECRET_KEY: 'Kali Nagin Ke Jaisi Julfe Teri Kali Kali',
-    SECRET_KEY_SAME_AS_PARTNER_PANEL: 'Dust in the wind.', /*This has to be same as Partner panel gb SECRET_KEY*/
+    SECRET_KEY_SAME_AS_PARTNER_PANEL: 'Dust in the wind.', /* TO_EDIT_THIS_PLACE, This has to be same as Partner panel gbvar SECRET_KEY*/
     PUSHER_CREDENTIALS: {
         APP_ID:'743021',
         APP_KEY:'8671a1da7b105f413bb1',

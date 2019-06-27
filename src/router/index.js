@@ -38,6 +38,7 @@ const SubategoryEdit = () => import('../views/Categories/SubcategoryEdit')
 
 const LineItems = () => import('@/views/LineItems/LineItems')
 const LineItemCreate = () => import('../views/LineItems/LineItemCreate')
+const TestLineItemCreate = () => import('../views/LineItems/testcreate/TestLineitemCreate.vue');
 const LineitemEdit = () => import('../views/LineItems/LineitemEdit')
 const LineItemShow = () => import('../views/LineItems/LineItemShow')
 
@@ -400,6 +401,14 @@ const router =  new Router({
         path: '/line-items/create',
         name: 'LineItemCreate',
         component: LineItemCreate,
+        meta: { 
+          permission_name: 'lineitem create' 
+        },
+      },
+      {
+        path: '/test-line-items/create',
+        name: 'TestLineItemCreate',
+        component: TestLineItemCreate,
         meta: { 
           permission_name: 'lineitem create' 
         },

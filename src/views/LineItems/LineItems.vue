@@ -68,11 +68,11 @@
     created(){
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
       axios.get(`${ADMIN_URL}/all-line-items`)
-        .then(response =>{
+        .then(response => {
           this.categories = response.data;
         })
-        .catch(e=>{
-          //console.log("error occurs");
+        .catch(e => {
+          console.log("error occurs", e.response);
         });
     },
     computed: {

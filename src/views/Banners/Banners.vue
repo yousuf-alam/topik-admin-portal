@@ -17,8 +17,8 @@
         <b-card>
           <v-client-table :data="banner" :columns="columns" :options="options">
             <template slot="image" slot-scope="props">
-              <div class="center-div">
-                <img :src="src_image + props.row.image" style="width: 60px;height: 60px;">
+              <div class="center-div" >
+                <img :src="`${BASE_URL}/${src_image}${props.row.image}`"  style="width: 60px;height: 60px;">
               </div>
 
             </template>
@@ -39,10 +39,13 @@
 
 <script>
   import axios from 'axios';
+  const BASE_URL  = process.env.VUE_APP_BASE_URL;
+
   export default {
     name: 'Banners',
     data() {
       return {
+        BASE_URL: BASE_URL,
         banner : [],
         src_image : '/images/banners/',
         columns: ['image', 'title', 'service', 'type', 'status', 'created_at', 'action'],
@@ -60,16 +63,16 @@
       const Admin_URL = process.env.VUE_APP_ADMIN_URL;
       const BASE_URL  = process.env.VUE_APP_BASE_URL;
       axios.get(`${Admin_URL}/banners`)
-        .then(response =>{
+        .then(response => {
+          console.log('Banners.vue, response === ', response.data);
           this.banner = response.data;
-          this.src_image = BASE_URL + this.src_image;
         })
         .catch(e=>{
           //console.log("error occurs");
         });
     },
     methods: {
-
+      
     },
   }
 </script>

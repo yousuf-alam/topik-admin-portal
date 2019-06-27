@@ -11,14 +11,19 @@
       </div>-->
       <div class="form-group">
         <label >Banner Type</label>
-        <select class='form-control' v-model="banner.type">
+        <!-- <select class='form-control' v-model="type" v-if="service_id === '0'">
+          <option value="hot-deals">Hot Deals Banner</option>
+          <option value="beauty-on-demand">Beauty On-Demand Banner</option>
+          <option value="tailor-on-demand">Tailor On-Demand Banner</option>
+        </select> -->
+        <select class='form-control' v-model="type">
           <option value="top-banner">Top Banner</option>
           <option value="bottom-banner">Bottom Banner</option>
         </select>
       </div>
       <div class="form-group">
         <label>Title</label>
-        <input type="text"class="form-control" v-model="banner.title">
+        <input type="text" class="form-control" v-model="banner.title">
       </div>
       <div class="form-group">
         <label>Description</label>
@@ -33,13 +38,17 @@
       <div class="form-group">
         <label>Select Landing Category</label>
         <select @change="getSubcategories" class='form-control' v-model="banner.category_id">
-          <option :value="cat.id" v-for="cat in categories">{{ cat.name }}</option>
+          <option :value="cat.id" v-for="cat in categories" :key="cat.id">
+            {{ cat.name }}
+          </option>
         </select>
       </div>
       <div v-if="banner.service_id !== 2" class="form-group">
         <label >Select Landing Subcategory</label>
         <select class='form-control' v-model="banner.subcategory_id">
-          <option :value="subcat.id" v-for="subcat in subcategories">{{ subcat.name }}</option>
+          <option :value="subcat.id" v-for="subcat in subcategories" :key="subcat.id">
+            {{ subcat.name }}
+          </option>
         </select>
       </div>
       <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Edit Banner</b-button>

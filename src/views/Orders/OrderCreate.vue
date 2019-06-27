@@ -26,9 +26,9 @@
           <b-row>
             <b-col><service :type="type"></service></b-col>
           </b-row>
-          <b-row>
+         <!-- <b-row>
             <b-col><design></design></b-col>
-          </b-row>
+          </b-row>-->
         </b-col>
         <b-col sm="6" md="6">
           <b-row>
@@ -206,7 +206,13 @@
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;
-            console.log(response.data);
+            if(currentObj.success === true)
+            {
+              this.$swal('Order Placed Successfully!', '', 'success');
+              setTimeout(()=>{
+                window.location.href = "/orders";
+              },1000);
+            }
           })
           .catch(error => {
             console.log('Error  ... ', error.response);

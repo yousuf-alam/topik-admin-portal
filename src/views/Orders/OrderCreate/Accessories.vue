@@ -1,6 +1,6 @@
 <template>
   <div>
-  <b-card class="m-4 p-4">
+  <!--<b-card class="m-4 p-4">
     <h5 class="mb-4">Select Accessories (Optional)</h5>
     <div class="form-group">
       <b-row>
@@ -16,7 +16,7 @@
         </b-col>
       </b-row>
     </div>
-  </b-card>
+  </b-card>-->
 
   <b-card class="m-4 p-4">
     <h5 class="mb-4">Select Measurement Type</h5>
@@ -61,7 +61,7 @@ export default {
     addAccessories() {
 
       EventBus.$emit('accessories:add',{
-        'accessories'       : this.selected_accessories,
+       // 'accessories'       : this.selected_accessories,
         'measurement_type'  : this.measurement_type,
         'custom_measurement': this.custom_measurement
       });

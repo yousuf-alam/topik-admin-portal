@@ -13,27 +13,28 @@ if (localStorage.token) {
   const token = getDecodedValueFromLS(globalvariables.LS_TOKEN_KEY_NAME, 'string')
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   axios.defaults.headers.common['Accept'] = 'application/json';
+  axios.defaults.headers.common['x-api-key'] = process.env.VUE_APP_DEV_KEY;
   //React Example:  store.dispatch( setCurrentUser (JSON.parse(localStorage.userData)) ); // Soooooo vital...
 }
 
 const store = new Vuex.Store({
-  strict: true, 
+  strict: true,
   modules: {
     auth: AuthModule,
     role: RoleModule,
-    noti: NotiModule, 
-
-  }, 
-  state: { 
-    
-  },
-  mutations: { 
+    noti: NotiModule,
 
   },
-  actions: { 
+  state: {
 
   },
-  getters: { 
+  mutations: {
+
+  },
+  actions: {
+
+  },
+  getters: {
 
   }
 })

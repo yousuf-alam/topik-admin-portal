@@ -54,10 +54,33 @@
 </template>
 
 <script>
+import axios from 'axios';
+const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+export default {
+    name: "OrderShow",
+    data() {
+        return {
 
-    export default {
-        name: "OrderShow"
+        }
+    },
+    created() {
+        this.fetchComplians();
+    },
+    methods: {
+        fetchComplians() {
+            console.log('fetch ---- complians ---- ', ADMIN_URL);
+            axios.get(`${ADMIN_URL}/complains`)
+                .then(response => {
+                    console.log('fetchComplains === === ', response);
+                }).catch(error => {
+                    console.log('Error response :: ', error.response);
+                })
+        },
+        fetchSingleOrderComplain() {
+            
+        }
     }
+}
 </script>
 
 <style scoped>

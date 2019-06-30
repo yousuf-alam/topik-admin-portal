@@ -116,24 +116,26 @@
               </div>
 
             </b-col>
-            <!--<b-col md="3" sm="3">
-              <b-card class="card-accent-warning" header="Order Accepted">
-                <h5 class="card-title font-weight-bold">March 20, 2019,10:14 PM</h5>
-                <p>Resource Name:<span class=" ml-2 font-weight-bold">My test_resources</span></p>
-              </b-card>
-            </b-col>
-            <b-col md="3" sm="3">
-              <b-card class="card-accent-info" header="Order Started">
-                <h5 class="card-title font-weight-bold">March 20, 2019,10:14 PM</h5>
-                <p>Resource Name:<span class=" ml-2 font-weight-bold">My test_resources</span></p>
-              </b-card>
-            </b-col>
-            <b-col md="3" sm="3">
-              <b-card class="card-accent-success" header="Order Completed">
-                <h5 class="card-title font-weight-bold">March 20, 2019,10:14 PM</h5>
-                <p>Cash Collected: <span class=" ml-2 font-weight-bold">BDT 800</span></p>
-              </b-card>
-            </b-col>-->
+            <!--
+                <b-col md="3" sm="3">
+                <b-card class="card-accent-warning" header="Order Accepted">
+                  <h5 class="card-title font-weight-bold">March 20, 2019,10:14 PM</h5>
+                  <p>Resource Name:<span class=" ml-2 font-weight-bold">My test_resources</span></p>
+                </b-card>
+              </b-col>
+              <b-col md="3" sm="3">
+                <b-card class="card-accent-info" header="Order Started">
+                  <h5 class="card-title font-weight-bold">March 20, 2019,10:14 PM</h5>
+                  <p>Resource Name:<span class=" ml-2 font-weight-bold">My test_resources</span></p>
+                </b-card>
+              </b-col>
+              <b-col md="3" sm="3">
+                <b-card class="card-accent-success" header="Order Completed">
+                  <h5 class="card-title font-weight-bold">March 20, 2019,10:14 PM</h5>
+                  <p>Cash Collected: <span class=" ml-2 font-weight-bold">BDT 800</span></p>
+                </b-card>
+              </b-col>
+            -->
           </b-row>
         </b-card>
       </b-col>
@@ -174,9 +176,9 @@
           this.order = response.data;
           this.order.shipping_address = JSON.parse(this.order.shipping_address);
           this.order_fetched_successfully = true;
-          console.log('this.order ---------> ', this.order);
+          // console.log('this.order ---------> ', this.order);
         }).catch(e => {
-          console.log("error occurs",e);
+          // console.log("error occurs",e);
         });
       }
     }

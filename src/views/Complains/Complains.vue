@@ -1,5 +1,7 @@
 <template>
     <div class="animated fadeIn">
+
+    <div v-if="data_loaded_successfully">
         <div class="cardheading">
           <div class="">
             <h1 class="my-auto tableName">
@@ -16,12 +18,29 @@
             <b-col>
                 <b-card>
                 <v-client-table :data="tableData" :columns="columns" :options="options">
+                    <template slot="order_id" slot-scope="props">
+                        <router-link :to="{ name: 'OrderShow', params: { id: props.row.order_id }}">
+                            <span class="p-2" data-toggle="tooltip" title="Show" :href="props.row.show">
+                                {{props.row.order_id}}
+                            </span>
+                        </router-link>                        
+                    </template>
+                    <template slot="description" slot-scope="props">
+                        {{ cutDescriptionToShort(props.row.description) }}
+                    </template>
+                    <template slot="created_at" slot-scope="props">
+                        {{ makeCreatedAtReadable(props.row.created_at) }}
+                    </template>
                     <template slot="action" slot-scope="props">
                         <div>
-                            <router-link :to="{ name: 'ComplainShow', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
-                                    <i class="fa fa-search"></i></span></router-link>
+                            <router-link :to="{ name: 'ComplainShow', params: { id: props.row.id }}">
+                                <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                            </router-link>
                             <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
-                                    <i class="fa fa-trash"></i></span>
+                                    <i class="fa fa-trash"></i>
+                            </span>
                         </div>
                     </template>
                 </v-client-table>
@@ -29,47 +48,61 @@
             </b-col>
         </b-row>
     </div>
+    <div v-else class="customcard">
+        Loading...
+    </div>
+    </div>
 </template>
 
 
 <script>
-
-
-    export default {
-        name: 'Notifications',
-        data() {
-            return {
-                columns: ['id', 'name', 'age', 'action'],
-                tableData: [
-                    {id: 1, name: "John", age: "2018-12-18", action: {details: 'yes', delete: 'no'}},
-                    {id: 2, name: "Jane", age: "2018-10-31"},
-                    {id: 3, name: "Susan", age: "2018-10-31"},
-                    {id: 4, name: "Chris", age: "2018-10-31"},
-                    {id: 5, name: "Dan", age: "2018-12-30"},
-                    {id: 11, name: "John", age: "2018-10-31"},
-                    {id: 12, name: "Jane", age: "2018-08-31"},
-                    {id: 13, name: "Susan", age: "2018-08-03"},
-                    {id: 14, name: "Chris", age: "2018-09-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"},
-                    {id: 11, name: "John", age: "2018-12-31"},
-                    {id: 12, name: "Jane", age: "2018-12-31"},
-                    {id: 13, name: "Susan", age: "2018-12-31"},
-                    {id: 14, name: "Chris", age: "2018-12-31"},
-                    {id: 15, name: "Dan", age: "2018-12-31"}
-                ],
+import axios from 'axios';
+const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+export default {
+    name: 'Notifications',
+    data() {
+        return {
+            data_loaded_successfully: false, 
+            columns: ['id', 'order_id', 'description', 'created_at' ,'action'],
+            tableData: [],
                 options: {
                     pagination: {nav: 'fixed'},
                     filterByColumn: true,
                     dateColumns: ['age'],
                     toMomentFormat: 'YYYY-MM-DD',
                     sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
-
                 }
-
             }
         },
-        methods: {
-
+    created() {
+        this.getAllComplains();
+    },
+    methods: {
+        getAllComplains() {
+            axios.get(`${ADMIN_URL}/order-complains`)
+                .then(res => {
+                    this.tableData = res.data;
+                    this.data_loaded_successfully = true;
+                }).catch(error => {
+                    // console.log('Errorrrrrrrrrrrrrrr ', error.response);
+                })
+        }
+    },
+    computed: {
+        makeCreatedAtReadable: () => {
+            return (date) => {
+                return moment(date, "YYYYMMDD h:mm:ss a").fromNow();
+            }
         },
+
+        cutDescriptionToShort() {
+            return (description) => {
+                if (description === null) {
+                    return 'No Description Found.';
+                }
+                return description.substring(0, 50);
+            }
+        }
     }
+}
 </script>

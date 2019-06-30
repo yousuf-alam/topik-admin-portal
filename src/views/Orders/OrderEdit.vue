@@ -161,7 +161,9 @@
       </b-col>
       <b-col sm="6" md="6">
         <b-row>
-          <b-col><accessories></accessories></b-col>
+          <b-col>
+            <accessories></accessories>
+          </b-col>
         </b-row>
         <b-row>
           <b-col><cart></cart>

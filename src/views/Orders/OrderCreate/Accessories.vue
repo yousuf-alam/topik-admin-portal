@@ -21,12 +21,14 @@
   <b-card class="m-4 p-4">
     <h5 class="mb-4">Select Measurement Type</h5>
     <div class="form-group">
-      <input type="radio" v-model="measurement_type" value="sample" @change="addMeasurement">
-      <label>Customer will provide a sample</label><br>
-      <input type="radio" v-model="measurement_type" value="tailor" @change="addMeasurement">
-      <label>Tailor will take measurements on spot</label><br>
-      <input type="radio" v-model="measurement_type" value="own" @change="addMeasurement">
-      <label>Enter Measurement Here</label><br>
+      <input type="radio" v-model="measurement_type" value="by_sample" @change="addMeasurement" id="by_sample_id">
+      <label for="by_sample_id" class="mx-1"> Customer will provide a sample</label><br>
+      
+      <input type="radio" v-model="measurement_type" value="by_tailor" @change="addMeasurement" id="by_tailor_id">
+      <label for="by_tailor_id" class="mx-1">Tailor will take measurements on spot</label><br>
+      
+      <input type="radio" v-model="measurement_type" value="custom" @change="addMeasurement" id="custom_id">
+      <label for="custom_id" class="mx-1">Enter Measurement Here</label><br>
       <textarea v-if="measurement_type==='own'" type="text" style="width: 100%" v-model="custom_measurement" @keyup="addAccessories"></textarea>
     </div>
   </b-card>

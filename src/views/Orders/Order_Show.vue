@@ -139,7 +139,7 @@
       </b-col>
     </b-row>
     </div>
-    <div>
+    <div class="customcard">
       Loading...
     </div>
     

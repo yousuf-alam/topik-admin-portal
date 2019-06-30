@@ -1,14 +1,11 @@
 <template>
     <div class="customcard">
         <h3>View single user</h3>
-        <div class="ttrree">
-            Test CSS 
-        </div>
         <div v-if="user_notfound">
             <h4 class="text-danger">User Not Found</h4>
         </div>
         <div v-if="user!==null">
-        <div class="col-6">
+        <div class="col-6 table-responsive">
             <table class="table">
             <thead class="thead-dark">
                 <tr>

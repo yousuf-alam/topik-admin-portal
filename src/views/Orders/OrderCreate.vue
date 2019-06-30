@@ -96,7 +96,7 @@
         accessories: [],
         measurement_type: '',
         custom_measurement: '',
-        selected_partner:null,
+        selected_partner: null,
         invoice:[],
         payment_method: 'cash_on_delivery'
       };

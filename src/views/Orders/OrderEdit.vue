@@ -273,7 +273,7 @@
             order_id: this.order_id
           }
         }).then(response => {
-          console.log('fetch Order ======= ', response.data);
+          // console.log('fetch Order ======= ', response.data);
           this.order = response.data;
           this.order.shipping_address = JSON.parse(this.order.shipping_address);
           this.flag_shipping_address_details = this.order.shipping_address.address_details;
@@ -352,7 +352,7 @@
         formData.append('total_bill', this.order.total_bill);
 
 
-/*
+      /*
         for( let i = 0; i < this.designs.length; i++ ){
           let file = this.designs[i];
           formData.append('designs[' + i + '][image]', file);

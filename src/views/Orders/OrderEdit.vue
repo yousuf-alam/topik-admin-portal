@@ -1,5 +1,6 @@
 <template>
   <div class="animated fadeIn font-weight-bold">
+    <div v-if="order_fetched_successfully">
     <b-row>
       <b-col class="mb-5" sm="6" md="6">
         <b-card class="h-100 p-4 m-4">
@@ -22,16 +23,16 @@
         </b-form-group>
           <b-form-group label="Assigned SP">
             <select class="form-control" v-model="order.partner_id">
-              <option :value="partner.id" v-for="partner in partners">{{ partner.name }}</option>
+              <option :value="partner.id" v-for="partner in partners" :key="partner.id">{{ partner.name }}</option>
             </select>
           </b-form-group>
           <div v-show="order.service_id===2">
             <label>Select Delivery Type</label>
             <b-form-group class="ml-4">
-              <input type="radio" v-model="date_type"  value="regular">
-              <label>Regular Delivery</label><br>
-              <input type="radio" v-model="date_type"  value="custom">
-              <label>Emergency Delivery</label>
+              <input type="radio" v-model="date_type"  value="regular" id="regular_delivery">
+              <label for="regular_delivery" class="mx-1">Regular Delivery</label><br>
+              <input type="radio" v-model="date_type"  value="custom" id="custom_delivery">
+              <label for="custom_delivery" class="mx-1">Emergency Delivery</label>
             </b-form-group>
           </div>
 
@@ -70,11 +71,11 @@
           </b-form-group>
           <b-form-group label="Selected Area">
             <select class="form-control"  v-model="order.location_id">
-              <option :value="location.id" v-for="location in locations">{{ location.name }}</option>
+              <option :value="location.id" v-for="location in locations" :key="location.id">{{ location.name }}</option>
             </select>
           </b-form-group>
           <b-form-group label="Delivery Address">
-            <input type="text" class="form-control" v-model="order.shipping_address">
+            <input type="text" class="form-control" v-model="order.shipping_address.address_details">
           </b-form-group>
           <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
         </b-card>
@@ -115,9 +116,15 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="item in order.items">
+              <tr v-for="item in order.items" :key="item.id">
                 <td>{{item.name}}</td>
-                <td><span v-for="answer in item.options ">{{answer.ans}}<br></span></td>
+                <td>
+                  <span 
+                    v-for="(answer, index) in item.options" 
+                    :key="index">
+                    {{answer.ans}} <br>
+                  </span>
+                </td>
                 <td><input type="text" style="width: 2rem"  v-model="item.quantity"></td>
                 <td><input type="text" style="width: 4rem" v-model="item.price"></td>
                 <td>
@@ -166,6 +173,12 @@
         </b-row>
       </b-col>
     </b-row>
+    </div>
+
+    <div v-else class="customcard">
+      Loading...
+    </div>
+
   </div>
 </template>
 
@@ -210,53 +223,36 @@
         type: '',
         date_type: '',
 
+        flag_shipping_address_details: '',
+        order_fetched_successfully: false
+
       };
     },
     created() {
-      this.order_id = window.location.pathname.split("/").pop();
-      axios.get(`${ADMIN_URL}/order`, {
-        params: {
-          order_id: this.order_id
-        }
-      }).then(response => {
-        this.order = response.data;
-      }).catch(e => {
-        console.log("error occurs",e);
-      });
-
+      this.fetchOrder();
       this.getPartners();
       this.getLocation();
     },
     computed: {
       getType() {
-
-        if (this.order.service_id === 1)
-        {
+        if (this.order.service_id === 1) {
           this.type = "Beauty On-Demand";
         }
-        else if(this.order.service_id === 2)
-        {
+        else if (this.order.service_id === 2) {
           this.type = "Tailor On-Demand";
         }
-        else
-        {
+        else {
           this.type = "Beauty Appointment";
         }
         return this.type;
       }
-
     },
     mounted() {
-
-
       EventBus.$on('design:add'     , this.designAdd.bind(this));
       EventBus.$on('cart:add'       , this.servicesAdd.bind(this));
       EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
-
     },
     methods : {
-
-
       designAdd(designs) {
         this.designs = designs;
       },
@@ -269,6 +265,22 @@
         this.measurement_type = data.measurement_type;
         if(this.measurement_type==='own')
           this.measurement_type = data.custom_measurement;
+      },
+      fetchOrder() {
+        this.order_id = window.location.pathname.split("/").pop();
+        axios.get(`${ADMIN_URL}/order`, {
+          params: {
+            order_id: this.order_id
+          }
+        }).then(response => {
+          console.log('fetch Order ======= ', response.data);
+          this.order = response.data;
+          this.order.shipping_address = JSON.parse(this.order.shipping_address);
+          this.flag_shipping_address_details = this.order.shipping_address.address_details;
+          this.order_fetched_successfully = true;
+        }).catch(e => {
+          console.log("error occurs",e);
+        });
       },
       getPartners() {
         axios.get(`${ADMIN_URL}/all-partners`, {
@@ -297,9 +309,6 @@
           });
       },
       changeDateFormat(){
-
-        console.log('sdsd');
-
         let d = this.order.scheduled_date;
         let month = '' + (d.getMonth() + 1);
         let day = '' + d.getDate();
@@ -319,7 +328,12 @@
         const config = {
           headers: {'content-type': 'multipart/form-data'}
         };
-
+        
+        if (this.order.shipping_address.address_details !== this.flag_shipping_address_details) {
+          this.order.shipping_address.latitude = "";
+          this.order.shipping_address.longitude = "";
+        }
+        //return;
 
         let formData = new FormData();
         formData.append('id', this.order.id);
@@ -329,7 +343,7 @@
         formData.append('scheduled_time', this.order.scheduled_time);
         formData.append('scheduled_date', this.order.scheduled_date);
         formData.append('shipping_name', this.order.shipping_name);
-        formData.append('shipping_address', this.order.shipping_address);
+        formData.append('shipping_address',  JSON.stringify(this.order.shipping_address));
         formData.append('shipping_phone', this.order.shipping_phone);
         /*formData.append('measurement', this.measurement_type);
         formData.append('accessories', JSON.stringify(this.accessories));*/
@@ -346,16 +360,17 @@
 
         axios.post(`${ADMIN_URL}/orders/update`, formData, config)
           .then(response => {
-            console.log('Success', response);
+            //console.log('Success', response);
             currentObj.success = response.data.success;
-            console.log(response.data);
+            //console.log(response.data);
             if(response.data.success===true)
               this.$swal('Order Details Updated', '', 'success');
+              this.fetchOrder();
           })
           .catch(error => {
-            console.log('Error  ... ', error.response);
+            // console.log('Error  ... ', error.response);
             currentObj.output = error;
-            console.log(error);
+            // console.log(error);
           });
 
 

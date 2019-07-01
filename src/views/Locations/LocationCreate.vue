@@ -132,7 +132,14 @@
             radius    : this.place_radius
           })
           .then(response => {
-            console.log('Success', response);
+            if(response.data.success===true)
+            {
+              this.$swal(response.data.message, '', 'success');
+            }
+            else
+            {
+              this.$swal('Something went wrong', '', 'error');
+            }
             console.log(response.data);
           })
           .catch(error => {

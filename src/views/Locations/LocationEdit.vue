@@ -20,8 +20,8 @@
             />
             <GmapMarker
               :position="{
-                lat: this.place.geometry.location.lat(),
-                lng: this.place.geometry.location.lng(),
+                lat: this.marker.position.lat,
+                lng: this.marker.position.lng,
               }"
               label="★"
               v-if="this.place"
@@ -58,19 +58,19 @@
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Latitude</label>
               <div class="col-sm-9">
-                <input class="form-control" type="text" v-model="location.latitude">
+                <input class="form-control" type="text" v-model="latitude">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Longitude</label>
               <div class="col-sm-9">
-                <input class="form-control" type="text" v-model="location.longitude">
+                <input class="form-control" type="text" v-model="longitude">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Radius</label>
               <div class="col-sm-9">
-                <input class="form-control" type="text" v-model="location.radius">
+                <input class="form-control" type="text" v-model="place_radius">
               </div>
             </div>
             <b-btn @click="onSubmit" class="btn btn-romoni-secondary float-right">Edit Location</b-btn>
@@ -95,11 +95,11 @@
         name: '',
         latitude: '',
         longitude: '',
-        place_radius: 1000,
+        place_radius: null,
         city: 'Dhaka',
         position: '',
         zoom: 5,
-        center: {lat: 23.7915811, lng: 90.403333},
+        center: {lat: '', lng: ''},
         marker: {
           position: {
             lat: '',
@@ -118,10 +118,20 @@
       })
         .then(response =>{
           this.location = response.data;
+          this.latitude = parseFloat(this.location.latitude);
+          this.longitude = parseFloat(this.location.longitude);
+          this.place_radius = parseFloat(this.location.radius);
+          this.setLatLongs();
+
         })
         .catch(e=>{
           console.log("error occurs");
         });
+
+
+    },
+    mounted() {
+
     },
     methods: {
 
@@ -145,6 +155,14 @@
           this.longitude = this.marker.position.lng;
         }
       },
+      setLatLongs() {
+        this.marker.position.lat = this.latitude;
+        this.marker.position.lng = this.longitude;
+        this.center.lat = this.latitude;
+        this.center.lng = this.longitude;
+        if(isNaN(this.place_radius))
+          this.place_radius = 1000
+      },
       onSubmit()
       {
         axios.post(`${ADMIN_URL}/locations/edit`,
@@ -152,12 +170,19 @@
             id        : this.location.id,
             city      : this.location.city,
             name      : this.location.name,
-            latitude  : this.location.latitude,
-            longitude : this.location.longitude,
-            radius    : this.location.radius
+            latitude  : this.latitude,
+            longitude : this.longitude,
+            radius    : this.place_radius
           })
           .then(response => {
-            console.log('Success', response);
+            if(response.data.success===true)
+            {
+              this.$swal(response.data.message, '', 'success');
+            }
+            else
+            {
+              this.$swal('Something went wrong', '', 'error');
+            }
             console.log(response.data);
           })
           .catch(error => {

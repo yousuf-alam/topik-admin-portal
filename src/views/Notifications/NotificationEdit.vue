@@ -30,6 +30,8 @@
 
 <script>
   import axios from 'axios';
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+  const BASE_URL = process.env.VUE_APP_BASE_URL;
   export default {
     name: "NotificationEdit",
 
@@ -41,8 +43,8 @@
       }
     },
     created() {
-      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      this.src_image = ADMIN_URL + this.src_image;
+
+      this.src_image = BASE_URL + this.src_image;
       this.id = window.location.pathname.split("/").pop();
 
       axios.post(`${ADMIN_URL}/push-notifications/show`,

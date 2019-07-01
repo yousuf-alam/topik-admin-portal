@@ -5,10 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <link rel="stylesheet" href="https://rawgit.com/lykmapipo/themify-icons/master/css/themify-icons.css">
-    <link rel="stylesheet" href="https://rawgit.com/cristijora/vue-form-wizard/master/dist/vue-form-wizard.min.css">
+    
+    <link rel="stylesheet" href="/assets/css/mytestcss.css">
+    <!-- https://rawgit.com/lykmapipo/themify-icons/master/css/themify-icons.css  -->
+    <link rel="stylesheet" href="/assets/css/themify-icons.css">
+
+    <!-- https://rawgit.com/cristijora/vue-form-wizard/master/dist/vue-form-wizard.min.css -->
+    <link rel="stylesheet" href="/assets/css/vue-form-wizard.min.css">
+    
     <title>Romoni Admin</title>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <!-- <script src="/assets/js/testscript.js"></script> -->
+
+    <!-- https://www.googletagmanager.com/gtag/js?id=UA-118965717-3 -->
+    <script async src="/assets/js/googletagmanager.js"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -18,15 +27,19 @@
       // Vue.js ID
       gtag('config', 'UA-118965717-7');
     </script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href='https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css'>
 
+    <!-- https://cdn.jsdelivr.net/jquery/latest/jquery.min.js -->
+    <script type="text/javascript"  src="/assets/js/jquery.min.js"></script>
+    
+    <!-- https://cdn.jsdelivr.net/momentjs/latest/moment.min.js -->
+    <script type="text/javascript" src="/assets/js/moment.min.js"></script>
 
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js -->
+    <script type="text/javascript" src="/assets/js/daterangepicker.min.js"></script>
+    
+    <!-- https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/daterangepicker.css" />
+    
     <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
     <script type="text/javascript">
       window.csrf_token = "{{ csrf_token() }}"

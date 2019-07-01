@@ -5,7 +5,7 @@
             <h4 class="text-danger">User Not Found</h4>
         </div>
         <div v-if="user!==null">
-        <div class="col-6">
+        <div class="col-6 table-responsive">
             <table class="table">
             <thead class="thead-dark">
                 <tr>

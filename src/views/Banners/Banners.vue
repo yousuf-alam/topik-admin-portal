@@ -18,7 +18,7 @@
           <v-client-table :data="banner" :columns="columns" :options="options">
             <template slot="image" slot-scope="props">
               <div class="center-div">
-                <img :src="src_image + props.row.image" style="width: 160px;height: 90px;">
+                <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;">
               </div>
             </template>
             <template slot="action" slot-scope="props">

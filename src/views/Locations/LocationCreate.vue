@@ -8,7 +8,7 @@
       </h4>
       <br>
       <b-row>
-        <b-col md="7">
+        <b-col md="8">
           <GmapMap :center="center"
                    :zoom="15"
                    style="width: auto; height: 500px">
@@ -32,7 +32,7 @@
             ></GmapCircle>
           </GmapMap>
         </b-col>
-        <b-col md="5">
+        <b-col md="4">
           <b-card>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">City</label>

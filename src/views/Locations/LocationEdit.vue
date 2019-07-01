@@ -8,12 +8,10 @@
       </h4>
       <br>
       <b-row>
-        <b-col md="7">
-
-
+        <b-col md="8">
           <GmapMap :center="center"
                    :zoom="15"
-                   style="width: 800px; height: 500px">
+                   style="width: auto; height: 500px">
             <GmapMarker :clickable="true"
                         :draggable="true"
                         :position="marker.position"
@@ -38,12 +36,12 @@
             ></GmapCircle>
           </GmapMap>
         </b-col>
-        <b-col md="5">
+        <b-col md="4">
           <b-card>
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">City</label>
               <div class="col-sm-9">
-                <select class="form-control" v-model="city">
+                <select class="form-control" v-model="location.city">
                   <option selected value="Dhaka">Dhaka</option>
                   <option value="Chittagong">Chittagong</option>
                 </select>

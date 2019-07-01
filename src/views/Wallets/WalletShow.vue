@@ -39,11 +39,10 @@
                             <input type="hidden" name="_token" value="">
                             <div class="form-group">
                                 <label class="text-center">Recharge Amount</label>
-                                <input type="number" name="recharge_wallet" class="form-control form-control-lg"
-                                       id="recharge">
+                                <input type="number" class="form-control form-control-lg" v-model="amount">
                             </div>
                             <div class="mt-3">
-                                <input class="btn btn-danger btn-block" type="submit" value="Recharge Wallet">
+                                <input class="btn btn-danger btn-block" @click="recharge" value="Recharge Wallet">
                             </div>
                         </div>
 
@@ -56,12 +55,14 @@
 
 <script>
   import axios from 'axios';
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
     export default {
         name: 'WalletShow',
         data() {
             return {
               partner: [],
               wallet_history: [],
+              amount: '',
                 columns: ['date', 'id', 'description','debit','credit','balance', 'action'],
                 options: {
                     pagination: {nav: 'fixed'},
@@ -75,7 +76,6 @@
             }
         },
       created(){
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         let partner_id = window.location.pathname.split("/").pop();
         this.id = partner_id;
         axios.post(`${ADMIN_URL}/partners/show`,
@@ -92,6 +92,20 @@
       },
         methods: {
 
+          recharge() {
+            axios.post(`${ADMIN_URL}/partners/show`,
+              {
+                id: this.id
+              }).then(response =>{
+              this.partner = response.data;
+              console.log(response.data);
+            })
+              .catch(e=>{
+                console.log("error occurs",e);
+              });
+
+          },
+
             delete(id) {
                 // The id can be fetched from the slot-scope row object when id is in columns
                 console.log('hi');
@@ -100,8 +114,6 @@
     }
 </script>
 
-}
-</script>
 
 <style scoped>
 

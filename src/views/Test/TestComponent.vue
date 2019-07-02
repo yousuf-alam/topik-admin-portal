@@ -5,8 +5,10 @@
     <table>
         <tr class="hadingOne">
             <th v-for="item in columns" :key="item" @click="headingClick(item)">
-                <span >{{ makeColNameReadable(item)}}</span>
-                <span  :class="getSortIconStyle(item)" class="pull-right"></span>
+                <div class="d-flex justify-content-between">
+                    <span class="mr-2"> {{ makeColNameReadable(item)}} </span>
+                    <span :class="getSortIconStyle(item)" class="d-flex align-items-center"></span>
+                </div>
             </th>
         </tr>
         <tr>
@@ -84,7 +86,8 @@ export default {
                 for (let  index in splitedWords) {
                     splitedWords[index] = splitedWords[index].charAt(0).toUpperCase() + splitedWords[index].slice(1);
                 }
-                return splitedWords.join(" ");
+                const readableName = splitedWords.join(" "); // splited by _ then join them. 
+                return readableName.replace(/([a-z0-9])([A-Z])/g, '$1 $2'); // even to split the camelcase
             }
         }
     },

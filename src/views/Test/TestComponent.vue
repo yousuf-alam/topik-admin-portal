@@ -3,34 +3,16 @@
     <h1>Test Component</h1>
 
     <table>
-        <tr class="one">
-            <th>
-                <span>Firstname</span>
-                <span class="sort_icon fa fa-sort pull-right"></span>
-            </th>
-            <th>
-                <span>Lastname</span>
-                <span class="sort_icon fa fa-sort pull-right"></span>
-            </th>
-            <th>
-                <span>Age</span>
-                <span class="sort_icon  fa fa-sort pull-right"></span>
+        <tr class="hadingOne">
+            <th v-for="item in columns" :key="item" @click="headingClick(item)">
+                <span >{{item}}</span>
+                <span :class="`${item}_sort_icon fa fa-sort pull-right`"></span>
             </th>
         </tr>
         <tr>
-            <th>
+            <th v-for="item in columns" :key="item">
                 <div>
-                    <input class="form-control" placeholder="Filter By Firstname"/>
-                </div>
-            </th>
-            <th>
-                <div>
-                    <input class="form-control" placeholder="Filter By LastName"/>
-                </div>
-            </th>
-            <th>
-                <div>
-                    <input class="form-control" placeholder="Filter By Age" />
+                    <input class="form-control" :placeholder="`Filter By ${item}`"/>
                 </div>
             </th>
         </tr>
@@ -63,12 +45,16 @@ export default {
     name: 'TestComponent',
     data() {
         return {
+            toSortFlag: '',
             columns: ["one", "two", "three"]
         }
     },
     created() {
         //console.log('Inside created() ========= ');
         // this.fetchOrder();
+    },
+    mounted(){
+
     },
     methods: {
         fetchOrder() {
@@ -84,6 +70,12 @@ export default {
           .catch(e=>{
             console.log("error occurs",e);
           });
+        },
+        headingClick(colName) {
+            console.log('heading Click ', colName);
+            this.columns.forEach(element => {
+                console.log(element);
+            });
         }
     }
 

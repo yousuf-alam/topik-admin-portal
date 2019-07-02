@@ -1,11 +1,11 @@
 <template>
-    <div class="customcard">
+    <div class="customcard ">
     <h1>Test Component</h1>
-
+    <div class="table-responsive">
     <table>
         <tr class="hadingOne">
             <th v-for="item in columns" :key="item" @click="headingClick(item)">
-                <span >{{item}}</span>
+                <span >{{ makeColNameReadable(item)}}</span>
                 <span  :class="getSortIconStyle(item)" class="pull-right"></span>
             </th>
         </tr>
@@ -34,6 +34,8 @@
     </table>
     </div>
 
+    </div>
+
 </template>
 
 <script>
@@ -47,7 +49,18 @@ export default {
         return {
             toSortColumn: '',
             sortingDirection: '',
-            columns: ["one", "two", "three"]
+            columns: [
+                'id', 
+                'service_type' ,
+                'platform', 
+                'status',
+                'customer', 
+                'partner',
+                'scheduled_date', 
+                'bill',
+                'created_at', 
+                'action'
+            ]
         }
     },
     created() {
@@ -57,12 +70,21 @@ export default {
     },
     computed: {
         getSortIconStyle: function () {
-            return (parm, event) => {
+            return (parm) => {
                 const defaultIcon = 'fa fa-sort';
                 if (parm === this.toSortColumn) {
                    return `${defaultIcon}${this.sortingDirection}`;
                 }
                 return `${defaultIcon}`;
+            }
+        },
+        makeColNameReadable: function() {
+            return (colName) => {
+                const splitedWords = colName.split("_");
+                for (let  index in splitedWords) {
+                    splitedWords[index] = splitedWords[index].charAt(0).toUpperCase() + splitedWords[index].slice(1);
+                }
+                return splitedWords.join(" ");
             }
         }
     },

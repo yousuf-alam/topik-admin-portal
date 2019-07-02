@@ -6,7 +6,7 @@
         <tr class="hadingOne">
             <th v-for="item in columns" :key="item" @click="headingClick(item)">
                 <span >{{item}}</span>
-                <span :class="`${item}_sort_icon fa fa-sort pull-right`"></span>
+                <span  :class="getSortIconStyle(item)" class="pull-right"></span>
             </th>
         </tr>
         <tr>
@@ -45,16 +45,26 @@ export default {
     name: 'TestComponent',
     data() {
         return {
-            toSortFlag: '',
+            toSortColumn: '',
+            sortingDirection: '',
             columns: ["one", "two", "three"]
         }
     },
     created() {
-        //console.log('Inside created() ========= ');
+        // console.log('Inside created() ========= ');
         // this.fetchOrder();
+        console.log('created at ==== ', this);
     },
-    mounted(){
-
+    computed: {
+        getSortIconStyle: function () {
+            return (parm, event) => {
+                const defaultIcon = 'fa fa-sort';
+                if (parm === this.toSortColumn) {
+                   return `${defaultIcon}${this.sortingDirection}`;
+                }
+                return `${defaultIcon}`;
+            }
+        }
     },
     methods: {
         fetchOrder() {
@@ -67,15 +77,27 @@ export default {
             console.log('table ==== ==== ', table);
             // this.$refs.myTable.setLimit(25)
           })
-          .catch(e=>{
+          .catch(e => {
             console.log("error occurs",e);
           });
         },
         headingClick(colName) {
-            console.log('heading Click ', colName);
-            this.columns.forEach(element => {
-                console.log(element);
-            });
+            //console.log('heading Click ', colName);
+            if (this.toSortColumn === colName) {
+                if (this.sortingDirection === '') {
+                    this.sortingDirection = "-up"
+                } else {
+                    this.sortingDirection = this.sortingDirection === '-up' ? '-down' : '-up' 
+                }
+            } else {
+                this.sortingDirection = '-up';
+            }
+            this.toSortColumn = colName; 
+            console.log(
+                'heading Click colName == ', colName, 
+                'sortDir == ',this.sortingDirection
+            );
+
         }
     }
 

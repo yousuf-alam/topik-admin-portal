@@ -4,7 +4,7 @@
     <div class="table-responsive">
     <table>
         <tr class="hadingOne">
-            <th v-for="item in columns" :key="item" @click="headingClick(item)">
+            <th v-for="item in columns" :key="item" @click="headingSortColumn(item)">
                 <div class="d-flex justify-content-between">
                     <span class="mr-2"> {{ makeColNameReadable(item)}} </span>
                     <span :class="getSortIconStyle(item)" class="d-flex align-items-center"></span>
@@ -13,26 +13,46 @@
         </tr>
         <tr>
             <th v-for="item in columns" :key="item">
-                <div>
-                    <input class="form-control" :placeholder="`Filter By ${item}`"/>
+                <div v-if="dateColumns.includes(item)">
+                    Decideeeeee Later
+                </div>
+                <div v-else>
+                    <input 
+                        :name="item"
+                        class="form-control" 
+                        :placeholder="`Filter By ${item}`"
+                        @keyup="handleInputChange"
+                    />
                 </div>
             </th>
         </tr>
+
         <tr>
             <td>Jill</td>
             <td>Smith</td>
             <td>50</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+            <td>Jill</td>
         </tr>
+
         <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+            <td>Jill</td>
         </tr>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>80</td>
-        </tr>
+
     </table>
     </div>
 
@@ -42,9 +62,10 @@
 
 <script>
 import axios from 'axios';
+import Vue from 'vue';
 
 const Admin_URL = process.env.VUE_APP_ADMIN_URL;
-console.log('ADMIN_URL === ', Admin_URL);
+
 export default {
     name: 'TestComponent',
     data() {
@@ -62,13 +83,17 @@ export default {
                 'bill',
                 'created_at', 
                 'action'
-            ]
+            ],
+            dateColumns: [ "created_at", "scheduled_date" ],
+            range: ["01/09/2018", "01/10/2018"]
         }
     },
     created() {
-        // console.log('Inside created() ========= ');
-        // this.fetchOrder();
-        console.log('created at ==== ', this);
+
+
+    },
+    mounted() {
+
     },
     computed: {
         getSortIconStyle: function () {
@@ -92,6 +117,9 @@ export default {
         }
     },
     methods: {
+        dateRangeChange(parm) {
+
+        },
         fetchOrder() {
           axios.get(`${Admin_URL}/orders`)
           .then(response => {
@@ -106,7 +134,7 @@ export default {
             console.log("error occurs",e);
           });
         },
-        headingClick(colName) {
+        headingSortColumn(colName) {
             //console.log('heading Click ', colName);
             if (this.toSortColumn === colName) {
                 if (this.sortingDirection === '') {
@@ -122,7 +150,9 @@ export default {
                 'heading Click colName == ', colName, 
                 'sortDir == ',this.sortingDirection
             );
-
+        },
+        handleInputChange(e) {
+            console.log('--- --- ---', e, e.target.name, e.target.value)
         }
     }
 

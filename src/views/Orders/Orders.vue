@@ -57,6 +57,7 @@
 <script>
   import axios from 'axios';
   const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+  console.log(Admin_URL);
     export default {
       name: 'Orders',
         data() {

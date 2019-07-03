@@ -69,6 +69,7 @@ import Vue from 'vue';
 import paginate from 'vuejs-paginate';
 const Admin_URL = process.env.VUE_APP_ADMIN_URL;
 let typingTimer;
+import _ from 'lodash';
 export default {
     name: 'TestOrders',
     components: {
@@ -77,7 +78,7 @@ export default {
     data() {
         return {
             totalPageCount: 0,
-            perPageItem: 50, // Only set this value
+            perPageItem: 10, // Only set this value
             pageNumber: 0,
 
             toSortColumn: '',
@@ -151,6 +152,19 @@ export default {
                 'heading Click colName == ', colName, 
                 'sortDir == ',this.sortingDirection
             );
+
+            const copyArray = [ ...this.orders ]
+            
+            //this.orders = _.sortBy(copyArray, o => o.created_at)
+            if (this.sortingDirection === '-up') {
+                this.orders = _.orderBy(copyArray, [colName], ['asc']);
+            } else {
+                this.orders = _.orderBy(copyArray, [colName], ['desc']);
+            }
+
+
+            // console.log('orders ========== ', this.orders, 'copy === ', copyArray);
+
         },
         handleInputChange(e) {
             clearTimeout(typingTimer); 

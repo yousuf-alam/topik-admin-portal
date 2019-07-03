@@ -151,6 +151,7 @@ export default {
                 'heading Click colName == ', colName, 
                 'sortDir == ',this.sortingDirection
             );
+            console.log('orders ========== ', this.orders);
         },
         handleInputChange(e) {
             clearTimeout(typingTimer); 

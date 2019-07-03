@@ -171,25 +171,17 @@ export default {
                 this.sortingDirection = '-up';
             }
             this.toSortColumn = colName; 
-            console.log(
-                'heading Click colName == ', colName, 
-                'sortDir == ',this.sortingDirection
-            );
-
             const copyArray = [ ...this.orders ]
             
-            let sortColName = colName;
+            let sortByColumn = colName;
             if (colName === 'action') {
-                sortColName = 'id';
+                sortByColumn = 'id';
             }
             if (this.sortingDirection === '-up') {
-                this.orders = _.orderBy(copyArray, [sortColName], ['asc']);
+                this.orders = _.orderBy(copyArray, [sortByColumn], ['asc']);
             } else {
-                this.orders = _.orderBy(copyArray, [sortColName], ['desc']);
+                this.orders = _.orderBy(copyArray, [sortByColumn], ['desc']);
             }
-
-
-            // console.log('orders ========== ', this.orders, 'copy === ', copyArray);
 
         },
         handleInputChange(e) {

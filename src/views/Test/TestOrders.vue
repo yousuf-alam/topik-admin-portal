@@ -1,7 +1,7 @@
 <template>
     <div class="customcard ">
 
-    <h1>Test Component</h1>
+    <h1>Test Orders</h1>
     <div class="table-responsive">
     <table>
         <tr class="hadingOne">
@@ -70,7 +70,7 @@ import paginate from 'vuejs-paginate';
 const Admin_URL = process.env.VUE_APP_ADMIN_URL;
 let typingTimer;
 export default {
-    name: 'TestComponent',
+    name: 'TestOrders',
     components: {
         paginate
     },

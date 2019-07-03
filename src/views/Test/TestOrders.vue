@@ -3,6 +3,17 @@
 
     <h1>Test Orders</h1>
     <div class="table-responsive">
+    <div class="d-flex">
+        <div style="margin-left: auto;" class="mb-1">
+            <span class="mx-1">Per Page: </span>
+            <select class="select" v-model="perPageItem" @change="makeReadySearchParams">
+                <option :value="5">5</option>
+                <option :value="10">10</option>
+                <option :value="20">20</option>
+                <option :value="50">50</option>
+            </select>
+        </div>   
+    </div>
     <table>
         <tr class="hadingOne">
             <th v-for="item in columns" :key="item" @click="headingSortColumn(item)">
@@ -43,7 +54,19 @@
             <td> {{ order.bill }} </td>
             <td> {{ order.created_at }} </td>
             <td> 
-                <button>show</button> 
+                <router-link :to="{ name: 'OrderShow', params: { id: order.id }}">
+                    <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </router-link>
+                <router-link :to="{ name: 'OrderEdit', params: { id: order.id }}">
+                    <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
+                        <i class="fa fa-edit"></i>
+                    </span>
+                </router-link>
+                <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
+                    <i class="fa fa-trash"></i>
+                </span>
             </td>
         </tr>
 
@@ -155,11 +178,14 @@ export default {
 
             const copyArray = [ ...this.orders ]
             
-            //this.orders = _.sortBy(copyArray, o => o.created_at)
+            let sortColName = colName;
+            if (colName === 'action') {
+                sortColName = 'id';
+            }
             if (this.sortingDirection === '-up') {
-                this.orders = _.orderBy(copyArray, [colName], ['asc']);
+                this.orders = _.orderBy(copyArray, [sortColName], ['asc']);
             } else {
-                this.orders = _.orderBy(copyArray, [colName], ['desc']);
+                this.orders = _.orderBy(copyArray, [sortColName], ['desc']);
             }
 
 

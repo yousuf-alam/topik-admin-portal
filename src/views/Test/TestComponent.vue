@@ -1,5 +1,6 @@
 <template>
     <div class="customcard ">
+
     <h1>Test Component</h1>
     <div class="table-responsive">
     <table>
@@ -14,10 +15,14 @@
         <tr>
             <th v-for="item in columns" :key="item">
                 <div v-if="dateColumns.includes(item)">
-                    Decideeeeee Later
+                    Decide Later
+                </div>
+                <div v-else-if="noFilteColumns.includes(item)"> 
+                    Why you need filer here
                 </div>
                 <div v-else>
                     <input 
+                        v-model="columnInputValues[item]"
                         :name="item"
                         class="form-control" 
                         :placeholder="`Filter By ${item}`"
@@ -51,6 +56,7 @@
             <td>Smith</td>
             <td>50</td>
             <td>Jill</td>
+       
         </tr>
 
     </table>
@@ -65,7 +71,7 @@ import axios from 'axios';
 import Vue from 'vue';
 
 const Admin_URL = process.env.VUE_APP_ADMIN_URL;
-
+let typingTimer;
 export default {
     name: 'TestComponent',
     data() {
@@ -84,7 +90,11 @@ export default {
                 'created_at', 
                 'action'
             ],
+            columnInputValues: {
+
+            },
             dateColumns: [ "created_at", "scheduled_date" ],
+            noFilteColumns: ["action"],
             range: ["01/09/2018", "01/10/2018"]
         }
     },
@@ -96,6 +106,7 @@ export default {
 
     },
     computed: {
+        
         getSortIconStyle: function () {
             return (parm) => {
                 const defaultIcon = 'fa fa-sort';
@@ -152,7 +163,15 @@ export default {
             );
         },
         handleInputChange(e) {
-            console.log('--- --- ---', e, e.target.name, e.target.value)
+            clearTimeout(typingTimer); 
+            typingTimer = setTimeout(() => { 
+                this.searchInDB()
+            }, 1000);
+
+        },
+
+        searchInDB() {
+            console.log('Search In DB === === === ', this.columnInputValues)
         }
     }
 

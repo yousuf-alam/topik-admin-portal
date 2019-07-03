@@ -22,7 +22,7 @@
                 </div>
                 <div v-else>
                     <input 
-                        v-model="columnInputValues[item]"
+                        v-model="columnInputs[item]"
                         :name="item"
                         class="form-control" 
                         :placeholder="`Filter By ${item}`"
@@ -32,36 +32,33 @@
             </th>
         </tr>
 
-        <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-            <td>Jill</td>
+        <tr v-for="order in orders" :key="order.id">
+            <td> {{ order.id }} </td>
+            <td> {{ order.service_type }} </td>
+            <td> {{ order.platform }} </td>
+            <td> {{ order.status }} </td>
+            <td> {{ order.customer }} </td>
+            <td> {{ order.partner }} </td>
+            <td> {{ order.scheduled_date }} </td>
+            <td> {{ order.bill }} </td>
+            <td> {{ order.created_at }} </td>
+            <td> 
+                <button>show</button> 
+            </td>
         </tr>
 
-        <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-            <td>Jill</td>
-       
-        </tr>
 
     </table>
     </div>
-
+        <div class="pl-1">
+            <paginate
+                :pageCount="totalPageCount"
+                :clickHandler="onPaginateClick"
+                :prevText="'Prev'"
+                :nextText="'Next'"
+                :container-class="'pagination'">
+            </paginate>
+        </div>
     </div>
 
 </template>
@@ -69,13 +66,20 @@
 <script>
 import axios from 'axios';
 import Vue from 'vue';
-
+import paginate from 'vuejs-paginate';
 const Admin_URL = process.env.VUE_APP_ADMIN_URL;
 let typingTimer;
 export default {
     name: 'TestComponent',
+    components: {
+        paginate
+    },
     data() {
         return {
+            totalPageCount: 0,
+            perPageItem: 5, // Only set this value
+            pageNumber: 0,
+
             toSortColumn: '',
             sortingDirection: '',
             columns: [
@@ -90,16 +94,16 @@ export default {
                 'created_at', 
                 'action'
             ],
-            columnInputValues: {
+            columnInputs: {
 
             },
             dateColumns: [ "created_at", "scheduled_date" ],
             noFilteColumns: ["action"],
-            range: ["01/09/2018", "01/10/2018"]
+            orders: []
         }
     },
     created() {
-
+        this.makeReadySearchParams();
 
     },
     mounted() {
@@ -131,20 +135,7 @@ export default {
         dateRangeChange(parm) {
 
         },
-        fetchOrder() {
-          axios.get(`${Admin_URL}/orders`)
-          .then(response => {
-            console.log('response data ===== ', response.data );
-            this.orders = response.data;
-
-            const table = this.$refs.myTable;
-            console.log('table ==== ==== ', table);
-            // this.$refs.myTable.setLimit(25)
-          })
-          .catch(e => {
-            console.log("error occurs",e);
-          });
-        },
+        
         headingSortColumn(colName) {
             //console.log('heading Click ', colName);
             if (this.toSortColumn === colName) {
@@ -165,14 +156,56 @@ export default {
         handleInputChange(e) {
             clearTimeout(typingTimer); 
             typingTimer = setTimeout(() => { 
-                this.searchInDB()
+                this.makeReadySearchParams()
             }, 1000);
 
         },
 
-        searchInDB() {
-            console.log('Search In DB === === === ', this.columnInputValues)
-        }
+        makeReadySearchParams() {
+            const id = this.getInputValue("id")
+            const service_type = this.getInputValue("service_type");
+            const platform = this.getInputValue("platform");
+            const status = this.getInputValue("status");
+            const customer = this.getInputValue("customer");
+            const partner = this.getInputValue("partner");
+            const bill = this.getInputValue("bill");
+
+            const created_at = {from: '', to: ''}; // will set these two later
+            const scheduled_date = {from: '', to: ''}; // will set these two later
+
+            const srcParms = {
+                id, service_type, platform, status, customer, 
+                partner, bill, created_at, scheduled_date
+            };
+            
+            this.fetchOrder(srcParms);
+            // console.log('parms ---- ', parms);
+
+        },
+        getInputValue(colName) {
+            if (this.columnInputs[colName] === undefined) {
+                return '';
+            } 
+            return this.columnInputs[colName];
+        },
+        fetchOrder(srcParms) {
+          axios.get(`${Admin_URL}/fetch-orders/${this.perPageItem}/${this.pageNumber}`, {
+              params: srcParms
+          })
+          .then(response => {
+            console.log('fetchOrder ...... response data ===== ', response.data );
+            this.orders = response.data.orders;
+            this.totalPageCount = Math.ceil(response.data.totalcount / this.perPageItem);
+          })
+          .catch(e => {
+            console.log("error occurs", e.response);
+          });
+        },
+        onPaginateClick(parm) {
+            this.pageNumber = parm - 1; // As api start from "pageNumber 0"
+            this.makeReadySearchParams();
+        },
+
     }
 
 }

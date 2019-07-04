@@ -15,7 +15,7 @@
   				</router-link>
   			</div>
   		</div>
-    <div class="customcard" style="">
+    <div class="card">
       <div class="card-header">
         <b>Users</b>
       </div>
@@ -106,7 +106,7 @@ export default {
                 this.users = response.data.users;
                 this.totalPageCount = Math.ceil(response.data.totalcount / this.perPageItem);
             }).catch(error => {
-              
+
             })
         },
         onPaginateClick(parm) {

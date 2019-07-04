@@ -18,13 +18,18 @@
       <b-col>
         <b-card>
           <v-client-table :data="notifications" :columns="columns" :options="options">
+            <template slot="image" slot-scope="props">
+              <div class="center-div">
+                <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;" v-show="props.row.image">
+              </div>
+            </template>
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'NotificationEdit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
+                <router-link :to="{ name: 'NotificationEdit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
                                     <i class="fa fa-edit"></i></span></router-link>
-                <span class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Publish" @click="publish(props.row.id)">
+                <span class="btn btn-success btn-sm m-1 cursor-pointer" data-toggle="tooltip" title="Publish" @click="publish(props.row.id)">
                                     <i class="fa fa-upload"></i></span>
-                <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
+                <span class="btn btn-danger btn-sm m-1 cursor-pointer" data-toggle="tooltip" title="Delete" @click="destroy(props.row.id)">
                                     <i class="fa fa-trash"></i></span>
               </div>
             </template>
@@ -39,12 +44,15 @@
 <script>
   import axios from 'axios';
   const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+  const BASE_URL  = process.env.VUE_APP_BASE_URL;
   export default {
     name: 'Notifications',
     data() {
       return {
-        columns: ['title', 'target_group', 'status', 'action'],
+        columns: ['title','image', 'target_group', 'status', 'action'],
         notifications : [],
+        BASE_URL: BASE_URL,
+        src_image : 'images/push_notifications/',
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,
@@ -82,10 +90,20 @@
           });
 
       },
-
-      delete(id) {
-        // The id can be fetched from the slot-scope row object when id is in columns
-        console.log('hi');
+      destroy(id) {
+        axios.post(`${Admin_URL}/push-notifications/delete`,{
+          id : id
+        })
+          .then(response => {
+            if(response.data.success===true)
+            {
+              this.$swal('Notification Deleted Successfully', '', 'success');
+              location.reload();
+            }
+          })
+          .catch(e => {
+            console.log("error occurs",e);
+          });
       }
     },
   }

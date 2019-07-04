@@ -19,7 +19,7 @@
             {{ role_delete_error }}
         </div>
 
-        <div class="card" style="">
+        <div class="card">
           <div class="card-header">
             <b>Roles</b>
           </div>

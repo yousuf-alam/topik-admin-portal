@@ -2,7 +2,7 @@
     <div class="customcard ">
 
     <h1>Test Orders</h1>
-    <div class="table-responsive">
+    <div class="table-responsive" id="order_table_container">
     <div class="d-flex">
         <div style="margin-left: auto;" class="mb-1">
             <span class="mx-1">Per Page: </span>
@@ -347,5 +347,9 @@ table#t01 {
 th {
     border-bottom-width: 2px;
     border-bottom-color: #c4c4b7;
+}
+
+#order_table_container {
+    min-height: 600px;
 }
 </style>

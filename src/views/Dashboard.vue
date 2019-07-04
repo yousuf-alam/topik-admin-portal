@@ -70,7 +70,7 @@
           header-text-variant="white"
           align="center"
         >
-          <b-card-title class="h3 mb-4">৳ {{ finance.today.revenue }}</b-card-title>
+          <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.today.revenue }}</b-card-title>
           <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
@@ -105,7 +105,7 @@
           header-text-variant="white"
           align="center"
         >
-          <b-card-title class="h3 mb-4">৳ {{ finance.week.revenue }}</b-card-title>
+          <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.week.revenue }}</b-card-title>
           <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
@@ -140,7 +140,7 @@
           header-text-variant="white"
           align="center"
         >
-          <b-card-title class="h3 mb-4">৳ {{ finance.month.revenue }}</b-card-title>
+          <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.month.revenue }}</b-card-title>
           <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
@@ -175,7 +175,7 @@
           header-text-variant="white"
           align="center"
         >
-          <b-card-title class="h3 mb-4">৳ {{ finance.year.revenue }}</b-card-title>
+          <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.year.revenue }}</b-card-title>
           <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
@@ -247,5 +247,6 @@ export default {
   }
   li {
     margin-bottom: 1rem;
+    font-weight: normal;
   }
 </style>

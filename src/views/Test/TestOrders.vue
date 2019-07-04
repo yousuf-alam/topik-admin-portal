@@ -26,10 +26,30 @@
         <tr>
             <th v-for="item in columns" :key="item">
                 <div v-if="dateColumns.includes(item)">
-                    Decide Later
+                    <span v-html="makeDateRangeStrReadable(dateRangeString)"></span>
+                    <VueCtkDateTimePicker 
+                        input-size=sm
+                        
+
+                        :range=true
+                        :no-label=true
+                        label="Select"
+                        id="RangeDatePicker"
+                        format="YYYY-MM-DD"
+                        formatted="ll"
+                     
+                        color="#533b87"
+
+                        v-model="dateRange[item]"
+                        @formatted-value="handleDateRangeChange(item)" 
+                        
+                    >
+                    <!-- <button class="btn btn-secondary">Select</button> -->
+                    </VueCtkDateTimePicker>
+
                 </div>
                 <div v-else-if="noFilteColumns.includes(item)"> 
-                    Why you need filer here
+                    
                 </div>
                 <div v-else>
                     <input 
@@ -44,15 +64,17 @@
         </tr>
 
         <tr v-for="order in orders" :key="order.id">
+            <td> {{ order.created_at }} </td>
+            <td> {{ order.scheduled_date }} </td>
             <td> {{ order.id }} </td>
             <td> {{ order.service_type }} </td>
             <td> {{ order.platform }} </td>
             <td> {{ order.status }} </td>
             <td> {{ order.customer }} </td>
             <td> {{ order.partner }} </td>
-            <td> {{ order.scheduled_date }} </td>
+
             <td> {{ order.bill }} </td>
-            <td> {{ order.created_at }} </td>
+
             <td> 
                 <router-link :to="{ name: 'OrderShow', params: { id: order.id }}">
                     <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
@@ -93,6 +115,9 @@ import paginate from 'vuejs-paginate';
 const Admin_URL = process.env.VUE_APP_ADMIN_URL;
 let typingTimer;
 import _ from 'lodash';
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 export default {
     name: 'TestOrders',
     components: {
@@ -107,15 +132,18 @@ export default {
             toSortColumn: '',
             sortingDirection: '',
             columns: [
+                'created_at', 
+                'scheduled_date', 
+
                 'id', 
                 'service_type' ,
                 'platform', 
                 'status',
                 'customer', 
                 'partner',
-                'scheduled_date', 
+
                 'bill',
-                'created_at', 
+                
                 'action'
             ],
             columnInputs: {
@@ -123,7 +151,10 @@ export default {
             },
             dateColumns: [ "created_at", "scheduled_date" ],
             noFilteColumns: ["action"],
-            orders: []
+            orders: [],
+
+            dateRange: { },
+            dateRangeString: ''
         }
     },
     created() {
@@ -144,6 +175,16 @@ export default {
                 return `${defaultIcon}`;
             }
         },
+        makeDateRangeStrReadable: function() {
+            return (name) => {
+                console.log('computeddddddddd ', name);
+                if (name == null || name == undefined || name == '') {
+                    return name;
+                }
+                let res = name.split("---");
+                return res[0]+"-"+res[1];
+            }
+        },
         makeColNameReadable: function() {
             return (colName) => {
                 const splitedWords = colName.split("_");
@@ -156,8 +197,23 @@ export default {
         }
     },
     methods: {
-        dateRangeChange(parm) {
+        handleDateRangeChange(colName) {
 
+            console.log('yyyyyyyyyy ', colName, this.dateRange.created_at);
+            // return;
+            if (this.dateRange.created_at != null) {
+            this.dateRangeString  = this.dateRange.created_at.start + "---" 
+                                        + 
+                                    this.dateRange.created_at.end;
+            }
+
+            console.log(this.dateRangeString);
+
+
+            
+
+
+            
         },
         headingSortColumn(colName) {
             //console.log('heading Click ', colName);

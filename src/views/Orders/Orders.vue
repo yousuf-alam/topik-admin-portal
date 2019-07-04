@@ -83,7 +83,7 @@
           <b-col>
               <b-card>
                 <button @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
-                  <v-server-table :url="get_orders" :columns="columns" :options="options">
+                 <!-- <v-server-table :url="get_orders" :columns="columns" :options="options">
                       <template slot="action" slot-scope="props">
                           <div>
                               <router-link :to="{ name: 'OrderShow', params: { id: props.row.id }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
@@ -94,7 +94,19 @@
                                   <i class="fa fa-trash"></i></span>
                           </div>
                       </template>
-                  </v-server-table>
+                  </v-server-table>-->
+                <v-client-table :data="orders" :columns="columns" :options="options">
+                  <template slot="action" slot-scope="props">
+                    <div>
+                      <router-link :to="{ name: 'OrderShow', params: { id: props.row.id }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
+                                  <i class="fa fa-search"></i></span></router-link>
+                      <router-link :to="{ name: 'OrderEdit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
+                                  <i class="fa fa-edit"></i></span></router-link>
+                      <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
+                                  <i class="fa fa-trash"></i></span>
+                    </div>
+                  </template>
+                </v-client-table>
               </b-card>
           </b-col>
       </b-row>
@@ -127,9 +139,10 @@
                options: {
                     pagination: {nav: 'fixed'},
                     filterByColumn: true,
-                    dateColumns: ['created_at'],
+                   // dateColumns: ['created_at'],
                     perPage: 10,
                     toMomentFormat: 'YYYY-MM-DD',
+                    dateFormat: 'YYYY-MM-DD',
                     sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
                 }
@@ -140,11 +153,13 @@
 
         axios.get(`${Admin_URL}/orders`)
           .then(response =>{
-            this.orders = response.data;
+            this.orders = response.data.data;
           })
           .catch(e=>{
             console.log("error occurs",e);
           });
+
+
       },
         methods: {
           modalType(){

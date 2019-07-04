@@ -312,6 +312,14 @@
         axios.post(`${ADMIN_URL}/categories/update`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
+            if(response.data.success===true)
+            {
+              this.$swal('Success',response.data.message,'success');
+            }
+            else
+            {
+              this.$swal('Error', 'Something went wrong', 'error');
+            }
           })
           .catch(function (error) {
             currentObj.output = error;

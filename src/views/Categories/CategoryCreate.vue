@@ -206,7 +206,14 @@
           .then(response => {
             //console.log('Success', response);
             currentObj.success = response.data.success;
-            alert('Data updated successfully');
+            if(response.data.success===true)
+            {
+              this.$swal('Success',response.data.message,'success');
+            }
+            else
+            {
+              this.$swal('Error', 'Something went wrong', 'error');
+            }
             this.$router.push({ name: 'Categories'})
             //console.log(response.data);
           })

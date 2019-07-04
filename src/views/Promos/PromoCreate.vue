@@ -64,7 +64,7 @@
           <option :value="cat.id" v-for="cat in categories">{{ cat.name }}</option>
         </select>
       </div>
-      <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Notification</b-button>
+      <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Promo Code</b-button>
     </form>
   </b-card>
 </template>
@@ -170,6 +170,14 @@
             console.log('Success', response);
             currentObj.success = response.data.success;
             console.log(response.data);
+            if(response.data.success===true)
+            {
+              this.$swal('Success',response.data.message,'success');
+            }
+            else
+            {
+              this.$swal('Error', 'Something went wrong', 'error');
+            }
           })
           .catch(error => {
             console.log('Error  ... ', error.response);

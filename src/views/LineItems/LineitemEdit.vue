@@ -140,33 +140,43 @@
               </b-button>
             </div>
             <div class="col-12 m-1" v-for="(des,index) in lineitem.designs">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Design -  {{index+1}}</label>
-                <div class="col-sm-9">
-                  <img :src="BASE_URL+src_designs+des.image" style="width: 200px; height: 150px;">
-                  <button class="btn btn-sm btn-danger top" data-toggle="tooltip" title="Delete Design" @click="deleteDesign(index)"><i class="fa fa-close"></i></button>
+              <b-card>
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <img :src="BASE_URL+src_designs+des.image"  class="form-control" style="width: 200px; height: 150px;margin-bottom: 2rem">
+                    <button class="btn btn-danger pl-5 pr-5" @click="deleteDesign(index)">X Delete Design</button>
+                  </div>
+                  <div class="col-sm-5">
+                    <div class="form-group row">
+                      <label>Design Name</label>
+                      <input class="form-control" type="text" size="31" v-model="des.name">
+                    </div>
+                    <div class="form-group row">
+                      <label>Design Description</label>
+                      <textarea class="form-control" cols="30" rows="4" v-model="des.description"></textarea>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </b-card>
+
             </div>
           </div>
         </div>
         <modal name="modal-design" height="auto" :scrollable="true" :adaptive="true">
-          <div class="row justify-content-md-center m-4">
-            <div class="col-12 m-3">
-              <b-button @click="NewDesign" class="btn btn-success">+ Add More</b-button>
+          <div class="m-3 p-3">
+            <div class="form-group row">
+              <label>Design Name</label>
+              <input class="form-control" type="text" v-model="new_design.name">
             </div>
-            <div class="col-12 m-1" v-for="(des,index) in up_designs">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Design -  {{index+1}}</label>
-                <div class="col-sm-9">
-                  <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Delete Answer" @click="deleteUpDesign(index)"><i class="fa fa-close"></i></button>
-                  <input class="form-control" type="file" v-on:change="onDesignUpload">
-                </div>
-              </div>
+            <div class="form-group row">
+              <label>Design Description</label>
+              <input class="form-control" type="text" v-model="new_design.description">
             </div>
-            <div class="col-12 m-3">
-              <b-button @click="saveUpDesign" class="btn btn-primary float-right">Update</b-button>
+            <div class="form-group row">
+              <label>Upload Design</label>
+              <input class="form-control" type="file" @change="onDesignUpload">
             </div>
+            <b-button @click="saveUpDesign" class="btn btn-success float-right mb-3">Save Design</b-button>
           </div>
         </modal>
       </b-tab>
@@ -237,7 +247,6 @@
 <script>
 
   import axios from 'axios';
-import { get } from 'https';
   const Admin_URL = process.env.VUE_APP_ADMIN_URL;
   const BASE_URL  = process.env.VUE_APP_BASE_URL;
   export default {
@@ -284,7 +293,7 @@ import { get } from 'https';
         src_banand: '/images/lineitem/banner_android/',
         src_designs:'/images/lineitem/designs/',
         up_designs: [],
-        new_design: '',
+        new_design: [],
         loading: true,
 
       }
@@ -315,7 +324,7 @@ import { get } from 'https';
             this.lineitem.options = JSON.parse(response.data.options);
             this.lineitem.price_table = JSON.parse(response.data.price_table);
             this.lineitem.designs = JSON.parse(response.data.designs);
-            this.loading = false
+            this.loading = false;
 
             this.url_thumbnail = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_thumbnail}${this.lineitem.thumbnail}`;
             this.url_banner_web = this.lineitem.banner_web === null ? null : `${BASE_URL}${this.src_banweb}${this.lineitem.banner_web}`;
@@ -356,7 +365,6 @@ import { get } from 'https';
       },
       designModal(){
         this.$modal.show('modal-design');
-        this.up_designs.push('');
       },
       NewDesign(){
         this.up_designs.push('');
@@ -371,35 +379,54 @@ import { get } from 'https';
         this.up_designs.splice(index,1);
       },
       onDesignUpload(e) {
-        let index = this.up_designs.length -1;
-        this.up_designs.splice(index,1);
 
-        this.new_design = e.target.files[0];
-
-        this.up_designs.push(this.new_design);
-        this.new_design = '';
+        this.new_design.image = e.target.files[0];
+        this.new_design.tmp_image = URL.createObjectURL(this.new_design.image);
 
       },
       saveUpDesign(){
+
+        this.$modal.hide('modal-design');
+
+        this.up_designs.push(this.new_design);
+
+
         let currentObj = this;
         const config = {
           headers: {'content-type': 'multipart/form-data'}
         };
         let formData = new FormData();
         formData.append('id', this.lineitem.id);
+
+
         for( let i = 0; i < this.up_designs.length; i++ ){
-          let file = this.up_designs[i];
+          let file = this.up_designs[i]['image'];
+          let name = this.up_designs[i]['name'];
+          let desc = this.up_designs[i]['description'];
           formData.append('updesigns[' + i + '][image]', file);
+          formData.append('updesigns[' + i + '][name]', name);
+          formData.append('updesigns[' + i + '][description]', desc);
         }
 
         axios.post(`${Admin_URL}/line-items/new-design`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
+            alert(response.data.message);
+            if(response.data.success===true)
+            {
+              //this.$swal('Success', response.data.message, 'success');
+              alert(response.data.message);
+            }
+            else
+            {
+              this.$swal('Error', "Something wrong Happened", 'error');
+            }
             location.reload();
           })
           .catch(function (error) {
             currentObj.output = error;
             console.log(error);
+            alert(response.data.message);
           });
       },
       onSubmit() {
@@ -423,17 +450,26 @@ import { get } from 'https';
         formData.append('banner_web', this.lineitem.banner_web);
         formData.append('banner_tab', this.lineitem.banner_tab);
         formData.append('banner_android', this.lineitem.banner_android);
-        formData.append('banner_ios', this.lineitem.banner_android);
+        formData.append('banner_ios', this.lineitem.banner_ios);
 
 
         axios.post(`${Admin_URL}/line-items/update`, formData, config)
           .then(function (response) {
-            console.log('Lineitem Update Successful === ', response);
+            console.log('Lineitem Update Successful === ', response.data);
             currentObj.success = response.data.success;
+            if(response.data.success===true)
+            {
+              alert(response.data.message);
+            }
+            else
+            {
+              alert("Something wrong happened");
+            }
           })
           .catch(function (error) {
             currentObj.output = error;
              console.log('Errorrrrr === ', error.response);
+
           });
       }
     }

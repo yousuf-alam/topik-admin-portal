@@ -184,7 +184,7 @@ export default {
         },
         makeDateRangeStrReadable: function() {
             return (name) => {
-                console.log("KKKKKKKKKK", name);
+                // console.log("KKKKKKKKKK", name);
                 if (name == null || name == undefined || name == '') {
                     return name;
                 }
@@ -216,14 +216,16 @@ export default {
             if (this.dateRange[colName] === '' || this.dateRange[colName] === null) {
                 this.dateRangeString[colName] = '';
             } else {
+                console.log('4444444444444444', this.dateRange);
                 const startDate = this.dateRange[colName].start;
                 const endDate = this.dateRange[colName].end;
 
                 const startMoment = moment(startDate).format("MMM Do YY");
                 const endMoment = (endDate === null || endDate === '') ? 'Select End Date' : moment(endDate).format("MMM Do YY");
-                this.dateRangeString[colName]  =  startMoment + "-" + endMoment;                  
+                this.dateRangeString[colName]  =  startMoment + "-" + endMoment;    
+                             
             }
-
+            this.makeReadySearchParams(); 
              console.log('Seeeeee   ', this.dateRange, 'EEEEE', this.dateRangeString);  
                    
         },
@@ -267,9 +269,29 @@ export default {
             const customer = this.getInputValue("customer");
             const partner = this.getInputValue("partner");
             const bill = this.getInputValue("bill");
+
+            console.log('----------------', typeof( this.dateRange.created_at));
+            let from = '';
+            let to = ''
+            if (this.dateRange.created_at == ""|| this.dateRange.created_at == null) {
+                from = '';
+                to = ''
+            } else {
+                from = this.dateRange.created_at.start;
+                to = this.dateRange.created_at.end;
+            }
+            const created_at = {from: from,     to: to }; // will set these two later
             
-            const created_at = {from: '', to: ''}; // will set these two later
-            const scheduled_date = {from: '', to: ''}; // will set these two later
+            if (this.dateRange.scheduled_date == ""|| this.dateRange.scheduled_date == null) {
+                from = '';
+                to = ''
+            } else {
+                from = this.dateRange.scheduled_date.start;
+                to = this.dateRange.scheduled_date.end;
+            }
+            const scheduled_date = {from: from,     to: to }; // will set these two later
+
+
 
             const srcParms = {
                 id, service_type, platform, status, customer, 
@@ -277,7 +299,7 @@ export default {
             };
             
             this.fetchOrder(srcParms);
-            // console.log('parms ---- ', parms);
+             console.log('search ---- parms ---- ', srcParms);
 
         },
         getInputValue(colName) {

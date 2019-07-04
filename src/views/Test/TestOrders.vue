@@ -26,7 +26,7 @@
         <tr>
             <th v-for="item in columns" :key="item">
                 <div v-if="dateColumns.includes(item)">
-                    <span v-html="makeDateRangeStrReadable(dateRangeString)"></span>
+                    <span v-html="makeDateRangeStrReadable(dateRangeString[item])"></span>
                     <VueCtkDateTimePicker 
                         input-size=sm
                         
@@ -110,6 +110,7 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
 import Vue from 'vue';
 import paginate from 'vuejs-paginate';
 const Admin_URL = process.env.VUE_APP_ADMIN_URL;
@@ -153,8 +154,14 @@ export default {
             noFilteColumns: ["action"],
             orders: [],
 
-            dateRange: { },
-            dateRangeString: ''
+            dateRange: {
+                created_at: '',
+                scheduled_date: ''
+             },
+            dateRangeString: {
+                created_at: '',
+                scheduled_date: ''
+             }
         }
     },
     created() {
@@ -177,12 +184,13 @@ export default {
         },
         makeDateRangeStrReadable: function() {
             return (name) => {
-                console.log('computeddddddddd ', name);
+                console.log("KKKKKKKKKK", name);
                 if (name == null || name == undefined || name == '') {
                     return name;
                 }
-                let res = name.split("---");
-                return res[0]+"-"+res[1];
+                return name;
+                let res = name.split("-");
+                return res[0]+"<br> - <br>"+res[1];
             }
         },
         makeColNameReadable: function() {
@@ -199,21 +207,21 @@ export default {
     methods: {
         handleDateRangeChange(colName) {
 
-            console.log('yyyyyyyyyy ', colName, this.dateRange.created_at);
-            // return;
-            if (this.dateRange.created_at != null) {
-            this.dateRangeString  = this.dateRange.created_at.start + "---" 
-                                        + 
-                                    this.dateRange.created_at.end;
+            console.log(
+                '\ncolName === ', colName, 
+                '\ndateRange === ', this.dateRange, 
+                '\n333333', this.dateRange[colName]
+                );
+            
+            if (this.dateRange[colName] === '' || this.dateRange[colName] === null) {
+                this.dateRangeString[colName] = '';
+            } else /*if (this.dateRange[colName] !== ''  )*/ {
+            this.dateRangeString[colName]  = moment(this.dateRange[colName].start).format("MMM Do YY") + 
+                "-" + moment(this.dateRange[colName].end).format("MMM Do YY") ;                  
             }
 
-            console.log(this.dateRangeString);
-
-
-            
-
-
-            
+            console.log('Seeeeee   ', this.dateRange, 'EEEEE', this.dateRangeString);  
+                   
         },
         headingSortColumn(colName) {
             //console.log('heading Click ', colName);

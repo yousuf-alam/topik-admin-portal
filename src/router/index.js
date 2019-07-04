@@ -60,6 +60,7 @@ const ComplainCreate = () => import('@/views/Complains/ComplainCreate')
 const ComplainShow = () => import('../views/Complains/ComplainShow')
 
 const Documents = () => import('../views/Documents')
+const Profile   = () => import('../views/Profile')
 
 // Views - Pages
 const Page404 = () => import('@/views/pages/Page404')
@@ -69,9 +70,6 @@ const Page500 = () => import('@/views/pages/Page500')
 const Login = () => import('@/views/login/Login')
 const Register = () => import('@/views/login/Register')
 
-// Users
-const CoreUiUsers = () => import('@/views/users/Users')
-const CoreUiUser = () => import('@/views/users/User')
 
 import Role from '../views/AccessControl/role/Role';
 import RoleShow from '../views/AccessControl/role/RoleShow';
@@ -124,32 +122,32 @@ const router =  new Router({
           {
             path: '',
             component: Role,
-            meta: { 
-              permission_name: 'manage roles' 
+            meta: {
+              permission_name: 'manage roles'
             },
           },
           {
             path: 'show/:id',
             name: 'RoleShow',
             component: RoleShow,
-            meta: { 
-              permission_name: 'manage roles' 
+            meta: {
+              permission_name: 'manage roles'
             },
           },
           {
             path: 'new',
             name: 'Create New Role',
             component: CreateNewRole,
-            meta: { 
-              permission_name: 'manage roles' 
+            meta: {
+              permission_name: 'manage roles'
             },
           },
           {
             path: 'edit/:id',
             name: 'RoleEdit ',
             component: RoleEdit,
-            meta: { 
-              permission_name: 'manage roles' 
+            meta: {
+              permission_name: 'manage roles'
             },
           }
         ]
@@ -164,33 +162,33 @@ const router =  new Router({
         children: [
           {
             path: '',
-            component: Users, 
-            meta: { 
-              permission_name: 'manage roles' 
+            component: Users,
+            meta: {
+              permission_name: 'manage roles'
             },
           },
           {
             path: 'show/:id',
             name: 'UserShow',
             component: UserShow,
-            meta: { 
-              permission_name: 'manage roles' 
+            meta: {
+              permission_name: 'manage roles'
             },
           },
           {
             path: 'new',
             name: 'Create New User',
             component: CreateNewUser,
-            meta: { 
-              permission_name: 'manage roles' 
+            meta: {
+              permission_name: 'manage roles'
             },
           },
           {
             path: 'edit/:id',
             name: 'Edit ',
             component: UserEdit,
-            meta: { 
-              permission_name: 'manage roles' 
+            meta: {
+              permission_name: 'manage roles'
             },
           }
         ]
@@ -199,7 +197,7 @@ const router =  new Router({
         path: 'orders',
         name: 'Orders',
         component: Orders,
-        meta: { 
+        meta: {
           permission_name: permissionsList.order
         },
       },
@@ -207,8 +205,8 @@ const router =  new Router({
         path: '/orders/details/:id',
         name: 'OrderShow',
         component: OrderShow,
-        meta: { 
-          permission_name: 'order read' 
+        meta: {
+          permission_name: 'order read'
         },
       },
       {
@@ -224,7 +222,7 @@ const router =  new Router({
         name: 'OrderCreate',
         component: OrderCreate,
         props: true,
-        meta: { 
+        meta: {
          permission_name: 'order create'
         },
       },
@@ -241,7 +239,7 @@ const router =  new Router({
         path: 'notifications',
         name: 'Notification',
         component: Notifications,
-        meta: { 
+        meta: {
           permission_name: permissionsList.notification
         },
       },
@@ -262,8 +260,8 @@ const router =  new Router({
         path: '/notifications/create',
         name: 'NotificationCreate',
         component: NotificationCreate,
-        meta: { 
-          permission_name: 'notification create' 
+        meta: {
+          permission_name: 'notification create'
         },
       },
       {
@@ -276,7 +274,7 @@ const router =  new Router({
         path: 'promos',
         name: 'Promo Codes',
         component: Promos,
-        meta: { 
+        meta: {
           //permission_name: permissionsList.promocode
         },
       },
@@ -292,7 +290,7 @@ const router =  new Router({
         path: '/promos/create',
         name: 'PromoCreate',
         component: PromoCreate,
-        meta: { 
+        meta: {
          // permission_name: 'promocode create'
         },
       },
@@ -300,8 +298,8 @@ const router =  new Router({
         path: 'locations',
         name: 'Locations',
         component: Locations,
-        meta: { 
-          permission_name: permissionsList.location 
+        meta: {
+          permission_name: permissionsList.location
         },
       },
       {
@@ -324,8 +322,8 @@ const router =  new Router({
         path: 'services',
         name: 'Services',
         component: Services,
-        meta: { 
-          permission_name: permissionsList.service 
+        meta: {
+          permission_name: permissionsList.service
         },
       },
       {
@@ -340,16 +338,16 @@ const router =  new Router({
         path: '/services/create',
         name: 'ServiceCreate',
         component: ServiceCreate,
-        meta: { 
-          permission_name: 'service create' 
+        meta: {
+          permission_name: 'service create'
         },
       },
       {
         path: 'categories',
         name: 'Categories',
         component: Categories,
-        meta: { 
-          permission_name: permissionsList.category 
+        meta: {
+          permission_name: permissionsList.category
         },
       },
       {
@@ -369,16 +367,16 @@ const router =  new Router({
         path: '/categories/create',
         name: 'CategoryCreate',
         component: CategoryCreate,
-        meta: { 
-          permission_name: 'category create' 
+        meta: {
+          permission_name: 'category create'
         },
       },
       {
         path: 'line-items',
         name: 'LineItems',
         component: LineItems,
-        meta: { 
-          permission_name: permissionsList.lineitem 
+        meta: {
+          permission_name: permissionsList.lineitem
         },
       },
       {
@@ -393,63 +391,63 @@ const router =  new Router({
         path: '/line-items/show/:id',
         name: 'LineItemShow',
         component: LineItemShow,
-        meta: { 
-          permission_name: 'lineitem read' 
+        meta: {
+          permission_name: 'lineitem read'
         },
       },
       {
         path: '/line-items/create',
         name: 'LineItemCreate',
         component: LineItemCreate,
-        meta: { 
-          permission_name: 'lineitem create' 
+        meta: {
+          permission_name: 'lineitem create'
         },
       },
       {
         path: '/test-line-items/create',
         name: 'TestLineItemCreate',
         component: TestLineItemCreate,
-        meta: { 
-          permission_name: 'lineitem create' 
+        meta: {
+          permission_name: 'lineitem create'
         },
       },
       {
         path: 'partners',
         name: 'Partners',
         component: Partners,
-        meta: { 
-          permission_name: permissionsList.partner 
+        meta: {
+          permission_name: permissionsList.partner
         },
       },
       {
         path: '/partners/show/:id',
         name: 'PartnerShow',
         component: PartnerShow,
-        meta: { 
-          permission_name: 'partner read' 
+        meta: {
+          permission_name: 'partner read'
         },
       },
       {
         path: 'resources',
         name: 'Resources',
         component: Resources,
-        meta: { 
-          permission_name: permissionsList.resource 
+        meta: {
+          permission_name: permissionsList.resource
         },
       },
       {
         path: '/resources/show/:id',
         name: 'ResourceShow',
         component: ResourceShow,
-        meta: { 
-          permission_name: 'resource read' 
+        meta: {
+          permission_name: 'resource read'
         },
       },
       {
         path: 'partner-wallets',
         name: 'wallets',
         component: Wallets,
-        meta: { 
+        meta: {
           permission_name: permissionsList.partnerwallet
         },
       },
@@ -457,15 +455,15 @@ const router =  new Router({
         path: '/wallets/show/:id',
         name: 'WalletShow',
         component: WalletShow,
-        meta: { 
-          permission_name: 'partnerwallet read' 
+        meta: {
+          permission_name: 'partnerwallet read'
         },
       },
       {
         path: 'banners',
         name: 'Banners',
         component: Banners,
-        meta: { 
+        meta: {
           permission_name: permissionsList.topbanner
         },
       },
@@ -473,7 +471,7 @@ const router =  new Router({
         path: '/banners/edit/:id',
         name: 'Banner / Edit',
         component: BannerEdit,
-        meta: { 
+        meta: {
           permission_name: permissionsList.topbanner
         },
       },
@@ -481,7 +479,7 @@ const router =  new Router({
         path: '/banners/create',
         name: 'BannerCreate',
         component: BannerCreate,
-        meta: { 
+        meta: {
           //permission_name: 'banner create'
         },
       },
@@ -489,87 +487,39 @@ const router =  new Router({
         path: 'complains',
         name: 'Complains',
         component: Complains,
-        meta: { 
-          permission_name: permissionsList.complain 
+        meta: {
+          permission_name: permissionsList.complain
         },
       },
       {
         path: '/complains/show/:id',
         name: 'ComplainShow',
         component: ComplainShow,
-        meta: { 
-          permission_name: 'complain read' 
+        meta: {
+          permission_name: 'complain read'
         },
       },
       {
         path: '/complains/create',
         name: 'ComplainCreate',
         component: ComplainCreate,
-        meta: { 
-          permission_name: 'complain create' 
+        meta: {
+          permission_name: 'complain create'
         },
       },
       {
         path: 'documents',
         name: 'Documents',
         component: Documents,
-        meta: { 
-          permission_name: permissionsList.document 
+        meta: {
+          permission_name: permissionsList.document
         },
       },
-      /*
-          {
-              path: 'login',
-              name: 'Login',
-              component: Login
-          },
-      */
       {
-        path: 'coreuiusers',
-        meta: {label: 'CoreUiUsers'},
-        component: {
-          render(c) {
-            return c('router-view')
-          }
-        },
-        children: [
-          {
-            path: '',
-            component: CoreUiUsers,
-          },
-          {
-            path: ':id',
-            meta: {label: 'User Details'},
-            name: 'User',
-            component: CoreUiUser,
-          },
-        ]
-      }
-      /*{
-        path: 'notifications',
-        redirect: '/notifications/alerts',
-        name: 'Notifications',
-        component: {
-          render (c) { return c('router-view') }
-        },
-        children: [
-          {
-            path: 'alerts',
-            name: 'Alerts',
-            component: Alerts
-          },
-          {
-            path: 'badges',
-            name: 'Badges',
-            component: Badges
-          },
-          {
-            path: 'modals',
-            name: 'Modals',
-            component: Modals
-          }
-        ]
-      }*/
+        path: 'profile',
+        name: 'Profile',
+        component: Profile,
+      },
     ]
   },
   {
@@ -621,7 +571,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters['auth/isLoggedIn']) {
       if (checkRoutePermission(to)) {
-        next()      
+        next()
       }
       return
     }

@@ -207,20 +207,24 @@ export default {
     methods: {
         handleDateRangeChange(colName) {
 
-            console.log(
-                '\ncolName === ', colName, 
-                '\ndateRange === ', this.dateRange, 
-                '\n333333', this.dateRange[colName]
-                );
+            // console.log(
+            //     '\ncolName === ', colName, 
+            //     '\ndateRange === ', this.dateRange, 
+            //     '\n333333', this.dateRange[colName]
+            //     );
             
             if (this.dateRange[colName] === '' || this.dateRange[colName] === null) {
                 this.dateRangeString[colName] = '';
-            } else /*if (this.dateRange[colName] !== ''  )*/ {
-            this.dateRangeString[colName]  = moment(this.dateRange[colName].start).format("MMM Do YY") + 
-                "-" + moment(this.dateRange[colName].end).format("MMM Do YY") ;                  
+            } else {
+                const startDate = this.dateRange[colName].start;
+                const endDate = this.dateRange[colName].end;
+
+                const startMoment = moment(startDate).format("MMM Do YY");
+                const endMoment = (endDate === null || endDate === '') ? 'Select End Date' : moment(endDate).format("MMM Do YY");
+                this.dateRangeString[colName]  =  startMoment + "-" + endMoment;                  
             }
 
-            console.log('Seeeeee   ', this.dateRange, 'EEEEE', this.dateRangeString);  
+             console.log('Seeeeee   ', this.dateRange, 'EEEEE', this.dateRangeString);  
                    
         },
         headingSortColumn(colName) {
@@ -263,7 +267,7 @@ export default {
             const customer = this.getInputValue("customer");
             const partner = this.getInputValue("partner");
             const bill = this.getInputValue("bill");
-
+            
             const created_at = {from: '', to: ''}; // will set these two later
             const scheduled_date = {from: '', to: ''}; // will set these two later
 

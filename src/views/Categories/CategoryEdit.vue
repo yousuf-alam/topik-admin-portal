@@ -236,13 +236,13 @@
         url_banner_android: '',
         url_banner_ios: '',
 
-        src_svg: '/images/category/icon_svg/',
-        src_pdf: '/images/category/icon_pdf/',
-        src_thumbnail: '/images/category/thumbnail/',
-        src_banweb: '/images/category/banner_web/',
-        src_bantab: '/images/category/banner_tab/',
-        src_banios: '/images/category/banner_ios/',
-        src_banand: '/images/category/banner_android/',
+        src_svg: '/images/icon_svg/',
+        src_pdf: '/images/icon_pdf/',
+        src_thumbnail: '/images/thumbnail/',
+        src_banweb: '/images/banner_web/',
+        src_bantab: '/images/banner_tab/',
+        src_banios: '/images/banner_ios/',
+        src_banand: '/images/banner_android/',
 
       }
     },

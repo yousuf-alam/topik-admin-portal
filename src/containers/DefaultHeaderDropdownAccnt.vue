@@ -10,7 +10,7 @@
           <b-dropdown-header tag="div" class="text-center">
             <strong>Romoni Admin</strong>
           </b-dropdown-header>
-           <b-dropdown-item class="logged-in-user text-white">
+           <b-dropdown-item class="logged-in-user">
               {{ loggedInUser.name }}
            </b-dropdown-item>
 
@@ -76,7 +76,7 @@ export default {
 
 <style scoped>
 .logged-in-user {
-  background-color: #23282c;
+  background-color: #BBCAF3;
   text-align: center;
   font-weight: 600;
 }

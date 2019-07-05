@@ -1,7 +1,7 @@
 <template>
   <b-card class="m-4">
     <h3 v-if="loading===true">Loading...</h3>
-    
+
     <b-tabs card pills v-if="loading===false">
       <b-tab active title="Basic Info">
         <b-card-text>
@@ -197,12 +197,12 @@
               <div class="col-sm-9">
                 <b-button  @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Service
                 </b-button>
-              </div> 
+              </div>
             </div>
         </b-card-text>
       </b-tab>
     </b-tabs>
-    
+
   </b-card>
 </template>
 
@@ -221,7 +221,7 @@
           meta_title: '',
           meta_description: '',
           published_status: '',
-          
+
           icon_svg: '',
           icon_pdf: '',
           thumbnail: '',
@@ -238,14 +238,14 @@
         url_banner_android: '',
         url_banner_ios: '',
 
-        src_svg: '/images/service/icon_svg/',
-        src_pdf: '/images/service/icon_pdf/',
-        src_thumbnail: '/images/service/thumbnail/',
-        src_banweb: '/images/service/banner_web/',
-        src_bantab: '/images/service/banner_tab/',
-        src_banios: '/images/service/banner_ios/',
-        src_banand: '/images/service/banner_android/',
-        loading: true, 
+        src_svg: '/images/icon_svg/',
+        src_pdf: '/images/icon_pdf/',
+        src_thumbnail: '/images/thumbnail/',
+        src_banweb: '/images/banner_web/',
+        src_bantab: '/images/banner_tab/',
+        src_banios: '/images/banner_ios/',
+        src_banand: '/images/banner_android/',
+        loading: true,
         BASE_URL: process.env.VUE_APP_BASE_URL,
       }
     },
@@ -257,9 +257,9 @@
     methods: {
       onSVGChange(e) {
         const file = e.target.files[0];
-        if (file === undefined) { 
-          return; 
-        } 
+        if (file === undefined) {
+          return;
+        }
         this.service.icon_svg = file;
         this.url_icon_svg = URL.createObjectURL(file);
       },
@@ -267,7 +267,7 @@
         const file = e.target.files[0];
         if (file === undefined) {
           return;
-        } 
+        }
         this.service.icon_pdf = file;
         this.url_icon_pdf = URL.createObjectURL(file);
       },
@@ -275,7 +275,7 @@
         const file = e.target.files[0];
         if (file === undefined) {
           return;
-        } 
+        }
         this.service.thumbnail = file;
         this.url_thumbnail = URL.createObjectURL(file);
       },
@@ -283,7 +283,7 @@
         const file = e.target.files[0];
         if (file === undefined) {
           return;
-        } 
+        }
         this.service.banner_web = file;
         this.url_banner_web = URL.createObjectURL(file);
       },
@@ -291,7 +291,7 @@
         const file = e.target.files[0];
         if (file === undefined) {
           return;
-        } 
+        }
         this.service.banner_tab = file;
         this.url_banner_tab = URL.createObjectURL(file);
       },
@@ -299,7 +299,7 @@
         const file = e.target.files[0];
         if (file === undefined) {
           return;
-        } 
+        }
         this.service.banner_android = file;
         this.url_banner_android = URL.createObjectURL(file);
       },
@@ -307,7 +307,7 @@
         const file = e.target.files[0];
         if (file === undefined) {
           return;
-        } 
+        }
         this.service.banner_ios = file;
         this.url_banner_ios = URL.createObjectURL(file);
       },
@@ -351,7 +351,7 @@
         let BASE_URL = process.env.VUE_APP_BASE_URL;
         if (parm === 'after_update') {
            ADMIN_URL = '';
-        } 
+        }
         let id = window.location.pathname.split("/").pop();
         this.service.id = id;
 

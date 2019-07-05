@@ -2,7 +2,7 @@
   <AppHeaderDropdown right no-caret>
     <template slot="header">
       <img
-        :src="origin_url+'/img/avatars/6.jpg'"
+        :src="image_url+loggedInUser.avatar"
         class="img-avatar"
         alt="admin@bootstrapmaster.com" />
     </template>
@@ -37,6 +37,7 @@
 <script>
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue'
 import EventBus from '../utils/EventBus';
+const BASE_URL = process.env.VUE_APP_BASE_URL;
 export default {
   name: 'DefaultHeaderDropdownAccnt',
   components: {
@@ -45,12 +46,13 @@ export default {
   data() {
     return {
       itemsCount: '',
-      origin_url: window.location.origin
+      image_url: ''
     }
   },
   created() {
     EventBus.$on('unread:notification'   , this.notificationCount.bind(this));
     this.notificationCount();
+    this.image_url = BASE_URL +'/';
   },
   computed: {
     loggedInUser() {

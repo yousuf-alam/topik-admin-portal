@@ -2,12 +2,17 @@
     <div class="">
         <div class="walletHead card">
             <div class="card-body">
-                <h1 class="card-description"> {{partner.name}}</h1>
+              <b-row>
+                <b-col cols="8"></b-col>
+                <b-col cols="4">
+                  <h2 class="font-weight-bold"> {{partner.name}}</h2>
+                </b-col>
+              </b-row>
                 <div class="wallet-forhead">
                   <div class="leftside">
                   </div>
                   <div class="rightside" v-if="partner.balance >0">
-                    <img src="https://partner.staging180601.romoni.xyz/site_assets/img/wallet-pink.png" width="30%"
+                    <img src="/img/wallet-pink.png" width="30%"
                          alt="wallet-icon">
                     <div class="badge badge-success money">৳ {{partner.balance }}</div>
                     <h1 class="text-success font-weight-bold">Credit</h1>

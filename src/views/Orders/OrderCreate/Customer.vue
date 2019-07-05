@@ -9,6 +9,7 @@
                 </b-input-group-prepend>
                 <b-form-input type="text" @keyup="addCustomer" v-model="customer.phone"></b-form-input>
             </b-input-group>
+          <span class="text-danger font-sm"> {{phone_warning}} </span>
         </b-form-group>
         <b-form-group>
             <label for="name">Delivery Name</label>
@@ -27,12 +28,31 @@
         return {
           customer :{
             name : '',
-            phone: ''
+            phone: '',
           },
+          phone_warning: ''
         }
       },
       methods: {
+        onKeyUpPhone(event) {
+          const phoneIsValid = /(^()?(01){1}[23456789]{1}(\d){8})$/i.test(this.customer.phone);
+
+          if (phoneIsValid === false) {
+            this.phone_warning = 'Invalid phone number';
+          } else {
+            this.phone_warning = '';
+          }
+
+          if (this.customer.phone.length < 11 || this.customer.phone.length > 11) {
+            this.phone_warning = 'Enter 11 digit phone number';
+          }
+          if (this.customer.phone.length === 0) {
+            this.phone_warning = '';
+          }
+
+        },
         addCustomer(){
+          this.onKeyUpPhone();
           EventBus.$emit('customer:add',this.customer) ;
         }
       }

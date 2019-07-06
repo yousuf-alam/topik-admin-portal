@@ -1,6 +1,7 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
+      <h4><i class="fa fa-stumbleupon"></i><span class="ml-1">Services</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
 

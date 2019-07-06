@@ -2,6 +2,7 @@
   <div class="animated fadeIn">
     <div class="">
       <div class="cardheading">
+        <h4><i class="fa fa-user"></i><span class="ml-1">Users</span></h4>
   			<div class="">
   				<h1 class="my-auto tableName"></h1>
   			</div>
@@ -19,7 +20,26 @@
       <div class="card-header">
         <b>Users</b>
       </div>
-      <div class="usersTable table-responsive">
+      <v-client-table :data="users" :columns="columns" :options="options">
+        <template slot="action" slot-scope="props">
+          <div>
+            <router-link :to="`/users/show/${props.row.id}`">
+                          <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View">
+                              <i class="fa fa-search"></i>
+                          </span>
+            </router-link>
+
+            <router-link :to="`/users/edit/${props.row.id}`">
+              <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Edit"> <i class="fa fa-edit"></i></span>
+            </router-link>
+            <router-link to="" >
+              <span @click="handleDelete" class="btn btn-danger btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
+            </router-link>
+
+          </div>
+        </template>
+      </v-client-table>
+     <!-- <div class="usersTable table-responsive">
           <table class="table table-hover">
           <thead class="">
               <tr>
@@ -58,7 +78,7 @@
           </tbody>
           </table>
 
-      </div>
+      </div>-->
     </div>
     <div class="pl-1">
         <paginate
@@ -88,9 +108,18 @@ export default {
     data() {
         return {
             totalPageCount: 0,
-            perPageItem: 5, // Only set this value
+            perPageItem: 10, // Only set this value
             pageNumber: 0,
-            users: []
+            users: [],
+            columns: ['id', 'name','phone','action'],
+            options: {
+              pagination: {nav: 'fixed'},
+              filterByColumn: true,
+              //dateColumns: ['created_at'],
+              toMomentFormat: 'YYYY-MM-DD',
+              sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
+
+            }
         }
     },
     created() {

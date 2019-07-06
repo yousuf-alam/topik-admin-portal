@@ -3,6 +3,7 @@
 
     <div v-if="data_loaded_successfully">
         <div class="cardheading">
+          <h4><i class="fa fa-thumbs-down"></i><span class="ml-1">Complains</span></h4>
           <div class="">
             <h1 class="my-auto tableName">
 

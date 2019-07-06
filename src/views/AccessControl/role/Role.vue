@@ -2,6 +2,7 @@
   <div class="animated fadeIn">
     <div class="">
         <div class="cardheading">
+          <h4><i class="fa fa-podcast"></i><span class="ml-1">Roles</span></h4>
     			<div class="">
     				<h2 class="my-auto tableName"> </h2>
     			</div>

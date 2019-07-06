@@ -1,6 +1,7 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
+      <h4><i class="icon icon-bell"></i><span class="ml-1">Notifications</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
 

@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="text-center border-top">
-                        <span class="btn see-all " @click="goToAll" style="color:blue">See All</span>
+                        <span class="btn see-all text-primary" @click="goToAll" style="cursor: pointer">See All</span>
                 </div>
             </div>
         </template>

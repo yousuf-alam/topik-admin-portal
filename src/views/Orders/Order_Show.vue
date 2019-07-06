@@ -104,8 +104,8 @@
       <b-col>
         <b-card title="Order History">
           <b-row>
-            <b-col 
-              md="3" sm="3" v-for="(history, key) in order.order_history" 
+            <b-col
+              md="3" sm="3" v-for="(history, key) in order.order_history"
                :key="key">
               <div v-if="history!==null">
                 <b-card class="card-accent-danger font-weight-bold" v-bind:header="key">
@@ -141,10 +141,6 @@
       </b-col>
     </b-row>
     </div>
-    <div class="customcard">
-      Loading...
-    </div>
-    
   </div>
 </template>
 

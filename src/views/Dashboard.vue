@@ -1,62 +1,73 @@
 <template>
   <div class="animated fadeIn">
     <h4><i class="fa fa-shopping-cart mr-2 mb-4"></i>ORDER STATUS</h4>
-    <b-row class="mb-5">
-      <b-col>
-        <b-card :no-body="true">
-          <b-card-body class="p-0 clearfix">
-            <i class="fa fa-unlock bg-danger p-4 font-2xl mr-3 float-left"></i>
-            <div class="h4 text-danger mb-0 pt-3">{{order.open}}</div>
-            <div class="text-muted text-uppercase font-weight-bold font-md">Pending</div>
-          </b-card-body>
-        </b-card>
-      </b-col>
-      <b-col cols="12" sm="6" lg="2">
-        <b-card :no-body="true">
-          <b-card-body class="p-0 clearfix">
-            <i class="fa fa-laptop  bg-danger p-4 font-2xl mr-3 float-left"></i>
-            <div class="h4 text-danger mb-0 pt-3">{{order.acknowledged}}</div>
-            <div class="text-muted text-uppercase font-weight-bold font-md">Accepted</div>
-          </b-card-body>
-        </b-card>
-      </b-col>
-      <b-col cols="12" sm="6" lg="2">
-        <b-card :no-body="true">
-          <b-card-body class="p-0 clearfix">
-            <i class="fa fa-spinner  bg-danger p-4 font-2xl mr-3 float-left text-white"></i>
-            <div class="h4 text-danger mb-0 pt-3">{{order.processed}}</div>
-            <div class="text-muted text-uppercase font-weight-bold font-md">Processing</div>
-          </b-card-body>
-        </b-card>
-      </b-col>
-      <b-col cols="12" sm="6" lg="2">
-        <b-card :no-body="true">
-          <b-card-body class="p-0 clearfix">
-            <i class="fa fa-check bg-danger p-4 font-2xl mr-3 float-left text-white"></i>
-            <div class="h4 text-danger mb-0 pt-3">{{order.completed}}</div>
-            <div class="text-muted text-uppercase font-weight-bold font-md">Completed</div>
-          </b-card-body>
-        </b-card>
-      </b-col>
-      <b-col cols="12" sm="6" lg="2">
-        <b-card :no-body="true">
-          <b-card-body class="p-0 clearfix">
-            <i class="fa fa-close  bg-danger p-4 font-2xl mr-3 float-left text-white"></i>
-            <div class="h4 text-danger mb-0 pt-3">{{order.halted}}</div>
-            <div class="text-muted text-uppercase font-weight-bold font-md">Rejected</div>
-          </b-card-body>
-        </b-card>
-      </b-col>
-      <b-col cols="12" sm="6" lg="2">
-      <b-card :no-body="true">
-        <b-card-body class="p-0 clearfix">
-          <i class="fa fa-ban  bg-danger p-4 font-2xl mr-3 float-left"></i>
-          <div class="h4 text-danger mb-0 pt-3">{{order.cancelled}}</div>
-          <div class="text-muted text-uppercase font-weight-bold font-md">Cancelled</div>
-        </b-card-body>
-      </b-card>
-      </b-col>
+
+    <b-row class="p-0 m-0 d-flex justify-content-between"> 
+      <div class="card smallCard" >
+        <div class="smallCardBody">
+          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <div class=" p-2">
+            <div class="h5 text-danger  ">{{order.open}}</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs">Pending</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card smallCard">
+        <div class="smallCardBody">
+          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <div class=" p-2">
+            <div class="h5 text-danger  ">{{order.acknowledged}}</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs">Accepted</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card smallCard">
+        <div class="smallCardBody">
+          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <div class=" p-2">
+            <div class="h5 text-danger  ">{{order.processed}}</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs">Processing</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card smallCard">
+        <div class="smallCardBody">
+          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <div class=" p-2">
+            <div class="h5 text-danger  ">{{order.completed}}</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs">Completed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card smallCard">
+        <div class="smallCardBody">
+          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <div class=" p-2">
+            <div class="h5 text-danger  ">{{order.halted}}</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs">Rejected</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card smallCard">
+        <div class="smallCardBody">
+          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <div class=" p-2">
+            <div class="h5 text-danger  ">{{order.cancelled}}</div>
+            <div class="text-muted text-uppercase font-weight-bold font-xs">Cancelled</div>
+          </div>
+        </div>
+      </div>
     </b-row>
+
+
+
+
+
 
 
     <div class="pt-5">
@@ -217,7 +228,7 @@ export default {
   data() {
     return {
       order : [],
-      finance: []
+      finance: [],
       }
     },
   created(){
@@ -248,5 +259,13 @@ export default {
   li {
     margin-bottom: 1rem;
     font-weight: normal;
+  }
+
+  .smallCard {
+    width: 300px;
+  }
+  .smallCardBody {
+    display: flex;
+    justify-content: align-left 
   }
 </style>

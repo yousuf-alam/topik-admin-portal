@@ -14,18 +14,18 @@
         <b-row>
             <b-col sm="6" md="6">
                 <b-card>
-        
+
                         <h4 class="card-title">Complain Tags</h4>
                         <ul style="list-style: none;" v-for="comp_id in orderComplain.complain_id" :key="comp_id">
                             <li>
                                 <p style="font-size: 16px">
-                                    <span class="badge badge-info" v-html="showThisComplain(comp_id)">
+                                    <span class="badge badge-warning" v-html="showThisComplain(comp_id)">
                                         <!-- {{showThisComplain(comp_id)}} -->
                                     </span>
                                 </p>
                             </li>
                         </ul>
-               
+
                 </b-card>
             </b-col>
             <b-col sm="6" md="6">
@@ -33,18 +33,18 @@
                     <h4 class="card-title">Complain Details</h4>
 
                     <ul style="list-style: none;">
-                        
+
                         <!-- <li><h6><span class="font-weight-bold">Status  :</span> <span> abcd </span></h6></li>  -->
-                        
+
                         <li>
                             <h6>
                                 <span class="font-weight-bold">  Order ID : </span>
-                                <span> 
+                                <span>
                                    <router-link :to="{ name: 'OrderShow', params: { id: orderComplain.order_id }}">
-                                        <span class="p-2" data-toggle="tooltip" title="Show"    >
+                                        <span class="p-2" data-toggle="tooltip" title="See Order Details"    >
                                             {{orderComplain.order_id}}
                                         </span>
-                                    </router-link> 
+                                    </router-link>
                                 </span>
                             </h6>
                         </li>
@@ -160,7 +160,7 @@ export default {
                 this.spContact = response.data.user.phone;
             }).catch(e => {
                 console.log("fetchPartner :: error occurs: ", e.response);
-            });            
+            });
         }
     }
 }

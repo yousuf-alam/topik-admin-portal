@@ -64,8 +64,8 @@ import _ from 'lodash';
 import moment from 'moment';
 import globalvariables from '../../../globalvariables';
 const BASE_URL = globalvariables.BASE_URL; //globalvariables.BASE_URL;
-
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue';
+import EventBus from '../../../utils/EventBus';
 export default {
     name: 'NotificationDropdown',
     components: {
@@ -155,8 +155,12 @@ export default {
         },
         countUnreadNoti() {
             axios.get(`${BASE_URL}/api/count-unread-noti`)
-                .then(res => { this.unreadNotiCounter = res.data; })
+                .then(res => { this.unreadNotiCounter = res.data;
+                  EventBus.$emit('unread:notification', res.data);})
                 .catch(error => {    });
+
+
+
 
         },
         handleClick() {

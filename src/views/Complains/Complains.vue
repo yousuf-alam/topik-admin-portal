@@ -20,10 +20,10 @@
                 <v-client-table :data="tableData" :columns="columns" :options="options">
                     <template slot="order_id" slot-scope="props">
                         <router-link :to="{ name: 'OrderShow', params: { id: props.row.order_id }}">
-                            <span class="p-2" data-toggle="tooltip" title="Show" :href="props.row.show">
+                            <span class="p-2" data-toggle="tooltip" title="See Order Details" :href="props.row.show">
                                 {{props.row.order_id}}
                             </span>
-                        </router-link>                        
+                        </router-link>
                     </template>
                     <template slot="description" slot-scope="props">
                         {{ cutDescriptionToShort(props.row.description) }}
@@ -62,7 +62,7 @@ export default {
     name: 'Notifications',
     data() {
         return {
-            data_loaded_successfully: false, 
+            data_loaded_successfully: false,
             columns: ['id', 'order_id', 'description', 'created_at' ,'action'],
             tableData: [],
                 options: {

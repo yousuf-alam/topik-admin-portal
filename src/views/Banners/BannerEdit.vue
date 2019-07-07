@@ -15,7 +15,7 @@
           <option value="hot-deals">Hot Deals Banner</option>
           <option value="beauty-on-demand">Beauty On-Demand Banner</option>
           <option value="tailor-on-demand">Tailor On-Demand Banner</option>
-        </select> 
+        </select>
         <select class='form-control' v-model="banner.type" v-else>
           <option value="top-banner">Top Banner</option>
           <option value="bottom-banner">Bottom Banner</option>
@@ -67,7 +67,7 @@
       return {
         banner: [],
         src_image : '/images/banners/',
-        image_url: '', 
+        image_url: '',
         services: '',
         categories: '',
         subcategories: '',
@@ -75,7 +75,7 @@
       }
     },
     created() {
-      
+
       this.banner.id= window.location.pathname.split("/").pop();
       this.getServices();
       this.getCategories();
@@ -97,7 +97,7 @@
     methods: {
 
       getServices() {
-        
+
         axios.get(`${Admin_URL}/services`)
           .then(response => {
             this.services = response.data;
@@ -107,7 +107,7 @@
           });
       },
       getCategories() {
-        
+
         axios.get(`${Admin_URL}/all-categories`, {
          // service_id: this.banner.service_id
         })
@@ -122,7 +122,7 @@
 
       },
       getSubcategories() {
-        
+
         axios.post(`${Admin_URL}/subcategories`, {
           category_id: this.banner.category_id
         })
@@ -137,11 +137,11 @@
       },
       onImageChange(e) {
         const file = e.target.files[0];
-        if (file === undefined) { 
-          return; 
-        } 
+        if (file === undefined) {
+          return;
+        }
         this.banner.image = file;
-        this.image_url = URL.createObjectURL(file); 
+        this.image_url = URL.createObjectURL(file);
 
       },
       onSubmit(e) {
@@ -169,12 +169,16 @@
           .then(response => {
             //console.log('Success', response);
             currentObj.success = response.data.success;
-            this.$swal('Success', "Data Updated Successfully", 'success')
-              .then(response => {
-                if (response.value) {
-                  this.$router.push({ name: 'Banners'});
-                }
-              })
+              if(response.data.success===true)
+              {
+                this.$swal('Success',response.data.message,'success');
+                this.$router.push({name: 'Banners'});
+              }
+              else
+              {
+                this.$swal('Error', 'Something went wrong', 'error');
+              }
+
           })
           .catch(error => {
             console.log('Error  ... ', error.response);

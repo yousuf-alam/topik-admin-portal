@@ -8,10 +8,7 @@
               <div>
                 <router-link :to="{ name: 'PartnerShow', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.id">
                                     <i class="fa fa-search"></i></span></router-link>
-                <router-link :to="{ name: 'PartnerShow', params: { id: props.row.id }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Go to Partner Profile" :href="props.row.id">
-                                    <i class="fa fa-edit"></i></span></router-link>
-
-                <span class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Redirect"
+                <span class="btn btn-success btn-sm m-1 cursor-pointer" data-toggle="tooltip" title="Redirect to Partner Portal"
                   @click="handleForward(props.row)">
                     <i class="fa fa-forward"></i>
                 </span>

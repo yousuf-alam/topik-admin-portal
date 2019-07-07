@@ -18,7 +18,7 @@
                     <v-client-table :data="locations" :columns="columns" :options="options">
                         <template slot="action" slot-scope="props">
                             <div>
-                                <router-link :to="{ name: 'LocationEdit', params: { id: 1 }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.show">
+                                <router-link :to="{ name: 'LocationEdit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.show">
                                     <i class="fa fa-edit"></i></span></router-link>
                                 <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
                                     <i class="fa fa-trash"></i></span>
@@ -39,7 +39,7 @@
         data() {
             return {
                 locations : [],
-                columns: ['name', 'city', 'created_by', 'action'],
+                columns: ['name', 'city','radius', 'action'],
 
                 options: {
                     pagination: {nav: 'fixed'},

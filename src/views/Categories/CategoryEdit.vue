@@ -236,13 +236,13 @@
         url_banner_android: '',
         url_banner_ios: '',
 
-        src_svg: '/images/category/icon_svg/',
-        src_pdf: '/images/category/icon_pdf/',
-        src_thumbnail: '/images/category/thumbnail/',
-        src_banweb: '/images/category/banner_web/',
-        src_bantab: '/images/category/banner_tab/',
-        src_banios: '/images/category/banner_ios/',
-        src_banand: '/images/category/banner_android/',
+        src_svg: '/images/icon_svg/',
+        src_pdf: '/images/icon_pdf/',
+        src_thumbnail: '/images/thumbnail/',
+        src_banweb: '/images/banner_web/',
+        src_bantab: '/images/banner_tab/',
+        src_banios: '/images/banner_ios/',
+        src_banand: '/images/banner_android/',
 
       }
     },
@@ -253,7 +253,7 @@
       fetchData() {
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         const BASE_URL = process.env.VUE_APP_BASE_URL;
-        
+
         let id = window.location.pathname.split("/").pop();
         this.category.id = id;
         axios.post(`${ADMIN_URL}/categories/edit`,
@@ -261,7 +261,7 @@
             id: this.category.id
           }).then(response =>{
           this.category = response.data;
-          
+
           //console.log('created,,, category ==== ', this.category);
 
           this.url_icon_svg = this.category.icon_svg === null ? null : `${BASE_URL}${this.src_svg}${this.category.icon_svg}`;
@@ -277,15 +277,15 @@
             //console.log("error occurs");
           });
 
-      }, 
+      },
 
       previewImage(e, file_name, file_url) {
         const file = e.target.files[0];
-        if (file === undefined) { 
-          return; 
-        } 
+        if (file === undefined) {
+          return;
+        }
         this.category[file_name] = file;
-        this[file_url] = URL.createObjectURL(file);        
+        this[file_url] = URL.createObjectURL(file);
       },
 
       onSVGChange(e) {
@@ -339,6 +339,14 @@
         axios.post(`${ADMIN_URL}/categories/update`, formData, config)
           .then( (response) => {
             currentObj.success = response.data.success;
+            if(response.data.success===true)
+            {
+              this.$swal('Success',response.data.message,'success');
+            }
+            else
+            {
+              this.$swal('Error', 'Something went wrong', 'error');
+            }
             this.fetchData();
           })
           .catch(function (error) {

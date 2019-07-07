@@ -2,34 +2,34 @@
     <div class="">
         <div class="walletHead card">
             <div class="card-body">
-                <h1 class="card-description"> {{partner.name}}</h1>
+              <b-row>
+                <b-col cols="8"></b-col>
+                <b-col cols="4">
+                  <h2 class="font-weight-bold"> {{partner.name}}</h2>
+                </b-col>
+              </b-row>
                 <div class="wallet-forhead">
-                    <div class="leftside">
-                    </div>
-                    <div class="rightside">
-                        <img src="https://partner.staging180601.romoni.xyz/site_assets/img/wallet-pink.png" width="30%"
-                             alt="wallet-icon">
-                        <div class="badge badge-success money">৳ {{partner.balance}}</div>
-                        <div class="money-condition">Credit</div>
-                    </div>
+                  <div class="leftside">
+                  </div>
+                  <div class="rightside" v-if="partner.balance >0">
+                    <img src="/img/wallet-pink.png" width="30%"
+                         alt="wallet-icon">
+                    <div class="badge badge-success money">৳ {{partner.balance }}</div>
+                    <h1 class="text-success font-weight-bold">Credit</h1>
+                  </div>
+                  <div class="rightside" v-else >
+                  <img src="https://partner.staging180601.romoni.xyz/site_assets/img/wallet-pink.png" width="30%"
+                       alt="wallet-icon">
+                  <div class="badge badge-danger money">৳ {{partner.balance }}</div>
+                  <h1 class="text-danger font-weight-bold">Debit</h1>
+                </div>
                 </div>
             </div>
         </div>
         <b-tabs card>
             <b-tab title="Transaction History" active>
                 <b-card>
-                    <v-client-table :data="wallet_history" :columns="columns" :options="options">
-                        <template slot="action" slot-scope="props">
-                            <div>
-                                <router-link :to="{ name: 'WalletShow', params: { id: 1 }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
-                                    <i class="fa fa-search"></i></span></router-link>
-                                <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit">
-                                    <i class="fa fa-edit"></i></span>
-                                <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
-                                    <i class="fa fa-trash"></i></span>
-                            </div>
-                        </template>
-                    </v-client-table>
+                    <v-client-table :data="wallet_history" :columns="columns" :options="options"></v-client-table>
                 </b-card>
             </b-tab>
             <b-tab title="Advance Recharge">
@@ -39,11 +39,10 @@
                             <input type="hidden" name="_token" value="">
                             <div class="form-group">
                                 <label class="text-center">Recharge Amount</label>
-                                <input type="number" name="recharge_wallet" class="form-control form-control-lg"
-                                       id="recharge">
+                                <input type="number" class="form-control form-control-lg" v-model="amount">
                             </div>
                             <div class="mt-3">
-                                <input class="btn btn-danger btn-block" type="submit" value="Recharge Wallet">
+                              <button class="btn btn-danger btn-block" @click="recharge">"Recharge Wallet"</button>
                             </div>
                         </div>
 
@@ -56,13 +55,15 @@
 
 <script>
   import axios from 'axios';
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
     export default {
         name: 'WalletShow',
         data() {
             return {
               partner: [],
               wallet_history: [],
-                columns: ['date', 'id', 'description','debit','credit','balance', 'action'],
+              amount: '',
+                columns: ['created_at', 'id', 'description','debit','credit','balance'],
                 options: {
                     pagination: {nav: 'fixed'},
                     filterByColumn: true,
@@ -75,33 +76,54 @@
             }
         },
       created(){
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        let partner_id = window.location.pathname.split("/").pop();
-        this.id = partner_id;
-        axios.post(`${ADMIN_URL}/partners/show`,
-          {
-            id: this.id
-          }).then(response =>{
-          this.partner = response.data;
-          console.log(response.data);
-        })
-          .catch(e=>{
-            console.log("error occurs",e);
-          });
+          this.fetchData();
 
       },
         methods: {
 
-            delete(id) {
-                // The id can be fetched from the slot-scope row object when id is in columns
-                console.log('hi');
-            }
+          fetchData(){
+            this.id = window.location.pathname.split("/").pop();
+            axios.post(`${ADMIN_URL}/partners/show`,
+              {
+                id: this.id
+              }).then(response =>{
+              this.partner = response.data;
+              this.wallet_history = this.partner.wallet_history;
+              console.log(response.data);
+            })
+              .catch(e=>{
+                console.log("error occurs",e);
+              });
+          },
+
+          recharge() {
+            axios.post(`${ADMIN_URL}/wallet/recharge`,
+              {
+                partner_id: this.id,
+                amount    : this.amount
+              }).then(response =>{
+              this.partner = response.data;
+              console.log(response.data);
+              if(response.data.success===true)
+              {
+                this.$swal('Success',response.data.message,'success');
+                this.fetchData();
+              }
+              else
+              {
+                this.$swal('Error', 'Something went wrong', 'error');
+              }
+            })
+              .catch(e=>{
+                console.log("error occurs",e);
+              });
+
+          },
+
         },
     }
 </script>
 
-}
-</script>
 
 <style scoped>
 

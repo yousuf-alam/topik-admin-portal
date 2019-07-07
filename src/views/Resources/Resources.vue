@@ -8,9 +8,7 @@
               <div>
                 <router-link :to="{ name: 'ResourceShow', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.id">
                                     <i class="fa fa-search"></i></span></router-link>
-                <router-link :to="{ name: 'ResourceShow', params: { id: props.row.id }}"><span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Go to Resource Profile" :href="props.row.id">
-                                    <i class="fa fa-edit"></i></span></router-link>
-                <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
+                <span class="btn btn-danger btn-sm m-1 cursor-pointer" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
               </div>
             </template>
           </v-client-table>

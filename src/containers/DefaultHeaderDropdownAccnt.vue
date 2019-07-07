@@ -2,51 +2,32 @@
   <AppHeaderDropdown right no-caret>
     <template slot="header">
       <img
-        :src="origin_url+'/img/avatars/6.jpg'"
+        :src="image_url+loggedInUser.avatar"
         class="img-avatar"
         alt="admin@bootstrapmaster.com" />
     </template>
     <template slot="dropdown">
           <b-dropdown-header tag="div" class="text-center">
-            <strong>Account</strong>
+            <strong>Romoni Admin</strong>
           </b-dropdown-header>
            <b-dropdown-item class="logged-in-user">
-             <div > {{ loggedInUser.name }}  </div>
+              {{ loggedInUser.name }}
            </b-dropdown-item>
 
-           <b-dropdown-item><i class="fa fa-bell-o" /> Updates
-             <b-badge variant="info">{{ itemsCount }}</b-badge>
+           <b-dropdown-item>
+             <router-link :to="{name: 'SelfAllNotifications'}">
+             <i class="fa fa-bell-o"></i> Notifications
+             <b-badge variant="danger">{{ itemsCount }}</b-badge>
+             </router-link>
            </b-dropdown-item>
-           <b-dropdown-item><i class="fa fa-envelope-o" /> Messages
-             <b-badge variant="success">{{ itemsCount }}</b-badge>
+           <b-dropdown-item>
+            <router-link :to="{name: 'Profile'}">
+             <i class="fa fa-user"></i>
+             Profile
+            </router-link>
            </b-dropdown-item>
-           <!--
-             <b-dropdown-item><i class="fa fa-tasks" /> Tasks
-               <b-badge variant="danger">{{ itemsCount }}</b-badge>
-             </b-dropdown-item>
-             <b-dropdown-item><i class="fa fa-comments" /> Comments
-               <b-badge variant="warning">{{ itemsCount }}</b-badge>
-             </b-dropdown-item>
-           -->
-           <b-dropdown-header
-             tag="div"
-             class="text-center">
-             <strong>Settings</strong>
-           </b-dropdown-header>
-           <b-dropdown-item><i class="fa fa-user" /> Profile</b-dropdown-item>
-           <b-dropdown-item><i class="fa fa-wrench" /> Settings</b-dropdown-item>
-           <!--
-             <b-dropdown-item><i class="fa fa-usd" /> Payments
-               <b-badge variant="secondary">{{ itemsCount }}</b-badge>
-             </b-dropdown-item>
-             <b-dropdown-item><i class="fa fa-file" /> Projects
-               <b-badge variant="primary">{{ itemsCount }}</b-badge>
-             </b-dropdown-item>
-             <b-dropdown-divider />
-             <b-dropdown-item><i class="fa fa-shield" /> Lock Account</b-dropdown-item>
-           -->
            <b-dropdown-item @click="logoutClicked">
-             <i class="fa fa-lock " />
+             <i class="fa fa-lock text-danger"></i>
              <b class="text-danger"> Logout </b>
            </b-dropdown-item>
     </template>
@@ -55,19 +36,23 @@
 
 <script>
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue'
+import EventBus from '../utils/EventBus';
+const BASE_URL = process.env.VUE_APP_BASE_URL;
 export default {
   name: 'DefaultHeaderDropdownAccnt',
   components: {
-    AppHeaderDropdown
+    AppHeaderDropdown,
   },
   data() {
     return {
-      itemsCount: 42,
-      origin_url: window.location.origin
+      itemsCount: '',
+      image_url: ''
     }
   },
   created() {
-
+    EventBus.$on('unread:notification'   , this.notificationCount.bind(this));
+    this.notificationCount();
+    this.image_url = BASE_URL +'/';
   },
   computed: {
     loggedInUser() {
@@ -83,6 +68,9 @@ export default {
         .catch(error => {
           //console.log('logout failure :: ', error.response);
         })
+    },
+    notificationCount(count) {
+      this.itemsCount = count;
     }
   }
 }
@@ -90,9 +78,13 @@ export default {
 
 <style scoped>
 .logged-in-user {
-  background-color: rgb(187, 202, 243);
+  background-color: #BBCAF3;
   text-align: center;
   font-weight: 600;
 }
+  a{
+    color: initial;
+    text-decoration: none;
+  }
 
 </style>

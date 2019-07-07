@@ -228,13 +228,13 @@
           banner_android: '',
           banner_ios: '',
         },
-        src_svg: '/images/subcategory/icon_svg/',
-        src_pdf: '/images/subcategory/icon_pdf/',
-        src_thumbnail: '/images/subcategory/thumbnail/',
-        src_banweb: '/images/subcategory/banner_web/',
-        src_bantab: '/images/subcategory/banner_tab/',
-        src_banios: '/images/subcategory/banner_ios/',
-        src_banand: '/images/subcategory/banner_android/',
+        src_svg: '/images/icon_svg/',
+        src_pdf: '/images/icon_pdf/',
+        src_thumbnail: '/images/thumbnail/',
+        src_banweb: '/images/banner_web/',
+        src_bantab: '/images/banner_tab/',
+        src_banios: '/images/banner_ios/',
+        src_banand: '/images/banner_android/',
 
       }
     },
@@ -312,6 +312,14 @@
         axios.post(`${ADMIN_URL}/categories/update`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
+            if(response.data.success===true)
+            {
+              this.$swal('Success',response.data.message,'success');
+            }
+            else
+            {
+              this.$swal('Error', 'Something went wrong', 'error');
+            }
           })
           .catch(function (error) {
             currentObj.output = error;

@@ -1,6 +1,6 @@
 <template>
   <div class="animated fadeIn">
-    <h4><i class="fa fa-shopping-cart mr-2 mb-4"></i>ORDER STATUS</h4>
+    <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i>ORDER STATUS</h4>
 
     <b-row class="p-0 m-0 d-flex justify-content-between"> 
       <div class="card smallCard" >
@@ -70,8 +70,8 @@
 
 
 
-    <div class="pt-5">
-      <h4><i class="fa fa-money mr-2 mb-4"></i>SALES STATISTICS</h4>
+    <div class="pt-3">
+      <h4><i class="fa fa-money mr-2 mb-2"></i>SALES STATISTICS</h4>
       <b-card-group deck >
         <b-card
           style="font-size: 16px; font-weight: bold"

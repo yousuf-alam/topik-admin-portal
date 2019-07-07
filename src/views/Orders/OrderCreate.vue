@@ -164,7 +164,7 @@
           discount: 0,
           serviceNo: this.services.length,
           sp:this.selected_partner.name,
-          address:this.schedule.delivery_address,
+          address:this.schedule.address.address_details,
           schedule:this.schedule
         }
       },
@@ -185,7 +185,7 @@
         formData.append('scheduled_time', this.schedule.selected_time);
         formData.append('scheduled_date', this.schedule.selected_date);
         formData.append('shipping_name', this.customer.name);
-        formData.append('shipping_address', this.schedule.delivery_address);
+        formData.append('shipping_address', JSON.stringify(this.schedule.address));
         formData.append('shipping_phone', this.customer.phone);
         formData.append('payment_method', this.payment_method);
         formData.append('measurement', this.measurement_type);

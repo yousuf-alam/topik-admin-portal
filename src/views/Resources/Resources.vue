@@ -2,6 +2,7 @@
   <div>
     <b-row>
       <b-col>
+        <h4><i class="fa fa-users"></i><span class="ml-1">Resources</span></h4>
         <b-card>
           <v-client-table :data="resources" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">

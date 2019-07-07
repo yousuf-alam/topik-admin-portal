@@ -2,6 +2,7 @@
   <div class="animated fadeIn">
     <b-row>
       <b-col>
+        <h4><i class="icon cui-credit-card"></i><span class="ml-1">Partner Wallets</span></h4>
         <b-card>
           <v-client-table :data="partners" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">

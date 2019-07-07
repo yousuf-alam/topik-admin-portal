@@ -27,7 +27,7 @@
       </b-form-group>
 
       <b-form-group label="Delivery Address">
-          <b-form-input @keyup="addSchedule" type="text" v-model="schedule.delivery_address"></b-form-input>
+          <b-form-input @keyup="addSchedule" type="text" v-model="schedule.address.address_details"></b-form-input>
       </b-form-group>
     </b-card>
 </template>
@@ -48,7 +48,11 @@
         schedule : {
           selected_time: '',
           selected_date: '',
-          delivery_address: '',
+          address : {
+            latitude: '',
+            longitude: '',
+            address_details: ''
+          }
         },
 
         disabledDates: {

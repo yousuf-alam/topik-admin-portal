@@ -57,9 +57,6 @@ Vue.use(VueAxios, axios);
 Vue.use(VModal)
 Vue.use(VueSweetalert2, { confirmButtonColor: '#41b882', cancelButtonColor: '#ff7674'})
 
-//Vue.use(require('vue-moment'));
-
-
 import router from './router'
 import store from './store/store';
 import globalvariables from './globalvariables';
@@ -87,6 +84,6 @@ new Vue({
     template: '<App/>',
     components: {
         App,
-        
+
     }
 })

@@ -42,7 +42,7 @@
                                 <input type="number" class="form-control form-control-lg" v-model="amount">
                             </div>
                             <div class="mt-3">
-                              <button class="btn btn-danger btn-block" @click="recharge">"Recharge Wallet"</button>
+                              <button class="btn btn-danger btn-block" @click="recharge">Recharge Wallet</button>
                             </div>
                         </div>
 

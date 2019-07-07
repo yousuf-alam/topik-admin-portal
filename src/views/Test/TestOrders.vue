@@ -1,7 +1,6 @@
 <template>
-    <div class="customcard ">
-
-    <h1>Test Orders</h1>
+    <div>
+    <b-card>
     <div class="table-responsive" id="order_table_container">
     <div class="d-flex">
         <div style="margin-left: auto;" class="mb-1">
@@ -12,7 +11,7 @@
                 <option :value="20">20</option>
                 <option :value="50">50</option>
             </select>
-        </div>   
+        </div>
     </div>
     <table>
         <tr class="hadingOne">
@@ -27,9 +26,9 @@
             <th v-for="item in columns" :key="item">
                 <div v-if="dateColumns.includes(item)">
                     <span v-html="makeDateRangeStrReadable(dateRangeString[item])"></span>
-                    <VueCtkDateTimePicker 
+                    <VueCtkDateTimePicker
                         input-size=sm
-                        
+
 
                         :range=true
                         :no-label=true
@@ -37,25 +36,25 @@
                         id="RangeDatePicker"
                         format="YYYY-MM-DD"
                         formatted="ll"
-                     
+
                         color="#533b87"
 
                         v-model="dateRange[item]"
-                        @formatted-value="handleDateRangeChange(item)" 
-                        
+                        @formatted-value="handleDateRangeChange(item)"
+
                     >
                     <!-- <button class="btn btn-secondary">Select</button> -->
                     </VueCtkDateTimePicker>
 
                 </div>
-                <div v-else-if="noFilteColumns.includes(item)"> 
-                    
+                <div v-else-if="noFilteColumns.includes(item)">
+
                 </div>
                 <div v-else>
-                    <input 
+                    <input
                         v-model="columnInputs[item]"
                         :name="item"
-                        class="form-control" 
+                        class="form-control"
                         :placeholder="`Filter By ${item}`"
                         @keyup="handleInputChange"
                     />
@@ -75,7 +74,7 @@
 
             <td> {{ order.bill }} </td>
 
-            <td> 
+            <td>
                 <router-link :to="{ name: 'OrderShow', params: { id: order.id }}">
                     <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
                         <i class="fa fa-search"></i>
@@ -95,17 +94,19 @@
 
     </table>
     </div>
-        <div class="pl-1">
-            <paginate
-                :pageCount="totalPageCount"
-                :clickHandler="onPaginateClick"
-                :prevText="'Prev'"
-                :nextText="'Next'"
-                :container-class="'pagination'">
-            </paginate>
+        <div class="pl-1 mt-3">
+          <span>{{total_count}} records </span>
         </div>
-    </div>
+    </b-card>
+      <paginate
+        :pageCount="totalPageCount"
+        :clickHandler="onPaginateClick"
+        :prevText="'Prev'"
+        :nextText="'Next'"
+        :container-class="'pagination'">
+      </paginate>
 
+  </div>
 </template>
 
 <script>
@@ -133,18 +134,18 @@ export default {
             toSortColumn: '',
             sortingDirection: '',
             columns: [
-                'created_at', 
-                'scheduled_date', 
+                'created_at',
+                'scheduled_date',
 
-                'id', 
+                'id',
                 'service_type' ,
-                'platform', 
+                'platform',
                 'status',
-                'customer', 
+                'customer',
                 'partner',
 
                 'bill',
-                
+
                 'action'
             ],
             columnInputs: {
@@ -153,6 +154,7 @@ export default {
             dateColumns: [ "created_at", "scheduled_date" ],
             noFilteColumns: ["action"],
             orders: [],
+            total_count: '0',
 
             dateRange: {
                 created_at: '',
@@ -172,7 +174,7 @@ export default {
 
     },
     computed: {
-        
+
         getSortIconStyle: function () {
             return (parm) => {
                 const defaultIcon = 'fa fa-sort';
@@ -199,7 +201,7 @@ export default {
                 for (let  index in splitedWords) {
                     splitedWords[index] = splitedWords[index].charAt(0).toUpperCase() + splitedWords[index].slice(1);
                 }
-                const readableName = splitedWords.join(" "); // splited by _ then join them. 
+                const readableName = splitedWords.join(" "); // splited by _ then join them.
                 return readableName.replace(/([a-z0-9])([A-Z])/g, '$1 $2'); // even to split the camelcase
             }
         }
@@ -208,11 +210,11 @@ export default {
         handleDateRangeChange(colName) {
 
             // console.log(
-            //     '\ncolName === ', colName, 
-            //     '\ndateRange === ', this.dateRange, 
+            //     '\ncolName === ', colName,
+            //     '\ndateRange === ', this.dateRange,
             //     '\n333333', this.dateRange[colName]
             //     );
-            
+
             if (this.dateRange[colName] === '' || this.dateRange[colName] === null) {
                 this.dateRangeString[colName] = '';
             } else {
@@ -222,12 +224,12 @@ export default {
 
                 const startMoment = moment(startDate).format("MMM Do YY");
                 const endMoment = (endDate === null || endDate === '') ? 'Select End Date' : moment(endDate).format("MMM Do YY");
-                this.dateRangeString[colName]  =  startMoment + "-" + endMoment;    
-                             
+                this.dateRangeString[colName]  =  startMoment + "-" + endMoment;
+
             }
-            this.makeReadySearchParams(); 
-             console.log('Seeeeee   ', this.dateRange, 'EEEEE', this.dateRangeString);  
-                   
+            this.makeReadySearchParams();
+             console.log('Seeeeee   ', this.dateRange, 'EEEEE', this.dateRangeString);
+
         },
         headingSortColumn(colName) {
             //console.log('heading Click ', colName);
@@ -235,14 +237,14 @@ export default {
                 if (this.sortingDirection === '') {
                     this.sortingDirection = "-up"
                 } else {
-                    this.sortingDirection = this.sortingDirection === '-up' ? '-down' : '-up' 
+                    this.sortingDirection = this.sortingDirection === '-up' ? '-down' : '-up'
                 }
             } else {
                 this.sortingDirection = '-up';
             }
-            this.toSortColumn = colName; 
+            this.toSortColumn = colName;
             const copyArray = [ ...this.orders ]
-            
+
             let sortByColumn = colName;
             if (colName === 'action') {
                 sortByColumn = 'id';
@@ -255,8 +257,8 @@ export default {
 
         },
         handleInputChange(e) {
-            clearTimeout(typingTimer); 
-            typingTimer = setTimeout(() => { 
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(() => {
                 this.makeReadySearchParams()
             }, 500);
 
@@ -273,7 +275,7 @@ export default {
             console.log('----------------', typeof( this.dateRange.created_at));
             let from = '';
             let to = ''
-            if (this.dateRange.created_at == ""|| this.dateRange.created_at == null) {
+            if (this.dateRange.created_at === ""|| this.dateRange.created_at == null) {
                 from = '';
                 to = ''
             } else {
@@ -281,8 +283,8 @@ export default {
                 to = this.dateRange.created_at.end;
             }
             const created_at = {from: from,     to: to }; // will set these two later
-            
-            if (this.dateRange.scheduled_date == ""|| this.dateRange.scheduled_date == null) {
+
+            if (this.dateRange.scheduled_date === ""|| this.dateRange.scheduled_date == null) {
                 from = '';
                 to = ''
             } else {
@@ -294,10 +296,10 @@ export default {
 
 
             const srcParms = {
-                id, service_type, platform, status, customer, 
+                id, service_type, platform, status, customer,
                 partner, bill, created_at, scheduled_date
             };
-            
+
             this.fetchOrder(srcParms);
              console.log('search ---- parms ---- ', srcParms);
 
@@ -305,7 +307,7 @@ export default {
         getInputValue(colName) {
             if (this.columnInputs[colName] === undefined) {
                 return '';
-            } 
+            }
             return this.columnInputs[colName];
         },
         fetchOrder(srcParms) {
@@ -315,7 +317,8 @@ export default {
           .then(response => {
             console.log('fetchOrder ...... response data ===== ', response.data );
             this.orders = response.data.orders;
-            this.totalPageCount = Math.ceil(response.data.totalcount / this.perPageItem);
+            this.totalPageCount = Math.ceil(response.data.total_count / this.perPageItem);
+            this.total_count = response.data.total_count;
           })
           .catch(e => {
             console.log("error occurs", e.response);
@@ -341,7 +344,7 @@ th, td {
   text-align: left;
 }
 table#t01 {
-  width: 100%;    
+  width: 100%;
   background-color: #f1f1c1;
 }
 th {

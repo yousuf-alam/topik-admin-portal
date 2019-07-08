@@ -1,7 +1,7 @@
 <template>
   <div class="animated fadeIn">
+    <div v-if="all_data_fetched_successfully">
     <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i>ORDER STATUS</h4>
-
     <b-row class="p-0 m-0 d-flex justify-content-between"> 
       <div class="card smallCard" >
         <div class="smallCardBody">
@@ -63,12 +63,6 @@
         </div>
       </div>
     </b-row>
-
-
-
-
-
-
 
     <div class="pt-3">
       <h4><i class="fa fa-money mr-2 mb-2"></i>SALES STATISTICS</h4>
@@ -216,6 +210,11 @@
 
       </b-card-group>
     </div>
+    </div>
+    <div v-else>
+      Loading...
+    </div>
+    
   </div>
 </template>
 
@@ -229,6 +228,7 @@ export default {
     return {
       order : [],
       finance: [],
+      all_data_fetched_successfully: false,
       }
     },
   created(){
@@ -241,7 +241,8 @@ export default {
         .then(response => {
           this.order = response.data.order;
           this.finance = response.data.finance;
-          console.log('open',this.order.open);
+          this.all_data_fetched_successfully = true;
+          console.log('finance ======  =========>> ', response.data.finance);
         })
         .catch(e => {
           //console.log("error occurs");

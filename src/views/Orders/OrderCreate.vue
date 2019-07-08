@@ -2,7 +2,7 @@
     <div class="animated fadeIn">
         <b-row>
             <b-col class="mb-5" sm="6" md="6">
-                <customer></customer>
+                <customer> </customer>
             </b-col>
             <b-col class="mb-5" sm="6" md="6">
                 <location></location>
@@ -10,7 +10,7 @@
         </b-row>
         <b-row>
             <b-col>
-                <schedule :type="type"></schedule>
+                <schedule :type="type"> </schedule>
             </b-col>
         </b-row>
         <b-row v-if="type==='Beauty On-Demand'">
@@ -24,18 +24,26 @@
       <b-row v-else>
         <b-col sm="6" md="6">
           <b-row>
-            <b-col><service :type="type"></service></b-col>
+            <b-col>
+              <service :type="type"> </service>
+            </b-col>
           </b-row>
-         <!-- <b-row>
-            <b-col><design></design></b-col>
-          </b-row>-->
+          <!-- 
+            <b-row>
+              <b-col><design></design></b-col>
+            </b-row> 
+          -->
         </b-col>
         <b-col sm="6" md="6">
           <b-row>
-            <b-col><accessories></accessories></b-col>
+            <b-col>
+              <accessories></accessories>
+            </b-col>
           </b-row>
           <b-row>
-            <b-col><cart></cart></b-col>
+            <b-col>
+              <cart></cart>
+            </b-col>
           </b-row>
         </b-col>
       </b-row>
@@ -100,6 +108,9 @@
         invoice:[],
         payment_method: 'cash_on_delivery'
       };
+    },
+    created() {
+      // console.log('Inside created propsss ', this.type)
     },
     mounted() {
 
@@ -215,12 +226,9 @@
             }
           })
           .catch(error => {
-            console.log('Error  ... ', error.response);
+            // console.log('Error  ... ', error.response);
             currentObj.output = error;
-            console.log(error);
           });
-
-
 
       }
 

@@ -2,9 +2,11 @@
   <AppHeaderDropdown right no-caret>
     <template slot="header">
       <img
-        :src="image_url+loggedInUser.avatar"
+        :src="`${BASE_URL}/${profile_image_url}`"
         class="img-avatar"
-        alt="admin@bootstrapmaster.com" />
+        @error="imageViewError"
+        :alt="profile_image_title" 
+      />
     </template>
     <template slot="dropdown">
           <b-dropdown-header tag="div" class="text-center">
@@ -45,19 +47,25 @@ export default {
   },
   data() {
     return {
+      BASE_URL: BASE_URL,
       itemsCount: '',
-      image_url: ''
+      profile_image_url: '',
+      profile_image_title: ''
     }
   },
   created() {
     EventBus.$on('unread:notification'   , this.notificationCount.bind(this));
     this.notificationCount();
-    this.image_url = BASE_URL +'/';
+    // this.image_url = BASE_URL +'/';
   },
   computed: {
     loggedInUser() {
       return this.$store.getters['auth/authUser'];
     }
+  },
+  mounted() {
+    this.profile_image_url = this.$store.getters['auth/authUser'].avatar;
+    this.profile_image_title = this.$store.getters['auth/authUser'].name;
   },
   methods: {
     logoutClicked(e) {
@@ -71,6 +79,10 @@ export default {
     },
     notificationCount(count) {
       this.itemsCount = count;
+    },
+    imageViewError() {
+      this.profile_image_url = 'images_api/imgnotfound3.png';
+      this.profile_image_title = 'Image Not Found';
     }
   }
 }

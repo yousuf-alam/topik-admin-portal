@@ -31,9 +31,9 @@
                <div class="form-group">
 					      <label class="font-weight-bold">Select Date Range:</label>
                  <p>
-                   <label>From : &nbsp</label>
+                   <label>From : &nbsp;</label>
                    <datepicker calendar-class="vdp-datepicker" v-model="date_from" format="yyyy-MM-dd"></datepicker>
-                   <label>To : &nbsp</label>
+                   <label>To : &nbsp;</label>
                    <datepicker calendar-class="vdp-datepicker" v-model="date_to" format="yyyy-MM-dd"></datepicker>
                  </p>
                </div>
@@ -49,7 +49,7 @@
                  <label class="font-weight-bold">Select Category:</label>
                  <select class="form-control" v-model="category">
                    <option selected value="all">All</option>
-                   <option v-for="cat in categories" :value="cat.id">{{cat.name}}</option>
+                   <option v-for="cat in categories" :value="cat.id" :key="cat.id">{{cat.name}}</option>
                  </select>
                </div>
                <div class="form-group">

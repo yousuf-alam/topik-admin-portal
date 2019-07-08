@@ -10,7 +10,9 @@
     <b-form-group label="Select Area">
       <select class="form-control" @change="addLocation" v-model="selected_location">
         <option value="0" disabled>Select a Location</option>
-        <option :value="location.id" v-for="location in locations">{{ location.name }}</option>
+        <option :value="location.id" v-for="location in locations" :key="location.id">
+          {{ location.name }}
+        </option>
       </select>
     </b-form-group>
   </b-card>
@@ -42,6 +44,7 @@
           }
         })
           .then(response => {
+            console.log('order create: Location.vue ', response.data)
             this.locations = response.data;
           })
           .catch(e => {

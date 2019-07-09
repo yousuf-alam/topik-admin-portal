@@ -38,12 +38,14 @@
         <div class="form-group">
           <label>Select Landing Category</label>
           <select @change="getSubcategories" class='form-control' v-model="category_id">
+            <option value="">None</option>
             <option :value="cat.id" v-for="cat in categories" :key="cat.id">{{ cat.name }}</option>
           </select>
         </div>
         <div v-if="service_id !== 2" class="form-group">
           <label >Select Landing Subcategory</label>
           <select class='form-control' v-model="subcategory_id">
+            <option value="">None</option>
             <option :value="subcat.id" v-for="subcat in subcategories" :key="subcat.id">{{ subcat.name }}</option>
           </select>
         </div>
@@ -81,13 +83,26 @@
         .catch(e => {
           //console.log("error occurs");
         });
+
+      this.getAllCategories();
     },
     methods: {
 
+      getAllCategories() {
+
+          axios.get(`${ADMIN_URL}/all-categories`)
+            .then(response => {
+              this.categories = response.data;
+            })
+            .catch(e => {
+              //console.log("error occurs");
+            });
+      },
       getCategories() {
          if(this.service_id === '0')
          {
            this.type = 'bottom-banner';
+           this.getAllCategories();
          }
          else
          {
@@ -101,9 +116,6 @@
                //console.log("error occurs");
              });
          }
-
-
-
       },
       getSubcategories() {
 

@@ -38,6 +38,7 @@
       <div class="form-group">
         <label>Select Landing Category</label>
         <select @change="getSubcategories" class='form-control' v-model="banner.category_id">
+          <option value="">None</option>
           <option :value="cat.id" v-for="cat in categories" :key="cat.id">
             {{ cat.name }}
           </option>
@@ -46,6 +47,7 @@
       <div v-if="banner.service_id !== 2" class="form-group">
         <label >Select Landing Subcategory</label>
         <select class='form-control' v-model="banner.subcategory_id">
+          <option value="">None</option>
           <option :value="subcat.id" v-for="subcat in subcategories" :key="subcat.id">
             {{ subcat.name }}
           </option>
@@ -58,7 +60,7 @@
 
 <script>
   import axios from 'axios';
-  const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
   const BASE_URL  = process.env.VUE_APP_BASE_URL;
   export default {
     name: "BannerEdit",
@@ -79,7 +81,8 @@
       this.banner.id= window.location.pathname.split("/").pop();
       this.getServices();
       this.getCategories();
-      axios.post(`${Admin_URL}/banners/show`,
+      this.getAllCategories();
+      axios.post(`${ADMIN_URL}/banners/show`,
         {
           id: this.banner.id
         }).then(response => {
@@ -98,7 +101,7 @@
 
       getServices() {
 
-        axios.get(`${Admin_URL}/services`)
+        axios.get(`${ADMIN_URL}/services`)
           .then(response => {
             this.services = response.data;
           })
@@ -106,9 +109,19 @@
             //console.log("error occurs");
           });
       },
+      getAllCategories() {
+
+        axios.get(`${ADMIN_URL}/all-categories`)
+          .then(response => {
+            this.categories = response.data;
+          })
+          .catch(e => {
+            //console.log("error occurs");
+          });
+      },
       getCategories() {
 
-        axios.get(`${Admin_URL}/all-categories`, {
+        axios.get(`${ADMIN_URL}/all-categories`, {
          // service_id: this.banner.service_id
         })
           .then(response => {
@@ -123,7 +136,7 @@
       },
       getSubcategories() {
 
-        axios.post(`${Admin_URL}/subcategories`, {
+        axios.post(`${ADMIN_URL}/subcategories`, {
           category_id: this.banner.category_id
         })
           .then(response => {
@@ -165,7 +178,7 @@
         formData.append('image', this.banner.image);
 
 
-        axios.post(`${Admin_URL}/banners/edit`,formData,config)
+        axios.post(`${ADMIN_URL}/banners/edit`,formData,config)
           .then(response => {
             //console.log('Success', response);
             currentObj.success = response.data.success;

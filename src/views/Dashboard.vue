@@ -2,7 +2,7 @@
   <div class="animated fadeIn">
     <div v-if="all_data_fetched_successfully">
     <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i>ORDER STATUS</h4>
-    <b-row class="p-0 m-0 d-flex  justify-content-center "> 
+    <b-row class="smallCardContainer "> 
 
       <div class="card smallCard" >
         <div class="smallCardBody">
@@ -35,7 +35,7 @@
       </div>
     </b-row>
 
-    <b-row class="p-0 m-0 d-flex justify-content-center">
+    <b-row class="smallCardContainer">
       <div class="card smallCard">
         <div class="smallCardBody">
           <i class="fa fa-check bg-danger p-4 font-2xl "></i>
@@ -222,8 +222,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+import axios from 'axios';
+const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
 
   name: 'dashboard',
@@ -273,25 +273,35 @@ export default {
     display: flex;
     justify-content: align-left 
   }
+  .smallCardContainer {
+    display: flex;
+    justify-content: space-around;
+  }
 
 
   @media  (max-width: 800px)  {
   .smallCard {
     width: 200px;
-    margin-right: 20px;
   }
 }
   @media  (min-width: 500px) and (max-width: 600px) {
+  .smallCardContainer {
+    display: flex;
+    justify-content: space-around;
+  }
   .smallCard {
     width: 170px;
-    margin-right: 10px;
+    border: 2px solid yellow;
+  }
+}
+  @media  (max-width: 499px) {
+  .smallCard {
+    width: 300px;
   }
 }
   @media  (min-width: 801px) and (max-width: 1024px) {
   .smallCard {
-    border: 1px solid greenyellow;
     width: 220px;
-    margin-right: 20px;
   }
 }
 </style>

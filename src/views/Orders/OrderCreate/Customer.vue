@@ -21,8 +21,7 @@
 <script>
 
   import EventBus from '../../../utils/EventBus'
-
-    export default {
+  export default {
         name: 'Customer',
       data() {
         return {
@@ -51,7 +50,7 @@
           }
 
         },
-        addCustomer(){
+        addCustomer() {
           this.onKeyUpPhone();
           EventBus.$emit('customer:add',this.customer) ;
         }

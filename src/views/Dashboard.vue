@@ -2,10 +2,11 @@
   <div class="animated fadeIn">
     <div v-if="all_data_fetched_successfully">
     <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i>ORDER STATUS</h4>
-    <b-row class="p-0 m-0 d-flex justify-content-between"> 
+    <b-row class="p-0 m-0 d-flex  justify-content-center "> 
+
       <div class="card smallCard" >
         <div class="smallCardBody">
-          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <i class="fa fa-unlock bg-danger p-4 font-2xl "></i>
           <div class=" p-2">
             <div class="h5 text-danger  ">{{order.open}}</div>
             <div class="text-muted text-uppercase font-weight-bold font-xs">Pending</div>
@@ -15,7 +16,7 @@
 
       <div class="card smallCard">
         <div class="smallCardBody">
-          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <i class="fa fa-laptop bg-danger p-4 font-2xl "></i>
           <div class=" p-2">
             <div class="h5 text-danger  ">{{order.acknowledged}}</div>
             <div class="text-muted text-uppercase font-weight-bold font-xs">Accepted</div>
@@ -25,17 +26,19 @@
 
       <div class="card smallCard">
         <div class="smallCardBody">
-          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <i class="fa fa-spinner bg-danger p-4 font-2xl "></i>
           <div class=" p-2">
             <div class="h5 text-danger  ">{{order.processed}}</div>
             <div class="text-muted text-uppercase font-weight-bold font-xs">Processing</div>
           </div>
         </div>
       </div>
+    </b-row>
 
+    <b-row class="p-0 m-0 d-flex justify-content-center">
       <div class="card smallCard">
         <div class="smallCardBody">
-          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <i class="fa fa-check bg-danger p-4 font-2xl "></i>
           <div class=" p-2">
             <div class="h5 text-danger  ">{{order.completed}}</div>
             <div class="text-muted text-uppercase font-weight-bold font-xs">Completed</div>
@@ -45,7 +48,7 @@
 
       <div class="card smallCard">
         <div class="smallCardBody">
-          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <i class="fa fa-close bg-danger p-4 font-2xl "></i>
           <div class=" p-2">
             <div class="h5 text-danger  ">{{order.halted}}</div>
             <div class="text-muted text-uppercase font-weight-bold font-xs">Rejected</div>
@@ -55,7 +58,7 @@
 
       <div class="card smallCard">
         <div class="smallCardBody">
-          <i class="fa fa-bell bg-danger p-4 font-2xl "></i>
+          <i class="fa fa-ban bg-danger p-4 font-2xl "></i>
           <div class=" p-2">
             <div class="h5 text-danger  ">{{order.cancelled}}</div>
             <div class="text-muted text-uppercase font-weight-bold font-xs">Cancelled</div>
@@ -264,9 +267,31 @@ export default {
 
   .smallCard {
     width: 300px;
+    margin-right: 20px;
   }
   .smallCardBody {
     display: flex;
     justify-content: align-left 
   }
+
+
+  @media  (max-width: 800px)  {
+  .smallCard {
+    width: 200px;
+    margin-right: 20px;
+  }
+}
+  @media  (min-width: 500px) and (max-width: 600px) {
+  .smallCard {
+    width: 170px;
+    margin-right: 10px;
+  }
+}
+  @media  (min-width: 801px) and (max-width: 1024px) {
+  .smallCard {
+    border: 1px solid greenyellow;
+    width: 220px;
+    margin-right: 20px;
+  }
+}
 </style>

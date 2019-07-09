@@ -275,7 +275,9 @@ export default {
   }
   .smallCardContainer {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+        padding: 0px 20px;
+
   }
 
 
@@ -287,7 +289,8 @@ export default {
   @media  (min-width: 500px) and (max-width: 600px) {
   .smallCardContainer {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 0px 20px;
   }
   .smallCard {
     width: 170px;

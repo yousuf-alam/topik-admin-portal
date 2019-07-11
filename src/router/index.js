@@ -26,6 +26,7 @@ const PromoEdit = () => import('../views/Promos/PromoEdit')
 const Locations = () => import('@/views/Locations/Locations')
 const LocationCreate = () => import('@/views/Locations/LocationCreate')
 const LocationEdit = () => import('../views/Locations/LocationEdit')
+const FullLocation = () => import('../views/Locations/FullLocation')
 
 const Services = () => import('@/views/Services/Services')
 const ServiceCreate = () => import('../views/Services/ServiceCreate')
@@ -323,6 +324,14 @@ const router =  new Router({
         component: LocationEdit,
         meta: {
          // permission_name: 'location update'
+        },
+      },
+      {
+        path: 'locations/full-coverage',
+        name: 'FullLocation',
+        component: FullLocation,
+        meta: {
+          permission_name: permissionsList.location
         },
       },
       {

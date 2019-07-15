@@ -2,8 +2,8 @@
   <div class="animated fadeIn">
     <div v-if="all_data_fetched_successfully">
       <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i>ORDER STATUS</h4>
-      <b-row class="smallCardContainer ml-1 mr-1">
-
+      <b-row class="smallCardContainer ">
+      <b-col sm="12" md="6" xl="2">
         <div class="card smallCard" >
           <div class="smallCardBody">
             <i class="fa fa-unlock bg-danger p-4 font-2xl "></i>
@@ -13,7 +13,8 @@
             </div>
           </div>
         </div>
-
+      </b-col>
+        <b-col sm="12" md="6" xl="2">
         <div class="card smallCard">
           <div class="smallCardBody">
             <i class="fa fa-laptop bg-danger p-4 font-2xl "></i>
@@ -23,19 +24,22 @@
             </div>
           </div>
         </div>
+      </b-col>
+     <!-- </b-row>
 
-        <div class="card smallCard">
-          <div class="smallCardBody">
-            <i class="fa fa-spinner bg-danger p-4 font-2xl "></i>
-            <div class=" p-2">
-              <div class="h5 text-danger  ">{{order.processed}}</div>
-              <div class="text-muted text-uppercase font-weight-bold font-xs">Processing</div>
+      <b-row class="smallCardContainer ">-->
+        <b-col sm="12" md="6" xl="2">
+          <div class="card smallCard">
+            <div class="smallCardBody">
+              <i class="fa fa-spinner bg-danger p-4 font-2xl "></i>
+              <div class=" p-2">
+                <div class="h5 text-danger  ">{{order.processed}}</div>
+                <div class="text-muted text-uppercase font-weight-bold font-xs">Processing</div>
+              </div>
             </div>
           </div>
-        </div>
-      </b-row>
-
-      <b-row class="smallCardContainer ml-1 mr-1">
+        </b-col>
+        <b-col sm="12" md="6" xl="2">
         <div class="card smallCard">
           <div class="smallCardBody">
             <i class="fa fa-check bg-danger p-4 font-2xl "></i>
@@ -45,7 +49,10 @@
             </div>
           </div>
         </div>
-
+        </b-col>
+      <!--</b-row>
+      <b-row class="smallCardContainer ">-->
+        <b-col sm="12" md="6" xl="2">
         <div class="card smallCard">
           <div class="smallCardBody">
             <i class="fa fa-close bg-danger p-4 font-2xl "></i>
@@ -55,7 +62,8 @@
             </div>
           </div>
         </div>
-
+        </b-col>
+        <b-col sm="12" md="6" xl="2">
         <div class="card smallCard">
           <div class="smallCardBody">
             <i class="fa fa-ban bg-danger p-4 font-2xl "></i>
@@ -65,6 +73,7 @@
             </div>
           </div>
         </div>
+        </b-col>
       </b-row>
 
       <div class="pt-3">
@@ -266,7 +275,7 @@
   }
 
   .smallCard {
-    width: 300px;
+    width: 100%;
     margin-right: 20px;
   }
   .smallCardBody {
@@ -279,7 +288,7 @@
   }
 
 
-  @media  (max-width: 800px)  {
+/*  @media  (max-width: 800px)  {
     .smallCard {
       width: 200px;
     }
@@ -308,5 +317,5 @@
     .smallCard {
       width: 430px;
     }
-  }
+  }*/
 </style>

@@ -41,13 +41,13 @@
           </b-form-group>
           <b-form-group label="Scheduled Time">
             <select class="form-control" v-model="order.scheduled_time">
-              <option value="08:00AM - 10:00AM">08:00 AM - 10:00 AM</option>
-              <option value="10:00AM - 12:00PM">10:00 AM - 12:00 PM</option>
-              <option value="12:00PM - 02:00PM">12:00 PM - 02:00 PM</option>
-              <option value="02:00PM - 04:00PM">02:00 PM - 04:00 PM</option>
-              <option value="04:00PM - 06:00PM">04:00 PM - 06:00 PM</option>
-              <option value="06:00PM - 08:00PM">06:00 PM - 08:00 PM</option>
-              <option value="08:00PM - 10:00PM">08:00 PM - 10:00 PM</option>
+              <option value="08.00AM-10.00AM"> 08:00 AM - 10:00 AM </option>
+              <option value="10.00AM-12.00PM"> 10:00 AM - 12:00 PM </option>
+              <option value="12.00PM-02.00PM"> 12:00 PM - 02:00 PM </option>
+              <option value="02.00PM-04.00PM"> 02:00 PM - 04:00 PM </option>
+              <option value="04.00PM-06.00PM"> 04:00 PM - 06:00 PM </option>
+              <option value="06.00PM-08.00PM"> 06:00 PM - 08:00 PM </option>
+              <option value="08.00PM-10.00PM"> 08:00 PM - 10:00 PM </option>
             </select>
           </b-form-group>
             <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
@@ -84,7 +84,7 @@
     <b-row>
       <b-col class="mb-5" sm="6" md="6">
         <b-card class="h-100 p-4 m-4">
-          <h5 class="mb-4">Billing Info</h5>
+          <h5 class="mb-4">Billing Details</h5>
           <b-form-group label="Service Charge">
             <input type="text" class="form-control" v-model="order.total_service_charge">
           </b-form-group>
@@ -97,6 +97,39 @@
           <b-form-group v-show="order.coupon_id!==null" label="Applied Promo">
             <span class="text-success">{{order.coupon_code}}</span>
           </b-form-group>
+          <h5 class="mb-4">Rating Details</h5>
+          <b-form-group>
+            <button class="btn btn-sm btn-warning m-1" v-if="!order.review" @click="new_review_bool=true">+ Add Review</button>
+            <button class="btn btn-sm btn-danger" v-if="new_review_bool===true" @click="new_review_bool=false">Cancel</button>
+          </b-form-group>
+          <div v-if="order.review">
+            <b-form-group label="Rating">
+              <select class="form-control" v-model="order.review.rating">
+                <option value="1">1 Star</option>
+                <option value="2">2 Star</option>
+                <option value="3">3 Star</option>
+                <option value="4">4 Star</option>
+                <option value="5">5 Star</option>
+              </select>
+            </b-form-group>
+            <b-form-group label="Review">
+              <input type="text" class="form-control" v-model="order.review.comment">
+            </b-form-group>
+          </div>
+          <div v-if="new_review_bool===true">
+            <b-form-group label="Rating">
+              <select class="form-control" v-model="new_rating">
+                <option value="1">1 Star</option>
+                <option value="2">2 Star</option>
+                <option value="3">3 Star</option>
+                <option value="4">4 Star</option>
+                <option value="5">5 Star</option>
+              </select>
+            </b-form-group>
+            <b-form-group label="Review">
+              <input type="text" class="form-control" v-model="new_review">
+            </b-form-group>
+          </div>
           <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
         </b-card>
       </b-col>
@@ -119,8 +152,8 @@
               <tr v-for="item in order.items" :key="item.id">
                 <td>{{item.name}}</td>
                 <td>
-                  <span 
-                    v-for="(answer, index) in item.options" 
+                  <span
+                    v-for="(answer, index) in item.options"
                     :key="index">
                     {{answer.ans}} <br>
                   </span>
@@ -224,7 +257,9 @@
         city: 'Dhaka',
         type: '',
         date_type: '',
-
+        new_review_bool: false,
+        new_rating: '',
+        new_review: '',
         flag_shipping_address_details: '',
         order_fetched_successfully: false
 
@@ -280,6 +315,7 @@
           this.order.shipping_address = JSON.parse(this.order.shipping_address);
           this.flag_shipping_address_details = this.order.shipping_address.address_details;
           this.order_fetched_successfully = true;
+
         }).catch(e => {
           console.log("error occurs",e);
         });
@@ -330,11 +366,14 @@
         const config = {
           headers: {'content-type': 'multipart/form-data'}
         };
-        
+
         if (this.order.shipping_address.address_details !== this.flag_shipping_address_details) {
           this.order.shipping_address.latitude = "";
           this.order.shipping_address.longitude = "";
         }
+
+
+
         //return;
 
         let formData = new FormData();
@@ -347,12 +386,12 @@
         formData.append('shipping_name', this.order.shipping_name);
         formData.append('shipping_address',  JSON.stringify(this.order.shipping_address));
         formData.append('shipping_phone', this.order.shipping_phone);
-        /*formData.append('measurement', this.measurement_type);
-        formData.append('accessories', JSON.stringify(this.accessories));*/
         formData.append('total_service_charge', this.order.total_service_charge);
         formData.append('total_discount', this.order.total_discount);
         formData.append('total_bill', this.order.total_bill);
-
+        formData.append('review', JSON.stringify(this.order.review));
+        formData.append('new_rating', this.new_rating);
+        formData.append('new_review', this.new_review);
 
       /*
         for( let i = 0; i < this.designs.length; i++ ){
@@ -367,7 +406,9 @@
             //console.log(response.data);
             if(response.data.success===true)
               this.$swal('Order Details Updated', '', 'success');
-              this.fetchOrder();
+              setTimeout(()=>{
+                location.reload();
+              },1000);
           })
           .catch(error => {
             // console.log('Error  ... ', error.response);

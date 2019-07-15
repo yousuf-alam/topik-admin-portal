@@ -16,6 +16,9 @@
       <b-row>
             <b-col>
                 <b-card>
+                  <router-link :to="{ name: 'FullLocation'}">
+                    <button class="btn btn-romoni-secondary">See Full Area Coverage</button>
+                  </router-link>
                     <v-client-table :data="locations" :columns="columns" :options="options">
                         <template slot="action" slot-scope="props">
                             <div>

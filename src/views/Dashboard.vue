@@ -245,7 +245,7 @@
             this.order = response.data.order;
             this.finance = response.data.finance;
             this.all_data_fetched_successfully = true;
-            console.log('finance ======  =========>> ', response.data.finance);
+            // console.log('finance ======  =========>> ', response.data.finance);
           })
           .catch(e => {
             //console.log("error occurs");

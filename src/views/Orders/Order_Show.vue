@@ -1,6 +1,6 @@
 <template>
   <div class="animated fadeIn">
-    <div v-if="order_fetched_successfully">
+    <div>
     <h3>Order Details</h3>
     <router-link :to="{ name: 'OrderEdit', params: { id: order.order_id }}">
       <span class="btn btn-romoni-secondary mb-3">Edit Order</span>

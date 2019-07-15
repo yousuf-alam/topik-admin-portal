@@ -18,7 +18,7 @@
                     <h1 class="text-success font-weight-bold">Credit</h1>
                   </div>
                   <div class="rightside" v-else >
-                  <img src="https://partner.staging180601.romoni.xyz/site_assets/img/wallet-pink.png" width="30%"
+                    <img src="/img/wallet-pink.png" width="30%"
                        alt="wallet-icon">
                   <div class="badge badge-danger money">৳ {{partner.balance }}</div>
                   <h1 class="text-danger font-weight-bold">Debit</h1>

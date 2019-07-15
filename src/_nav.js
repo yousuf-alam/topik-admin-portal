@@ -155,7 +155,7 @@ const navitems = {
     {
       name: 'Promo Codes',
       url: '/promos',
-      icon: 'fa fa-plus-square',
+      icon: 'fa fa-gift',
       permission_name:  permissionsList.promocode,
     },
     {

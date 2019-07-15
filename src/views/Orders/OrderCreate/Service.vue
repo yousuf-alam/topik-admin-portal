@@ -16,7 +16,7 @@
 
         </div>
         <div class="form-group">
-            <label for="2">Select Service</label>
+            <label for="2">Select Line Item</label>
             <select @change="fetchQuestion" v-model="selected_service" class="form-control" id="2">
                 <option v-for="service in servicesObject" :value="service">{{service.name}}</option>
             </select>

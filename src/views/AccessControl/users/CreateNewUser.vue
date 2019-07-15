@@ -56,7 +56,7 @@ import _ from 'lodash';
 export default {
     name: 'CreateUser',
     components: {
-        CheckRoles, 
+        CheckRoles,
     },
     data() {
         return {
@@ -65,10 +65,15 @@ export default {
             phone: '',
             phone_warning: '',
             password: '',
-            password_warning: '', 
+            address : {
+              latitude : '',
+              longitude: '',
+              address_details: ''
+            },
+            password_warning: '',
             password_confirmation: '',
             password_confirmation_warning: '',
-            checked_roles: [], 
+            checked_roles: [],
             checked_roles_warning: '',
             created_user: null,
 
@@ -78,8 +83,8 @@ export default {
         disableSubmitBtn: function() {
             const data = this.$data;
             // console.log('DATA === ', data);
-            let rule =  this.name.length === 0 || this.phone.length === 0 || 
-                    this.password.length === 0 || this.password_confirmation.length === 0 || 
+            let rule =  this.name.length === 0 || this.phone.length === 0 ||
+                    this.password.length === 0 || this.password_confirmation.length === 0 ||
                     this.name_warning.length > 0 || this.phone_warning.length > 0 ||
                     this.password_warning.length > 0 || this.password_confirmation_warning.length > 0;
             return rule;
@@ -93,16 +98,17 @@ export default {
             this.passwordConfirmKeyUp();
             if(this.disableSubmitBtn === true || this.checked_roles.length === 0) {
                 if (this.checked_roles.length === 0) {
-                    this.checked_roles_warning = "You haven't select any roles"; 
+                    this.checked_roles_warning = "You haven't select any roles";
                 }
-                return; 
+                return;
             }
             // console.log('Yes , you are prepeared to do action. . . . ');
             const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
             // console.log(ADMIN_URL);
             const formvalues = {};
             formvalues.name = this.name;
-            formvalues.phone = this.phone
+            formvalues.phone = this.phone;
+            formvalues.address = this.address;
             formvalues.password = this.password;
             formvalues.password_confirmation = this.password_confirmation;
 
@@ -113,7 +119,7 @@ export default {
                 }).catch(error => {
                     //console.log('Error === ', error.response)
                 })
-        }, 
+        },
         handleResponse(res) {
             if (res.status === 200) {
                 const dataObj = res.data;
@@ -130,7 +136,7 @@ export default {
                 });
                 // console.log('inside handle =--------= ', res.data, res.data.length, data, data.length);
             } else if (res.status === 201) {
-                this.created_user = res.data.user; 
+                this.created_user = res.data.user;
                 const user_id = this.created_user.id;
                 const role_ids = _.map(this.checked_roles, 'id');
                 const formvalues = {user_id, role_ids};
@@ -145,13 +151,13 @@ export default {
                     });
             }
 
-        }, 
+        },
         checkedRolesFun(parm) {
             // console.log(JSON.stringify(parm));
             this.checked_roles = parm;
             this.checked_roles_warning = '';
         },
-        nameKeyUp() { 
+        nameKeyUp() {
             if (this.name.length === 0) {
                 this.name_warning = 'Enter name';
             } else if (this.name.trim().length === 0) {
@@ -166,30 +172,30 @@ export default {
             const phoneIsValid = this.$gbvar.is_valid_phone(this.phone);
             if (phoneIsValid === false) {
                 this.phone_warning = 'Invalid phone number';
-            } else { 
+            } else {
                 this.phone_warning = '';
             }
 
             if(this.phone.length < 11 || this.phone.length > 11) {
                 this.phone_warning = 'Enter a valid phone number';
-            } 
-            if (this.phone.length === 0) { 
-                this.phone_warning = ''; 
+            }
+            if (this.phone.length === 0) {
+                this.phone_warning = '';
             }
         },
         passwordKeyUp() {
             if (this.password.length < 6 && this.password.length > 0) {
                 this.password_warning = 'Password must be at least 6 char long';
-            } else { 
-                this.password_warning = ''; 
-            } 
+            } else {
+                this.password_warning = '';
+            }
         },
         passwordConfirmKeyUp() {
 
             if (this.password !==  this.password_confirmation) {
                 this.password_confirmation_warning = 'Password not matched';
             } else {
-                 this.password_confirmation_warning = ''; 
+                 this.password_confirmation_warning = '';
             }
 
         }

@@ -277,6 +277,7 @@
   .smallCard {
     width: 100%;
     margin-right: 20px;
+    display: inline-table;
   }
   .smallCardBody {
     display: flex;

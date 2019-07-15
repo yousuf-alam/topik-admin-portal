@@ -1,6 +1,6 @@
 <template>
   <div class="animated fadeIn font-weight-bold">
-    <div v-if="order_fetched_successfully">
+    <div>
     <b-row>
       <b-col class="mb-5" sm="6" md="6">
         <b-card class="h-100 p-4 m-4">
@@ -210,9 +210,9 @@
     </b-row>
     </div>
 
-    <div v-else class="customcard">
+    <!--<div v-else class="customcard">
       Loading...
-    </div>
+    </div>-->
 
   </div>
 </template>

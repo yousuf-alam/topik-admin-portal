@@ -33,7 +33,7 @@
               <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Edit"> <i class="fa fa-edit"></i></span>
             </router-link>
             <router-link to="" >
-              <span @click="handleDelete" class="btn btn-danger btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
+              <span @click="handleDelete(props.row)" class="btn btn-danger btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
             </router-link>
 
           </div>
@@ -126,8 +126,20 @@ export default {
         this.fetchUsers();
     },
     methods: {
-        handleDelete() {
-            alert('Not implemented yet.');
+        handleDelete(parm) {
+            if (confirm('Are you sure?') ) {
+                const user_id = parm.id;
+                axios.delete(`${ADMIN_URL}/users/${user_id}`)
+                .then(response => {
+                    alert('User Deteted Successfully');
+                    this.fetchUsers(); 
+                }).catch(error => {
+
+                })
+
+            } else {
+                console.log('Noooooo')
+            }
         },
         fetchUsers() {
             axios.get(`${ADMIN_URL}/users/${this.perPageItem}/${this.pageNumber}`)

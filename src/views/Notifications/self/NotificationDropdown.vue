@@ -131,6 +131,7 @@ export default {
             */
             const user = this.$store.getters['auth/authUser'];
             const userId = user.id;
+            
             // This works fine.
             window.Echo.private('App.User.' + userId)
                 .notification((notification) => {
@@ -138,6 +139,33 @@ export default {
                     this.allNotiCounter++;
                     this.pageNumber = 0;
                     this.fetchNotiAfterPusherListen();
+
+                    console.log('inside window.Echo.private ----> ', notification.type);
+
+
+                    let  desktopNotiBody = ''
+                    if (notification.type === `App\\Notifications\\OrderStatusUpdated`) {
+                        desktopNotiBody = 'An order has been placed'
+                    }
+                    Notification.requestPermission( permission => {
+                        console.log('permission  ==== ', permission);
+                        let desktopNotification = new Notification('New Notification', {
+                            body: desktopNotiBody, // content for the alert
+                            icon: "https://pusher.com/static_logos/320x320.png" // optional image url
+                        });
+
+                        console.log('desktop notifications === ', desktopNotification);
+                        setTimeout(() => {
+                        desktopNotification.close()
+                        }, 3000);
+
+
+                        // link to page on clicking the notification
+                        desktopNotification.onclick = () => {
+                            window.open(window.location.href); // aikhane change korte hobe. 
+                        };
+                    });
+
                     /*
                         // this.notifications.push(notification.order);
                         Ai line ta likhle error khabe, karon, axios diye je notification

@@ -42,7 +42,7 @@
       return {
         PARTNER_FRONTEND_DOMAIN: PARTNER_FRONTEND_DOMAIN, /* TO_EDIT_THIS_PLACE */
         partners : [],
-        columns: ['id', 'name', 'type', 'booking type', 'phone' ,'status', 'created_at', 'action'],
+        columns: ['id', 'name', 'type', 'phone' ,'status', 'score', 'created_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,

@@ -411,7 +411,6 @@
         axios.post(`${Admin_URL}/line-items/new-design`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
-            alert(response.data.message);
             if(response.data.success===true)
             {
               //this.$swal('Success', response.data.message, 'success');

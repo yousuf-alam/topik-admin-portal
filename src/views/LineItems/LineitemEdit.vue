@@ -291,7 +291,7 @@
         src_bantab: '/images/banner_tab/',
         src_banios: '/images/banner_ios/',
         src_banand: '/images/banner_android/',
-        src_designs:'/images/designs/',
+        src_designs:'/images/lineitem/designs/',
         up_designs: [],
         new_design: [],
         loading: true,

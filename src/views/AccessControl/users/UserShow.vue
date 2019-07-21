@@ -1,6 +1,5 @@
 <template>
     <div class="customcard">
-        <h3>View single user</h3>
         <div v-if="user_notfound">
             <h4 class="text-danger">User Not Found</h4>
         </div>
@@ -42,14 +41,6 @@
                     <th scope="row">Gender</th>
                     <td>{{user.gender}}</td>
                 </tr>
-                <tr>
-                    <th scope="row">Responsibilities</th>
-                    <td>{{user.responsibilities}}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Fb accountkit id</th>
-                    <td>{{user.fb_accountkit_id}}</td>
-                </tr>
             </tbody>
             </table>
         </div>
@@ -75,7 +66,7 @@ export default {
         axios.get(`${ADMIN_URL}/users/${user_id}`)
             .then(response => {
                 //console.log('Response  ', response)
-                this.user = response.data; 
+                this.user = response.data;
                 this.roles = this.user.roles;
             }).catch(error => {
                 //console.log('Error. .. .', error.response);

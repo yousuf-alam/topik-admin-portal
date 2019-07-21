@@ -140,31 +140,8 @@ export default {
                     this.pageNumber = 0;
                     this.fetchNotiAfterPusherListen();
 
-                    console.log('inside window.Echo.private ----> ', notification.type);
 
-
-                    let  desktopNotiBody = ''
-                    if (notification.type === `App\\Notifications\\OrderStatusUpdated`) {
-                        desktopNotiBody = 'An order has been placed'
-                    }
-                    Notification.requestPermission( permission => {
-                        console.log('permission  ==== ', permission);
-                        let desktopNotification = new Notification('New Notification', {
-                            body: desktopNotiBody, // content for the alert
-                            icon: "https://pusher.com/static_logos/320x320.png" // optional image url
-                        });
-
-                        console.log('desktop notifications === ', desktopNotification);
-                        setTimeout(() => {
-                        desktopNotification.close()
-                        }, 3000);
-
-
-                        // link to page on clicking the notification
-                        desktopNotification.onclick = () => {
-                            window.open(window.location.href); // aikhane change korte hobe. 
-                        };
-                    });
+                    this.initiateDesktopNoti(notification);
 
                     /*
                         // this.notifications.push(notification.order);
@@ -176,6 +153,60 @@ export default {
                 });
 
         },
+        initiateDesktopNoti(notification) {
+            // From this line : "Desktop Notification"
+            const userName = this.$store.getters['auth/authUser'].name;
+            let desktopNotiTitle = '';
+            let desktopNotiBody = '';
+            let desktopNotiRedirectURL = '';
+
+            if (notification.type === `App\\Notifications\\OrderStatusUpdated`) {
+                desktopNotiTitle = `Hey, ${userName}`
+                desktopNotiBody = 'An order has been placed'
+                const order_id = notification.order.id;
+                const origin = window.location.origin;
+                desktopNotiRedirectURL = `${origin}/orders/details/${order_id}`;
+            }
+            const desktopNotiObject = {
+                title: desktopNotiTitle, 
+                body: desktopNotiBody, 
+                icon: `${BASE_URL}/images_api/favicon.ico`,
+                redirect_url: desktopNotiRedirectURL,
+                noti_id: notification.id
+            }
+            if (!('Notification' in window)) {
+                alert('This browser does not support system notifications');
+            } else if (Notification.permission === 'granted') {
+                this.notifyDesktop(desktopNotiObject);
+            } else if(Notification.permission !== 'denied') {
+                Notification.requestPermission(function(permission){
+                    if (permission === 'granted') {
+                        this.notifyDesktop(desktopNotiObject);
+                    } 
+                });    
+            }
+        },
+
+        notifyDesktop(desktopNotiObject) {
+            let noti = new Notification(desktopNotiObject.title, {
+                icon: desktopNotiObject.icon,
+                body: desktopNotiObject.body
+            });
+            
+            let timer;
+            noti.onclick = function() {
+                let noti_id = desktopNotiObject.noti_id;
+                axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
+                    .then(res => {
+                        window.clearTimeout(timer);
+                        noti.close();
+                        window.location.href = desktopNotiObject.redirect_url;
+                    }).catch(error => {
+                    
+                    })
+            }
+            timer = setTimeout(noti.close.bind(noti), 7000);
+        },
         countAllNoti() {
             axios.get(`${BASE_URL}/api/count-all-noti`)
                 .then(res => { this.allNotiCounter = res.data;})
@@ -185,11 +216,9 @@ export default {
             axios.get(`${BASE_URL}/api/count-unread-noti`)
                 .then(res => { this.unreadNotiCounter = res.data;
                   EventBus.$emit('unread:notification', res.data);})
-                .catch(error => {    });
+                .catch(error => {    
 
-
-
-
+                });
         },
         handleClick() {
             console.log('handle CLick === ');
@@ -237,14 +266,14 @@ export default {
             if (notiObj.read_at === null) {
               this.notiMarkAsRead(notiObj);
             } else {
-              this.redirectToURL(notiObj);
+              window.location.href = this.makeRedirectionURL(notiObj);
             }
         },
-        redirectToURL(notiObj) {
+        makeRedirectionURL(notiObj) {
           if( notiObj.type === `App\\Notifications\\OrderStatusUpdated` ) {
               const order_id = notiObj.data.order.id;
               const origin = window.location.origin;
-              window.location.href = `${origin}/orders/details/${order_id}`;
+              return `${origin}/orders/details/${order_id}`;
               //this.$router.push({ name: 'OrderShow', params: { id: order_id } }) // do not use this.
           }
         },
@@ -253,7 +282,7 @@ export default {
             const BASE_URL = this.$gbvar.BASE_URL;
             axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
                 .then(res => {
-                  this.redirectToURL(notiObj);
+                  window.location.href = this.makeRedirectionURL(notiObj);
                 }).catch(error => {
                     //console.log('notiMarkAsRead Error ===', error.response);
                 })

@@ -200,12 +200,15 @@ export default {
                     .then(res => {
                         window.clearTimeout(timer);
                         noti.close();
+                        // we need some modification here, as if more than 1  desktop notification 
+                        // comes here, may be, desktopNotiObject becomes lost , 
+                        // so window.location.href goes to /dashboard. 
                         window.location.href = desktopNotiObject.redirect_url;
                     }).catch(error => {
-                    
+                        console.log('Errorrrrrrrrrrrrrr  ', error)
                     })
             }
-            timer = setTimeout(noti.close.bind(noti), 7000);
+            timer = setTimeout(noti.close.bind(noti), 5000);
         },
         countAllNoti() {
             axios.get(`${BASE_URL}/api/count-all-noti`)

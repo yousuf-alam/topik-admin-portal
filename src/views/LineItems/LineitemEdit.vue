@@ -291,7 +291,7 @@
         src_bantab: '/images/banner_tab/',
         src_banios: '/images/banner_ios/',
         src_banand: '/images/banner_android/',
-        src_designs:'/images/designs/',
+        src_designs:'/images/lineitem/designs/',
         up_designs: [],
         new_design: [],
         loading: true,
@@ -411,7 +411,6 @@
         axios.post(`${Admin_URL}/line-items/new-design`, formData, config)
           .then(function (response) {
             currentObj.success = response.data.success;
-            alert(response.data.message);
             if(response.data.success===true)
             {
               //this.$swal('Success', response.data.message, 'success');

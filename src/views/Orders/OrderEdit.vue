@@ -404,7 +404,7 @@
             //console.log('Success', response);
             currentObj.success = response.data.success;
             //console.log(response.data);
-            if(response.data.success===true)
+            if(response.data.success === true)
               this.$swal('Order Details Updated', '', 'success');
               setTimeout(()=>{
                 location.reload();

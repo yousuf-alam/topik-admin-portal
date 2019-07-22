@@ -58,6 +58,7 @@
 </template>
 
 <script>
+let timer;
 import Pusher from 'pusher-js';
 import axios from 'axios';
 import _ from 'lodash';
@@ -140,7 +141,6 @@ export default {
                     this.pageNumber = 0;
                     this.fetchNotiAfterPusherListen();
 
-
                     this.initiateDesktopNoti(notification);
 
                     /*
@@ -188,12 +188,12 @@ export default {
         },
 
         notifyDesktop(desktopNotiObject) {
+            console.log('Inside notifyDesktop ---------------- ');
             let noti = new Notification(desktopNotiObject.title, {
                 icon: desktopNotiObject.icon,
                 body: desktopNotiObject.body
             });
             
-            let timer;
             noti.onclick = function() {
                 let noti_id = desktopNotiObject.noti_id;
                 axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
@@ -203,7 +203,9 @@ export default {
                         // we need some modification here, as if more than 1  desktop notification 
                         // comes here, may be, desktopNotiObject becomes lost , 
                         // so window.location.href goes to /dashboard. 
-                        window.location.href = desktopNotiObject.redirect_url;
+                        //window.location.href = desktopNotiObject.redirect_url;
+                        
+                        window.open(desktopNotiObject.redirect_url);
                     }).catch(error => {
                         console.log('Errorrrrrrrrrrrrrr  ', error)
                     })

@@ -188,7 +188,6 @@ export default {
         },
 
         notifyDesktop(desktopNotiObject) {
-            console.log('Inside notifyDesktop ---------------- ');
             let noti = new Notification(desktopNotiObject.title, {
                 icon: desktopNotiObject.icon,
                 body: desktopNotiObject.body
@@ -200,14 +199,13 @@ export default {
                     .then(res => {
                         window.clearTimeout(timer);
                         noti.close();
+                        window.open(desktopNotiObject.redirect_url);
                         // we need some modification here, as if more than 1  desktop notification 
                         // comes here, may be, desktopNotiObject becomes lost , 
-                        // so window.location.href goes to /dashboard. 
-                        //window.location.href = desktopNotiObject.redirect_url;
-                        
-                        window.open(desktopNotiObject.redirect_url);
+                        // and window.location.href goes to /dashboard. 
+                        //So we use window.open here.;
                     }).catch(error => {
-                        console.log('Errorrrrrrrrrrrrrr  ', error)
+                        // console.log('Errorrrrrrrrrrrrrr  ', error)
                     })
             }
             timer = setTimeout(noti.close.bind(noti), 5000);
@@ -226,7 +224,6 @@ export default {
                 });
         },
         handleClick() {
-            console.log('handle CLick === ');
             if (this.notiBtnClicked === 0) {
                     this.fetchNotifications();
                     this.notiBtnClicked++;

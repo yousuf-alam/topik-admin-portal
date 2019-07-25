@@ -47,7 +47,7 @@
       return {
         BASE_URL: BASE_URL,
         banner : [],
-        src_image : '/images/banners/',
+        src_image : 'images/banners/',
         columns: ['image', 'title', 'service', 'type', 'status', 'created_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},

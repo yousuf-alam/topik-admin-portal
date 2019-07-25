@@ -142,8 +142,8 @@ export default {
             this.fetchNotifications();
         },
         countAllNoti() {
-            const BASE_URL = this.$gbvar.BASE_URL;
-            axios.get(`${BASE_URL}/api/count-all-noti`)
+            const BASE_URL = process.env.VUE_APP_ADMIN_URL;
+            axios.get(`${BASE_URL}/count-all-noti`)
                 .then(res => {
                     this.allNotiCounter = res.data;
                     this.totalPageCount = Math.ceil(this.allNotiCounter / this.perPageItem);
@@ -182,8 +182,8 @@ export default {
         },
         notiMarkAsRead(notiObj) {
             const noti_id = notiObj.id;
-            const BASE_URL = this.$gbvar.BASE_URL;
-            axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
+            const BASE_URL = process.env.VUE_APP_ADMIN_URL;
+            axios.get(`${BASE_URL}/mark-as-read/${noti_id}`)
                 .then(res => {
                     this.redirectToURL(notiObj);
                 }).catch(error => {

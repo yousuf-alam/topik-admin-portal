@@ -2,12 +2,12 @@
   <div class="app flex-row align-items-center">
     <div class="container">
       <b-row class="justify-content-center">
-        <b-col md="8">
-          <b-card-group>
+        <b-col md="6">
             <b-card no-body class="p-4">
               <b-card-body>
                 <b-form>
-                  <h1>Admin Login</h1>
+                  <img class="logo mb-3" src="/img/brand/romoni_logo.svg">
+                  <h3>Admin Login</h3>
                   <p class="text-muted">Sign In to your account</p>
                   <b-input-group class="mb-0">
                     <b-input-group-prepend><b-input-group-text><i class="icon-user"></i></b-input-group-text></b-input-group-prepend>
@@ -47,23 +47,10 @@
                         Login
                       </b-button>
                     </b-col>
-                    <b-col cols="6" class="text-right">
-                      <b-button variant="link" class="px-0">Forgot password?</b-button>
-                    </b-col>
                   </b-row>
                 </b-form>
               </b-card-body>
             </b-card>
-            <b-card no-body class="text-white bg-primary py-5 d-md-down-none" style="width:44%">
-              <b-card-body class="text-center">
-                <div>
-                  <h2>Sign up</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  <b-button variant="primary" class="active mt-3">Register Now!</b-button>
-                </div>
-              </b-card-body>
-            </b-card>
-          </b-card-group>
         </b-col>
       </b-row>
     </div>
@@ -96,15 +83,15 @@ export default {
       const phoneIsValid = /(^()?(01){1}[23456789]{1}(\d){8})$/i.test(this.phone);
       if (phoneIsValid === false) {
         this.phone_warning = 'Invalid phone number';
-      } else { 
+      } else {
         this.phone_warning = '';
       }
 
       if (this.phone.length < 11 || this.phone.length > 11) {
         this.phone_warning = 'Enter 11 digit phone number';
-      } 
-      if (this.phone.length === 0) { 
-        this.phone_warning = ''; 
+      }
+      if (this.phone.length === 0) {
+        this.phone_warning = '';
       }
     },
 
@@ -115,8 +102,8 @@ export default {
       }
       if (this.password.length < 6 && this.password.length > 0) {
         this.password_warning = 'Password must be at least 6 char long';
-      } else { 
-        this.password_warning = ''; 
+      } else {
+        this.password_warning = '';
       }
     },
 

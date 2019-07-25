@@ -6,7 +6,7 @@
             <b-card no-body class="p-4">
               <b-card-body>
                 <b-form>
-                  <img class="logo mb-3" src="/img/brand/romoni_logo.svg">
+                  <img class="logo mb-3" src="/img/brand/logo.svg" width="40%">
                   <h3>Admin Login</h3>
                   <p class="text-muted">Sign In to your account</p>
                   <b-input-group class="mb-0">

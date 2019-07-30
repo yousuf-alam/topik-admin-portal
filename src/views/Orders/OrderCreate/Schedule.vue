@@ -28,6 +28,7 @@
 
       <b-form-group label="Delivery Address">
           <b-form-input @keyup="addSchedule" type="text" v-model="schedule.address.address_details"></b-form-input>
+          <span class="text-danger font-sm"> {{address_warning}} </span>
       </b-form-group>
     </b-card>
 </template>
@@ -52,7 +53,8 @@
             latitude: '',
             longitude: '',
             address_details: ''
-          }
+          },
+            address_warning: ''
         },
 
         disabledDates: {
@@ -80,11 +82,22 @@
         }
         else
         {
+          this.onKeyUpAddress();
           this.changeDateFormat();
         }
 
         EventBus.$emit('schedule:add',this.schedule);
-      }
+      },
+        onKeyUpAddress(event) {
+            const addressIsValid = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};:\\|,.<>\/?]*$/i.test(this.schedule.address.address_details);
+
+            if (addressIsValid === false) {
+                this.address_warning = 'Invalid address. (Avoid using double quotes / special characters)';
+            } else {
+                this.address_warning = '';
+            }
+
+        },
     }
   }
 </script>

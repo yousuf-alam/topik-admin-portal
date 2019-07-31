@@ -33,18 +33,30 @@
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Icon (PDF)</label>
-            <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail">
-                  <img :src="url_avatar" style="width: 200px; height: 150px;">
+                  <img :src="url_avatar" style="width: 100px">
                 </div>
-                <div>
                 <span class="btn default btn-file">
                   <input name="icon_pdf" type="file" v-on:change="onAvatarChange">
                 </span>
-                </div>
               </div>
-            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password"
+                   v-model="user.password" @keyup="passwordKeyUp">
+            <span class="form-text text-danger">
+                        {{ password_warning }}
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="password_confirmation">Confirm Password</label>
+            <input type="password" class="form-control" id="password_confirmation" placeholder="Confirm Password"
+                   v-model="user.password_confirmation" @keyup="passwordConfirmKeyUp">
+            <span  class="form-text text-danger">
+                        {{ password_confirmation_warning }}
+            </span>
           </div>
           <button type="submit" class="btn btn-primary btn-lg"
                   @click="handleSubmit">Update Profile</button>
@@ -66,6 +78,9 @@
       return {
        user  : {address : {}},
        url_avatar: '',
+       password_warning: '',
+       password_confirmation: '',
+       password_confirmation_warning: '',
       }
     },
     created() {
@@ -80,6 +95,7 @@
         formData.append('address', JSON.stringify(this.user.address));
         formData.append('gender', this.user.gender);
         formData.append('avatar', this.user.avatar);
+        formData.append('password',this.user.password_confirmation);
         const config = { headers: {'content-type': 'multipart/form-data'} };
         const URL = `${ADMIN_URL}/update-profile`;
         axios.post(URL, formData, config)
@@ -115,6 +131,23 @@
         this.user.avatar = file;
         this.url_avatar = URL.createObjectURL(file);
       },
+
+      passwordKeyUp() {
+          if (this.user.password.length < 6 && this.user.password.length > 0) {
+              this.password_warning = 'Password must be at least 6 char long';
+          } else {
+              this.password_warning = '';
+          }
+      },
+      passwordConfirmKeyUp() {
+
+          if (this.user.password !==  this.user.password_confirmation) {
+              this.password_confirmation_warning = 'Password not matched';
+          } else {
+              this.password_confirmation_warning = '';
+          }
+
+      }
 
     }
   }

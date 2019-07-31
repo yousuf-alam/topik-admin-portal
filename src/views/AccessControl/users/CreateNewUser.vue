@@ -1,6 +1,6 @@
 <template>
     <div class="customcard">
-        <h3>Create a new user.</h3>
+        <h3>Create a new user</h3>
         <div class="d-flex justify-content-center">
             <div class="col-8">
                 <form @submit.prevent>

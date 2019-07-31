@@ -148,7 +148,7 @@
           this.measurement_type = data.custom_measurement;
       },
       fetchPartner() {
-
+          this.partners = [];
         axios.post(`${ADMIN_URL}/available-partners`, {
           location : this.location,
           date : this.schedule.selected_date,
@@ -156,7 +156,13 @@
           services : this.services
         })
           .then(response => {
-            this.partners = response.data;
+              if (response.data.success === true) {
+                  this.partners = response.data.data;
+
+              } else {
+                  this.partners = [];
+              }
+
 
           })
           .catch(e => {

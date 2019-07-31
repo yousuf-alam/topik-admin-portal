@@ -28,10 +28,10 @@
               <service :type="type"> </service>
             </b-col>
           </b-row>
-          <!-- 
+          <!--
             <b-row>
               <b-col><design></design></b-col>
-            </b-row> 
+            </b-row>
           -->
         </b-col>
         <b-col sm="6" md="6">
@@ -190,7 +190,7 @@
 
         let formData = new FormData();
         formData.append('type', this.type);
-        formData.append('platform', 'admin_portal');
+        formData.append('platform', 'admin portal');
         formData.append('partner_id', this.selected_partner.id);
         formData.append('location_id', this.location);
         formData.append('scheduled_time', this.schedule.selected_time);

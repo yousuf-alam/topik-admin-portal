@@ -82,13 +82,13 @@
         }
         else
         {
-          this.onKeyUpAddress();
+          //this.onKeyUpAddress();
           this.changeDateFormat();
         }
 
         EventBus.$emit('schedule:add',this.schedule);
       },
-        onKeyUpAddress(event) {
+        /*onKeyUpAddress(event) {
             const addressIsValid = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};:\\|,.<>\/?]*$/i.test(this.schedule.address.address_details);
 
             if (addressIsValid === false) {
@@ -97,7 +97,7 @@
                 this.address_warning = '';
             }
 
-        },
+        },*/
     }
   }
 </script>

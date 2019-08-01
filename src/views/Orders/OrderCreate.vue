@@ -159,6 +159,7 @@
           .then(response => {
               if (response.data.success === true) {
                   this.partners = response.data.data;
+                  console.log(this.partners);
 
               } else {
                   this.partners = [];

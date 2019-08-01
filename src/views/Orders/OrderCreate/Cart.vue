@@ -48,7 +48,7 @@
       },
       deleteOrder(order)
       {
-        this.services.pop();
+        this.services.splice(this.services.indexOf(order),1);
         EventBus.$emit('cart:add',this.services);
       }
     }

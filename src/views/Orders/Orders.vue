@@ -150,7 +150,14 @@
                     <td> {{ order.id }} </td>
                     <td> {{ order.service_type }} </td>
                     <td> {{ order.platform }} </td>
-                    <td> {{ order.status }} </td>
+                    <td>
+                      <span class="badge badge-primary" v-if="order.status==='pending'">{{ order.status }}</span>
+                      <span class="badge badge-warning" v-if="order.status==='accepted'">{{ order.status }}</span>
+                      <span class="badge badge-secondary" v-if="order.status==='started'">{{ order.status }}</span>
+                      <span class="badge badge-success" v-if="order.status==='completed'">{{ order.status }}</span>
+                      <span class="badge badge-danger" v-if="order.status==='rejected'">{{ order.status }}</span>
+                      <span class="badge badge-dark" v-if="order.status==='cancelled'">{{ order.status }}</span>
+                    </td>
                     <td> {{ order.customer }} </td>
                     <td> {{ order.partner }} </td>
 
@@ -530,5 +537,8 @@
 
   #order_table_container {
     min-height: 600px;
+  }
+  .badge {
+    font-size: 0.75rem;
   }
 </style>

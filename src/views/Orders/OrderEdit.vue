@@ -453,6 +453,9 @@
           .then(response => {
             console.log('Success', response);
             this.$swal('Line Item Updated', '', 'success');
+              setTimeout(()=>{
+                  location.reload();
+              },1000);
 
           })
           .catch(error => {

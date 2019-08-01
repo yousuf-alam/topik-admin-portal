@@ -148,6 +148,7 @@
           this.measurement_type = data.custom_measurement;
       },
       fetchPartner() {
+        console.log('ran');
           this.partners = [];
         axios.post(`${ADMIN_URL}/available-partners`, {
           location : this.location,

@@ -73,7 +73,7 @@ window.Echo = new Echo({
     key: globalvariables.PUSHER_CREDENTIALS.APP_KEY,
     cluster: 'ap2',
     encrypted: true,
-    authEndpoint: `${process.env.VUE_APP_BASE_URL}/api/broadcasting/auth`,
+    authEndpoint: `${process.env.VUE_APP_ROOT_URL}/api/broadcasting/auth`,
     auth: {headers: {Authorization: "Bearer " + bearerToken}}
 })
 

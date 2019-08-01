@@ -1,6 +1,6 @@
 import axios from 'axios';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-const BASE_URL = process.env.VUE_APP_BASE_URL;
+const BASE_URL = process.env.VUE_APP_ADMIN_URL;
 
 const PUSHER_APP_ID = process.env.VUE_APP_PUSHER_APP_ID;
 const PUSHER_APP_KEY = process.env.VUE_APP_PUSHER_APP_KEY;

@@ -46,12 +46,13 @@
             </ul>
         </div>
 
-      <modal name="modal-designs" height="auto" :adaptive="true">
+      <modal name="modal-designs" :adaptive="true">
         <div class="p-3">
           <b-row class="p-2">
             <h4>Choose Design</h4><br><br>
           </b-row>
-          <b-list-group>
+          <b-list-group style="max-height: 40rem;
+    overflow-y: scroll;">
             <b-list-group-item sm="12" class="list-group-item" v-for="des in item_designs" @click="selectDesign(des)" :class="{active: selected_item_design === des}">
               <img :src="src_item_design+des.image" class="center-div " style="width: 200px; height: 150px;">
               <h5 class="center-div font-weight-bold">{{des.name}}</h5>

@@ -18,7 +18,7 @@
             <option value="started">started</option>
             <option value="completed">completed</option>
             <option value="rejected">rejected</option>
-            <option value="completed">completed</option>
+            <option value="cancelled">cancelled</option>
           </select>
         </b-form-group>
           <b-form-group label="Assigned SP">
@@ -405,10 +405,13 @@
             currentObj.success = response.data.success;
             //console.log(response.data);
             if(response.data.success === true)
-              this.$swal('Order Details Updated', '', 'success');
-              setTimeout(()=>{
-                location.reload();
-              },1000);
+            {
+                this.$swal('Order Details Updated', '', 'success');
+                setTimeout(()=>{
+                    location.reload();
+                },1000);
+            }
+
           })
           .catch(error => {
             // console.log('Error  ... ', error.response);

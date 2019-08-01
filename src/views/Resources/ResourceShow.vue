@@ -115,7 +115,7 @@
     },
     created(){
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      this.src_avatar = ADMIN_URL + this.src_avatar;
+      this.src_avatar = process.env.VUE_APP_BASE_URL + '/';
       let resource_id = window.location.pathname.split("/").pop();
       this.id = resource_id;
       axios.post(`${ADMIN_URL}/resources/show`,

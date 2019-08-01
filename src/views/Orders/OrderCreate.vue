@@ -28,10 +28,10 @@
               <service :type="type"> </service>
             </b-col>
           </b-row>
-          <!-- 
+          <!--
             <b-row>
               <b-col><design></design></b-col>
-            </b-row> 
+            </b-row>
           -->
         </b-col>
         <b-col sm="6" md="6">
@@ -148,7 +148,7 @@
           this.measurement_type = data.custom_measurement;
       },
       fetchPartner() {
-
+          this.partners = [];
         axios.post(`${ADMIN_URL}/available-partners`, {
           location : this.location,
           date : this.schedule.selected_date,
@@ -156,7 +156,13 @@
           services : this.services
         })
           .then(response => {
-            this.partners = response.data;
+              if (response.data.success === true) {
+                  this.partners = response.data.data;
+
+              } else {
+                  this.partners = [];
+              }
+
 
           })
           .catch(e => {
@@ -190,7 +196,7 @@
 
         let formData = new FormData();
         formData.append('type', this.type);
-        formData.append('platform', 'admin_portal');
+        formData.append('platform', 'admin portal');
         formData.append('partner_id', this.selected_partner.id);
         formData.append('location_id', this.location);
         formData.append('scheduled_time', this.schedule.selected_time);

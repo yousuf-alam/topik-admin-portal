@@ -64,7 +64,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import globalvariables from '../../../globalvariables';
-const BASE_URL = globalvariables.BASE_URL; //globalvariables.BASE_URL;
+const BASE_URL = process.env.VUE_APP_ADMIN_URL;
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue';
 import EventBus from '../../../utils/EventBus';
 export default {
@@ -132,7 +132,7 @@ export default {
             */
             const user = this.$store.getters['auth/authUser'];
             const userId = user.id;
-            
+
             // This works fine.
             window.Echo.private('App.User.' + userId)
                 .notification((notification) => {
@@ -168,8 +168,8 @@ export default {
                 desktopNotiRedirectURL = `${origin}/orders/details/${order_id}`;
             }
             const desktopNotiObject = {
-                title: desktopNotiTitle, 
-                body: desktopNotiBody, 
+                title: desktopNotiTitle,
+                body: desktopNotiBody,
                 icon: `${BASE_URL}/images_api/favicon.ico`,
                 redirect_url: desktopNotiRedirectURL,
                 noti_id: notification.id
@@ -182,8 +182,8 @@ export default {
                 Notification.requestPermission(function(permission){
                     if (permission === 'granted') {
                         this.notifyDesktop(desktopNotiObject);
-                    } 
-                });    
+                    }
+                });
             }
         },
 
@@ -192,17 +192,17 @@ export default {
                 icon: desktopNotiObject.icon,
                 body: desktopNotiObject.body
             });
-            
+
             noti.onclick = function() {
                 let noti_id = desktopNotiObject.noti_id;
-                axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
+                axios.get(`${BASE_URL}/mark-as-read/${noti_id}`)
                     .then(res => {
                         window.clearTimeout(timer);
                         noti.close();
                         window.open(desktopNotiObject.redirect_url);
-                        // we need some modification here, as if more than 1  desktop notification 
-                        // comes here, may be, desktopNotiObject becomes lost , 
-                        // and window.location.href goes to /dashboard. 
+                        // we need some modification here, as if more than 1  desktop notification
+                        // comes here, may be, desktopNotiObject becomes lost ,
+                        // and window.location.href goes to /dashboard.
                         //So we use window.open here.;
                     }).catch(error => {
                         // console.log('Errorrrrrrrrrrrrrr  ', error)
@@ -211,15 +211,15 @@ export default {
             timer = setTimeout(noti.close.bind(noti), 5000);
         },
         countAllNoti() {
-            axios.get(`${BASE_URL}/api/count-all-noti`)
+            axios.get(`${BASE_URL}/count-all-noti`)
                 .then(res => { this.allNotiCounter = res.data;})
                 .catch(error => {    });
         },
         countUnreadNoti() {
-            axios.get(`${BASE_URL}/api/count-unread-noti`)
+            axios.get(`${BASE_URL}/count-unread-noti`)
                 .then(res => { this.unreadNotiCounter = res.data;
                   EventBus.$emit('unread:notification', res.data);})
-                .catch(error => {    
+                .catch(error => {
 
                 });
         },
@@ -282,7 +282,7 @@ export default {
         notiMarkAsRead(notiObj) {
             const noti_id = notiObj.id;
             const BASE_URL = this.$gbvar.BASE_URL;
-            axios.get(`${BASE_URL}/api/mark-as-read/${noti_id}`)
+            axios.get(`${BASE_URL}/mark-as-read/${noti_id}`)
                 .then(res => {
                   window.location.href = this.makeRedirectionURL(notiObj);
                 }).catch(error => {

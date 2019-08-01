@@ -13,7 +13,7 @@
           <div class="list-group-item list-group-item-action" v-for="(partner, i) in partners" :key="i" @click="selectPartner(partner)" :class="{active: selected_partner === partner , disabledSP: partner.is_booked ===1}">
             <div class="row">
               <div class="col-sm-2">
-                <img class="partner-thumb" :src="src_avatar + partner.avatar">
+                <img class="partner-thumb" :src="partner.avatar">
               </div>
               <div class="col-sm-6">
                 <h4 class="p-name">{{ partner.name }}</h4>
@@ -54,9 +54,6 @@
         selected_partner: null,
         src_avatar: ''
       }
-    },
-    created() {
-      this.src_avatar = BASE_URL + '/'+ this.src_avatar;
     },
     methods: {
       selectPartner(partner){

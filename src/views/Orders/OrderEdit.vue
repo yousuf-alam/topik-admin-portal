@@ -178,7 +178,7 @@
         <cart></cart>
         <div class="row text-center pb-5">
           <div class="center-div">
-            <button class="btn btn-dark" @click="addNewitem()"> Add New Line Item(s)</button>
+            <button class="btn btn-dark" @click="addNewitem"> Add New Line Item(s)</button>
           </div>
         </div>
       </b-col>
@@ -195,14 +195,22 @@
       <b-col sm="6" md="6">
         <b-row>
           <b-col>
-            <accessories></accessories>
+            <b-card class="m-4 p-4">
+              <h5 class="mb-4">Measurement Type</h5>
+              <div class="form-group">
+                <input type="radio" v-model="order.measurement" value="by_sample" @change="addMeasurement" id="by_sample_id">
+                <label for="by_sample_id" class="mx-1"> Customer will provide a sample</label><br>
+                <input type="radio" v-model="order.measurement" value="by_tailor" @change="addMeasurement" id="by_tailor_id">
+                <label for="by_tailor_id" class="mx-1">Tailor will take measurements on spot</label><br>
+              </div>
+            </b-card>
           </b-col>
         </b-row>
         <b-row>
           <b-col><cart></cart>
             <div class="row text-center">
               <div class="form-control">
-                <button class="btn btn-dark"> Add New Lineitem(s)</button>
+                <button class="btn btn-dark" @click="addNewitem"> Add New Lineitem(s)</button>
               </div>
             </div></b-col>
         </b-row>

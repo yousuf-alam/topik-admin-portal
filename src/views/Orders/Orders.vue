@@ -83,18 +83,18 @@
           <b-col>
               <b-card>
                 <button @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
-                <div class="table-responsive" id="order_table_container">
                   <div class="d-flex">
                     <div style="margin-left: auto;" class="mb-3">
                       <span class="mx-1">Per Page: </span>
-                      <select class="form-control" v-model="perPageItem" @change="makeReadySearchParams">
+                      <select class="form-control" v-model="perPageItem" @change="makeReadySearchParams()">
                         <option :value="5">5</option>
                         <option :value="10">10</option>
                         <option :value="20">20</option>
                         <option :value="50">50</option>
                       </select>
                     </div>
-                  </div>
+                </div>
+                <div class="table-responsive" id="order_table_container">
                 <table>
                   <tr class="hadingOne">
                     <th v-for="item in columns" :key="item" @click="headingSortColumn(item)">
@@ -475,7 +475,7 @@
             const bill = this.getInputValue("bill");
             const shipping_phone = this.getInputValue("shipping_phone");
 
-            console.log('----------------', "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
+            console.log( "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
             let from = '';
             let to = ''
             if (this.dateRange.created_at === ""|| this.dateRange.created_at == null) {

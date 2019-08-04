@@ -150,7 +150,11 @@
                     <td> {{ order.id }} </td>
                     <td> {{ order.service_type }} </td>
                     <td> {{ order.platform }} </td>
-                    <td> {{ order.status }} </td>
+                    <td class="text-center"> 
+                      <span :class="getStyleOfStatus(order.status)" style="font-size: 12px;"> 
+                        {{ order.status }} 
+                      </span> 
+                    </td>
                     <td> {{ order.customer }} </td>
                     <td> {{ order.partner }} </td>
 
@@ -271,7 +275,30 @@
 
       },
       computed: {
+        getStyleOfStatus: function () {
+          return (parm) => {
+            if (parm === 'pending') {
+              return 'badge badge-primary';
 
+            } else if (parm === 'accepted') {
+              return 'badge badge-warning'; 
+            
+            } else if (parm === 'started') {
+              return 'badge badge-secondary'; 
+            
+            } else if (parm === 'completed') {
+              return 'badge badge-success'; 
+            
+            } else if (parm === 'rejected') {
+              return 'badge badge-danger'; 
+            
+            } else if (parm === 'cancelled') {
+              return 'badge badge-dark'; 
+            } else {
+              return '';
+            }
+          }
+        }, 
         getSortIconStyle: function () {
           return (parm) => {
             const defaultIcon = 'fa fa-sort';
@@ -390,7 +417,6 @@
             if (this.dateRange[colName] === '' || this.dateRange[colName] === null) {
               this.dateRangeString[colName] = '';
             } else {
-              console.log('4444444444444444', this.dateRange);
               const startDate = this.dateRange[colName].start;
               const endDate = this.dateRange[colName].end;
 

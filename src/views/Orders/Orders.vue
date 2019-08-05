@@ -244,7 +244,7 @@
                 'platform',
                 'status',
                 'scheduled_date',
-                'scheduled_time',
+                /*'scheduled_time',*/
                 'customer',
                 'partner',
 

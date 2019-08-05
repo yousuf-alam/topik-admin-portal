@@ -29,7 +29,7 @@
             name : '',
             phone: '',
           },
-          phone_warning: ''
+
         }
       },
       methods: {

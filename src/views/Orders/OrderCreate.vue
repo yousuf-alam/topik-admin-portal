@@ -1,5 +1,21 @@
 <template>
     <div class="animated fadeIn">
+      <modal name="modal-order_type" height="auto" :adaptive="true">
+        <div class="m-3 p-3">
+          <b-row class="p-2">
+            <h4>Choose Order Type</h4><br><br>
+          </b-row>
+          <b-row class="p-2">
+            <div class="center-div">
+              <button @click="createOrder('Beauty On-Demand')" class="btn btn-primary m-2">Beauty On-Demand</button>
+              <!--<button @click="createOrder('Beauty Appointment')" class="btn btn-primary m-2">Beauty Appointment</button>-->
+              <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button>
+            </div>
+
+          </b-row>
+
+        </div>
+      </modal>
         <b-row>
             <b-col class="mb-5" sm="6" md="6">
                 <customer> </customer>
@@ -110,10 +126,10 @@
       };
     },
     created() {
-      // console.log('Inside created propsss ', this.type)
+
     },
     mounted() {
-
+        this.modalType();
         EventBus.$on('customer:add'   , this.customerAdd.bind(this));
         EventBus.$on('location:add'   , this.locationAdd.bind(this));
         EventBus.$on('schedule:add'   , this.scheduleAdd.bind(this));
@@ -124,6 +140,15 @@
 
     },
     methods : {
+      modalType(){
+          this.$modal.show('modal-order_type');
+          console.log('called');
+      },
+        createOrder(type)
+        {
+            this.type = type;
+            this.$modal.hide('modal-order_type');
+        },
 
       customerAdd(customer) {
         this.customer = customer;
@@ -148,12 +173,13 @@
           this.measurement_type = data.custom_measurement;
       },
       fetchPartner() {
-        console.log('fetchPartner ========== ', 
+        console.log('fetchPartner ========== ',
          "location = ", this.location,
          "schedult = ", this.schedule,
-         "services = ", this.services 
+         "services = ", this.services
         );
         this.partners = [];
+
         axios.post(`${ADMIN_URL}/available-partners`, {
           location : this.location,
           date : this.schedule.selected_date,
@@ -224,11 +250,17 @@
           formData.append('designs[' + i + '][image]', file);
         }
 
-        console.log(this.name);
+
+
         axios.post(`${ADMIN_URL}/place-order`, formData, config)
           .then(response => {
-            console.log('Success', response);
+
             currentObj.success = response.data.success;
+              const loader = this.$loading.show({
+                  loader: 'spinner',
+                  color: '#ff3573'
+              });
+              setTimeout(() => loader.hide(), 3 * 1000);
             if(currentObj.success === true)
             {
               this.$swal('Order Placed Successfully!', '', 'success');
@@ -236,10 +268,16 @@
                 window.location.href = "/orders";
               },1000);
             }
+
           })
           .catch(error => {
             // console.log('Error  ... ', error.response);
             currentObj.output = error;
+            if(error.response.status===409)
+            {
+                this.$swal('Invalid Phone Number', '', 'error');
+            }
+
           });
 
       }

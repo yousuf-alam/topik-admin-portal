@@ -110,8 +110,20 @@
               <div v-if="history!==null">
                 <b-card class="card-accent-danger font-weight-bold" v-bind:header="key">
                   <h5 class="card-title font-weight-bold">{{history}}</h5>
-                  <p v-if="key==='Created at' || key==='Rejected at'">Partner Name:<span class=" ml-2 font-weight-bold">{{order.partner}}</span></p>
-                  <p v-else>Assigned Resource:<span class=" ml-2 font-weight-bold">{{order.resource_name}}</span></p>
+
+                  <p v-if="key==='Cancelled at'">
+                    <span>Partner Name:</span><span class=" ml-2 font-weight-bold">{{order.partner}}</span><br>
+                    <span>Partner Phone:</span><span class=" ml-2 font-weight-bold">{{order.partner_phone}}</span><br>
+                    <span>Cancellation Reason:</span><span class="ml-2">{{order.cancel_reason}}</span>
+                  </p>
+                  <p v-else-if="key==='Created at' || key==='Rejected at'">
+                    <span>Partner Name:</span><span class=" ml-2 font-weight-bold">{{order.partner}}</span><br>
+                    <span>Partner Phone:</span><span class=" ml-2 font-weight-bold">{{order.partner_phone}}</span>
+                  </p>
+                  <p v-else>
+                  <span>Assigned Resource:</span><span class=" ml-2 font-weight-bold">{{order.resource_name}}</span><br>
+                  <span>Resource Phone:</span><span class=" ml-2 font-weight-bold">{{order.resource_phone}}</span>
+                  </p>
                 </b-card>
               </div>
 

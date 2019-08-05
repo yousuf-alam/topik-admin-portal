@@ -83,18 +83,18 @@
           <b-col>
               <b-card>
                 <button @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
-                <div class="table-responsive" id="order_table_container">
                   <div class="d-flex">
                     <div style="margin-left: auto;" class="mb-3">
                       <span class="mx-1">Per Page: </span>
-                      <select class="form-control" v-model="perPageItem" @change="makeReadySearchParams">
+                      <select class="form-control" v-model="perPageItem" @change="makeReadySearchParams()">
                         <option :value="5">5</option>
                         <option :value="10">10</option>
                         <option :value="20">20</option>
                         <option :value="50">50</option>
                       </select>
                     </div>
-                  </div>
+                </div>
+                <div class="table-responsive" id="order_table_container">
                 <table>
                   <tr class="hadingOne">
                     <th v-for="item in columns" :key="item" @click="headingSortColumn(item)">
@@ -146,37 +146,34 @@
 
                   <tr v-for="order in orders" :key="order.id">
                     <td> {{ order.created_at }} </td>
-                    <td> {{ order.scheduled_date }} </td>
+
                     <td> {{ order.id }} </td>
                     <td> {{ order.service_type }} </td>
                     <td> {{ order.platform }} </td>
-                    <td>
-                      <span class="badge badge-primary" v-if="order.status==='pending'">{{ order.status }}</span>
-                      <span class="badge badge-warning" v-if="order.status==='accepted'">{{ order.status }}</span>
-                      <span class="badge badge-secondary" v-if="order.status==='started'">{{ order.status }}</span>
-                      <span class="badge badge-success" v-if="order.status==='completed'">{{ order.status }}</span>
-                      <span class="badge badge-danger" v-if="order.status==='rejected'">{{ order.status }}</span>
-                      <span class="badge badge-dark" v-if="order.status==='cancelled'">{{ order.status }}</span>
+                    <td> {{ order.scheduled_date }} </td>
+                    <td class="text-center">
+                      <span :class="getStyleOfStatus(order.status)" style="font-size: 12px;">
+                        {{ order.status }}
+                      </span>
                     </td>
                     <td> {{ order.customer }} </td>
                     <td> {{ order.partner }} </td>
 
                     <td> {{ order.bill }} </td>
+                    <td> {{ order.shipping_phone }} </td>
+                    <td> {{ order.shipping_address }} </td>
 
                     <td>
                       <router-link :to="{ name: 'OrderShow', params: { id: order.id }}">
-                    <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
-                        <i class="fa fa-search"></i>
-                    </span>
+                          <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
+                              <i class="fa fa-search"></i>
+                          </span>
                       </router-link>
                       <router-link :to="{ name: 'OrderEdit', params: { id: order.id }}">
-                    <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
-                        <i class="fa fa-edit"></i>
-                    </span>
+                          <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
+                              <i class="fa fa-edit"></i>
+                          </span>
                       </router-link>
-                      <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
-                    <i class="fa fa-trash"></i>
-                </span>
                     </td>
                   </tr>
                 </table>
@@ -239,16 +236,18 @@
               sortingDirection: '',
               columns: [
                 'created_at',
-                'scheduled_date',
 
                 'id',
                 'service_type' ,
                 'platform',
+                'scheduled_date',
                 'status',
                 'customer',
                 'partner',
 
                 'bill',
+                'shipping_phone',
+                'shipping_address',
 
                 'action'
               ],
@@ -256,7 +255,7 @@
 
               },
               dateColumns: [ "created_at", "scheduled_date" ],
-              noFilteColumns: ["action"],
+              noFilteColumns: ["action" ],
 
 
 
@@ -278,7 +277,30 @@
 
       },
       computed: {
+        getStyleOfStatus: function () {
+          return (parm) => {
+            if (parm === 'pending') {
+              return 'badge badge-primary';
 
+            } else if (parm === 'accepted') {
+              return 'badge badge-warning';
+
+            } else if (parm === 'started') {
+              return 'badge badge-secondary';
+
+            } else if (parm === 'completed') {
+              return 'badge badge-success';
+
+            } else if (parm === 'rejected') {
+              return 'badge badge-danger';
+
+            } else if (parm === 'cancelled') {
+              return 'badge badge-dark';
+            } else {
+              return '';
+            }
+          }
+        },
         getSortIconStyle: function () {
           return (parm) => {
             const defaultIcon = 'fa fa-sort';
@@ -290,7 +312,6 @@
         },
         makeDateRangeStrReadable: function() {
           return (name) => {
-            // console.log("KKKKKKKKKK", name);
             if (name === null || name === undefined || name === '') {
               return name;
             }
@@ -397,7 +418,6 @@
             if (this.dateRange[colName] === '' || this.dateRange[colName] === null) {
               this.dateRangeString[colName] = '';
             } else {
-              console.log('4444444444444444', this.dateRange);
               const startDate = this.dateRange[colName].start;
               const endDate = this.dateRange[colName].end;
 
@@ -411,7 +431,7 @@
 
           },
           headingSortColumn(colName) {
-            //console.log('heading Click ', colName);
+            // console.log('heading Click ', colName);
             if (this.toSortColumn === colName) {
               if (this.sortingDirection === '') {
                 this.sortingDirection = "-up"
@@ -450,10 +470,12 @@
             const customer = this.getInputValue("customer");
             const partner = this.getInputValue("partner");
             const bill = this.getInputValue("bill");
+            const shipping_phone = this.getInputValue("shipping_phone");
+            const shipping_address = this.getInputValue("shipping_address");
 
-            console.log('----------------', typeof( this.dateRange.created_at));
+            //console.log( "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
             let from = '';
-            let to = ''
+            let to = '';
             if (this.dateRange.created_at === ""|| this.dateRange.created_at == null) {
               from = '';
               to = ''
@@ -465,7 +487,7 @@
 
             if (this.dateRange.scheduled_date === ""|| this.dateRange.scheduled_date == null) {
               from = '';
-              to = ''
+              to = '';
             } else {
               from = this.dateRange.scheduled_date.start;
               to = this.dateRange.scheduled_date.end;
@@ -476,7 +498,7 @@
 
             const srcParms = {
               id, service_type, platform, status, customer,
-              partner, bill, created_at, scheduled_date
+              partner, bill, created_at, scheduled_date, shipping_phone, shipping_address
             };
 
             this.fetchOrder(srcParms);
@@ -490,17 +512,18 @@
             return this.columnInputs[colName];
           },
           fetchOrder(srcParms) {
+            //console.log('SEARCH PARAMS === ', JSON.stringify(srcParms));
             axios.get(`${Admin_URL}/fetch-orders/${this.perPageItem}/${this.pageNumber}`, {
               params: srcParms
             })
               .then(response => {
-                console.log('fetchOrder ...... response data ===== ', response.data );
+                // console.log('fetchOrder:: response data ===== ', response.data );
                 this.orders = response.data.orders;
                 this.totalPageCount = Math.ceil(response.data.total_count / this.perPageItem);
                 this.total_count = response.data.total_count;
               })
               .catch(e => {
-                console.log("error occurs", e.response);
+                // console.log("error occurs", e.response);
               });
           },
           onPaginateClick(parm) {

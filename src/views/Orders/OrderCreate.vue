@@ -148,7 +148,12 @@
           this.measurement_type = data.custom_measurement;
       },
       fetchPartner() {
-          this.partners = [];
+        console.log('fetchPartner ========== ', 
+         "location = ", this.location,
+         "schedult = ", this.schedule,
+         "services = ", this.services 
+        );
+        this.partners = [];
         axios.post(`${ADMIN_URL}/available-partners`, {
           location : this.location,
           date : this.schedule.selected_date,
@@ -167,7 +172,7 @@
 
           })
           .catch(e => {
-            console.log("error occurs",e);
+            console.log("error fetchPartner === ", e.response);
           });
 
       },

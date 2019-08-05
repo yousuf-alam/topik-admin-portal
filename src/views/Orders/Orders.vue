@@ -150,12 +150,14 @@
                     <td> {{ order.id }} </td>
                     <td> {{ order.service_type }} </td>
                     <td> {{ order.platform }} </td>
-                    <td> {{ order.scheduled_date }} </td>
                     <td class="text-center">
                       <span :class="getStyleOfStatus(order.status)" style="font-size: 12px;">
                         {{ order.status }}
                       </span>
                     </td>
+                    <td> {{ order.scheduled_date }} </td>
+                    <!--<td> {{ order.scheduled_time }} </td>-->
+
                     <td> {{ order.customer }} </td>
                     <td> {{ order.partner }} </td>
 
@@ -240,8 +242,9 @@
                 'id',
                 'service_type' ,
                 'platform',
-                'scheduled_date',
                 'status',
+                'scheduled_date',
+                'scheduled_time',
                 'customer',
                 'partner',
 
@@ -470,6 +473,7 @@
             const customer = this.getInputValue("customer");
             const partner = this.getInputValue("partner");
             const bill = this.getInputValue("bill");
+            const scheduled_time = this.getInputValue("scheduled_time");
             const shipping_phone = this.getInputValue("shipping_phone");
             const shipping_address = this.getInputValue("shipping_address");
 
@@ -498,7 +502,7 @@
 
             const srcParms = {
               id, service_type, platform, status, customer,
-              partner, bill, created_at, scheduled_date, shipping_phone, shipping_address
+              partner, bill, created_at, scheduled_date,scheduled_time, shipping_phone, shipping_address
             };
 
             this.fetchOrder(srcParms);

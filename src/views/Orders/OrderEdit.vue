@@ -1,6 +1,10 @@
 <template>
   <div class="animated fadeIn font-weight-bold">
     <div>
+      <div class="cardheading">
+        <div></div>
+        <button @click="deleteOrder" class="btn btn-danger float-right"><i class="fa fa-trash"></i> Delete This Order</button>
+      </div>
     <b-row>
       <b-col class="mb-5" sm="6" md="6">
         <b-card class="h-100 p-4 m-4">
@@ -188,9 +192,9 @@
         <b-row>
           <b-col><service :type="getType"></service></b-col>
         </b-row>
-        <b-row>
+        <!--<b-row>
           <b-col><design></design></b-col>
-        </b-row>
+        </b-row>-->
       </b-col>
       <b-col sm="6" md="6">
         <b-row>
@@ -490,7 +494,50 @@
             console.log(error);
           });
 
-      }
+      },
+        deleteOrder() {
+            // console.log('handle Delete  ..... ', parm);
+            this.$swal({
+                title: 'Are you sure?',
+                text: 'You can\'t revert your action',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes Delete it!',
+                cancelButtonText: 'No, Keep it!',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+            }).then((result) => {
+                if(result.value) {
+                    this.confirmDeleteOrder();
+                } else {
+                    //this.$swal('Cancelled', 'Your file is still intact', 'info')
+                }
+            });
+        },
+        confirmDeleteOrder() {
+            axios.delete(`${ADMIN_URL}/orders/delete/`+this.order_id)
+                .then(response => {
+                    console.log('response ', response);
+
+                    if(response.data.code===200)
+                    {
+                        this.$swal(response.data.heading, response.data.message, 'success');
+                        setTimeout(()=>{
+                            window.location.href='/orders';
+                        },1000);
+                    }
+                    else
+                    {
+                        this.$swal(response.data.heading, response.data.message, 'info');
+                    }
+
+                }).catch(err => {
+                if (err.response.status === 404) {
+                    this.$swal(err.response.data.heading, err.response.data.message, 'info');
+                }
+
+            })
+        }
 
     }
   }

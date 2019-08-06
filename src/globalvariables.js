@@ -17,7 +17,7 @@ export default {
     is_valid_phone: phoneNo =>  /(^()?(01){1}[23456789]{1}(\d){8})$/i.test( phoneNo ),
 
     permissionsList: {
-        manage_roles: 'manage roles',
+        manage_roles: 'manage roles' ,
         order: ['order create', 'order read', 'order update', 'order delete',],
         complain: ['complain create', 'complain read', 'complain update', 'complain delete',],
         service: ['service create', 'service read', 'service update', 'service delete',],

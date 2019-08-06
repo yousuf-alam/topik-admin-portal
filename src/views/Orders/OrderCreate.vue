@@ -1,6 +1,6 @@
 <template>
     <div class="animated fadeIn">
-      <modal name="modal-order_type" height="auto" :adaptive="true">
+      <modal name="modal-order_type" height="auto" :adaptive="true" :clickToClose="false">
         <div class="m-3 p-3">
           <b-row class="p-2">
             <h4>Choose Order Type</h4><br><br>
@@ -250,32 +250,36 @@
           formData.append('designs[' + i + '][image]', file);
         }
 
-
+          const loader = this.$loading.show({
+              loader: 'spinner',
+              color: '#ff3573'
+          });
 
         axios.post(`${ADMIN_URL}/place-order`, formData, config)
           .then(response => {
+              setTimeout(() => {
+                  loader.hide();
 
-            currentObj.success = response.data.success;
-              const loader = this.$loading.show({
-                  loader: 'spinner',
-                  color: '#ff3573'
-              });
-              setTimeout(() => loader.hide(), 3 * 1000);
-            if(currentObj.success === true)
+              }, 3 * 1000);
+            if(response.data.success === true)
             {
-              this.$swal('Order Placed Successfully!', '', 'success');
-              setTimeout(()=>{
+                this.$swal('Order Placed Successfully!', '', 'success');
                 window.location.href = "/orders";
-              },1000);
             }
 
           })
           .catch(error => {
             // console.log('Error  ... ', error.response);
             currentObj.output = error;
+
             if(error.response.status===409)
             {
                 this.$swal('Invalid Phone Number', '', 'error');
+            }
+            else
+            {
+                this.$swal('Something went wrong', '', 'error');
+
             }
 
           });

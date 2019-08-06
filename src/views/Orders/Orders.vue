@@ -2,7 +2,7 @@
     <div class="animated fadeIn">
       <div class="cardheading">
           <h4><i class="fa fa-table"></i><span class="ml-1">Orders</span></h4>
-          <button @click="modalType" class="btn btn-success mb-2">Create New Order</button>
+        <router-link class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link>
       </div>
       <b-row>
         <modal name="modal-order_type" height="auto" :adaptive="true">
@@ -335,9 +335,6 @@
         }
       },
         methods: {
-          modalType(){
-            this.$modal.show('modal-order_type');
-          },
           modalExport() {
             this.$modal.show('modal-order_export');
           },

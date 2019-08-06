@@ -64,7 +64,8 @@ import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
 import globalvariables from '../../../globalvariables';
-const BASE_URL = process.env.VUE_APP_ADMIN_URL;
+const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+const ROOT_URL = process.env.VUE_APP_ROOT_URL; 
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue';
 import EventBus from '../../../utils/EventBus';
 export default {
@@ -170,7 +171,7 @@ export default {
             const desktopNotiObject = {
                 title: desktopNotiTitle,
                 body: desktopNotiBody,
-                icon: `${BASE_URL}/images_api/favicon.ico`,
+                icon: `${ROOT_URL}/images_api/favicon.ico`,
                 redirect_url: desktopNotiRedirectURL,
                 noti_id: notification.id
             }
@@ -188,6 +189,7 @@ export default {
         },
 
         notifyDesktop(desktopNotiObject) {
+            console.log('noti Desktop FIRED -------- ', desktopNotiObject);
             let noti = new Notification(desktopNotiObject.title, {
                 icon: desktopNotiObject.icon,
                 body: desktopNotiObject.body
@@ -195,7 +197,7 @@ export default {
 
             noti.onclick = function() {
                 let noti_id = desktopNotiObject.noti_id;
-                axios.get(`${BASE_URL}/mark-as-read/${noti_id}`)
+                axios.get(`${ADMIN_URL}/mark-as-read/${noti_id}`)
                     .then(res => {
                         window.clearTimeout(timer);
                         noti.close();
@@ -211,12 +213,12 @@ export default {
             timer = setTimeout(noti.close.bind(noti), 5000);
         },
         countAllNoti() {
-            axios.get(`${BASE_URL}/count-all-noti`)
+            axios.get(`${ADMIN_URL}/count-all-noti`)
                 .then(res => { this.allNotiCounter = res.data;})
                 .catch(error => {    });
         },
         countUnreadNoti() {
-            axios.get(`${BASE_URL}/count-unread-noti`)
+            axios.get(`${ADMIN_URL}/count-unread-noti`)
                 .then(res => { this.unreadNotiCounter = res.data;
                   EventBus.$emit('unread:notification', res.data);})
                 .catch(error => {
@@ -281,8 +283,8 @@ export default {
         },
         notiMarkAsRead(notiObj) {
             const noti_id = notiObj.id;
-            const BASE_URL = this.$gbvar.BASE_URL;
-            axios.get(`${BASE_URL}/mark-as-read/${noti_id}`)
+            const ADMIN_URL = this.$gbvar.ADMIN_URL;
+            axios.get(`${ADMIN_URL}/mark-as-read/${noti_id}`)
                 .then(res => {
                   window.location.href = this.makeRedirectionURL(notiObj);
                 }).catch(error => {

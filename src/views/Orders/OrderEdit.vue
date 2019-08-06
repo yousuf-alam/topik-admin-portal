@@ -1,6 +1,10 @@
 <template>
   <div class="animated fadeIn font-weight-bold">
     <div>
+      <div class="cardheading">
+        <div></div>
+        <button @click="deleteOrder" class="btn btn-danger float-right"><i class="fa fa-trash"></i> Delete This Order</button>
+      </div>
     <b-row>
       <b-col class="mb-5" sm="6" md="6">
         <b-card class="h-100 p-4 m-4">
@@ -178,7 +182,7 @@
         <cart></cart>
         <div class="row text-center pb-5">
           <div class="center-div">
-            <button class="btn btn-dark" @click="addNewitem()"> Add New Line Item(s)</button>
+            <button class="btn btn-dark" @click="addNewitem"> Add New Line Item(s)</button>
           </div>
         </div>
       </b-col>
@@ -188,21 +192,29 @@
         <b-row>
           <b-col><service :type="getType"></service></b-col>
         </b-row>
-        <b-row>
+        <!--<b-row>
           <b-col><design></design></b-col>
-        </b-row>
+        </b-row>-->
       </b-col>
       <b-col sm="6" md="6">
         <b-row>
           <b-col>
-            <accessories></accessories>
+            <b-card class="m-4 p-4">
+              <h5 class="mb-4">Measurement Type</h5>
+              <div class="form-group">
+                <input type="radio" v-model="order.measurement" value="by_sample" @change="addMeasurement" id="by_sample_id">
+                <label for="by_sample_id" class="mx-1"> Customer will provide a sample</label><br>
+                <input type="radio" v-model="order.measurement" value="by_tailor" @change="addMeasurement" id="by_tailor_id">
+                <label for="by_tailor_id" class="mx-1">Tailor will take measurements on spot</label><br>
+              </div>
+            </b-card>
           </b-col>
         </b-row>
         <b-row>
           <b-col><cart></cart>
             <div class="row text-center">
               <div class="form-control">
-                <button class="btn btn-dark"> Add New Lineitem(s)</button>
+                <button class="btn btn-dark" @click="addNewitem"> Add New Lineitem(s)</button>
               </div>
             </div></b-col>
         </b-row>
@@ -453,6 +465,9 @@
           .then(response => {
             console.log('Success', response);
             this.$swal('Line Item Updated', '', 'success');
+              setTimeout(()=>{
+                  location.reload();
+              },1000);
 
           })
           .catch(error => {
@@ -479,7 +494,50 @@
             console.log(error);
           });
 
-      }
+      },
+        deleteOrder() {
+            // console.log('handle Delete  ..... ', parm);
+            this.$swal({
+                title: 'Are you sure?',
+                text: 'You can\'t revert your action',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes Delete it!',
+                cancelButtonText: 'No, Keep it!',
+                showCloseButton: true,
+                showLoaderOnConfirm: true
+            }).then((result) => {
+                if(result.value) {
+                    this.confirmDeleteOrder();
+                } else {
+                    //this.$swal('Cancelled', 'Your file is still intact', 'info')
+                }
+            });
+        },
+        confirmDeleteOrder() {
+            axios.delete(`${ADMIN_URL}/orders/delete/`+this.order_id)
+                .then(response => {
+                    console.log('response ', response);
+
+                    if(response.data.code===200)
+                    {
+                        this.$swal(response.data.heading, response.data.message, 'success');
+                        setTimeout(()=>{
+                            window.location.href='/orders';
+                        },1000);
+                    }
+                    else
+                    {
+                        this.$swal(response.data.heading, response.data.message, 'info');
+                    }
+
+                }).catch(err => {
+                if (err.response.status === 404) {
+                    this.$swal(err.response.data.heading, err.response.data.message, 'info');
+                }
+
+            })
+        }
 
     }
   }

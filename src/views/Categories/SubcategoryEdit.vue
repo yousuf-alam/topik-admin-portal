@@ -240,13 +240,14 @@
     },
     created(){
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      this.src_svg = ADMIN_URL + this.src_svg;
-      this.src_pdf = ADMIN_URL + this.src_pdf;
-      this.src_thumbnail = ADMIN_URL + this.src_thumbnail;
-      this.src_banweb = ADMIN_URL + this.src_banweb;
-      this.src_bantab = ADMIN_URL + this.src_bantab;
-      this.src_banios = ADMIN_URL + this.src_banios;
-      this.src_banand = ADMIN_URL + this.src_banand;
+      const BASE_URL  = process.env.VUE_APP_BASE_URL;
+      this.src_svg = BASE_URL + this.src_svg;
+      this.src_pdf = BASE_URL + this.src_pdf;
+      this.src_thumbnail = BASE_URL + this.src_thumbnail;
+      this.src_banweb = BASE_URL + this.src_banweb;
+      this.src_bantab = BASE_URL + this.src_bantab;
+      this.src_banios = BASE_URL + this.src_banios;
+      this.src_banand = BASE_URL + this.src_banand;
       let id = window.location.pathname.split("/").pop();
       this.category.id = id;
       axios.post(`${ADMIN_URL}/subcategories/edit`,

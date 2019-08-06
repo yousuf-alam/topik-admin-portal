@@ -2,7 +2,7 @@
     <div class="animated fadeIn">
       <div class="cardheading">
           <h4><i class="fa fa-table"></i><span class="ml-1">Orders</span></h4>
-          <button @click="modalType" class="btn btn-success mb-2">Create New Order</button>
+        <router-link class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link>
       </div>
       <b-row>
         <modal name="modal-order_type" height="auto" :adaptive="true">
@@ -150,12 +150,14 @@
                     <td> {{ order.id }} </td>
                     <td> {{ order.service_type }} </td>
                     <td> {{ order.platform }} </td>
-                    <td> {{ order.scheduled_date }} </td>
-                    <td class="text-center"> 
-                      <span :class="getStyleOfStatus(order.status)" style="font-size: 12px;"> 
-                        {{ order.status }} 
-                      </span> 
+                    <td class="text-center">
+                      <span :class="getStyleOfStatus(order.status)" style="font-size: 12px;">
+                        {{ order.status }}
+                      </span>
                     </td>
+                    <td> {{ order.scheduled_date }} </td>
+                    <!--<td> {{ order.scheduled_time }} </td>-->
+
                     <td> {{ order.customer }} </td>
                     <td> {{ order.partner }} </td>
 
@@ -174,9 +176,6 @@
                               <i class="fa fa-edit"></i>
                           </span>
                       </router-link>
-                      <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
-                        <i class="fa fa-trash"></i>
-                      </span>
                     </td>
                   </tr>
                 </table>
@@ -243,8 +242,9 @@
                 'id',
                 'service_type' ,
                 'platform',
-                'scheduled_date',
                 'status',
+                'scheduled_date',
+                /*'scheduled_time',*/
                 'customer',
                 'partner',
 
@@ -258,7 +258,7 @@
 
               },
               dateColumns: [ "created_at", "scheduled_date" ],
-              noFilteColumns: ["shipping_address", "action" ],
+              noFilteColumns: ["action" ],
 
 
 
@@ -286,24 +286,24 @@
               return 'badge badge-primary';
 
             } else if (parm === 'accepted') {
-              return 'badge badge-warning'; 
-            
+              return 'badge badge-warning';
+
             } else if (parm === 'started') {
-              return 'badge badge-secondary'; 
-            
+              return 'badge badge-secondary';
+
             } else if (parm === 'completed') {
-              return 'badge badge-success'; 
-            
+              return 'badge badge-success';
+
             } else if (parm === 'rejected') {
-              return 'badge badge-danger'; 
-            
+              return 'badge badge-danger';
+
             } else if (parm === 'cancelled') {
-              return 'badge badge-dark'; 
+              return 'badge badge-dark';
             } else {
               return '';
             }
           }
-        }, 
+        },
         getSortIconStyle: function () {
           return (parm) => {
             const defaultIcon = 'fa fa-sort';
@@ -335,9 +335,6 @@
         }
       },
         methods: {
-          modalType(){
-            this.$modal.show('modal-order_type');
-          },
           modalExport() {
             this.$modal.show('modal-order_export');
           },
@@ -473,11 +470,13 @@
             const customer = this.getInputValue("customer");
             const partner = this.getInputValue("partner");
             const bill = this.getInputValue("bill");
+            const scheduled_time = this.getInputValue("scheduled_time");
             const shipping_phone = this.getInputValue("shipping_phone");
+            const shipping_address = this.getInputValue("shipping_address");
 
-            console.log( "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
+            //console.log( "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
             let from = '';
-            let to = ''
+            let to = '';
             if (this.dateRange.created_at === ""|| this.dateRange.created_at == null) {
               from = '';
               to = ''
@@ -489,7 +488,7 @@
 
             if (this.dateRange.scheduled_date === ""|| this.dateRange.scheduled_date == null) {
               from = '';
-              to = ''
+              to = '';
             } else {
               from = this.dateRange.scheduled_date.start;
               to = this.dateRange.scheduled_date.end;
@@ -500,7 +499,7 @@
 
             const srcParms = {
               id, service_type, platform, status, customer,
-              partner, bill, created_at, scheduled_date, shipping_phone
+              partner, bill, created_at, scheduled_date,scheduled_time, shipping_phone, shipping_address
             };
 
             this.fetchOrder(srcParms);
@@ -562,5 +561,8 @@
 
   #order_table_container {
     min-height: 600px;
+  }
+  .badge {
+    font-size: 0.75rem;
   }
 </style>

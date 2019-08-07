@@ -4,7 +4,7 @@
       <b-col>
         <h4><i class="fa fa-users"></i><span class="ml-1">Resources</span></h4>
         <b-card>
-          <v-client-table :data="resources" :columns="columns" :options="options">
+          <v-client-table :data="resources" :columns="columns" :options="options" >
             <template slot="action" slot-scope="props">
               <div>
                 <router-link :to="{ name: 'ResourceShow', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.id">
@@ -29,11 +29,15 @@
         resources : [],
         columns: ['id', 'name', 'type', 'partner', 'phone' ,'status', 'created_at', 'action'],
         options: {
-          pagination: {nav: 'fixed'},
+         // pagination: {nav: 'fixed'},
           filterByColumn: true,
           //dateColumns: ['created_at'],
           toMomentFormat: 'YYYY-MM-DD',
           sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
+            texts:{
+                count:'Showing 1 to 10 of 718 records'
+            }
+
 
         }
 
@@ -48,7 +52,9 @@
         .catch(e=>{
           //console.log("error occurs");
         });
+        console.log(data.length);
     },
+
     methods: {
 
     },

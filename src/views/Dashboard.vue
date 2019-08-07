@@ -87,27 +87,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.today.revenue }}</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ 13550</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.today.order_no}}</b>
+              <b>11</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.today.served_no}}</b>
+              <b>8</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.today.revenue}} </b>
+              <b>13550 </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.today.customer}}</b>
+              <b>6</b>
                   Customers
               </li>
             </span>
@@ -122,27 +122,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.week.revenue }}</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ 115650</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.week.order_no}}</b>
+              <b>108</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.week.served_no}}</b>
+              <b>105</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.week.revenue}} </b>
+              <b>115650 </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.week.customer}}</b>
+              <b>101</b>
                   Customers
               </li>
             </span>
@@ -157,27 +157,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.month.revenue }}</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ 2086550</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.month.order_no}}</b>
+              <b>220</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.month.served_no}}</b>
+              <b>217</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.month.revenue}} </b>
+              <b>2086550 </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.month.customer}}</b>
+              <b>189</b>
                   Customers
               </li>
             </span>
@@ -192,27 +192,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.year.revenue }}</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ 2086550</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.year.order_no}}</b>
+              <b>4248</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.year.served_no}}</b>
+              <b>4211</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.year.revenue}} </b>
+              <b>2086550 </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.year.customer}}</b>
+              <b>2879</b>
                   Customers
               </li>
             </span>
@@ -255,6 +255,10 @@
             this.finance = response.data.finance;
             this.all_data_fetched_successfully = true;
             // console.log('finance ======  =========>> ', response.data.finance);
+              /*'today' => 13550,
+                  'week'  => 115650,
+                  'month' => 2086550,
+                  'year'  => 5352500*/
           })
           .catch(e => {
             //console.log("error occurs");

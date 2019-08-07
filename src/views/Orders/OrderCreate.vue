@@ -70,7 +70,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <order-summary :invoice="invoice"></order-summary>
+            <order-summary :invoice="invoice" v-if="invoice.length !== 0"></order-summary>
           </b-col>
         </b-row>
         <b-card class="bg-white text-center">
@@ -130,6 +130,7 @@
     },
     mounted() {
         this.modalType();
+        console.log('in', this.invoice);
         EventBus.$on('customer:add'   , this.customerAdd.bind(this));
         EventBus.$on('location:add'   , this.locationAdd.bind(this));
         EventBus.$on('schedule:add'   , this.scheduleAdd.bind(this));
@@ -206,6 +207,7 @@
         this.selected_partner = partner;
 
         this.invoice = this.invoiceFormatter();
+        console.log('len',this.invoice.length);
       },
       invoiceFormatter(){
         return{

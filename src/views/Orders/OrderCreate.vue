@@ -254,7 +254,8 @@
 
           const loader = this.$loading.show({
               loader: 'spinner',
-              color: '#ff3573'
+              color: '#ff3573',
+              canCancel : true
           });
 
         axios.post(`${ADMIN_URL}/place-order`, formData, config)

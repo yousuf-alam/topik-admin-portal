@@ -29,9 +29,6 @@
                     <template slot="description" slot-scope="props">
                         {{ cutDescriptionToShort(props.row.description) }}
                     </template>
-                    <template slot="created_at" slot-scope="props">
-                        {{ makeCreatedAtReadable(props.row.created_at) }}
-                    </template>
                     <template slot="action" slot-scope="props">
                         <div>
                             <router-link :to="{ name: 'ComplainShow', params: { id: props.row.id }}">
@@ -39,9 +36,6 @@
                                     <i class="fa fa-search"></i>
                                 </span>
                             </router-link>
-                            <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete">
-                                    <i class="fa fa-trash"></i>
-                            </span>
                         </div>
                     </template>
                 </v-client-table>
@@ -64,7 +58,7 @@ export default {
     data() {
         return {
             data_loaded_successfully: false,
-            columns: ['id', 'order_id', 'partner', 'created_at' ,'action'],
+            columns: ['order_id', 'partner', 'description','created_at' ,'action'],
             tableData: [],
                 options: {
                     pagination: {nav: 'fixed'},
@@ -90,12 +84,6 @@ export default {
         }
     },
     computed: {
-        makeCreatedAtReadable: () => {
-            return (date) => {
-                return moment(date, "YYYYMMDD h:mm:ss a").fromNow();
-            }
-        },
-
         cutDescriptionToShort() {
             return (description) => {
                 if (description === null) {

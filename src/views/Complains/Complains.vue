@@ -60,11 +60,11 @@
 import axios from 'axios';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
-    name: 'Notifications',
+    name: 'Complains',
     data() {
         return {
             data_loaded_successfully: false,
-            columns: ['id', 'order_id', 'description', 'created_at' ,'action'],
+            columns: ['id', 'order_id', 'partner', 'created_at' ,'action'],
             tableData: [],
                 options: {
                     pagination: {nav: 'fixed'},

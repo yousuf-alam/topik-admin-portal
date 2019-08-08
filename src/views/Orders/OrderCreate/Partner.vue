@@ -10,14 +10,14 @@
 
         <div class="tab-pane list-group partners in active show">
 
-          <div class="list-group-item list-group-item-action" v-for="(partner, i) in partners" :key="i" @click="selectPartner(partner)" :class="{active: selected_partner === partner , disabledSP: partner.is_booked ===1}">
+          <div class="list-group-item list-group-item-action" v-for="(partner, i) in partners" :key="i" @click="selectPartner(partner)" :class="{active: selected_partner === partner , disabledSP: partner.is_booked ===true}">
             <div class="row">
               <div class="col-sm-2">
                 <img class="partner-thumb" :src="partner.avatar">
               </div>
               <div class="col-sm-6">
                 <h4 class="p-name">{{ partner.name }}</h4>
-                <p v-if="partner.is_booked ===1" class="booked mt-2">[ Booked for the selected time ]</p>
+                <p v-if="partner.is_booked ===true">[ Booked for the selected time ]</p>
               </div>
               <div class="col-sm-4 text-right">
                 <h5 class="font-weight-bold">৳ {{ partner.price }}</h5>
@@ -88,6 +88,10 @@
   }
   .list-group-item:active .details-link{
     color: #ffeef7;
+  }
+  .disabledSP{
+    pointer-events: none;
+    background-color: #cecece;
   }
 
 </style>

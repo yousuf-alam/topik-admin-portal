@@ -110,11 +110,22 @@
     data() {
       return {
         type : '',
-        customer: [],
+        customer :{
+            name : '',
+            phone: '',
+        },
         location: '',
         categories: [],
         partners: [],
-        schedule: [],
+          schedule : {
+              selected_time: '',
+              selected_date: '',
+              address : {
+                  latitude: '',
+                  longitude: '',
+                  address_details: ''
+              },
+          },
         services: [],
         designs: [],
         accessories: [],
@@ -266,21 +277,25 @@
                 this.$swal('Order Placed Successfully!', '', 'success');
                 window.location.href = "/orders";
             }
+            else
+            {
+                this.$swal('Something wrong happened', 'Please check all the fields', 'error');
+            }
 
           })
           .catch(error => {
             // console.log('Error  ... ', error.response);
-            currentObj.output = error;
 
-            if(error.response.status===409)
+              this.$swal('Something went wrong', 'Please try again', 'error');
+           /* if(error.response.status===422)
             {
-                this.$swal('Invalid Phone Number', '', 'error');
+                this.$swal('Invalid Phone Number', error.response.data, 'error');
             }
             else
             {
-                this.$swal('Something went wrong', '', 'error');
+                this.$swal('Something went wrong', 'Please check all the fields', 'error');
 
-            }
+            }*/
 
           });
 

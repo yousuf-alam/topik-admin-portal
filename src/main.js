@@ -20,12 +20,12 @@ import VueAxios from 'vue-axios'
 import VModal from 'vue-js-modal'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueSweetalert2 from 'vue-sweetalert2';
-
-// Import component
 import Loading from 'vue-loading-overlay';
-// Import stylesheet
 import 'vue-loading-overlay/dist/vue-loading.css';
-// Init plugin
+import Multiselect from 'vue-multiselect';
+
+
+
 
 
 
@@ -64,6 +64,8 @@ Vue.use(VueAxios, axios);
 Vue.use(VModal)
 Vue.use(VueSweetalert2, { confirmButtonColor: '#41b882', cancelButtonColor: '#ff7674'})
 Vue.use(Loading);
+Vue.component('multiselect', Multiselect)
+
 import router from './router'
 import store from './store/store';
 import globalvariables from './globalvariables';

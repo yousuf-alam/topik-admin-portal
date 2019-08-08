@@ -107,9 +107,9 @@
         Design,
         Accessories
     },
-    props: ['type'],
     data() {
       return {
+        type : '',
         customer: [],
         location: '',
         categories: [],
@@ -125,9 +125,7 @@
         payment_method: 'cash_on_delivery'
       };
     },
-    created() {
 
-    },
     mounted() {
         this.modalType();
         console.log('in', this.invoice);
@@ -145,11 +143,11 @@
           this.$modal.show('modal-order_type');
           console.log('called');
       },
-        createOrder(type)
-        {
-            this.type = type;
-            this.$modal.hide('modal-order_type');
-        },
+      createOrder(type)
+      {
+          this.type = type;
+          this.$modal.hide('modal-order_type');
+      },
 
       customerAdd(customer) {
         this.customer = customer;
@@ -215,7 +213,6 @@
           discount: 0,
           serviceNo: this.services.length,
           sp:this.selected_partner.name,
-          address:this.schedule.address.address_details,
           schedule:this.schedule
         }
       },

@@ -27,7 +27,7 @@
       </b-form-group>
 
       <b-form-group label="Delivery Address">
-          <b-form-input @keyup="addSchedule" type="text" v-model="schedule.address.address_details"></b-form-input>
+          <b-form-input type="text" v-model="schedule.address.address_details"></b-form-input>
           <span class="text-danger font-sm"> {{schedule.address_warning}} </span>
       </b-form-group>
     </b-card>

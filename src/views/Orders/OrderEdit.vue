@@ -26,9 +26,14 @@
           </select>
         </b-form-group>
           <b-form-group label="Assigned SP">
-            <select class="form-control" v-model="order.partner_id">
-              <option :value="partner.id" v-for="partner in partners" :key="partner.id">{{ partner.name }}</option>
-            </select>
+            <multiselect
+              v-model="order.partner"
+              :options="partners"
+              placeholder="Select one"
+              label="name"
+              track-by="id"
+            >
+            </multiselect>
           </b-form-group>
           <div v-show="order.service_id===2">
             <label>Select Delivery Type</label>
@@ -391,7 +396,7 @@
         let formData = new FormData();
         formData.append('id', this.order.id);
         formData.append('status', this.order.status);
-        formData.append('partner_id', this.order.partner_id);
+        formData.append('partner_id', this.order.partner.id);
         formData.append('location_id', this.order.location_id);
         formData.append('scheduled_time', this.order.scheduled_time);
         formData.append('scheduled_date', this.order.scheduled_date);
@@ -542,7 +547,7 @@
     }
   }
 </script>
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
   .date-input {
     width: 100%;

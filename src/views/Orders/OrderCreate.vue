@@ -63,6 +63,13 @@
           </b-row>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col>
+          <button class="btn btn-primary btn-lg center-div" @click="fetchPartner">
+            <i class="fa fa-search"></i>
+            Search Partners</button>
+        </b-col>
+      </b-row>
         <b-row>
             <b-col>
                 <partner :partners="partners"></partner>
@@ -174,7 +181,8 @@
       },
       servicesAdd(services) {
         this.services = services;
-        this.fetchPartner();
+        this.partners = [];
+       // this.fetchPartner();
       },
       accessoriesAdd(data) {
         this.accessories = data.accessories;
@@ -191,6 +199,7 @@
         this.partners = [];
 
         axios.post(`${ADMIN_URL}/available-partners`, {
+          service_type : this.type,
           location : this.location,
           date : this.schedule.selected_date,
           time : this.schedule.selected_time,
@@ -286,7 +295,7 @@
           .catch(error => {
             // console.log('Error  ... ', error.response);
 
-              this.$swal('Something went wrong', 'Please try again', 'error');
+              this.$swal('Something went wrong', 'Please check all the fields & try again', 'error');
            /* if(error.response.status===422)
             {
                 this.$swal('Invalid Phone Number', error.response.data, 'error');

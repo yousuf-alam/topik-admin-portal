@@ -172,8 +172,8 @@ export default {
             if (notification.type === `App\\Notifications\\AdminNotification`) {
                 const order_id = notification.order.id;
                 const origin = window.location.origin;
-                desktopNotiTitle = `Order Placed (ID: ${order_id} )`;
-                desktopNotiBody = 'An order has been placed';
+                desktopNotiTitle = `Order  Notification (ID: ${order_id} )`;
+                desktopNotiBody = notification.body;
                 desktopNotiRedirectURL = `${origin}/orders/details/${order_id}`;
                 let audio = new Audio('/message_tone.mp3');
                 audio.play();

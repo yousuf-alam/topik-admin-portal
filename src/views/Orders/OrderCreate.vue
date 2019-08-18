@@ -172,9 +172,11 @@
       },
       locationAdd(location) {
         this.location = location;
+        this.partners = [];
       },
       scheduleAdd(schedule) {
         this.schedule = schedule;
+        this.partners = [];
       },
       designAdd(designs) {
         this.designs = designs;

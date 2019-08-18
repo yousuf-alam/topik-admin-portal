@@ -12,7 +12,7 @@
       </div>
 
       <b-form-group v-show="date_type==='custom'" label="Select Date">
-        <datepicker v-model="schedule.selected_date" :disabledDates="disabledDates"></datepicker>
+        <datepicker v-model="schedule.selected_date" :disabledDates="disabledDates" @input="changeDateFormat"></datepicker>
       </b-form-group>
       <b-form-group v-show="type==='Beauty On-Demand'" label="Select Time">
         <select @change="addSchedule" class="form-control" v-model="schedule.selected_time">
@@ -28,7 +28,7 @@
 
       <b-form-group label="Delivery Address">
           <b-form-input type="text" v-model="schedule.address.address_details"></b-form-input>
-          <span class="text-danger font-sm"> {{schedule.address_warning}} </span>
+         <!-- <span class="text-danger font-sm"> {{schedule.address_warning}} </span>-->
       </b-form-group>
     </b-card>
 </template>
@@ -73,17 +73,13 @@
         if (day.length < 2) day = '0' + day;
 
         this.schedule.selected_date =  [year, month, day].join('-');
+        EventBus.$emit('schedule:add',this.schedule);
       },
       addSchedule() {
 
         if(this.date_type==='regular')
         {
           this.schedule.selected_date = 'Regular Delivery';
-        }
-        else
-        {
-          //this.onKeyUpAddress();
-          this.changeDateFormat();
         }
 
         EventBus.$emit('schedule:add',this.schedule);

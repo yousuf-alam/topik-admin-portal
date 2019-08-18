@@ -29,11 +29,11 @@
                     >
                         <b-dropdown-item class="my-0 py-0">
                             <div class="d-flex justify-content-around">
-                                <i :class="[noti.data.icon, notiIconStyle]"  />
+                                <i :class="[noti.data.icon, notiIconStyle(noti.data.status)]"></i>
 
                                 <div class="m-0 p-0">
                                    <div class="m-0 p-0" style="width:170px"
-                                    v-html="resizeText(noti.data.body)" />
+                                    v-html="resizeText(noti.data.body)"></div>
 
                                     <div class="datetime m-0 p-0">
                                         <small> {{ makeNotiTimeReadable(noti.created_at) }} </small>
@@ -110,7 +110,13 @@ export default {
             }
         },
         notiIconStyle: () => {
-           return 'text-success my-auto';
+            return (status) => {
+            if(status==='pending')
+              return 'text-primary my-auto';
+            else
+              return 'text-danger my-auto';
+            }
+
         },
         makeNotiTimeReadable: () => {
             return (date) => {

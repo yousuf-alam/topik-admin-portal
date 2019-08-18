@@ -161,7 +161,7 @@ export default {
             let desktopNotiBody = '';
             let desktopNotiRedirectURL = '';
 
-            if (notification.type === `App\\Notifications\\OrderStatusUpdated`) {
+            if (notification.type === `App\\Notifications\\AdminNotification`) {
                 desktopNotiTitle = `Hey, ${userName}`
                 desktopNotiBody = 'An order has been placed'
                 const order_id = notification.order.id;
@@ -274,7 +274,7 @@ export default {
             }
         },
         makeRedirectionURL(notiObj) {
-          if( notiObj.type === `App\\Notifications\\OrderStatusUpdated` ) {
+          if( notiObj.type === `App\\Notifications\\AdminNotification` ) {
               const order_id = notiObj.data.order.id;
               const origin = window.location.origin;
               return `${origin}/orders/details/${order_id}`;

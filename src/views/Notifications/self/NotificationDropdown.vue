@@ -191,6 +191,7 @@ export default {
         notifyDesktop(desktopNotiObject) {
             console.log('noti Desktop FIRED -------- ', desktopNotiObject);
             let noti = new Notification(desktopNotiObject.title, {
+                tag: 'Mul-Tab-Solution',
                 icon: desktopNotiObject.icon,
                 body: desktopNotiObject.body
             });

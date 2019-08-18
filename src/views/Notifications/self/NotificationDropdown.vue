@@ -65,7 +65,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import globalvariables from '../../../globalvariables';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-const ROOT_URL = process.env.VUE_APP_ROOT_URL; 
+const ROOT_URL = process.env.VUE_APP_ROOT_URL;
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue';
 import EventBus from '../../../utils/EventBus';
 export default {
@@ -139,10 +139,12 @@ export default {
                 .notification((notification) => {
                     this.unreadNotiCounter++;
                     this.allNotiCounter++;
+                    this.initiateDesktopNoti(notification);
+
                     this.pageNumber = 0;
                     this.fetchNotiAfterPusherListen();
 
-                    this.initiateDesktopNoti(notification);
+                    //this.initiateDesktopNoti(notification);
 
                     /*
                         // this.notifications.push(notification.order);
@@ -162,11 +164,13 @@ export default {
             let desktopNotiRedirectURL = '';
 
             if (notification.type === `App\\Notifications\\AdminNotification`) {
-                desktopNotiTitle = `Hey, ${userName}`
-                desktopNotiBody = 'An order has been placed'
                 const order_id = notification.order.id;
                 const origin = window.location.origin;
+                desktopNotiTitle = `Order Placed (ID: ${order_id} )`;
+                desktopNotiBody = 'An order has been placed';
                 desktopNotiRedirectURL = `${origin}/orders/details/${order_id}`;
+                let audio = new Audio('/message_tone.mp3');
+                audio.play();
             }
             const desktopNotiObject = {
                 title: desktopNotiTitle,

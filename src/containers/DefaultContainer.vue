@@ -20,6 +20,11 @@
         <NotificationDropdown/>
         <DefaultHeaderDropdownAccnt/>
       </b-navbar-nav>
+      <!-- 
+        <b-navbar-nav>
+          <TestDesktopNoti />
+        </b-navbar-nav> 
+      -->
       <AsideToggler class="d-none d-lg-block" />
       <!--<AsideToggler class="d-lg-none" mobile />-->
     </AppHeader>
@@ -60,6 +65,7 @@ import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFoot
 import DefaultAside from './DefaultAside'
 import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt'
 import NotificationDropdown from '../views/Notifications/self/NotificationDropdown';
+// import TestDesktopNoti from './TestDesktopNoti';
 
 export default {
   name: 'DefaultContainer',
@@ -78,7 +84,8 @@ export default {
     SidebarToggler,
     SidebarHeader,
     SidebarNav,
-    SidebarMinimizer
+    SidebarMinimizer,
+    // TestDesktopNoti
   },
   data () {
     return {

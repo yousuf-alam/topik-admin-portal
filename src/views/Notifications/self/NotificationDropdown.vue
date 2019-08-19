@@ -113,6 +113,8 @@ export default {
             return (status) => {
             if(status==='pending')
               return 'text-primary my-auto';
+            else if(status==='cancelled')
+                return 'text-warning my-auto';
             else
               return 'text-danger my-auto';
             }

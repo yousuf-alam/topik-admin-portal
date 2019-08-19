@@ -7,13 +7,13 @@
                 <b-input-group-prepend>
                     <b-input-group-text>+88</b-input-group-text>
                 </b-input-group-prepend>
-                <b-form-input type="text" @keyup="addCustomer" v-model="customer.phone"></b-form-input>
+                <b-form-input type="text" @input="addCustomer" v-model="customer.phone"></b-form-input>
             </b-input-group>
           <span class="text-danger font-sm"> {{phone_warning}} </span>
         </b-form-group>
         <b-form-group>
-            <label for="name">Delivery Name</label>
-            <b-form-input @keyup="addCustomer" v-model="customer.name" type="text" id="name"></b-form-input>
+            <label>Delivery Name</label>
+            <b-form-input @input="addCustomer" v-model="customer.name" type="text" id="name"></b-form-input>
         </b-form-group>
     </b-card>
 </template>

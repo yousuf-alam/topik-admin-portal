@@ -165,6 +165,12 @@ const navitems = {
       permission_name: permissionsList.topbanner
     },
     {
+      name: 'Chat Bot',
+      url: '/bot-offers',
+      icon: 'fa fa-reddit-alien',
+      permission_name: permissionsList.topbanner
+    },
+    {
       title: true,
       name: 'Portal',
       permission_name: [...permissionsList.document],

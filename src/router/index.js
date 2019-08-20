@@ -60,6 +60,9 @@ const Complains = () => import('@/views/Complains/Complains')
 const ComplainCreate = () => import('@/views/Complains/ComplainCreate')
 const ComplainShow = () => import('../views/Complains/ComplainShow')
 
+const BotOffers = () => import('../views/ChatBot/BotOffers')
+const BotOfferEdit = () => import('../views/ChatBot/BotOfferEdit')
+const BotOfferCreate = () => import('../views/ChatBot/BotOfferCreate')
 const Documents = () => import('../views/Documents')
 const Profile   = () => import('../views/Profile')
 
@@ -535,6 +538,30 @@ const router =  new Router({
         path: 'profile',
         name: 'Profile',
         component: Profile,
+      },
+      {
+        path: 'bot-offers',
+        redirect: '/bot-offers',
+        name: 'Bot Offers',
+        component: {
+          render (c) { return c('router-view') }
+        },
+        children: [
+          {
+            path: '',
+            component: BotOffers
+          },
+          {
+            path: 'edit/:id',
+            name: 'Edit Offer',
+            component: BotOfferEdit
+          },
+          {
+            path: 'create',
+            name: 'Create',
+            component: BotOfferCreate
+          }
+        ]
       },
     ]
   },

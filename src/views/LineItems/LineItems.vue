@@ -16,7 +16,7 @@
     <b-row>
       <b-col>
         <b-card>
-          <v-client-table :data="categories" :columns="columns" :options="options">
+          <v-client-table :data="lineitems" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
                 <router-link :to="{ name: 'LineitemEdit', params: { id: props.row.id }}"
@@ -50,7 +50,7 @@
     name: 'Lineitems',
     data() {
       return {
-        categories : [],
+        lineitems : [],
         columns: [
           'id', 'name', 'service', 'category', 'subcategory',
           'published_status', 'created_at', 'action'
@@ -70,7 +70,7 @@
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
       axios.get(`${ADMIN_URL}/all-line-items`)
         .then(response => {
-          this.categories = response.data;
+          this.lineitems = response.data;
         })
         .catch(e => {
           console.log("error occurs", e.response);

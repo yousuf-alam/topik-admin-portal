@@ -143,7 +143,10 @@
                     </tr>
                     <tr>
                       <th>Jobs Completed</th>
-                      <td>{{partner.completed_job}} </td>
+                      <td>{{partner.completed_job}}
+                        <span class="text-muted ml-5 pl-5">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp({{jobScore}} Out of 25)</span>
+                      </td>
+
                     </tr>
                   </table>
                 </b-tab>
@@ -180,6 +183,10 @@
         ratingFloat() {
           let rating =  parseFloat(this.partner.rating);
           return rating.toFixed(2);
+        },
+        jobScore() {
+            let jobscore =  parseFloat(this.partner.priority - this.partner.admin_score - this.partner.rating* 5);
+            return jobscore.toFixed(2);
         }
       },
       created(){

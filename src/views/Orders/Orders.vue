@@ -159,7 +159,11 @@
                     <!--<td> {{ order.scheduled_time }} </td>-->
 
                     <td> {{ order.customer }} </td>
-                    <td> {{ order.partner }} </td>
+                    <td>
+                      <span :class="{'badge badge-danger' : order.partner==='Unassigned'}">
+                        {{ order.partner }}
+                      </span>
+                       </td>
 
                     <td> {{ order.bill }} </td>
                     <td> {{ order.shipping_phone }} </td>

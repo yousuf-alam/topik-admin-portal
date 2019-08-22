@@ -24,6 +24,9 @@
                                     <i class="fa fa-pencil"></i>
                                 </span>
                   </router-link>
+                  <router-link to="" >
+                    <span @click="deleteOffer(props.row.id)" class="btn btn-danger btn-sm m-1" data-toggle="tooltip"  data-placement="top" title="Delete"> <i class="fa fa-trash"></i></span>
+                  </router-link>
                 </div>
               </template>
             </v-client-table>
@@ -63,6 +66,25 @@
                     }).catch(error => {
                     // console.log('Errorrrrrrrrrrrrrrr ', error.response);
                 })
+            },
+            deleteOffer(id)
+            {
+                if (confirm('Are you sure?') ) {
+                    axios.post(`${ADMIN_URL}/bot/delete-offer`,
+                        {
+                            id : id
+                        })
+                        .then(response => {
+                            this.$swal('Offer Card Deleted', response.data.message, 'success');
+                            window.location.reload();
+                        }).catch(error => {
+                            console.log(error);
+
+                    })
+
+                } else {
+                    console.log('Noooooo')
+                }
             }
         }
     }

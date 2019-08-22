@@ -79,7 +79,7 @@
             </select>
           </b-form-group>
           <b-form-group label="Selected Area">
-            <select class="form-control"  v-model="order.location_id">
+            <select class="form-control"  v-model="order.location_id" :class="{'border-danger' : order.location_id===0}">
               <option :value="location.id" v-for="location in locations" :key="location.id">{{ location.name }}</option>
             </select>
           </b-form-group>

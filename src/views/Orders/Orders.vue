@@ -160,7 +160,7 @@
 
                     <td> {{ order.customer }} </td>
                     <td>
-                      <span :class="{'badge badge-danger' : order.partner==='Unassigned'}">
+                      <span :class="{'badge badge-danger glow' : order.partner==='Unassigned'}">
                         {{ order.partner }}
                       </span>
                        </td>
@@ -568,5 +568,38 @@
   }
   .badge {
     font-size: 0.75rem;
+  }
+  .glow {
+    /*animation: blinker 1s linear infinite;*/
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+  }
+  @keyframes blinker {
+    50% { opacity: 0; }
+  }
+  @-webkit-keyframes glowing {
+    0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+    50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }
+    100% { background-color: #b2295a; -webkit-box-shadow: 0 0 3px #b24b71; }
+  }
+
+  @-moz-keyframes glowing {
+    0% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+    50% { background-color: #FF0000; -moz-box-shadow: 0 0 40px #FF0000; }
+    100% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+  }
+
+  @-o-keyframes glowing {
+    0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+    50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+    100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+  }
+
+  @keyframes glowing {
+    0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+    50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+    100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
   }
 </style>

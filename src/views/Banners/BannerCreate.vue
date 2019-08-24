@@ -141,7 +141,7 @@
             'content-type': 'multipart/form-data',
             'Accept' : 'application/json',
           }
-        }
+        };
 
         let formData = new FormData();
         formData.append('service_id', this.service_id);

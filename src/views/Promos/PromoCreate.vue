@@ -17,14 +17,26 @@
           <option value="fixed">Fixed</option>
           <option value="percentage">Percentage</option>
           <option value="download">On App Download</option>
+          <option value="platform">Platform</option>
         </select>
       </div>
-      <div v-if="type==='percentage'" class="form-group">
+      <div v-if="type==='platform'" class="form-group">
+        <label>Platforms *</label>
+          <MultiSelect
+            v-model="platforms"
+            :searchable="false"
+            :close-on-select="false"
+            :show-labels="false"
+            :options="all_platforms"
+            :multiple="true">
+          </MultiSelect>
+      </div>
+      <div v-if="type==='percentage' || type==='platform'" class="form-group">
         <label>Percentage Amount (%)</label>
         <input type="text"class="form-control" v-model="percentage_amount">
       </div>
       <div class="form-group">
-        <label v-if="type==='percentage'">Maximum Discount Amount</label>
+        <label v-if="type==='percentage' || type==='platform'">Maximum Discount Amount</label>
         <label v-else>Discount Amount</label>
         <input type="text"class="form-control" v-model="discount_amount">
       </div>
@@ -72,10 +84,12 @@
 <script>
   import axios from 'axios';
   import Datepicker from 'vuejs-datepicker';
+  import MultiSelect from 'vue-multiselect';
   export default {
     name: "PromoCreate",
     components: {
-      Datepicker
+      Datepicker,
+      MultiSelect
     },
     data() {
       return {
@@ -93,6 +107,8 @@
         percentage_amount: '',
         discount_per_usage: '',
         expires_at: '',
+        all_platforms: ['android','ios','web'],
+        platforms: null,
         disabledDates: {
           to: new Date(Date.now() - 8640000)
         }
@@ -162,7 +178,11 @@
         formData.append('expires_at', this.expires_at);
         formData.append('service_id', this.service_id);
         formData.append('category_id', this.category_id);
-
+        if(this.platforms)
+        {
+            formData.append('platforms', JSON.stringify(this.platforms));
+        }
+        console.log('uu',JSON.stringify(this.platforms));
 
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         axios.post(`${ADMIN_URL}/promos/create`,formData,config)
@@ -173,6 +193,7 @@
             if(response.data.success===true)
             {
               this.$swal('Success',response.data.message,'success');
+              window.location.href='/promos'
             }
             else
             {

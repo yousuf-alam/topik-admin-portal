@@ -17,7 +17,19 @@
           <option value="fixed">Fixed</option>
           <option value="percentage">Percentage</option>
           <option value="download">On App Download</option>
+          <option value="platform">Platform</option>
         </select>
+      </div>
+      <div v-if="promo.type==='platform'" class="form-group">
+        <label>Platforms *</label>
+        <MultiSelect
+          v-model="promo.platforms"
+          :searchable="false"
+          :close-on-select="false"
+          :show-labels="false"
+          :options="all_platforms"
+          :multiple="true">
+        </MultiSelect>
       </div>
       <div v-if="type==='percentage'" class="form-group">
         <label>Percentage Amount (%)</label>
@@ -54,18 +66,18 @@
       <div class="form-group">
         <label >Select Service</label>
         <select @change="getCategories" class='form-control' v-model="promo.service_id">
-          <option selected value="all">All Services</option>
+          <option  value=null>All Services</option>
           <option :value="serv.id" v-for="serv in services">{{ serv.name }}</option>
         </select>
       </div>
-      <div v-if="service_id !== 'all'" class="form-group">
+      <div v-if="service_id !== null" class="form-group">
         <label >Select Category</label>
         <select class='form-control' v-model="promo.category_id">
-          <option selected value="all">All Categories</option>
+          <option  value=null>All Categories</option>
           <option :value="cat.id" v-for="cat in categories">{{ cat.name }}</option>
         </select>
       </div>
-      <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Promo Code</b-button>
+      <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Promo Code</b-button>
     </form>
   </b-card>
 </template>
@@ -73,10 +85,12 @@
 <script>
   import axios from 'axios';
   import Datepicker from 'vuejs-datepicker';
+  import MultiSelect from 'vue-multiselect';
   export default {
     name: "PromoEdit",
     components: {
-      Datepicker
+      Datepicker,
+      MultiSelect
     },
     data() {
       return {
@@ -95,6 +109,7 @@
         percentage_amount: '',
         discount_per_usage: '',
         expires_at: '',
+        all_platforms: ['android','ios','web'],
         disabledDates: {
           to: new Date(Date.now() - 8640000)
         }
@@ -110,6 +125,7 @@
       })
         .then(response => {
           this.promo = response.data;
+          this.promo.platforms = JSON.parse(response.data.platforms)
         })
         .catch(e => {
           //console.log("error occurs");
@@ -177,6 +193,10 @@
         formData.append('service_id', this.promo.service_id);
         formData.append('category_id', this.promo.category_id);
 
+        if(this.promo.platforms)
+        {
+            formData.append('platforms', JSON.stringify(this.promo.platforms));
+        }
 
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         axios.post(`${ADMIN_URL}/promos/edit`,formData,config)

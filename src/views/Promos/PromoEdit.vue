@@ -66,18 +66,18 @@
       <div class="form-group">
         <label >Select Service</label>
         <select @change="getCategories" class='form-control' v-model="promo.service_id">
-          <option  value=null>All Services</option>
+          <option selected value=null>All Services</option>
           <option :value="serv.id" v-for="serv in services">{{ serv.name }}</option>
         </select>
       </div>
-      <div v-if="service_id !== null" class="form-group">
+      <div v-if="promo.service_id !== null" class="form-group">
         <label >Select Category</label>
         <select class='form-control' v-model="promo.category_id">
-          <option  value=null>All Categories</option>
+          <option selected value=null>All Categories</option>
           <option :value="cat.id" v-for="cat in categories">{{ cat.name }}</option>
         </select>
       </div>
-      <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Promo Code</b-button>
+      <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Promo Code</b-button>
     </form>
   </b-card>
 </template>
@@ -101,8 +101,8 @@
         services: '',
         published_status: '',
         categories: '',
-        service_id: 'all',
-        category_id: 'all',
+        service_id: null,
+        category_id: null,
         max_uses_user: '',
         order_amount: '',
         discount_amount: '',
@@ -168,15 +168,9 @@
         this.expires_at =  [year, month, day].join('-');
       },
       onSubmit(e) {
-        this.changeDateFormat();
+       // this.changeDateFormat();
         e.preventDefault();
         let currentObj = this;
-        const config = {
-          headers: {
-            'content-type': 'multipart/form-data',
-            'Accept' : 'application/json',
-          }
-        }
         let formData = new FormData();
         formData.append('coupon_id', this.promo.id);
         formData.append('code', this.promo.code);
@@ -199,7 +193,7 @@
         }
 
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${ADMIN_URL}/promos/edit`,formData,config)
+        axios.post(`${ADMIN_URL}/promos/edit`,formData)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

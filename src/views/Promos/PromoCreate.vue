@@ -69,7 +69,7 @@
           <option :value="serv.id" v-for="serv in services">{{ serv.name }}</option>
         </select>
       </div>
-      <div v-if="service_id !== 'all'" class="form-group">
+      <div v-if="service_id !== null" class="form-group">
         <label >Select Category</label>
         <select class='form-control' v-model="category_id">
           <option selected value="all">All Categories</option>
@@ -99,8 +99,8 @@
         services: '',
         published_status: '',
         categories: '',
-        service_id: 'all',
-        category_id: 'all',
+        service_id: null,
+        category_id: null,
         max_uses_user: '',
         order_amount: '',
         discount_amount: '',

@@ -3,76 +3,76 @@
     <div v-if="all_data_fetched_successfully">
       <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i>ORDER STATUS</h4>
       <b-row class="smallCardContainer ">
-      <b-col sm="12" md="6" xl="2">
-        <div class="card smallCard" >
-          <div class="smallCardBody">
-            <i class="fa fa-unlock bg-danger p-4 font-2xl "></i>
-            <div class=" p-2">
-              <div class="h5 text-danger  ">11</div>
-              <div class="text-muted text-uppercase font-weight-bold font-xs">Pending</div>
-            </div>
-          </div>
-        </div>
-      </b-col>
         <b-col sm="12" md="6" xl="2">
-        <div class="card smallCard">
-          <div class="smallCardBody">
-            <i class="fa fa-laptop bg-danger p-4 font-2xl "></i>
-            <div class=" p-2">
-              <div class="h5 text-danger  ">32</div>
-              <div class="text-muted text-uppercase font-weight-bold font-xs">Accepted</div>
+          <div class="card smallCard" >
+            <div class="smallCardBody">
+              <i class="fa fa-unlock bg-danger p-4 font-2xl "></i>
+              <div class=" p-2">
+                <div class="h5 text-danger  ">{{order.open}}</div>
+                <div class="text-muted text-uppercase font-weight-bold font-xs">Pending</div>
+              </div>
             </div>
           </div>
-        </div>
-      </b-col>
-     <!-- </b-row>
+        </b-col>
+        <b-col sm="12" md="6" xl="2">
+          <div class="card smallCard">
+            <div class="smallCardBody">
+              <i class="fa fa-laptop bg-danger p-4 font-2xl "></i>
+              <div class=" p-2">
+                <div class="h5 text-danger  ">{{order.acknowledged}}</div>
+                <div class="text-muted text-uppercase font-weight-bold font-xs">Accepted</div>
+              </div>
+            </div>
+          </div>
+        </b-col>
+        <!-- </b-row>
 
-      <b-row class="smallCardContainer ">-->
+         <b-row class="smallCardContainer ">-->
         <b-col sm="12" md="6" xl="2">
           <div class="card smallCard">
             <div class="smallCardBody">
               <i class="fa fa-spinner bg-danger p-4 font-2xl "></i>
               <div class=" p-2">
-                <div class="h5 text-danger  ">9</div>
+                <div class="h5 text-danger  ">{{order.processed}}</div>
                 <div class="text-muted text-uppercase font-weight-bold font-xs">Processing</div>
               </div>
             </div>
           </div>
         </b-col>
         <b-col sm="12" md="6" xl="2">
-        <div class="card smallCard">
-          <div class="smallCardBody">
-            <i class="fa fa-check bg-danger p-4 font-2xl "></i>
-            <div class=" p-2">
-              <div class="h5 text-danger  ">4938</div>
-              <div class="text-muted text-uppercase font-weight-bold font-xs">Completed</div>
+          <div class="card smallCard">
+            <div class="smallCardBody">
+              <i class="fa fa-check bg-danger p-4 font-2xl "></i>
+              <div class=" p-2">
+                <div class="h5 text-danger  ">{{order.completed}}</div>
+                <div class="text-muted text-uppercase font-weight-bold font-xs">Completed</div>
+              </div>
             </div>
           </div>
-        </div>
         </b-col>
-      <!--</b-row>
-      <b-row class="smallCardContainer ">-->
+        <!--</b-row>
+        <b-row class="smallCardContainer ">-->
         <b-col sm="12" md="6" xl="2">
-        <div class="card smallCard">
-          <div class="smallCardBody">
-            <i class="fa fa-close bg-danger p-4 font-2xl "></i>
-            <div class=" p-2">
-              <div class="h5 text-danger  ">71</div>
-              <div class="text-muted text-uppercase font-weight-bold font-xs">Rejected</div>
+          <div class="card smallCard">
+            <div class="smallCardBody">
+              <i class="fa fa-close bg-danger p-4 font-2xl "></i>
+              <div class=" p-2">
+                <div class="h5 text-danger  ">{{order.halted}}</div>
+                <div class="text-muted text-uppercase font-weight-bold font-xs">Rejected</div>
+              </div>
             </div>
           </div>
-        </div>
         </b-col>
         <b-col sm="12" md="6" xl="2">
-        <div class="card smallCard">
-          <div class="smallCardBody">
-            <i class="fa fa-ban bg-danger p-4 font-2xl "></i>
-            <div class=" p-2">
-              <div class="h5 text-danger  ">20</div>
-              <div class="text-muted text-uppercase font-weight-bold font-xs">Cancelled</div>
+          <div class="card smallCard">
+            <div class="smallCardBody">
+              <i class="fa fa-ban bg-danger p-4 font-2xl "></i>
+              <div class=" p-2">
+                <div class="h5 text-danger  ">{{order.cancelled}}</div>
+                <div class="text-muted text-uppercase font-weight-bold font-xs">Cancelled</div>
+              </div>
             </div>
           </div>
-        </div>
         </b-col>
       </b-row>
 
@@ -87,27 +87,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ 28185</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.today.revenue }}</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>27</b>
+              <b>{{finance.today.order_no}}</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>21</b>
+              <b>{{finance.today.served_no}}</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>28185 </b>
+              <b>{{finance.today.revenue}} </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>11</b>
+              <b>{{finance.today.customer}}</b>
                   Customers
               </li>
             </span>
@@ -122,27 +122,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ 135651</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.week.revenue }}</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>159</b>
+              <b>{{finance.week.order_no}}</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>132</b>
+              <b>{{finance.week.served_no}}</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>135651 </b>
+              <b>{{finance.week.revenue}} </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>63</b>
+              <b>{{finance.week.customer}}</b>
                   Customers
               </li>
             </span>
@@ -157,27 +157,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ 135651</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.month.revenue }}</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>159</b>
+              <b>{{finance.month.order_no}}</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>132</b>
+              <b>{{finance.month.served_no}}</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>135651 </b>
+              <b>{{finance.month.revenue}} </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>63</b>
+              <b>{{finance.month.customer}}</b>
                   Customers
               </li>
             </span>
@@ -192,27 +192,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ 6713726</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.year.revenue }}</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>5029</b>
+              <b>{{finance.year.order_no}}</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>4938</b>
+              <b>{{finance.year.served_no}}</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>6713726</b>
+              <b>{{finance.year.revenue}} </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>3279</b>
+              <b>{{finance.year.customer}}</b>
                   Customers
               </li>
             </span>
@@ -231,37 +231,37 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-  export default {
+    import axios from 'axios';
+    const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+    export default {
 
-    name: 'dashboard',
-    data() {
-      return {
-        order : [],
-        finance: [],
-        all_data_fetched_successfully: false,
-      }
-    },
-    created(){
-      this.fetchData();
+        name: 'dashboard',
+        data() {
+            return {
+                order : [],
+                finance: [],
+                all_data_fetched_successfully: false,
+            }
+        },
+        created(){
+            this.fetchData();
 
-    },
-    methods: {
-      fetchData() {
-        axios.get(`${ADMIN_URL}/dashboard`)
-          .then(response => {
-            this.order = response.data.order;
-            this.finance = response.data.finance;
-            this.all_data_fetched_successfully = true;
-            // console.log('finance ======  =========>> ', response.data.finance);
-          })
-          .catch(e => {
-            //console.log("error occurs");
-          });
-      }
+        },
+        methods: {
+            fetchData() {
+                axios.get(`${ADMIN_URL}/dashboard`)
+                    .then(response => {
+                        this.order = response.data.order;
+                        this.finance = response.data.finance;
+                        this.all_data_fetched_successfully = true;
+                        // console.log('finance ======  =========>> ', response.data.finance);
+                    })
+                    .catch(e => {
+                        //console.log("error occurs");
+                    });
+            }
+        }
     }
-  }
 </script>
 
 <style scoped>
@@ -289,34 +289,34 @@
   }
 
 
-/*  @media  (max-width: 800px)  {
-    .smallCard {
-      width: 200px;
+  /*  @media  (max-width: 800px)  {
+      .smallCard {
+        width: 200px;
+      }
     }
-  }
-  @media  (min-width: 500px) and (max-width: 600px) {
-    .smallCardContainer {
-      display: flex;
-      justify-content: space-around;
+    @media  (min-width: 500px) and (max-width: 600px) {
+      .smallCardContainer {
+        display: flex;
+        justify-content: space-around;
+      }
+      .smallCard {
+        width: 170px;
+        border: 2px solid yellow;
+      }
     }
-    .smallCard {
-      width: 170px;
-      border: 2px solid yellow;
+    @media  (max-width: 499px) {
+      .smallCard {
+        width: 300px;
+      }
     }
-  }
-  @media  (max-width: 499px) {
-    .smallCard {
-      width: 300px;
+    @media  (min-width: 801px) and (max-width: 1024px) {
+      .smallCard {
+        width: 220px;
+      }
     }
-  }
-  @media  (min-width: 801px) and (max-width: 1024px) {
-    .smallCard {
-      width: 220px;
-    }
-  }
-  @media  (min-width: 1441px) {
-    .smallCard {
-      width: 430px;
-    }
-  }*/
+    @media  (min-width: 1441px) {
+      .smallCard {
+        width: 430px;
+      }
+    }*/
 </style>

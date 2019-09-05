@@ -34,9 +34,6 @@
           //dateColumns: ['created_at'],
           toMomentFormat: 'YYYY-MM-DD',
           sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
-          texts:{
-              count:'Showing 1 to 10 of 718 records'
-          }
 
 
         }

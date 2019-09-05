@@ -184,7 +184,7 @@
                   </tr>
                 </table>
                 <div class="pl-1 mt-3">
-                  <span>5029 records </span>
+                  <span>{{total_count}} records </span>
                 </div>
                 </div>
               </b-card>

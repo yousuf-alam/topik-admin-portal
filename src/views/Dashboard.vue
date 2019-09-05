@@ -8,7 +8,7 @@
           <div class="smallCardBody">
             <i class="fa fa-unlock bg-danger p-4 font-2xl "></i>
             <div class=" p-2">
-              <div class="h5 text-danger  ">{{order.open}}</div>
+              <div class="h5 text-danger  ">11</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs">Pending</div>
             </div>
           </div>
@@ -19,7 +19,7 @@
           <div class="smallCardBody">
             <i class="fa fa-laptop bg-danger p-4 font-2xl "></i>
             <div class=" p-2">
-              <div class="h5 text-danger  ">{{order.acknowledged}}</div>
+              <div class="h5 text-danger  ">32</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs">Accepted</div>
             </div>
           </div>
@@ -33,7 +33,7 @@
             <div class="smallCardBody">
               <i class="fa fa-spinner bg-danger p-4 font-2xl "></i>
               <div class=" p-2">
-                <div class="h5 text-danger  ">{{order.processed}}</div>
+                <div class="h5 text-danger  ">9</div>
                 <div class="text-muted text-uppercase font-weight-bold font-xs">Processing</div>
               </div>
             </div>
@@ -44,7 +44,7 @@
           <div class="smallCardBody">
             <i class="fa fa-check bg-danger p-4 font-2xl "></i>
             <div class=" p-2">
-              <div class="h5 text-danger  ">{{order.completed}}</div>
+              <div class="h5 text-danger  ">4938</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs">Completed</div>
             </div>
           </div>
@@ -57,7 +57,7 @@
           <div class="smallCardBody">
             <i class="fa fa-close bg-danger p-4 font-2xl "></i>
             <div class=" p-2">
-              <div class="h5 text-danger  ">{{order.halted}}</div>
+              <div class="h5 text-danger  ">71</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs">Rejected</div>
             </div>
           </div>
@@ -68,7 +68,7 @@
           <div class="smallCardBody">
             <i class="fa fa-ban bg-danger p-4 font-2xl "></i>
             <div class=" p-2">
-              <div class="h5 text-danger  ">{{order.cancelled}}</div>
+              <div class="h5 text-danger  ">20</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs">Cancelled</div>
             </div>
           </div>
@@ -87,27 +87,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.today.revenue }}</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ 28185</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.today.order_no}}</b>
+              <b>27</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.today.served_no}}</b>
+              <b>21</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.today.revenue}} </b>
+              <b>28185 </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.today.customer}}</b>
+              <b>11</b>
                   Customers
               </li>
             </span>
@@ -122,27 +122,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.week.revenue }}</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ 135651</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.week.order_no}}</b>
+              <b>159</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.week.served_no}}</b>
+              <b>132</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.week.revenue}} </b>
+              <b>135651 </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.week.customer}}</b>
+              <b>63</b>
                   Customers
               </li>
             </span>
@@ -157,27 +157,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.month.revenue }}</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ 135651</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.month.order_no}}</b>
+              <b>159</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.month.served_no}}</b>
+              <b>132</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.month.revenue}} </b>
+              <b>135651 </b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.month.customer}}</b>
+              <b>63</b>
                   Customers
               </li>
             </span>
@@ -192,27 +192,27 @@
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.year.revenue }}</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ 6713726</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
               <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.year.order_no}}</b>
+              <b>5029</b>
                   Orders Placed
               </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.year.served_no}}</b>
+              <b>4938</b>
                   Orders Served
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.year.revenue}} </b>
+              <b>6713726</b>
                   BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.year.customer}}</b>
+              <b>3279</b>
                   Customers
               </li>
             </span>

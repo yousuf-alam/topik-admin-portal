@@ -351,7 +351,7 @@
           })
           .catch(function (error) {
             currentObj.output = error;
-            //console.log(error);
+            console.log(error);
           });
       }
     }

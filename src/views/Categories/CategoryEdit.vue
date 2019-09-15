@@ -40,7 +40,7 @@
           </div>
           <div class="form-group">
 
-            <input type="radio" name="published_status" value="pending" v-model="category.published_status">
+            <input type="radio" name="published_status" value="unpublished" v-model="category.published_status">
             <label>Unpublished</label><br>
             <input type="radio" name="published_status" value="published" v-model="category.published_status">
             <label>Published</label>

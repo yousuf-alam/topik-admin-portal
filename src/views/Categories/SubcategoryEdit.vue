@@ -311,7 +311,7 @@
         //console.log(this.category.service_id);
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         axios.post(`${ADMIN_URL}/categories/update`, formData, config)
-          .then(function (response) {
+            .then( (response) => {
             currentObj.success = response.data.success;
             if(response.data.success===true)
             {

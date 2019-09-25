@@ -12,8 +12,13 @@
             <input class="form-control" type="number" v-model="lineitem.fixed_price">
           </div>
           <div class="form-group">
+            <label>Short Description</label>
+            <input class="form-control" type="text" v-model="lineitem.description">
+            <p class="text-danger">Character left: {{100 - lineitem.description.length}}</p>
+          </div>
+          <div class="form-group">
             <label>Duration</label>
-            <input class="form-control" type="text" v-model="lineitem.duration">
+            <input class="form-control" type="number" v-model="lineitem.duration">
           </div>
           <div class="form-group">
             <input name="published_status" type="radio" v-model="lineitem.published_status" value="pending">
@@ -331,7 +336,10 @@
             this.url_banner_tab = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_bantab}${this.lineitem.banner_tab}`;
             this.url_banner_android = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_banand}${this.lineitem.banner_android}`;
             this.url_banner_ios = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_banios}${this.lineitem.banner_ios}`;
-
+            if(this.lineitem.description===null)
+            {
+                this.lineitem.description = ''
+            }
           })
           .catch(e => {
               //console.log("error occurs");
@@ -442,6 +450,7 @@
         formData.append('benefits', this.lineitem.benefits);
         formData.append('recommendation', this.lineitem.recommendation);
         formData.append('duration', this.lineitem.duration);
+        formData.append('description', this.lineitem.description);
         formData.append('price', this.lineitem.fixed_price);
         formData.append('price_table', JSON.stringify(this.lineitem.price_table));
         formData.append('designs', JSON.stringify(this.lineitem.designs));

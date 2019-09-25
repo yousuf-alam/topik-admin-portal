@@ -140,6 +140,14 @@
           </div>
 
           <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Short Description</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="text" v-model="description">
+              <p class="text-danger">Character left: {{100 - description.length}}</p>
+            </div>
+          </div>
+
+          <div class="form-group row">
             <label class="col-sm-3 col-form-label">Publish Status</label>
             <div class="col-sm-9">
               <div class="form-group">
@@ -362,6 +370,7 @@
           benefits: '',
         },
         duration: '',
+        description: '',
         thumbnail: '',
         banner_web: '',
         banner_tab: '',
@@ -642,6 +651,7 @@
           formData.append('price_table', JSON.stringify(this.price_table));
           formData.append('fixed_price', this.fixed_price);
           formData.append('duration', this.duration);
+          formData.append('description', this.description);
           formData.append('brand', this.details.brand);
           formData.append('tips', this.details.tips);
           formData.append('benefits', this.details.benefits);

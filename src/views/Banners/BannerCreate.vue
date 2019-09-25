@@ -12,14 +12,10 @@
       </div>
       <div class="form-group">
         <label >Banner Type</label>
-        <select class='form-control' v-model="type" v-if="service_id === '0'">
+        <select class='form-control' v-model="type">
           <option value="hot-deals">Hot Deals Banner</option>
           <option value="beauty-on-demand">Beauty On-Demand Banner</option>
           <option value="tailor-on-demand">Tailor On-Demand Banner</option>
-        </select>
-        <select class='form-control' v-model="type" v-else>
-          <option value="top-banner">Top Banner</option>
-          <option value="bottom-banner">Bottom Banner</option>
         </select>
       </div>
       <div class="form-group">

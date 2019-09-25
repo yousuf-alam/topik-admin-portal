@@ -29,9 +29,12 @@
                   </span>
                 </router-link>
                 <span
-                  v-if="elementHasPermission('lineitem delete')"
                   class="btn btn-danger btn-sm m-1"
-                  data-toggle="tooltip" title="Delete">
+                  data-toggle="tooltip"
+                  title="Delete Lineitem"
+                  :href="props.row.id"
+                  @click="handleDelete(props.row.id)"
+                >
                     <i class="fa fa-trash"></i>
                 </span>
               </div>
@@ -46,6 +49,7 @@
 
 <script>
   import axios from 'axios';
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
   export default {
     name: 'Lineitems',
     data() {
@@ -67,7 +71,6 @@
       }
     },
     created(){
-      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
       axios.get(`${ADMIN_URL}/all-line-items`)
         .then(response => {
           this.lineitems = response.data;
@@ -79,12 +82,45 @@
     computed: {
       elementHasPermission(permission_name) {
           return (permission_name) => {
-            return this.$store.getters['auth/hasPermission'](permission_name) ? true : false;
+            return !!this.$store.getters['auth/hasPermission'](permission_name);
           }
       }
     },
     methods: {
+        handleDelete(lineitem_id) {
+            this.$swal({
+                title: 'Are you sure?',
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+            }).then(result => {
+                if(result.value) {
+                    this.deleteLineItem(lineitem_id);
+                }
+            }).catch(error => {
+                // console.log('Sweetalert ERROR');
+            });
+        },
+        deleteLineItem(lineitem_id) {
+            axios.delete(`${ADMIN_URL}/line-items/delete`,
+                {
+                    params : {
+                        id : lineitem_id
+                    }
+                })
+                .then(response => {
+                    if(response.data.success===true)
+                    {
+                        this.$swal('Deleted', response.data.message, 'success')
+                    }
 
+                    window.location.reload()
+                }).catch(error => {
+                this.$swal('Not deleted', 'Error occured while deleing', 'info')
+                // console.log('Error response :::: ', error.response);
+            })
+        },
     },
   }
 </script>

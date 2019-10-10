@@ -166,6 +166,7 @@
                        </td>
 
                     <td> {{ order.bill }} </td>
+                    <td> {{ order.payment_method }} </td>
                     <td> {{ order.shipping_phone }} </td>
                     <td> {{ order.shipping_address }} </td>
 
@@ -253,6 +254,7 @@
                 'partner',
 
                 'bill',
+                'payment_method',
                 'shipping_phone',
                 'shipping_address',
 
@@ -474,6 +476,7 @@
             const customer = this.getInputValue("customer");
             const partner = this.getInputValue("partner");
             const bill = this.getInputValue("bill");
+            const payment_method = this.getInputValue("payment_method");
             const scheduled_time = this.getInputValue("scheduled_time");
             const shipping_phone = this.getInputValue("shipping_phone");
             const shipping_address = this.getInputValue("shipping_address");
@@ -503,7 +506,7 @@
 
             const srcParms = {
               id, service_type, platform, status, customer,
-              partner, bill, created_at, scheduled_date,scheduled_time, shipping_phone, shipping_address
+              partner, bill,payment_method, created_at, scheduled_date,scheduled_time, shipping_phone, shipping_address
             };
 
             this.fetchOrder(srcParms);

@@ -15,6 +15,14 @@
             <label>Delivery Name</label>
             <b-form-input @input="addCustomer" v-model="customer.name" type="text" id="name"></b-form-input>
         </b-form-group>
+      <b-form-group label="Payment Method">
+        <b-form-radio v-model="customer.payment_method" value="cash" @input="addCustomer">
+          Cash On Delivery
+        </b-form-radio>
+        <b-form-radio v-model="customer.payment_method" value="bkash" @input="addCustomer">
+          Bkash
+        </b-form-radio>
+      </b-form-group>
     </b-card>
 </template>
 
@@ -28,8 +36,10 @@
           customer :{
             name : '',
             phone: '',
+            payment_method: 'cash'
           },
-            phone_warning: ''
+            phone_warning: '',
+
 
         }
       },

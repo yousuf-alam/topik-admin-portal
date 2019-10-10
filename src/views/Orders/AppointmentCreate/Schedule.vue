@@ -6,13 +6,7 @@
         </b-form-group>
         <b-form-group label="Select Time">
           <select @change="addSchedule" class="form-control" v-model="schedule.selected_time">
-            <option value="08:00AM - 10:00AM">08:00 AM - 10:00 AM</option>
-            <option value="10:00AM - 12:00PM">10:00 AM - 12:00 PM</option>
-            <option value="12:00PM - 02:00PM">12:00 PM - 02:00 PM</option>
-            <option value="02:00PM - 04:00PM">02:00 PM - 04:00 PM</option>
-            <option value="04:00PM - 06:00PM">04:00 PM - 06:00 PM</option>
-            <option value="06:00PM - 08:00PM">06:00 PM - 08:00 PM</option>
-            <option value="08:00PM - 10:00PM">08:00 PM - 10:00 PM</option>
+            <option v-for="time in time_slots" :value="time.slot">{{time.slot}}</option>
           </select>
         </b-form-group>
     </b-card>
@@ -21,7 +15,8 @@
 <script>
   import EventBus from '../../../utils/EventBus'
   import Datepicker from 'vuejs-datepicker';
-
+  import axios from 'axios';
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
   export default {
     name: "Schedule",
     components: {
@@ -34,12 +29,15 @@
           selected_date: '',
           delivery_address: '',
         },
-
+        time_slots : [],
         disabledDates: {
           to: new Date(Date.now() - 8640000)
         }
       };
     },
+      created() {
+          this.getTimeSlots()
+      },
     methods: {
       changeDateFormat(){
         let d = this.schedule.selected_date;
@@ -51,6 +49,16 @@
 
         this.schedule.selected_date =  [year, month, day].join('-');
       },
+        getTimeSlots() {
+            axios.get(`${ADMIN_URL}/appointment/time-slots`)
+                .then(response => {
+                    this.time_slots = response.data.slots;
+
+                })
+                .catch(e => {
+                    console.log("error occurs",e);
+                });
+        },
       addSchedule() {
         this.changeDateFormat();
         EventBus.$emit('schedule:add',this.schedule);

@@ -3,7 +3,7 @@
     <div>
       <div class="cardheading">
         <div></div>
-        <button @click="deleteOrder" class="btn btn-danger float-right"><i class="fa fa-trash"></i> Delete This Order</button>
+        <button @click="deleteOrder" class="btn btn-danger float-right"><i class="fa fa-trash"></i> Delete This Appointment</button>
       </div>
     <b-row>
       <b-col class="mb-5" sm="6" md="6">
@@ -13,7 +13,10 @@
             <label >Order ID : {{order.id}}</label>
           </b-form-group>
           <b-form-group>
-            <label >Service : {{type}}</label>
+            <label >Service : Beauty Appointment</label>
+          </b-form-group>
+          <b-form-group>
+            <label>Assigned SP: &nbsp</label><label class="text-danger"> {{order.partner.name}}</label>
           </b-form-group>
         <b-form-group label="Status">
           <select class="form-control" v-model="order.status">
@@ -25,7 +28,7 @@
             <option value="cancelled">cancelled</option>
           </select>
         </b-form-group>
-          <b-form-group label="Assigned SP">
+          <!--<b-form-group label="Assigned SP">
             <multiselect
               v-model="order.partner"
               :options="partners"
@@ -34,7 +37,7 @@
               track-by="id"
             >
             </multiselect>
-          </b-form-group>
+          </b-form-group>-->
           <div v-show="order.service_id===2">
             <label>Select Delivery Type</label>
             <b-form-group class="ml-4">
@@ -50,13 +53,7 @@
           </b-form-group>
           <b-form-group label="Scheduled Time">
             <select class="form-control" v-model="order.scheduled_time">
-              <option value="08.00AM-10.00AM"> 08:00 AM - 10:00 AM </option>
-              <option value="10.00AM-12.00PM"> 10:00 AM - 12:00 PM </option>
-              <option value="12.00PM-02.00PM"> 12:00 PM - 02:00 PM </option>
-              <option value="02.00PM-04.00PM"> 02:00 PM - 04:00 PM </option>
-              <option value="04.00PM-06.00PM"> 04:00 PM - 06:00 PM </option>
-              <option value="06.00PM-08.00PM"> 06:00 PM - 08:00 PM </option>
-              <option value="08.00PM-10.00PM"> 08:00 PM - 10:00 PM </option>
+              <option v-for="time in time_slots" :value="time.slot">{{time.slot}}</option>
             </select>
           </b-form-group>
             <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
@@ -72,20 +69,6 @@
           <b-form-group label="Delivery Phone">
             <input type="text" class="form-control" v-model="order.shipping_phone">
           </b-form-group>
-          <b-form-group label="Selected City">
-            <select class="form-control" @change="getLocation" v-model="city">
-              <option value="Dhaka">Dhaka</option>
-              <option value="Chittagong">Chittagong</option>
-            </select>
-          </b-form-group>
-          <b-form-group label="Selected Area">
-            <select class="form-control"  v-model="order.location_id" :class="{'border-danger' : order.location_id===0}">
-              <option :value="location.id" v-for="location in locations" :key="location.id">{{ location.name }}</option>
-            </select>
-          </b-form-group>
-          <b-form-group label="Delivery Address">
-            <input type="text" class="form-control" v-model="order.shipping_address.address_details">
-          </b-form-group>
           <b-row>
             <b-col>
               <b-form-group label="Payment Method">
@@ -100,7 +83,6 @@
               </b-form-group>
             </b-col>
           </b-row>
-
           <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
         </b-card>
       </b-col>
@@ -194,9 +176,9 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row v-if="type ==='Beauty On-Demand'">
+     <b-row>
       <b-col sm="6" md="6">
-        <service :type="getType"></service>
+        <service :selected_partner="order.partner"></service>
       </b-col>
       <b-col sm="6" md="6">
         <cart></cart>
@@ -207,39 +189,7 @@
         </div>
       </b-col>
     </b-row>
-    <b-row v-else>
-      <b-col sm="6" md="6">
-        <b-row>
-          <b-col><service :type="getType"></service></b-col>
-        </b-row>
-        <!--<b-row>
-          <b-col><design></design></b-col>
-        </b-row>-->
-      </b-col>
-      <b-col sm="6" md="6">
-        <b-row>
-          <b-col>
-            <b-card class="m-4 p-4">
-              <h5 class="mb-4">Measurement Type</h5>
-              <div class="form-group">
-                <input type="radio" v-model="order.measurement" value="by_sample" @change="addMeasurement" id="by_sample_id">
-                <label for="by_sample_id" class="mx-1"> Customer will provide a sample</label><br>
-                <input type="radio" v-model="order.measurement" value="by_tailor" @change="addMeasurement" id="by_tailor_id">
-                <label for="by_tailor_id" class="mx-1">Tailor will take measurements on spot</label><br>
-              </div>
-            </b-card>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col><cart></cart>
-            <div class="row text-center">
-              <div class="form-control">
-                <button class="btn btn-dark" @click="addNewitem"> Add New Lineitem(s)</button>
-              </div>
-            </div></b-col>
-        </b-row>
-      </b-col>
-    </b-row>
+
     </div>
 
     <!--<div v-else class="customcard">
@@ -251,22 +201,20 @@
 
 <script>
   import axios from 'axios';
-  import EventBus from '../../utils/EventBus'
-  import Customer from './OrderCreate/Customer'
-  import Location from './OrderCreate/Location'
-  import Schedule from './OrderCreate/Schedule'
-  import Service  from './OrderCreate/Service'
-  import Cart     from './OrderCreate/Cart'
-  import Partner  from './OrderCreate/Partner'
-  import OrderSummary  from './OrderCreate/Summary'
-  import Design from './OrderCreate/Design'
-  import Accessories from './OrderCreate/Accessories'
+  import EventBus from '../../../utils/EventBus'
+  import Customer from '../AppointmentCreate/Customer'
+  import Location from '../AppointmentCreate/Location'
+  import Schedule from '../AppointmentCreate/Schedule'
+  import Service  from '../AppointmentCreate/Service'
+  import Cart     from '../AppointmentCreate/Cart'
+  import Partner  from '../AppointmentCreate/Partner'
+  import OrderSummary  from '../AppointmentCreate/Summary'
   import Datepicker from 'vuejs-datepicker';
 
   const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
   export default {
-    name: "OrderEdit",
+    name: "AppointmentEdit",
     components: {
       Datepicker,
       Customer,
@@ -276,8 +224,6 @@
       Cart,
       Partner,
       OrderSummary,
-      Design,
-      Accessories
     },
 
     data() {
@@ -289,6 +235,7 @@
         city: 'Dhaka',
         type: '',
         date_type: '',
+        time_slots : [],
         new_review_bool: false,
         new_rating: '',
         new_review: '',
@@ -301,6 +248,7 @@
       this.fetchOrder();
       this.getPartners();
       this.getLocation();
+      this.getTimeSlots();
     },
     computed: {
       getType() {
@@ -337,7 +285,7 @@
       },
       fetchOrder() {
         this.order_id = window.location.pathname.split("/").pop();
-        axios.get(`${ADMIN_URL}/order`, {
+        axios.get(`${ADMIN_URL}/appointment`, {
           params: {
             order_id: this.order_id
           }
@@ -388,6 +336,16 @@
 
         this.order.scheduled_date =  [year, month, day].join('-');
       },
+      getTimeSlots() {
+          axios.get(`${ADMIN_URL}/appointment/time-slots`)
+              .then(response => {
+                  this.time_slots = response.data.slots;
+
+              })
+              .catch(e => {
+                  console.log("error occurs",e);
+              });
+      },
 
       updateOrder(e) {
 
@@ -425,10 +383,10 @@
         formData.append('review', JSON.stringify(this.order.review));
         formData.append('new_rating', this.new_rating);
         formData.append('new_review', this.new_review);
-        if(this.order.bkash_status)
-        {
-            formData.append('bkash_status', this.order.bkash_status);
-        }
+          if(this.order.bkash_status)
+          {
+              formData.append('bkash_status', this.order.bkash_status);
+          }
 
       /*
         for( let i = 0; i < this.designs.length; i++ ){
@@ -462,7 +420,7 @@
 
       addNewitem()
       {
-        axios.post(`${ADMIN_URL}/orders/add-transaction`, {
+        axios.post(`${ADMIN_URL}/appointments/add-transaction`, {
           'items'    : this.services,
           'order_id' : this.order_id
         })

@@ -20,14 +20,6 @@
       </div>
       <div class="row m-3">
         <div class="col-6">
-          Address:
-        </div>
-        <div class="col-6">
-          {{invoice.address}}
-        </div>
-      </div>
-      <div class="row m-3">
-        <div class="col-6">
           Delivery Date:
         </div>
         <div class="col-6">

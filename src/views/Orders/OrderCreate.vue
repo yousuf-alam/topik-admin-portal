@@ -139,8 +139,7 @@
         measurement_type: '',
         custom_measurement: '',
         selected_partner: null,
-        invoice:[],
-        payment_method: 'cash_on_delivery'
+        invoice:[]
       };
     },
 
@@ -257,7 +256,7 @@
         formData.append('shipping_name', this.customer.name);
         formData.append('shipping_address', JSON.stringify(this.schedule.address));
         formData.append('shipping_phone', this.customer.phone);
-        formData.append('payment_method', this.payment_method);
+        formData.append('payment_method', this.customer.payment_method);
         formData.append('measurement', this.measurement_type);
         formData.append('accessories', JSON.stringify(this.accessories));
         formData.append('items', JSON.stringify(this.services));

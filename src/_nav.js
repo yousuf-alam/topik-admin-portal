@@ -48,6 +48,12 @@ const navitems = {
       permission_name: permissionsList.order
     },
     {
+      name: 'Appointments',
+      url: '/appointments',
+      icon: 'fa fa-calendar',
+      permission_name: permissionsList.order
+    },
+    {
       name: 'Complains',
       url: '/complains',
       icon: 'fa fa-thumbs-down',

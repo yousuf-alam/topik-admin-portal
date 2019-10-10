@@ -2,7 +2,7 @@
     <div class="animated fadeIn">
       <div class="cardheading">
           <h4><i class="fa fa-table"></i><span class="ml-1">Orders</span></h4>
-        <router-link class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link>
+        <router-link class="btn btn-success mb-2" to="/appointments/create">+ Book New Appointment</router-link>
       </div>
       <b-row>
         <modal name="modal-order_type" height="auto" :adaptive="true">
@@ -167,15 +167,15 @@
 
                     <td> {{ order.bill }} </td>
                     <td> {{ order.shipping_phone }} </td>
-                    <td> {{ order.shipping_address }} </td>
+                    <!--<td> {{ order.shipping_address }} </td>-->
 
                     <td>
-                      <router-link :to="{ name: 'OrderShow', params: { id: order.id }}">
+                      <router-link :to="{ name: 'AppointmentShow', params: { id: order.id }}">
                           <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
                               <i class="fa fa-search"></i>
                           </span>
                       </router-link>
-                      <router-link :to="{ name: 'OrderEdit', params: { id: order.id }}">
+                      <router-link :to="{ name: 'AppointmentEdit', params: { id: order.id }}">
                           <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
                               <i class="fa fa-edit"></i>
                           </span>
@@ -217,7 +217,7 @@
   const Admin_URL = process.env.VUE_APP_ADMIN_URL;
 
     export default {
-      name: 'Orders',
+      name: 'Appointments',
       components: {
         Datepicker,
         paginate
@@ -254,7 +254,7 @@
 
                 'bill',
                 'shipping_phone',
-                'shipping_address',
+               /* 'shipping_address',*/
 
                 'action'
               ],
@@ -476,7 +476,7 @@
             const bill = this.getInputValue("bill");
             const scheduled_time = this.getInputValue("scheduled_time");
             const shipping_phone = this.getInputValue("shipping_phone");
-            const shipping_address = this.getInputValue("shipping_address");
+            /*const shipping_address = this.getInputValue("shipping_address");*/
 
             //console.log( "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
             let from = '';
@@ -503,7 +503,7 @@
 
             const srcParms = {
               id, service_type, platform, status, customer,
-              partner, bill, created_at, scheduled_date,scheduled_time, shipping_phone, shipping_address
+              partner, bill, created_at, scheduled_date,scheduled_time, shipping_phone
             };
 
             this.fetchOrder(srcParms);
@@ -518,7 +518,7 @@
           },
           fetchOrder(srcParms) {
             //console.log('SEARCH PARAMS === ', JSON.stringify(srcParms));
-            axios.get(`${Admin_URL}/fetch-orders/${this.perPageItem}/${this.pageNumber}`, {
+            axios.get(`${Admin_URL}/fetch-appointments/${this.perPageItem}/${this.pageNumber}`, {
               params: srcParms
             })
               .then(response => {

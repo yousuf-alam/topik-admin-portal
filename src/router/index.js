@@ -64,6 +64,7 @@ const BannerEdit = () => import('../views/Banners/BannerEdit')
 const Complains = () => import('@/views/Complains/Complains')
 const ComplainCreate = () => import('@/views/Complains/ComplainCreate')
 const ComplainShow = () => import('../views/Complains/ComplainShow')
+const Reviews = () => import('../views/Reviews')
 
 const BotOffers = () => import('../views/ChatBot/BotOffers')
 const BotOfferEdit = () => import('../views/ChatBot/BotOfferEdit')
@@ -553,6 +554,14 @@ const router =  new Router({
         component: ComplainCreate,
         meta: {
           permission_name: 'complain create'
+        },
+      },
+      {
+        path: 'reviews',
+        name: 'Reviews',
+        component: Reviews,
+        meta: {
+          permission_name: permissionsList.complain
         },
       },
       {

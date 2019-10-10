@@ -128,13 +128,7 @@
           </b-form-group>
           <div v-if="order.review">
             <b-form-group label="Rating">
-              <select class="form-control" v-model="order.review.rating">
-                <option value="1">1 Star</option>
-                <option value="2">2 Star</option>
-                <option value="3">3 Star</option>
-                <option value="4">4 Star</option>
-                <option value="5">5 Star</option>
-              </select>
+              <input type="text" class="form-control" v-model="order.review.rating">
             </b-form-group>
             <b-form-group label="Review">
               <input type="text" class="form-control" v-model="order.review.comment">
@@ -143,11 +137,11 @@
           <div v-if="new_review_bool===true">
             <b-form-group label="Rating">
               <select class="form-control" v-model="new_rating">
-                <option value="1">1 Star</option>
-                <option value="2">2 Star</option>
-                <option value="3">3 Star</option>
-                <option value="4">4 Star</option>
-                <option value="5">5 Star</option>
+                <option value="1.0">1 Star</option>
+                <option value="2.0">2 Star</option>
+                <option value="3.0">3 Star</option>
+                <option value="4.0">4 Star</option>
+                <option value="5.0">5 Star</option>
               </select>
             </b-form-group>
             <b-form-group label="Review">

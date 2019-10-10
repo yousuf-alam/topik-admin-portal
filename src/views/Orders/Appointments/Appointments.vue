@@ -1,30 +1,14 @@
 <template>
     <div class="animated fadeIn">
       <div class="cardheading">
-          <h4><i class="fa fa-table"></i><span class="ml-1">Orders</span></h4>
+          <h4><i class="fa fa-calendar"></i><span class="ml-1">Appointments</span></h4>
         <router-link class="btn btn-success mb-2" to="/appointments/create">+ Book New Appointment</router-link>
       </div>
       <b-row>
-        <modal name="modal-order_type" height="auto" :adaptive="true">
-          <div class="m-3 p-3">
-            <b-row class="p-2">
-              <h4>Choose Order Type</h4><br><br>
-            </b-row>
-            <b-row class="p-2">
-              <div class="center-div">
-                <button @click="createOrder('Beauty On-Demand')" class="btn btn-primary m-2">Beauty On-Demand</button>
-                <!--<button @click="createOrder('Beauty Appointment')" class="btn btn-primary m-2">Beauty Appointment</button>-->
-                <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button>
-              </div>
-
-            </b-row>
-
-          </div>
-        </modal>
         <modal name="modal-order_export" height="auto" :adaptive="true">
           <div class="m-3 p-3">
             <b-row class="p-2 border-bottom">
-              <h4>Export Orders as .xlsx</h4><br><br>
+              <h4>Export Appointments as .xlsx</h4><br><br>
             </b-row>
             <b-row class="p-2">
              <b-col>

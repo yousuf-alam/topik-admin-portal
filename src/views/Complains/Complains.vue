@@ -29,6 +29,10 @@
                     <template slot="description" slot-scope="props">
                         {{ cutDescriptionToShort(props.row.description) }}
                     </template>
+                  <template slot="status" slot-scope="props">
+                    <span class="badge badge-danger" v-if="props.row.status==='unresolved'">{{ props.row.status }}</span>
+                    <span class="badge badge-success" v-else>{{ props.row.status }}</span>
+                  </template>
                     <template slot="action" slot-scope="props">
                         <div>
                             <router-link :to="{ name: 'ComplainShow', params: { id: props.row.id }}">
@@ -58,7 +62,7 @@ export default {
     data() {
         return {
             data_loaded_successfully: false,
-            columns: ['order_id', 'partner', 'description','created_at' ,'action'],
+            columns: ['order_id', 'partner', 'description','status','created_at' ,'action'],
             tableData: [],
                 options: {
                     pagination: {nav: 'fixed'},

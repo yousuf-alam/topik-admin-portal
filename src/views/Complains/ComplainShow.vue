@@ -25,6 +25,9 @@
                                 </p>
                             </li>
                         </ul>
+                  <b-form-checkbox class="font-weight-bold" v-show="orderComplain.status==='unresolved'" @change="resolveComplain">
+                    Complain Resolved?
+                  </b-form-checkbox>
 
                 </b-card>
             </b-col>
@@ -59,6 +62,12 @@
                                 <span> {{spContact}}</span>
                             </h6>
                         </li>
+                      <li><h6>
+                        <span class="font-weight-bold">  Status : </span>
+                        <span class="badge badge-danger" v-if="orderComplain.status==='unresolved'">{{ orderComplain.status }}</span>
+                        <span class="badge badge-success" v-else>{{ orderComplain.status }}</span>
+                      </h6>
+                      </li>
 
                     </ul>
                 </b-card>
@@ -160,6 +169,18 @@ export default {
                 this.spContact = response.data.user.phone;
             }).catch(e => {
                 console.log("fetchPartner :: error occurs: ", e.response);
+            });
+        },
+        resolveComplain() {
+            axios.post(`${ADMIN_URL}/order-complain/resolve`, {
+
+                    id: this.orderComplain.id
+            }).then(response => {
+                this.$swal('Success', response.data.message, 'success')
+                this.fetchSingleOrderComplain();
+            }).catch(e => {
+                this.$swal('Error', e, 'error')
+
             });
         }
     }

@@ -2,7 +2,7 @@
   <div class="animated fadeIn">
     <div>
     <h3>Order Details</h3>
-    <router-link :to="{ name: 'OrderEdit', params: { id: order.order_id }}">
+    <router-link :to="{ name: 'AppointmentEdit', params: { id: order.order_id }}">
       <span class="btn btn-romoni-secondary mb-3">Edit Order</span>
     </router-link>
     <b-row>
@@ -42,10 +42,6 @@
 
           <ul style="list-style: none;">
             <li><h6><span class="font-weight-bold">Delivery Name : </span> <span>{{order.shipping_name}} </span></h6></li>
-            <li><h6><span class="font-weight-bold">  Delivery Address : </span>
-              <span>{{order.shipping_address.address_details}}</span></h6></li>
-            <li><h6><span class="font-weight-bold">  Delivery Location : </span>
-              <span>{{order.location}}</span></h6></li>
             <li><h6><span class="font-weight-bold">  Delivery Contact : </span>
               <span>{{order.shipping_phone}}</span></h6></li>
 
@@ -176,7 +172,7 @@
     methods: {
       fetchOrder() {
         this.order_id = window.location.pathname.split("/").pop();
-        axios.get(`${ADMIN_URL}/orders/show`, {
+        axios.get(`${ADMIN_URL}/appointments/show`, {
           params: {
             order_id: this.order_id
           }

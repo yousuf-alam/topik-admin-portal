@@ -60,6 +60,12 @@ const navitems = {
       permission_name: permissionsList.complain
     },
     {
+      name: 'Reviews',
+      url: '/reviews',
+      icon: 'fa fa-thumbs-up',
+      permission_name: permissionsList.complain
+    },
+    {
       title: true,
       name: 'Service',
       class: '',

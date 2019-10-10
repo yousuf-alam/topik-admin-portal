@@ -95,9 +95,9 @@
         EventBus.$emit('service:add', this.services);
       },
       fetchCategories() {
-        
+
         axios.post(`${ADMIN_URL}/categories`, {
-          service_id: 1
+          service_id: 3
         })
           .then(response => {
             this.categories = response.data;
@@ -107,7 +107,7 @@
           });
       },
       fetchSubcategories() {
-        
+
         axios.post(`${ADMIN_URL}/subcategories`, {
           category_id: this.selected_category
         })
@@ -119,7 +119,7 @@
           });
       },
       fetchServices() {
-        
+      console.log('aaa');
         axios.get(`${ADMIN_URL}/line-items/appointment`, {
           params : {
             subcategory_id: this.selected_subcategory,

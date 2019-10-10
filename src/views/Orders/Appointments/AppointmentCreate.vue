@@ -39,15 +39,16 @@
 
 <script>
   import axios from 'axios';
-  import EventBus from '../../utils/EventBus'
-  import Customer from './AppointmentCreate/Customer'
-  import Location from './AppointmentCreate/Location'
-  import Schedule from './AppointmentCreate/Schedule'
-  import Service  from './AppointmentCreate/Service'
-  import Cart     from './AppointmentCreate/Cart'
-  import Partner  from './AppointmentCreate/Partner'
-  import OrderSummary  from './AppointmentCreate/Summary'
+  import EventBus from '../../../utils/EventBus'
+  import Customer from '../AppointmentCreate/Customer'
+  import Location from '../AppointmentCreate/Location'
+  import Schedule from '../AppointmentCreate/Schedule'
+  import Service  from '../AppointmentCreate/Service'
+  import Cart     from '../AppointmentCreate/Cart'
+  import Partner  from '../AppointmentCreate/Partner'
+  import OrderSummary  from '../AppointmentCreate/Summary'
   const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+  const ROOT_URL = process.env.VUE_APP_ROOT_URL;
   export default {
     name: "OrderCreate",
     components: {
@@ -113,8 +114,22 @@
           });
 
       },
+        fetchPartnerAddress() {
+            axios.post(`${ROOT_URL}/api/v2.0/appointment/partner-details`, {
+                partner_id : this.selected_partner.id
+            })
+                .then(response => {
+                    this.selected_partner.address = response.data.address;
+
+                })
+                .catch(e => {
+                    console.log("error occurs",e);
+                });
+
+        },
       partnerAdd(partner) {
         this.selected_partner = partner;
+        this.fetchPartnerAddress();
       },
       invoiceFormatter(){
         return{
@@ -143,25 +158,36 @@
         formData.append('scheduled_time', this.schedule.selected_time);
         formData.append('scheduled_date', this.schedule.selected_date);
         formData.append('shipping_name', this.customer.name);
-        formData.append('shipping_address', this.schedule.delivery_address);
+        formData.append('shipping_address', JSON.stringify(this.selected_partner.address));
         formData.append('shipping_phone', this.customer.phone);
         formData.append('payment_method', this.payment_method);
-        formData.append('measurement', this.measurement_type);
-        formData.append('accessories', JSON.stringify(this.accessories));
-        formData.append('services', JSON.stringify(this.services));
+        formData.append('items', JSON.stringify(this.services));
         formData.append('price', this.invoice.price);
         formData.append('discount', this.invoice.discount);
 
-
+        const loader = this.$loading.show({
+            loader: 'spinner',
+            color: '#ff3573',
+            canCancel : true
+        });
         axios.post(`${ADMIN_URL}/place-order`, formData, config)
           .then(response => {
-            console.log('Success', response);
-            currentObj.success = response.data.success;
-            console.log(response.data);
+              setTimeout(() => {
+                  loader.hide();
+
+              }, 3 * 1000);
+              if(response.data.success === true)
+              {
+                  this.$swal('Appointment Booked Successfully!', '', 'success');
+                  window.location.href = "/appointments";
+              }
+              else
+              {
+                  this.$swal('Something wrong happened', 'Please check all the fields', 'error');
+              }
           })
           .catch(error => {
-            console.log('Error  ... ', error.response);
-            currentObj.output = error;
+              this.$swal('Something went wrong', 'Please check all the fields & try again', 'error');
             console.log(error);
           });
 

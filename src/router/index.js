@@ -12,7 +12,12 @@ const Orders = () => import('@/views/Orders/Orders')
 const OrderShow = () => import('../views/Orders/Order_Show')
 const OrderEdit = () => import('../views/Orders/OrderEdit')
 const OrderCreate = () => import('../views/Orders/OrderCreate')
-const AppointmentCreate = () => import('../views/Orders/AppointmentCreate')
+const Appointments = () => import('@/views/Orders/Appointments/Appointments')
+const AppointmentShow = () => import('../views/Orders/Appointments/Appointment_Show')
+const AppointmentEdit = () => import('../views/Orders/Appointments/AppointmentEdit')
+const AppointmentCreate = () => import('../views/Orders/Appointments/AppointmentCreate')
+
+
 
 import SelfAllNotifications from '../views/Notifications/self/SelfAllNotifications';
 const Notifications = () => import('@/views/Notifications/Notifications')
@@ -232,7 +237,31 @@ const router =  new Router({
         },
       },
       {
-        path: '/orders/create-appointment',
+        path: 'appointments',
+        name: 'Appointments',
+        component: Appointments,
+        meta: {
+          permission_name: permissionsList.order
+        },
+      },
+      {
+        path: '/appointments/details/:id',
+        name: 'AppointmentShow',
+        component: AppointmentShow,
+        meta: {
+          permission_name: 'order read'
+        },
+      },
+      {
+        path: '/appointments/edit/:id',
+        name: 'AppointmentEdit',
+        component: AppointmentEdit,
+        meta: {
+          permission_name: 'order read'
+        },
+      },
+      {
+        path: '/appointments/create',
         name: 'AppointmentCreate',
         component: AppointmentCreate,
         props: true,

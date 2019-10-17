@@ -31,16 +31,16 @@
           :multiple="true">
         </MultiSelect>
       </div>
-      <div v-if="type==='percentage'" class="form-group">
+      <div v-if="promo.type==='percentage'" class="form-group">
         <label>Percentage Amount (%)</label>
         <input type="text"class="form-control" v-model="promo.percentage_amount">
       </div>
       <div class="form-group">
-        <label v-if="type==='percentage'">Maximum Discount Amount</label>
+        <label v-if="promo.type==='percentage'">Maximum Discount Amount</label>
         <label v-else>Discount Amount</label>
         <input type="text"class="form-control" v-model="promo.discount_amount">
       </div>
-      <div v-if="type==='download'" class="form-group">
+      <div v-if="promo.type==='download'" class="form-group">
         <label>Discount Per Usage</label>
         <input type="text"class="form-control" v-model="promo.discount_per_usage">
       </div>

@@ -50,9 +50,11 @@
           selected_time: '',
           selected_date: '',
           address : {
+            name: 'service',
             latitude: '',
             longitude: '',
-            address_details: ''
+            address_details: '',
+            map_details: ''
           },
             address_warning: ''
         },

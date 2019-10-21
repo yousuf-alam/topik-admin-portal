@@ -42,7 +42,7 @@
         data() {
             return {
                 promos : [],
-                columns: ['id', 'code', 'type', 'status','discount_amount', 'expires_at', 'action'],
+                columns: ['code', 'partner', 'type', 'status','discount_amount', 'expires_at', 'action'],
                 options: {
                     pagination: {nav: 'fixed'},
                     filterByColumn: true,
@@ -62,7 +62,19 @@
                 }
             })
                 .then(response =>{
-                    this.promos = response.data;
+                    this.promos = response.data.map(item => {
+                        let obj = {};
+                        obj.id = item.id;
+                        obj.code = item.code;
+                        obj.partner = item.partner.name;
+                        obj.type = item.type;
+                        obj.status = item.status;
+                        obj.discount_amount = item.discount_amount;
+                        obj.expires_at = item.expires_at;
+                        return obj;
+
+                    });
+
                 })
                 .catch(e=>{
                     //console.log("error occurs");

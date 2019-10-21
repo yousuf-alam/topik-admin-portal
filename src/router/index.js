@@ -27,6 +27,7 @@ const NotificationEdit = () => import('../views/Notifications/NotificationEdit')
 const Promos = () => import('@/views/Promos/Promos')
 const PromoCreate = () => import('../views/Promos/PromoCreate')
 const PromoEdit = () => import('../views/Promos/PromoEdit')
+const PartnerPromos = () => import('@/views/Promos/PartnerPromos')
 
 const Locations = () => import('@/views/Locations/Locations')
 const LocationCreate = () => import('@/views/Locations/LocationCreate')
@@ -333,6 +334,14 @@ const router =  new Router({
         component: PromoCreate,
         meta: {
          // permission_name: 'promocode create'
+        },
+      },
+      {
+        path: '/promos/partner-promos',
+        name: 'PartnerPromos',
+        component: PartnerPromos,
+        meta: {
+          // permission_name: 'promocode create'
         },
       },
       {

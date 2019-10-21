@@ -16,6 +16,9 @@
     <b-row>
       <b-col>
         <b-card>
+          <router-link :to="{ name: 'PartnerPromos'}">
+            <button class="btn btn-romoni-secondary">See Partner Promos</button>
+          </router-link>
           <v-client-table :data="promos" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
@@ -35,7 +38,7 @@
 <script>
   import axios from 'axios';
   export default {
-    name: 'promos',
+    name: 'Promo Codes',
     data() {
       return {
         promos : [],
@@ -53,7 +56,11 @@
     },
     created(){
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${ADMIN_URL}/all-promos`)
+      axios.get(`${ADMIN_URL}/all-promos`, {
+          params : {
+              type : 'all'
+          }
+      })
         .then(response =>{
           this.promos = response.data;
         })

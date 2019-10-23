@@ -150,6 +150,62 @@
                     </tr>
                   </table>
                 </b-tab>
+              <b-tab title="Commission Rates" v-if="partner.booking_type ==='appointment' || partner.booking_type ==='both' ">
+                <table class="table">
+                  <tr>
+                    <th>৳ 0 - 4,999</th>
+                    <td v-if="commission_mode==='view'">{{partner.commission_rates.min}} %
+                      <span data-toggle="tooltip" title="Edit Score" @click="commission_mode = 'edit'">
+                          <i class="fa fa-pencil pl-1 text-danger cursor-pointer"></i>
+                        </span>
+                    </td>
+                    <td v-else>
+                      <input type="text" v-model="partner.commission_rates.min">
+                      <button class="btn btn-primary btn-sm" @click="changeCommission" v-if="commission_mode === 'edit'">Save</button>
+                      <button class="btn btn-light btn-sm" @click="commission_mode='view'" v-if="commission_mode === 'edit'">Cancel</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>৳ 5,000 - 14,999</th>
+                    <td v-if="commission_mode==='view'">{{partner.commission_rates.mid}} %
+                      <span data-toggle="tooltip" title="Edit Score" @click="commission_mode = 'edit'">
+                          <i class="fa fa-pencil pl-1 text-danger cursor-pointer"></i>
+                        </span>
+                    </td>
+                    <td v-else>
+                      <input type="text" v-model="partner.commission_rates.mid">
+                      <button class="btn btn-primary btn-sm" @click="changeCommission" v-if="commission_mode === 'edit'">Save</button>
+                      <button class="btn btn-light btn-sm" @click="commission_mode='view'" v-if="commission_mode === 'edit'">Cancel</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>৳ 15,000 - 24,999</th>
+                    <td v-if="commission_mode==='view'">{{partner.commission_rates.max}} %
+                      <span data-toggle="tooltip" title="Edit Score" @click="commission_mode = 'edit'">
+                          <i class="fa fa-pencil pl-1 text-danger cursor-pointer"></i>
+                        </span>
+                    </td>
+                    <td v-else>
+                      <input type="text" v-model="partner.commission_rates.max">
+                      <button class="btn btn-primary btn-sm" @click="changeCommission" v-if="commission_mode === 'edit'">Save</button>
+                      <button class="btn btn-light btn-sm" @click="commission_mode='view'" v-if="commission_mode === 'edit'">Cancel</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>৳ 25,000 - above</th>
+                    <td v-if="commission_mode==='view'">৳ {{partner.commission_rates.mega}}
+                      <span data-toggle="tooltip" title="Edit Score" @click="commission_mode = 'edit'">
+                          <i class="fa fa-pencil pl-1 text-danger cursor-pointer"></i>
+                        </span>
+                    </td>
+                    <td v-else>
+                      <input type="text" v-model="partner.commission_rates.mega">
+                      <button class="btn btn-primary btn-sm" @click="changeCommission" v-if="commission_mode === 'edit'">Save</button>
+                      <button class="btn btn-light btn-sm" @click="commission_mode='view'" v-if="commission_mode === 'edit'">Cancel</button>
+                    </td>
+                  </tr>
+                </table>
+              </b-tab>
             </b-tabs>
         </div>
     </div>
@@ -167,6 +223,7 @@
             return {
               partner: [],
               admin_score_mode: 'view',
+              commission_mode: 'view',
               src_avatar: BASE_URL,
               options: {
                     pagination: {nav: 'fixed'},
@@ -197,6 +254,20 @@
             id: this.id
           }).then(response =>{
           this.partner = response.data;
+          if(this.partner.commission_rates === null)
+          {
+              let rates = {};
+              rates.min = '';
+              rates.mid = '';
+              rates.max = '';
+              rates.mega= '';
+              this.partner.commission_rates = rates;
+          }
+          else
+          {
+              this.partner.commission_rates = JSON.parse(response.data.commission_rates)
+          }
+
           console.log(response.data);
         })
           .catch(e=>{
@@ -235,6 +306,21 @@
               .catch(e=>{
                 console.log("error occurs",e);
               });
+            },
+            changeCommission() {
+                this.commission_mode = 'view';
+                axios.post(`${ADMIN_URL}/partners/change-commissions`,
+                    {
+                        id: this.partner.id,
+                        commissions: this.partner.commission_rates
+                    }).then(response =>{
+                    if(response.data.success===true)
+                        this.$swal('Commission Rates Updated', '', 'success');
+                    /*location.reload();*/
+                })
+                    .catch(e=>{
+                        console.log("error occurs",e);
+                    });
             },
         }
     }

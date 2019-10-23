@@ -1,32 +1,119 @@
 <template>
-  <div class="app flex-row align-items-center">
-    <div class="container">
-      <b-row class="justify-content-center">
-        <b-col md="6">
-          <div class="clearfix">
-            <h1 class="float-left display-3 mr-4">404</h1>
-            <h4 class="pt-3">Oops! You're lost.</h4>
-            <p class="text-muted">The page you are looking for was not found.</p>
-          </div>
-          <b-input-group>
-            <b-input-group-prepend>
-              <b-input-group-text>
-                <i class="fa fa-search"></i>
-              </b-input-group-text>
-            </b-input-group-prepend>
-            <input id="prependedInput" class="form-control" size="16" type="text" placeholder="What are you looking for?">
-            <b-input-group-append>
-              <b-button variant="info">Search</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-col>
-      </b-row>
+  <div id="notfound">
+    <div class="notfound">
+      <div class="notfound-404">
+        <h1>4<span></span>4</h1>
+      </div>
+      <h2>Oops! Page Not Found</h2>
+      <p>Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable</p>
+      <a href="/">Back to homepage</a>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Page404'
-}
+    export default {
+        name: "Page404"
+    }
 </script>
+
+<style scoped>
+  * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  #notfound {
+    position: relative;
+    height: 100vh;
+  }
+
+  #notfound .notfound {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .notfound {
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .notfound .notfound-404 {
+    height: 190px;
+  }
+
+  .notfound .notfound-404 h1 {
+
+    font-size: 146px;
+    font-weight: 700;
+    margin: 0px;
+    color: #EB4A74;
+  }
+
+  .notfound .notfound-404 h1>span {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    background-image: url('/img/romoni_dead.png');
+    background-size: cover;
+    -webkit-transform: scale(1.0);
+    -ms-transform: scale(1.0);
+    transform: scale(1.0);
+    z-index: -1;
+  }
+
+  .notfound h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    color: #EB4A74;
+  }
+
+  .notfound p {
+
+    color: #787878;
+    font-weight: 300;
+  }
+
+  .notfound a {
+
+    display: inline-block;
+    padding: 12px 30px;
+    font-weight: 700;
+    background-color: #EB4A74;
+    color: #fff;
+    border-radius: 40px;
+    text-decoration: none;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+  }
+
+  .notfound a:hover {
+    opacity: 0.8;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .notfound .notfound-404 {
+      height: 115px;
+    }
+    .notfound .notfound-404 h1 {
+      font-size: 86px;
+    }
+    .notfound .notfound-404 h1>span {
+      width: 86px;
+      height: 86px;
+    }
+  }
+</style>

@@ -612,6 +612,7 @@ const router =  new Router({
       },
     ]
   },
+    { path: '*', component: Page404 },
   {
     path: '/',
     redirect: '/404',

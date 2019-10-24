@@ -151,60 +151,89 @@
                   </table>
                 </b-tab>
               <b-tab title="Commission Rates" v-if="partner.booking_type ==='appointment' || partner.booking_type ==='both' ">
+                <b-button class="btn-romoni-secondary float-right m-3" @click="commissionModal">Edit Rates</b-button>
                 <table class="table">
                   <tr>
                     <th>৳ 0 - 4,999</th>
-                    <td v-if="commission_mode==='view'">{{partner.commission_rates.min}} %
-                      <span data-toggle="tooltip" title="Edit Score" @click="commission_mode = 'edit'">
-                          <i class="fa fa-pencil pl-1 text-danger cursor-pointer"></i>
-                        </span>
-                    </td>
-                    <td v-else>
-                      <input type="text" v-model="partner.commission_rates.min">
-                      <button class="btn btn-primary btn-sm" @click="changeCommission" v-if="commission_mode === 'edit'">Save</button>
-                      <button class="btn btn-light btn-sm" @click="commission_mode='view'" v-if="commission_mode === 'edit'">Cancel</button>
-                    </td>
+                    <td>{{partner.commission_rates.min.amount}} {{typeSymbol(partner.commission_rates.min.type)}}</td>
                   </tr>
                   <tr>
                     <th>৳ 5,000 - 14,999</th>
-                    <td v-if="commission_mode==='view'">{{partner.commission_rates.mid}} %
-                      <span data-toggle="tooltip" title="Edit Score" @click="commission_mode = 'edit'">
-                          <i class="fa fa-pencil pl-1 text-danger cursor-pointer"></i>
-                        </span>
-                    </td>
-                    <td v-else>
-                      <input type="text" v-model="partner.commission_rates.mid">
-                      <button class="btn btn-primary btn-sm" @click="changeCommission" v-if="commission_mode === 'edit'">Save</button>
-                      <button class="btn btn-light btn-sm" @click="commission_mode='view'" v-if="commission_mode === 'edit'">Cancel</button>
-                    </td>
+                    <td>{{partner.commission_rates.mid.amount}} {{typeSymbol(partner.commission_rates.mid.type)}}</td>
                   </tr>
                   <tr>
                     <th>৳ 15,000 - 24,999</th>
-                    <td v-if="commission_mode==='view'">{{partner.commission_rates.max}} %
-                      <span data-toggle="tooltip" title="Edit Score" @click="commission_mode = 'edit'">
-                          <i class="fa fa-pencil pl-1 text-danger cursor-pointer"></i>
-                        </span>
-                    </td>
-                    <td v-else>
-                      <input type="text" v-model="partner.commission_rates.max">
-                      <button class="btn btn-primary btn-sm" @click="changeCommission" v-if="commission_mode === 'edit'">Save</button>
-                      <button class="btn btn-light btn-sm" @click="commission_mode='view'" v-if="commission_mode === 'edit'">Cancel</button>
-                    </td>
+                    <td>{{partner.commission_rates.max.amount}} {{typeSymbol(partner.commission_rates.max.type)}}</td>
                   </tr>
                   <tr>
                     <th>৳ 25,000 - above</th>
-                    <td v-if="commission_mode==='view'">৳ {{partner.commission_rates.mega}}
-                      <span data-toggle="tooltip" title="Edit Score" @click="commission_mode = 'edit'">
-                          <i class="fa fa-pencil pl-1 text-danger cursor-pointer"></i>
-                        </span>
-                    </td>
-                    <td v-else>
-                      <input type="text" v-model="partner.commission_rates.mega">
-                      <button class="btn btn-primary btn-sm" @click="changeCommission" v-if="commission_mode === 'edit'">Save</button>
-                      <button class="btn btn-light btn-sm" @click="commission_mode='view'" v-if="commission_mode === 'edit'">Cancel</button>
-                    </td>
+                    <td>{{partner.commission_rates.mega.amount}} {{typeSymbol(partner.commission_rates.mega.type)}}</td>
                   </tr>
                 </table>
+                <!-- Modal Component -->
+                <modal name="modal-commission" height="auto">
+                  <div class="m-3 p-3">
+                    <b-row>
+                      <h3 class="mb-3">Change Commission Rates of SP</h3>
+                    </b-row>
+                    <b-row>
+                      <b-col>
+                        <table class="table">
+                          <tr>
+                            <th>Range</th>
+                            <td>Type</td>
+                            <td>Amount</td>
+                          </tr>
+                          <tr>
+                            <th>৳ 0 - 4,999</th>
+                            <td>
+                              <select class='form-control' v-model="partner.commission_rates.min.type">
+                                <option value="percentage">Percentage</option>
+                                <option value="fixed">Fixed</option>
+                              </select>
+                            </td>
+                            <td><input type="number" class='form-control' v-model="partner.commission_rates.min.amount"></td>
+                          </tr>
+                          <tr>
+                            <th>৳ 5,000 - 14,999</th>
+                            <td>
+                              <select class='form-control' v-model="partner.commission_rates.mid.type">
+                                <option value="percentage">Percentage</option>
+                                <option value="fixed">Fixed</option>
+                              </select>
+                            </td>
+                            <td><input type="number" class='form-control' v-model="partner.commission_rates.mid.amount"></td>
+                          </tr>
+                          <tr>
+                            <th>৳ 15,000 - 24,999</th>
+                            <td>
+                              <select class='form-control' v-model="partner.commission_rates.max.type">
+                                <option value="percentage">Percentage</option>
+                                <option value="fixed">Fixed</option>
+                              </select>
+                            </td>
+                            <td><input type="number" class='form-control' v-model="partner.commission_rates.max.amount"></td>
+                          </tr>
+                          <tr>
+                            <th>৳ 25,000 - above</th>
+                            <td>
+                              <select class='form-control' v-model="partner.commission_rates.mega.type">
+                                <option value="percentage">Percentage</option>
+                                <option value="fixed">Fixed</option>
+                              </select>
+                            </td>
+                            <td><input type="number" class='form-control' v-model="partner.commission_rates.mega.amount"></td>
+                          </tr>
+                        </table>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col>
+                        <button @click="changeCommission" class="btn btn-success float-right" data-dismiss="modal" type="button">Save</button>
+                      </b-col>
+                    </b-row>
+                  </div>
+                </modal>
               </b-tab>
             </b-tabs>
         </div>
@@ -244,7 +273,7 @@
         jobScore() {
             let jobscore =  parseFloat(this.partner.priority - this.partner.admin_score - this.partner.rating* 5);
             return jobscore.toFixed(2);
-        }
+        },
       },
       created(){
 
@@ -280,6 +309,15 @@
           statusModal(){
             this.$modal.show('modal-status');
           },
+          commissionModal(){
+              this.$modal.show('modal-commission');
+          },
+          typeSymbol(type) {
+              if(type==='fixed')
+                  return 'BDT';
+              else
+                  return '%';
+          },
           changeStatus(){
             this.$modal.hide('modal-status');
             axios.post(`${ADMIN_URL}/partners/change-status`,
@@ -308,7 +346,7 @@
               });
             },
             changeCommission() {
-                this.commission_mode = 'view';
+                this.$modal.hide('modal-commission');
                 axios.post(`${ADMIN_URL}/partners/change-commissions`,
                     {
                         id: this.partner.id,

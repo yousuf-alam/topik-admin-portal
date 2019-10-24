@@ -285,11 +285,21 @@
           this.partner = response.data;
           if(this.partner.commission_rates === null)
           {
+
               let rates = {};
-              rates.min = '';
-              rates.mid = '';
-              rates.max = '';
-              rates.mega= '';
+              rates.min = {};
+              rates.min.type = '';
+              rates.min.amount = '';
+              rates.mid = {};
+              rates.mid.type = '';
+              rates.mid.amount = '';
+              rates.max = {};
+              rates.max.type = '';
+              rates.max.amount = '';
+              rates.mega = {};
+              rates.mega.type = '';
+              rates.mega.amount = '';
+              console.log('rates',rates)
               this.partner.commission_rates = rates;
           }
           else

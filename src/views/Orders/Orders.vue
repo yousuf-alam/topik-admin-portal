@@ -73,6 +73,7 @@
                </div>
                <button @click="closeModal" class="btn btn-danger float-right m-1">Cancel</button>
                <button @click="ExportOrder" class="btn btn-romoni-secondary float-right m-1">Export Order Report</button>
+               <b-spinner variant="danger" label="Spinning" v-if="exporting"></b-spinner>
              </b-col>
             </b-row>
 
@@ -234,6 +235,7 @@
                 category: 'all',
                 categories: [],
                 status: 'all',
+                exporting: false,
 
               totalPageCount: 0,
               perPageItem: 10, // Only set this value
@@ -348,7 +350,7 @@
             this.$modal.hide('modal-order_export')
           },
           ExportOrder(){
-            console.log('hitted');
+            this.exporting = true;
             axios({
               method: 'post',
               url: `${Admin_URL}/orders/export`,
@@ -364,11 +366,12 @@
             })
               .then(response => {
                 console.log(response.data);
+                this.exporting = false;
 
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'order_report_' + moment(this.date_from).format('YYYY-MM-DD') +'.xlsx');
+                link.setAttribute('download', 'order_report_' + moment(this.date_from).format('YYYY-MM-DD') + '~' + moment(this.date_to).format('YYYY-MM-DD') +'.xlsx');
                 document.body.appendChild(link);
                 link.click();
                 this.$swal('Report Exported Successfully', '', 'success');

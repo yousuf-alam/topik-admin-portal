@@ -5,6 +5,11 @@
         <h4><i class="fa fa-user"></i><span class="ml-1">Partners</span></h4>
         <b-card>
           <v-client-table :data="partners" :columns="columns" :options="options">
+            <!--<template slot="logo" slot-scope="props">
+              <div class="center-div">
+                <img :src="`${BASE_URL}/${props.row.logo}`" style="width: 160px;height: 90px;">
+              </div>
+            </template>-->
             <template slot="action" slot-scope="props">
               <div>
                 <router-link :to="{ name: 'PartnerShow', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.id">
@@ -35,14 +40,16 @@
   import CryptoJS from 'crypto-js';
   import globalvariables from '../../globalvariables';
   const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+  const BASE_URL = process.env.VUE_APP_BASE_URL;
   const PARTNER_FRONTEND_DOMAIN = process.env.VUE_APP_PARTNER_FRONTEND_DOMAIN;
   export default {
     name: 'Partners',
     data() {
       return {
+        BASE_URL: BASE_URL,
         PARTNER_FRONTEND_DOMAIN: PARTNER_FRONTEND_DOMAIN, /* TO_EDIT_THIS_PLACE */
         partners : [],
-        columns: ['id', 'name', 'type', 'phone' ,'status', 'score', 'created_at', 'action'],
+        columns: ['id', 'name', 'type','booking_type', 'phone' ,'status', 'score', 'created_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,

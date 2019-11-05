@@ -29,6 +29,7 @@ import Multiselect from 'vue-multiselect';
 
 
 
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyCtRtEW4nWKAtW6RH8bU9WkWatB5TSQMEw',
@@ -65,7 +66,6 @@ Vue.use(VModal)
 Vue.use(VueSweetalert2, { confirmButtonColor: '#41b882', cancelButtonColor: '#ff7674'})
 Vue.use(Loading);
 Vue.component('multiselect', Multiselect)
-
 import router from './router'
 import store from './store/store';
 import globalvariables from './globalvariables';

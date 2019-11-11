@@ -46,7 +46,7 @@
 
             </div>
 
-            <div class="resource-job-summary col-sm-4 table-responsive">
+            <!--<div class="resource-job-summary col-sm-4 table-responsive">
                 <div class="mt-2 ">
                     <h3 class="p-1 bg-primary">Job Summary</h3>
                 </div>
@@ -70,7 +70,7 @@
                     </tr>
                     </tbody>
                 </table>
-            </div>
+            </div>-->
         </div>
         <div class="resource-body">
             <b-tabs content-class="mt-3" pills card>
@@ -155,26 +155,30 @@
                 <table class="table">
                   <tr>
                     <th>৳ 0 - 4,999</th>
-                    <td>{{partner.commission_rates.min.amount}} {{typeSymbol(partner.commission_rates.min.type)}}</td>
+                    <td>{{typeSymbol(partner.commission_rates.min)}}</td>
                   </tr>
                   <tr>
                     <th>৳ 5,000 - 14,999</th>
-                    <td>{{partner.commission_rates.mid.amount}} {{typeSymbol(partner.commission_rates.mid.type)}}</td>
+                    <td>{{typeSymbol(partner.commission_rates.mid)}}</td>
                   </tr>
                   <tr>
                     <th>৳ 15,000 - 24,999</th>
-                    <td>{{partner.commission_rates.max.amount}} {{typeSymbol(partner.commission_rates.max.type)}}</td>
+                    <td>{{typeSymbol(partner.commission_rates.max)}}</td>
                   </tr>
                   <tr>
                     <th>৳ 25,000 - above</th>
-                    <td>{{partner.commission_rates.mega.amount}} {{typeSymbol(partner.commission_rates.mega.type)}}</td>
+                    <td>{{typeSymbol(partner.commission_rates.mega)}}</td>
                   </tr>
                 </table>
                 <!-- Modal Component -->
                 <modal name="modal-commission" height="auto">
                   <div class="m-3 p-3">
                     <b-row>
-                      <h3 class="mb-3">Change Commission Rates of SP</h3>
+                      <b-col>
+                        <h3 class="mb-3">Change Commission Rates of SP</h3>
+                        <p class="text-danger">*Enter the maximum amount of commission in 'Amount' field in case of Percentage type commission</p>
+                      </b-col>
+
                     </b-row>
                     <b-row>
                       <b-col>
@@ -183,9 +187,10 @@
                             <th>Range</th>
                             <td>Type</td>
                             <td>Amount</td>
+                            <td>Percentage</td>
                           </tr>
                           <tr>
-                            <th>৳ 0 - 4,999</th>
+                            <th>৳ 0 - 5,000</th>
                             <td>
                               <select class='form-control' v-model="partner.commission_rates.min.type">
                                 <option value="percentage">Percentage</option>
@@ -193,9 +198,10 @@
                               </select>
                             </td>
                             <td><input type="number" class='form-control' v-model="partner.commission_rates.min.amount"></td>
+                            <td><input type="number" class='form-control' v-if="partner.commission_rates.min.type==='percentage'" v-model="partner.commission_rates.min.percentage"></td>
                           </tr>
                           <tr>
-                            <th>৳ 5,000 - 14,999</th>
+                            <th>৳ 5,001 - 15,000</th>
                             <td>
                               <select class='form-control' v-model="partner.commission_rates.mid.type">
                                 <option value="percentage">Percentage</option>
@@ -203,9 +209,10 @@
                               </select>
                             </td>
                             <td><input type="number" class='form-control' v-model="partner.commission_rates.mid.amount"></td>
+                            <td><input type="number" class='form-control' v-if="partner.commission_rates.mid.type==='percentage'" v-model="partner.commission_rates.mid.percentage"></td>
                           </tr>
                           <tr>
-                            <th>৳ 15,000 - 24,999</th>
+                            <th>৳ 15,001 - 25,000</th>
                             <td>
                               <select class='form-control' v-model="partner.commission_rates.max.type">
                                 <option value="percentage">Percentage</option>
@@ -213,9 +220,10 @@
                               </select>
                             </td>
                             <td><input type="number" class='form-control' v-model="partner.commission_rates.max.amount"></td>
+                            <td><input type="number" class='form-control' v-if="partner.commission_rates.max.type==='percentage'" v-model="partner.commission_rates.max.percentage"></td>
                           </tr>
                           <tr>
-                            <th>৳ 25,000 - above</th>
+                            <th>৳ 25,001 - above</th>
                             <td>
                               <select class='form-control' v-model="partner.commission_rates.mega.type">
                                 <option value="percentage">Percentage</option>
@@ -223,6 +231,7 @@
                               </select>
                             </td>
                             <td><input type="number" class='form-control' v-model="partner.commission_rates.mega.amount"></td>
+                            <td><input type="number" class='form-control' v-if="partner.commission_rates.mega.type==='percentage'" v-model="partner.commission_rates.mega.percentage"></td>
                           </tr>
                         </table>
                       </b-col>
@@ -289,15 +298,19 @@
               let rates = {};
               rates.min = {};
               rates.min.type = '';
+              rates.min.percentage = '';
               rates.min.amount = '';
               rates.mid = {};
               rates.mid.type = '';
+              rates.mid.percentage = '';
               rates.mid.amount = '';
               rates.max = {};
               rates.max.type = '';
+              rates.max.percentage = '';
               rates.max.amount = '';
               rates.mega = {};
               rates.mega.type = '';
+              rates.mega.percentage = '';
               rates.mega.amount = '';
               console.log('rates',rates)
               this.partner.commission_rates = rates;
@@ -322,11 +335,11 @@
           commissionModal(){
               this.$modal.show('modal-commission');
           },
-          typeSymbol(type) {
-              if(type==='fixed')
-                  return 'BDT';
+          typeSymbol(rate) {
+              if(rate.type==='fixed')
+                  return '৳'+rate.amount;
               else
-                  return '%';
+                  return rate.percentage+'% (Upto ৳'+rate.amount+')';
           },
           changeStatus(){
             this.$modal.hide('modal-status');

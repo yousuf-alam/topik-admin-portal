@@ -4,7 +4,7 @@
     <form @submit="onSubmit" enctype="multipart/form-data">
       <div class="form-group">
         <label>Code</label>
-        <input type="text"class="form-control" v-model="code">
+        <input type="text" class="form-control" v-model="code">
       </div>
       <div class="form-group">
         <label>Description</label>
@@ -33,16 +33,16 @@
       </div>
       <div v-if="type==='percentage' || type==='platform'" class="form-group">
         <label>Percentage Amount (%)</label>
-        <input type="text"class="form-control" v-model="percentage_amount">
+        <input type="text" class="form-control" v-model="percentage_amount">
       </div>
       <div class="form-group">
         <label v-if="type==='percentage' || type==='platform'">Maximum Discount Amount</label>
         <label v-else>Discount Amount</label>
-        <input type="text"class="form-control" v-model="discount_amount">
+        <input type="text" class="form-control" v-model="discount_amount">
       </div>
       <div v-if="type==='download'" class="form-group">
         <label>Discount Per Usage</label>
-        <input type="text"class="form-control" v-model="discount_per_usage">
+        <input type="text" class="form-control" v-model="discount_per_usage">
       </div>
       <div class="form-group">
         <label>Maximum Usage of per User</label>

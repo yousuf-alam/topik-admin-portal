@@ -171,6 +171,12 @@
        // this.changeDateFormat();
         e.preventDefault();
         let currentObj = this;
+          const config = {
+              headers: {
+                  'content-type': 'application/json',
+                  'Accept' : 'application/json',
+              }
+          }
         let formData = new FormData();
         formData.append('coupon_id', this.promo.id);
         formData.append('code', this.promo.code);
@@ -193,7 +199,7 @@
         }
 
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${ADMIN_URL}/promos/edit`,formData)
+        axios.post(`${ADMIN_URL}/promos/edit`,formData,config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

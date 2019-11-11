@@ -106,7 +106,7 @@
           selected_category: "",
           selected_subcategory: "",
           selected_service: '',
-          quantity: '1',
+          quantity: 1,
           questions: [],
           item_designs: [],
           selected_item_design: '',

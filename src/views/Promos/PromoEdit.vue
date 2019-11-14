@@ -168,7 +168,7 @@
         this.expires_at =  [year, month, day].join('-');
       },
       onSubmit(e) {
-       // this.changeDateFormat();
+        this.changeDateFormat();
         e.preventDefault();
         let currentObj = this;
           const config = {

@@ -144,18 +144,7 @@
         this.image = e.target.files[0];
       },
 
-      changeDateFormat(){
-        let d = this.expires_at;
-        let month = '' + (d.getMonth() + 1);
-        let day = '' + d.getDate();
-        let year = d.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        this.expires_at =  [year, month, day].join('-');
-      },
       onSubmit(e) {
-        this.changeDateFormat();
         e.preventDefault();
         let currentObj = this;
         const config = {
@@ -175,7 +164,7 @@
         formData.append('discount_amount', this.discount_amount);
         formData.append('percentage_amount', this.percentage_amount);
         formData.append('discount_per_usage', this.discount_per_usage);
-        formData.append('expires_at', this.expires_at);
+        formData.append('expires_at', moment(this.expires_at).format('MMMM Do YYYY'));
         formData.append('service_id', this.service_id);
         formData.append('category_id', this.category_id);
         if(this.platforms)

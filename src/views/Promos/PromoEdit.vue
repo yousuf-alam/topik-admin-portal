@@ -54,7 +54,7 @@
       </div>
       <div class="form-group">
         <label>Expires on</label>
-        <datepicker :disabledDates="disabledDates" v-model="promo.expires_at"></datepicker>
+        <datepicker format="dd MMM yyyy" :disabledDates="disabledDates" v-model="promo.expires_at"></datepicker>
       </div>
       <div class="form-group">
 
@@ -156,19 +156,8 @@
           });
 
       },
-
-      changeDateFormat(){
-        let d = this.promo.expires_at;
-        let month = '' + (d.getMonth() + 1);
-        let day = '' + d.getDate();
-        let year = d.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        this.promo.expires_at =  [year, month, day].join('-');
-      },
       onSubmit(e) {
-        this.changeDateFormat();
+        /*this.changeDateFormat();*/
         e.preventDefault();
         let currentObj = this;
           const config = {
@@ -189,7 +178,7 @@
         formData.append('discount_amount', this.promo.discount_amount);
         formData.append('percentage_amount', this.promo.percentage_amount);
         formData.append('discount_per_usage', this.promo.discount_per_usage);
-        formData.append('expires_at', this.promo.expires_at);
+        formData.append('expires_at', moment(this.promo.expires_at).format('MMMM Do YYYY'));
         formData.append('service_id', this.promo.service_id);
         formData.append('category_id', this.promo.category_id);
 

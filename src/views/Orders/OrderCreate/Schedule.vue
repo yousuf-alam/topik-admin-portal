@@ -12,7 +12,7 @@
       </div>
 
       <b-form-group v-show="date_type==='custom'" label="Select Date">
-        <datepicker v-model="schedule.selected_date" :disabledDates="disabledDates" @input="changeDateFormat"></datepicker>
+        <datepicker v-model="schedule.selected_date" @input="changeDateFormat"></datepicker>
       </b-form-group>
       <b-form-group v-show="type==='Beauty On-Demand'" label="Select Time">
         <select @change="addSchedule" class="form-control" v-model="schedule.selected_time">

@@ -2,7 +2,7 @@
     <b-card class="m-4 p-4">
         <h5 class="mb-4">Date & Schedule</h5>
         <b-form-group label="Select Date">
-          <datepicker @change="addSchedule" v-model="schedule.selected_date"></datepicker>
+          <datepicker @change="addSchedule" v-model="schedule.selected_date" :disabled-dates="disabledDates"></datepicker>
         </b-form-group>
         <b-form-group label="Select Time">
           <select @change="addSchedule" class="form-control" v-model="schedule.selected_time">

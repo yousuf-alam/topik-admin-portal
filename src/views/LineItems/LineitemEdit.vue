@@ -11,6 +11,10 @@
             <label>Price</label>
             <input class="form-control" type="number" v-model="lineitem.fixed_price">
           </div>
+          <div v-show="lineitem.pricing_type==='fixed'" class="form-group">
+            <label>Old Price</label>
+            <input class="form-control" type="number" v-model="lineitem.old_price">
+          </div>
           <div class="form-group">
             <label>Short Description</label>
             <input class="form-control" type="text" v-model="lineitem.description">
@@ -221,6 +225,7 @@
             <tr>
               <th  v-for="(option,index) in lineitem.options">Option {{ index+1 }}</th>
               <th> Price </th>
+              <th> Old Price </th>
             </tr>
             </thead>
             <tbody>
@@ -230,6 +235,9 @@
               </td>
               <td>
                 <input  type="number" v-model="price.price"  multiple>
+              </td>
+              <td>
+                <input  type="number" v-model="price.old_price"  multiple>
               </td>
             </tr>
             </tbody>
@@ -326,6 +334,7 @@
             console.log('Response === === === ', response.data);
             this.lineitem = response.data;
             this.lineitem.fixed_price = response.data.price;
+            this.lineitem.old_price = response.data.old_price;
             this.lineitem.options = JSON.parse(response.data.options);
             this.lineitem.price_table = JSON.parse(response.data.price_table);
             this.lineitem.designs = JSON.parse(response.data.designs);
@@ -452,6 +461,7 @@
         formData.append('duration', this.lineitem.duration);
         formData.append('description', this.lineitem.description);
         formData.append('price', this.lineitem.fixed_price);
+        formData.append('old_price', this.lineitem.old_price);
         formData.append('price_table', JSON.stringify(this.lineitem.price_table));
         formData.append('designs', JSON.stringify(this.lineitem.designs));
         formData.append('thumbnail', this.lineitem.thumbnail);

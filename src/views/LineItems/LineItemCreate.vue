@@ -424,6 +424,7 @@
               Object.assign(res, nameObj)
             }
             nameObj['price'] = price[i];
+            nameObj['old_price'] = price[i];
             Object.assign(res, nameObj);
             price_table.push(res);
           }

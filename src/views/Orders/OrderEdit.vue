@@ -94,9 +94,9 @@
               </b-form-group>
             </b-col>
             <b-col>
-              <b-form-group label="Bkash Received?" v-show="order.payment_method==='bkash' && order.status==='completed'">
-                <b-form-radio v-model="order.bkash_status" value="received">Received</b-form-radio>
-                <b-form-radio v-model="order.bkash_status" value="not_received">Not Received</b-form-radio>
+              <b-form-group label="Payment Status?" v-show="order.payment_method==='bkash' && order.status==='completed'">
+                <b-form-radio v-model="order.bkash_status" value="Paid">Paid</b-form-radio>
+                <b-form-radio v-model="order.bkash_status" value="Pending">Pending</b-form-radio>
               </b-form-group>
             </b-col>
           </b-row>

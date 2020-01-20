@@ -1,18 +1,28 @@
 <template>
-    <div>
-      <h4><i class="fa fa-file-word-o"></i><span class="ml-1">Documents</span></h4>
-        <b-card>
-          Document list goes here
-        </b-card>
-    </div>
+  <div> Counter: {{ getCounter }}
+    <br>
+    <p>
+      <button @click="increment">+</button>
+      <button @click="decrement">-</button>
+    </p>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "Documents"
+  export default {
+    name: 'Frontend',
+    methods: {
+      increment () {
+        this.$store.commit('increment')
+      },
+      decrement () {
+        this.$store.commit('decrement')
+      }
+    },
+    computed: {
+      getCounter () {
+        return this.$store.getters.getValue
+      }
     }
+  }
 </script>
-
-<style scoped>
-
-</style>

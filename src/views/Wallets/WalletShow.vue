@@ -32,17 +32,34 @@
                     <v-client-table :data="wallet_history" :columns="columns" :options="options"></v-client-table>
                 </b-card>
             </b-tab>
-            <b-tab title="Advance Recharge">
+          <b-tab title="Recharge Wallet">
+            <div class="row w-100">
+              <div class="col-lg-4 mx-auto">
+                <div class="auth-form-light text-left p-5">
+                  <input type="hidden" name="_token" value="">
+                  <div class="form-group">
+                    <label class="text-center">Recharge Amount</label>
+                    <input type="number" class="form-control form-control-lg" v-model="amount">
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-danger btn-block" @click="recharge">Recharge Wallet</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </b-tab>
+            <b-tab title="Disburse Payment">
                 <div class="row w-100">
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left p-5">
                             <input type="hidden" name="_token" value="">
                             <div class="form-group">
-                                <label class="text-center">Recharge Amount</label>
-                                <input type="number" class="form-control form-control-lg" v-model="amount">
+                                <label class="text-center">Disburse Amount</label>
+                                <input type="number" class="form-control form-control-lg" v-model="disburse_amount">
                             </div>
                             <div class="mt-3">
-                              <button class="btn btn-danger btn-block" @click="recharge">Recharge Wallet</button>
+                              <button class="btn btn-romoni-secondary btn-block" @click="disburse">Disburse Wallet</button>
                             </div>
                         </div>
 
@@ -63,6 +80,7 @@
               partner: [],
               wallet_history: [],
               amount: '',
+              disburse_amount: '',
                 columns: ['created_at', 'id', 'description','debit','credit','balance'],
                 options: {
                     pagination: {nav: 'fixed'},
@@ -116,6 +134,29 @@
             })
               .catch(e=>{
                 console.log("error occurs",e);
+              });
+
+          },
+          disburse() {
+            axios.post(`${ADMIN_URL}/wallet/disburse`,
+              {
+                partner_id: this.id,
+                amount    : this.disburse_amount
+              }).then(response =>{
+              this.partner = response.data;
+              console.log(response.data);
+              if(response.data.success===true)
+              {
+                this.$swal('Success',response.data.message,'success');
+                this.fetchData();
+              }
+              else
+              {
+                this.$swal('Error', response.data.errorMessage, 'error');
+              }
+            })
+              .catch(e=>{
+                this.$swal('Error', e.errorMessage, 'error');
               });
 
           },

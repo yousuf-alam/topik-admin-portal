@@ -71,6 +71,8 @@ const BotOffers = () => import('../views/ChatBot/BotOffers')
 const BotOfferEdit = () => import('../views/ChatBot/BotOfferEdit')
 const BotOfferCreate = () => import('../views/ChatBot/BotOfferCreate')
 const Documents = () => import('../views/Documents')
+const Eloan = () => import('../views/Eloan')
+const EloanShow = () => import('../views/EloanShow')
 const Profile   = () => import('../views/Profile')
 
 // Views - Pages
@@ -577,6 +579,22 @@ const router =  new Router({
         path: 'documents',
         name: 'Documents',
         component: Documents,
+        meta: {
+          permission_name: permissionsList.document
+        },
+      },
+      {
+        path: 'eloan',
+        name: 'Eloan',
+        component: Eloan,
+        meta: {
+          permission_name: permissionsList.document
+        },
+      },
+      {
+        path: 'eloan/show/:id',
+        name: 'EloanShow',
+        component: EloanShow,
         meta: {
           permission_name: permissionsList.document
         },

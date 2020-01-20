@@ -197,6 +197,22 @@ const navitems = {
       url: '/documents',
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.document
+    },
+    {
+      title: true,
+      name: 'eLoan',
+      permission_name: [...permissionsList.document],
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'eLoan',
+      url: '/eloan',
+      icon: 'fa fa-dollar',
+      permission_name: permissionsList.document
     }
   ]
 }

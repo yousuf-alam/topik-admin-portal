@@ -26,16 +26,30 @@ const store = new Vuex.Store({
 
   },
   state: {
-
+    counter: 10
   },
   mutations: {
-
+    increment (state) {
+      console.log(state.counter);
+      state.counter++
+    },
+    decrement (state) {
+      state.counter--
+    }
   },
   actions: {
+    increment (context) {
+      context.commit('increment')
+    },
+    decrement (context) {
+      context.commit('decrement')
+    }
 
   },
   getters: {
-
+    getValue : function (state) {
+      return `$ ${state.counter} (dollars)`;
+    }
   }
 })
 

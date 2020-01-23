@@ -193,8 +193,8 @@ const navitems = {
       }
     },
     {
-      name: 'Documents',
-      url: '/documents',
+      name: 'Reports',
+      url: '/reports',
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.document
     },

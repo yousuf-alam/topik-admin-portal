@@ -177,6 +177,12 @@ const navitems = {
       permission_name: permissionsList.topbanner
     },
     {
+      name: 'GP Star',
+      url: '/gp-star-check',
+      icon: 'fa fa-gift',
+      permission_name: permissionsList.notification
+    },
+    {
       name: 'Chat Bot',
       url: '/bot-offers',
       icon: 'fa fa-reddit-alien',

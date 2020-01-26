@@ -70,8 +70,7 @@
           'SP list with categories',
           'Retaining Users list',
           'Category frequencies per SP',
-          'Top 50 Earning SP',
-          'SP cash-ins and cash-outs',
+          'SP with earning,jobs done & recharges',
           'Pivot table of sales per month',
           'All ratings',
           'Orders Report of a Promo']
@@ -110,6 +109,7 @@
             this.closeModal();
           })
           .catch(e => {
+            this.exporting = false;
             console.log("error occurs",e);
             this.$swal('Error', 'Something Went Wrong', 'error');
           });

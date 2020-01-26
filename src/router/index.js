@@ -71,6 +71,7 @@ const BotOffers = () => import('../views/ChatBot/BotOffers')
 const BotOfferEdit = () => import('../views/ChatBot/BotOfferEdit')
 const BotOfferCreate = () => import('../views/ChatBot/BotOfferCreate')
 const Reports = () => import('../views/Reports')
+const GpStar = () => import('../views/GpStar')
 const Eloan = () => import('../views/Eloan')
 const EloanShow = () => import('../views/EloanShow')
 const Profile   = () => import('../views/Profile')
@@ -579,6 +580,14 @@ const router =  new Router({
         path: 'reports',
         name: 'Reports',
         component: Reports,
+        meta: {
+          permission_name: permissionsList.document
+        },
+      },
+      {
+        path: 'gp-star-check',
+        name: 'GpStar',
+        component: GpStar,
         meta: {
           permission_name: permissionsList.document
         },

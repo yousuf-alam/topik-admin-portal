@@ -16,8 +16,6 @@
           <b-row class="p-5 h-100">
             <b-col>
               <VueCtkDateTimePicker
-
-
                 :overlay=true
                 :range=true
                 :no-label=true
@@ -27,12 +25,40 @@
                 formatted="ll"
                 color="#7D4E77"
                 v-model="date_range"
-
               >
-
-                <!-- <button class="btn btn-secondary">Select</button> -->
               </VueCtkDateTimePicker>
               <h6 class="my-3">Report : <b>{{selected_report}}</b></h6>
+              <b-form-group label="Select Promo" v-show="selected_report==='Order Report of a Promo'">
+                <multiselect
+                  v-model="coupon"
+                  :options="promos"
+                  placeholder="Select one"
+                  label="code"
+                  track-by="id"
+                >
+                </multiselect>
+              </b-form-group>
+              <b-form-group label="Select Promo" v-show="selected_report==='Order Report of a Subcategory'">
+                <multiselect
+                  v-model="category"
+                  :options="categories"
+                  placeholder="Select one"
+                  label="name"
+                  track-by="id"
+                  @input="getSubcategories"
+                >
+                </multiselect>
+              </b-form-group>
+              <b-form-group label="Select Promo" v-show="selected_report==='Order Report of a Subcategory'">
+                <multiselect
+                  v-model="subcategory"
+                  :options="subcategories"
+                  placeholder="Select one"
+                  label="name"
+                  track-by="id"
+                >
+                </multiselect>
+              </b-form-group>
               <b-btn class="center-div btn-block btn-romoni-secondary" @click="exportReport">Export</b-btn>
               <b-btn class="center-div btn-block btn-danger mt-1" @click="closeModal">Cancel</b-btn>
               <b-spinner variant="danger" label="Spinning" v-if="exporting"></b-spinner>
@@ -52,7 +78,7 @@
   import axios from "axios";
   import moment from "moment";
   Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
-  const Admin_URL = process.env.VUE_APP_ADMIN_URL;
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
   export default {
     name: 'Reports',
     data() {
@@ -60,21 +86,38 @@
         date_range: '',
         selected_report: '',
         exporting: false,
+        coupon: {
+          id: ''
+        },
+        subcategory: {
+          id: ''
+        },
+        category: {
+          id: ''
+        },
+        categories: [],
+        subcategories: [],
+        promos: [],
         reports: [
           'All users list',
           'All SP list',
           'Area with subcategories',
-          'Offer/Package Ordered',
+          'Order Report of a Subcategory',
+          'Order Report of a Promo',
           'Order frequencies per SP',
           'Order frequencies per line-item',
           'SP list with categories',
           'Retaining Users list',
           'Category frequencies per SP',
           'SP with earning,jobs done & recharges',
-          'Pivot table of sales per month',
-          'All ratings',
-          'Orders Report of a Promo']
+          'Reviews & Ratings'
+
+        ]
       }
+    },
+    created() {
+      this.getCoupons();
+      this.getCategories();
     },
     methods: {
       getDateModal(report){
@@ -84,15 +127,51 @@
       closeModal(){
         this.$modal.hide('date-picker-modal');
       },
+      getCoupons(){
+        axios.get(`${ADMIN_URL}/all-promos`, {
+          params : {
+            type : 'all'
+          }
+        })
+          .then(response =>{
+            this.promos = response.data;
+          })
+          .catch(e=>{
+            //console.log("error occurs");
+          });
+      },
+      getCategories() {
+        axios.get(`${ADMIN_URL}/all-categories`)
+          .then(response => {
+            this.categories = response.data;
+          })
+          .catch(e => {
+            //console.log("error occurs");
+          });
+      },
+      getSubcategories() {
+        axios.post(`${ADMIN_URL}/subcategories`, {
+          category_id: this.category.id
+        })
+          .then(response => {
+            this.subcategories = response.data;
+          })
+          .catch(e => {
+            //console.log("error occurs");
+          });
+
+      },
       exportReport(){
         this.exporting = true;
         axios({
           method: 'post',
-          url: `${Admin_URL}/export-report`,
+          url: `${ADMIN_URL}/export-report`,
           responseType: 'blob',
           data: {
             date_range: this.date_range,
-            report: this.selected_report
+            report: this.selected_report,
+            coupon_id: this.coupon.id,
+            subcategory_id: this.subcategory.id
           }
         })
           .then(response => {
@@ -117,11 +196,10 @@
 
       }
     },
-    computed: {
 
-    }
   }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
   .modal-dialog {
     max-width: 100%;

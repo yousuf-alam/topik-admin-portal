@@ -38,7 +38,7 @@
           <div v-show="order.service_id===2">
             <label>Select Delivery Type</label>
             <b-form-group class="ml-4">
-              <input type="radio" v-model="date_type"  value="regular" id="regular_delivery">
+              <input type="radio" v-model="date_type"  value="Regular Delivery" id="regular_delivery">
               <label for="regular_delivery" class="mx-1">Regular Delivery</label><br>
               <input type="radio" v-model="date_type"  value="custom" id="custom_delivery">
               <label for="custom_delivery" class="mx-1">Emergency Delivery</label>
@@ -340,6 +340,10 @@
           this.order = response.data;
           this.order.shipping_address = JSON.parse(this.order.shipping_address);
           this.flag_shipping_address_details = this.order.shipping_address.address_details;
+          if(response.data.scheduled_date==='regular')
+          {
+            this.order.scheduled_date = 'Regular Delivery'
+          }
           this.order_fetched_successfully = true;
 
         }).catch(e => {

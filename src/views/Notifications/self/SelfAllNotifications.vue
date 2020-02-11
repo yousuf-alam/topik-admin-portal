@@ -126,7 +126,6 @@ export default {
                     this.unreadNotiCounter++;
                     this.allNotiCounter++;
                     this.totalPageCount = Math.ceil(this.allNotiCounter / this.perPageItem);
-                    this.fetchNotifications();
                     /*
                         // this.notifications.push(notification.order);
                         Ai line ta likhle error khabe, karon, axios diye je notification

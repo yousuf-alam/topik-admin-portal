@@ -91,60 +91,42 @@
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
-              <i class="fa fa-book mr-2"></i>&nbsp;
+              <i class="fa fa-shopping-cart mr-2"></i>&nbsp;
               <b>{{finance.today.order_no}}</b>
                   Orders Placed
-              </li>
-              <li>
-              <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.today.served_no}}</b>
-                  Orders Served
-              </li>
-              <li>
-              <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.today.revenue}} </b>
-                  BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
               <b>{{finance.today.customer}}</b>
                   Customers
               </li>
-            </span>
-            </b-card-text>
-          </b-card>
-
-          <b-card
-            style="font-size: 16px; font-weight: bold"
-            border-variant="none"
-            header="THIS WEEK"
-            header-bg-variant="dark"
-            header-text-variant="white"
-            align="center"
-          >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.week.revenue }}</b-card-title>
-            <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li>
-              <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.week.order_no}}</b>
-                  Orders Placed
-              </li>
               <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.week.served_no}}</b>
-                  Orders Served
+              <b>{{finance.today.success}} %</b>
+                  Success
+              </li>
+              <li>
+              <i class="fa fa-unlock mr-2"></i>&nbsp;
+              <b>{{finance.today.pending}}</b>
+                  Orders Pending
+              </li>
+               <li>
+               <i class="fa fa-ticket mr-2"></i>&nbsp;
+              <b> ৳ {{finance.today.avg_ticket}}</b>
+                  Ticket Average
+              </li>
+              <li>
+               <i class="fa fa-users mr-2"></i>&nbsp;
+              <b> {{finance.today.active_sp}}</b>
+                  Active SP
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.week.revenue}} </b>
-                  BDT Revenue
+              <b>৳ {{finance.today.revenue}} </b>
+                  GMV
               </li>
-              <li>
-              <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.week.customer}}</b>
-                  Customers
-              </li>
+
+
             </span>
             </b-card-text>
           </b-card>
@@ -161,25 +143,42 @@
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
-              <i class="fa fa-book mr-2"></i>&nbsp;
+              <i class="fa fa-shopping-cart mr-2"></i>&nbsp;
               <b>{{finance.month.order_no}}</b>
                   Orders Placed
-              </li>
-              <li>
-              <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.month.served_no}}</b>
-                  Orders Served
-              </li>
-              <li>
-              <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.month.revenue}} </b>
-                  BDT Revenue
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
               <b>{{finance.month.customer}}</b>
                   Customers
               </li>
+              <li>
+              <i class="fa fa-check mr-2"></i>&nbsp;
+              <b>{{finance.month.success}} %</b>
+                  Success
+              </li>
+              <li>
+              <i class="fa fa-unlock mr-2"></i>&nbsp;
+              <b>{{finance.month.pending}}</b>
+                  Orders Pending
+              </li>
+               <li>
+               <i class="fa fa-ticket mr-2"></i>&nbsp;
+              <b> ৳ {{finance.month.avg_ticket}}</b>
+                  Ticket Average
+              </li>
+              <li>
+               <i class="fa fa-users mr-2"></i>&nbsp;
+              <b> {{finance.month.active_sp}}</b>
+                  Active SP
+              </li>
+              <li>
+              <i class="fa fa-money mr-2"></i>&nbsp;
+              <b>৳ {{finance.month.revenue}} </b>
+                  GMV
+              </li>
+
+
             </span>
             </b-card-text>
           </b-card>
@@ -187,34 +186,102 @@
           <b-card
             style="font-size: 16px; font-weight: bold"
             border-variant="none"
-            header="THIS YEAR"
+            header="LAST MONTH"
             header-bg-variant="dark"
             header-text-variant="white"
             align="center"
           >
-            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.year.revenue }}</b-card-title>
+            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.last_month.revenue }}</b-card-title>
             <b-card-text class="center-div">
             <span class="text-justify" style="list-style: none;">
               <li>
-              <i class="fa fa-book mr-2"></i>&nbsp;
-              <b>{{finance.year.order_no}}</b>
+              <i class="fa fa-shopping-cart mr-2"></i>&nbsp;
+              <b>{{finance.last_month.order_no}}</b>
                   Orders Placed
               </li>
               <li>
+              <i class="fa fa-user-circle mr-2"></i>&nbsp;
+              <b>{{finance.last_month.customer}}</b>
+                  Customers
+              </li>
+              <li>
               <i class="fa fa-check mr-2"></i>&nbsp;
-              <b>{{finance.year.served_no}}</b>
-                  Orders Served
+              <b>{{finance.last_month.success}} %</b>
+                  Success
+              </li>
+              <li>
+              <i class="fa fa-unlock mr-2"></i>&nbsp;
+              <b>{{finance.last_month.pending}}</b>
+                  Orders Pending
+              </li>
+               <li>
+               <i class="fa fa-ticket mr-2"></i>&nbsp;
+              <b> ৳ {{finance.last_month.avg_ticket}}</b>
+                  Ticket Average
+              </li>
+              <li>
+               <i class="fa fa-users mr-2"></i>&nbsp;
+              <b> {{finance.last_month.active_sp}}</b>
+                  Active SP
               </li>
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
-              <b>{{finance.year.revenue}} </b>
-                  BDT Revenue
+              <b>৳ {{finance.last_month.revenue}} </b>
+                  GMV
+              </li>
+
+
+            </span>
+            </b-card-text>
+          </b-card>
+
+          <b-card
+            style="font-size: 16px; font-weight: bold"
+            border-variant="none"
+            header="LIFETIME"
+            header-bg-variant="dark"
+            header-text-variant="white"
+            align="center"
+          >
+            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.lifetime.revenue }}</b-card-title>
+            <b-card-text class="center-div">
+            <span class="text-justify" style="list-style: none;">
+              <li>
+              <i class="fa fa-shopping-cart mr-2"></i>&nbsp;
+              <b>{{finance.lifetime.order_no}}</b>
+                  Orders Placed
               </li>
               <li>
               <i class="fa fa-user-circle mr-2"></i>&nbsp;
-              <b>{{finance.year.customer}}</b>
+              <b>{{finance.lifetime.customer}}</b>
                   Customers
               </li>
+              <li>
+              <i class="fa fa-check mr-2"></i>&nbsp;
+              <b>{{finance.lifetime.success}} %</b>
+                  Success
+              </li>
+              <li>
+              <i class="fa fa-unlock mr-2"></i>&nbsp;
+              <b>{{finance.lifetime.pending}}</b>
+                  Orders Pending
+              </li>
+               <li>
+               <i class="fa fa-ticket mr-2"></i>&nbsp;
+              <b> ৳ {{finance.lifetime.avg_ticket}}</b>
+                  Ticket Average
+              </li>
+              <li>
+               <i class="fa fa-users mr-2"></i>&nbsp;
+              <b> {{finance.lifetime.active_sp}}</b>
+                  Active SP
+              </li>
+              <li>
+              <i class="fa fa-money mr-2"></i>&nbsp;
+              <b>৳ {{finance.lifetime.revenue}} </b>
+                  GMV
+              </li>
+
             </span>
             </b-card-text>
           </b-card>
@@ -238,9 +305,42 @@
         name: 'dashboard',
         data() {
             return {
-                order : [],
-                finance: [],
-                all_data_fetched_successfully: false,
+
+            order: {
+            "open": 0,
+              "acknowledged": 0,
+              "processed": 0,
+              "completed": 0,
+              "halted": 0,
+              "cancelled": 0
+          },
+            finance: {
+            "today": {
+              "order_no": 0,
+                "served_no": 0,
+                "revenue": 0,
+                "customer": 0
+            },
+            "week": {
+              "order_no": 0,
+                "served_no": 0,
+                "revenue": 0,
+                "customer": 0
+            },
+            "month": {
+              "order_no": 0,
+                "served_no": 0,
+                "revenue": 0,
+                "customer": 0
+            },
+            "year": {
+              "order_no": 0,
+                "served_no": 0,
+                "revenue": 0,
+                "customer": 0
+            }
+          },
+                all_data_fetched_successfully: true,
             }
         },
         created(){

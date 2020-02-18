@@ -1,6 +1,14 @@
 <template>
   <div class="animated fadeIn">
     <b-card>
+      <b-row class="p-2">
+        <b-col>
+          <router-link :to="{ name: 'DetailsReport'}">
+            <button class="btn btn-romoni-secondary">See Details Report</button>
+          </router-link>
+        </b-col>
+
+      </b-row>
       <b-row>
         <b-col lg="4" sm="12" v-for="r in reports">
           <b-btn variant="outline-dark" class="w-75 h-75 m-2" @click="getDateModal(r)" >

@@ -186,7 +186,7 @@
       },
       fetchServices() {
 
-        axios.post(`${Admin_URL}/line-items`, {
+        axios.post(`${Admin_URL}/all-line-items`, {
           category_id: this.selected_category,
           subcategory_id: this.selected_subcategory
 

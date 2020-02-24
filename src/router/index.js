@@ -115,6 +115,7 @@ const router =  new Router({
   {
     path: '/',
     mode: 'hash',
+    redirect: '/dashboard',
     name: 'Home',
     component: DefaultContainer,
     meta: {
@@ -122,7 +123,7 @@ const router =  new Router({
     },
     children: [
       {
-        path: '/',
+        path: 'dashboard',
         name: 'Dashboard',
         component: Dashboard
       },

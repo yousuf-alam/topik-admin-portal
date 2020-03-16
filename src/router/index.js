@@ -72,6 +72,7 @@ const BotOfferEdit = () => import('../views/ChatBot/BotOfferEdit')
 const BotOfferCreate = () => import('../views/ChatBot/BotOfferCreate')
 const Reports = () => import('../views/Reports')
 const DetailsReport = () => import('../views/DetailsReport')
+const Otps = () => import('../views/Otps')
 const GpStar = () => import('../views/GpStar')
 const Eloan = () => import('../views/Eloan')
 const EloanShow = () => import('../views/EloanShow')
@@ -591,6 +592,14 @@ const router =  new Router({
         component: DetailsReport,
         meta: {
           permission_name: permissionsList.document
+        },
+      },
+      {
+        path: 'otps',
+        name: 'Otps',
+        component: Otps,
+        meta: {
+          permission_name: permissionsList.otps
         },
       },
       {

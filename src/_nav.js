@@ -205,6 +205,12 @@ const navitems = {
       permission_name: permissionsList.document
     },
     {
+      name: 'Otps',
+      url: '/otps',
+      icon: 'fa fa-phone',
+      permission_name: permissionsList.otps
+    },
+    {
       title: true,
       name: 'eLoan',
       permission_name: [...permissionsList.document],

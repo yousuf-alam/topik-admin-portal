@@ -31,7 +31,8 @@ export default {
         promocode:  ['promocode create', 'promocode read', 'promocode update', 'promocode delete',],
         topbanner: ['topbanner create', 'topbanner read', 'topbanner update', 'topbanner delete',],
         bottombanner: ['bottombanner create', 'bottombanner read', 'bottombanner update', 'bottombanner delete',],
-        document: ['document create', 'document read', 'document update', 'document delete',]
+        document: ['document create', 'document read', 'document update', 'document delete',],
+        otps: ['otp read',],
     },
     SECRET_KEY: 'Kali Nagin Ke Jaisi Julfe Teri Kali Kali',
     SECRET_KEY_SAME_AS_PARTNER_PANEL: 'Dust in the wind.', /* TO_EDIT_THIS_PLACE, This has to be same as Partner panel gbvar SECRET_KEY*/

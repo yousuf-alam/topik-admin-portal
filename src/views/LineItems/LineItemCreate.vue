@@ -158,6 +158,17 @@
               </div>
             </div>
           </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Subscribable Status</label>
+            <div class="col-sm-9">
+              <div class="form-group">
+                <div class="form-check checkbox">
+                  <input class="form-check-input" type="checkbox" name="published_status" v-model="subscribable"  true-value=1 false-value=0>
+                  <label class="form-check-label" >Subscribable</label>
+                </div>
+              </div>
+            </div>
+          </div>
         </tab-content>
         <tab-content   v-if="service_id ===2" icon="ti-id-badge" title="DESIGNS">
           <div>
@@ -385,6 +396,7 @@
         ques_ans: [],
         pricing_type: '',
         published_status: '',
+        subscribable: 0,
         price: [],
         fixed_price : '',
         price_table: [],
@@ -646,6 +658,7 @@
           formData.append('category_id', this.category_id);
           formData.append('subcategory_id', this.subcategory_id);
           formData.append('published_status', this.published_status);
+          formData.append('subscribable', this.subscribable);
           formData.append('options', JSON.stringify(this.ques_ans));
           formData.append('pricing_type', this.pricing_type);
           formData.append('price_table', JSON.stringify(this.price_table));

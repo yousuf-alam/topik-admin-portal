@@ -90,11 +90,11 @@
             <b-col>
               <b-form-group label="Payment Method">
                 <b-form-radio v-model="order.payment_method" value="cash">Cash On Delivery</b-form-radio>
-                <b-form-radio v-model="order.payment_method" value="bkash">Bkash</b-form-radio>
+                <b-form-radio v-model="order.payment_method" value="bKash">bKash</b-form-radio>
               </b-form-group>
             </b-col>
             <b-col>
-              <b-form-group label="Payment Status?" v-show="order.payment_method==='bkash' && order.status==='completed'">
+              <b-form-group label="Payment Status?" v-show="order.payment_method==='bKash' && order.status==='completed'">
                 <b-form-radio v-model="order.bkash_status" value="Paid">Paid</b-form-radio>
                 <b-form-radio v-model="order.bkash_status" value="Pending">Pending</b-form-radio>
               </b-form-group>

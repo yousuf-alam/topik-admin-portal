@@ -30,6 +30,12 @@
             <input name="published_status" type="radio" v-model="lineitem.published_status" value="published">
             <label>Published</label>
           </div>
+          <div class="form-group">
+            <div class="form-check checkbox">
+              <input class="form-check-input" type="checkbox" name="subscribable" v-model="lineitem.subscribable" true-value=1 false-value=0 >
+              <label class="form-check-label" >Subscribable</label>
+            </div>
+          </div>
 
           <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
           </b-button>
@@ -454,6 +460,7 @@
         formData.append('id', this.lineitem.id);
         formData.append('name', this.lineitem.name);
         formData.append('published_status', this.lineitem.published_status);
+        formData.append('subscribable', this.lineitem.subscribable);
         formData.append('brand', this.lineitem.brandInfo);
         formData.append('tips', this.lineitem.tips);
         formData.append('benefits', this.lineitem.benefits);

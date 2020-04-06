@@ -7,7 +7,7 @@
                 <option v-for="category in categories" :value="category.id">{{category.name}}</option>
             </select>
         </div>
-        <div class="form-group"  v-if="type==='Beauty On-Demand'">
+        <div class="form-group" v-if="type!=='Tailor On-Demand'">
             <label for="3">Select Subcategory</label>
             <select @change="fetchServices" v-model="selected_subcategory" class="form-control" id="3">
                 <option v-for="subcategory in subcategories" :value="subcategory.id">{{subcategory.name}}
@@ -116,7 +116,7 @@
         }
       },
       mounted() {
-        this.fetchCategories();
+       // this.fetchCategories();
         this.fetchAccessories();
       },
       computed: {
@@ -148,12 +148,18 @@
         EventBus.$emit('service:add', this.services);
         this.selected_accessories = [];
       },
-      fetchCategories() {
+      fetchCategories(type) {
         let serviceID;
-        if(this.type==='Beauty On-Demand')
+        if(type==='Beauty On-Demand')
           serviceID = 1;
-        else
+        else if(type==='Tailor On-Demand')
           serviceID = 2;
+        else if(type==='Medicines and Groceries')
+          serviceID = 4;
+        else if(type==='Medical Consultations')
+          serviceID = 5;
+
+        console.log('sevice-id',serviceID)
 
         axios.post(`${Admin_URL}/categories`, {
           service_id: serviceID

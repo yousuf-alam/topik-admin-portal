@@ -9,7 +9,9 @@
             <div class="center-div">
               <button @click="createOrder('Beauty On-Demand')" class="btn btn-primary m-2">Beauty On-Demand</button>
               <!--<button @click="createOrder('Beauty Appointment')" class="btn btn-primary m-2">Beauty Appointment</button>-->
-              <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button>
+              <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button><br>
+              <button @click="createOrder('Medicines and Groceries')" class="btn btn-romoni-secondary m-2">Medicines and Groceries</button>
+              <button @click="createOrder('Medical Consultations')" class="btn btn-primary m-2">Medical Consultations</button>
             </div>
 
           </b-row>
@@ -29,9 +31,9 @@
                 <schedule :type="type"> </schedule>
             </b-col>
         </b-row>
-        <b-row v-if="type==='Beauty On-Demand'">
+        <b-row v-if="type!=='Tailor On-Demand'">
             <b-col sm="6" md="6">
-                <service :type="type"></service>
+                <service :type="type" ref="Service"></service>
             </b-col>
             <b-col sm="6" md="6">
                 <cart></cart>
@@ -164,6 +166,7 @@
       {
           this.type = type;
           this.$modal.hide('modal-order_type');
+          this.$refs.Service.fetchCategories(type);
       },
 
       customerAdd(customer) {

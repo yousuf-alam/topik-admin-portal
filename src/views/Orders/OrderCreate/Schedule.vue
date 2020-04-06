@@ -14,7 +14,7 @@
       <b-form-group v-show="date_type==='custom'" label="Select Date">
         <datepicker v-model="schedule.selected_date" @input="changeDateFormat"></datepicker>
       </b-form-group>
-      <b-form-group v-show="type==='Beauty On-Demand'" label="Select Time">
+      <b-form-group v-show="type!=='Tailor On-Demand'" label="Select Time">
         <select @change="addSchedule" class="form-control" v-model="schedule.selected_time">
           <option value="08.00AM-10.00AM"> 08:00 AM - 10:00 AM </option>
           <option value="10.00AM-12.00PM"> 10:00 AM - 12:00 PM </option>

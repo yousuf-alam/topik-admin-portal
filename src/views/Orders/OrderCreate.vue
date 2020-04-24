@@ -7,11 +7,11 @@
           </b-row>
           <b-row class="p-2">
             <div class="center-div">
-              <button @click="createOrder('Beauty On-Demand')" class="btn btn-primary m-2">Beauty On-Demand</button>
+              <button v-for="s in main_services" @click="createOrder(s.name)" :class="[s.id%2 ? 'btn btn-primary m-2' : 'btn btn-romoni-secondary m-2']">{{s.name}}</button>
               <!--<button @click="createOrder('Beauty Appointment')" class="btn btn-primary m-2">Beauty Appointment</button>-->
-              <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button><br>
+             <!-- <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button><br>
               <button @click="createOrder('Medicines and Groceries')" class="btn btn-romoni-secondary m-2">Medicines and Groceries</button>
-              <button @click="createOrder('Medical Consultations')" class="btn btn-primary m-2">Medical Consultations</button>
+              <button @click="createOrder('Medical Consultations')" class="btn btn-primary m-2">Medical Consultations</button>-->
             </div>
 
           </b-row>
@@ -136,6 +136,7 @@
               },
           },
         services: [],
+        main_services: [],
         designs: [],
         accessories: [],
         measurement_type: '',
@@ -157,6 +158,9 @@
         EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
 
     },
+    created() {
+      this.getMainServices()
+    },
     methods : {
       modalType(){
           this.$modal.show('modal-order_type');
@@ -168,7 +172,18 @@
           this.$modal.hide('modal-order_type');
           this.$refs.Service.fetchCategories(type);
       },
+      getMainServices()
+      {
+        axios.get(`${ADMIN_URL}/services`)
+          .then(response =>{
+            this.main_services = response.data;
+            console.log('Services.vue, Response === ', response.data);
+          })
+          .catch(e=>{
+            //console.log("error occurs");
+          });
 
+      },
       customerAdd(customer) {
         this.customer = customer;
       },

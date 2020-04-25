@@ -7,7 +7,7 @@
           </b-row>
           <b-row class="p-2">
             <div class="center-div">
-              <button v-for="s in main_services" @click="createOrder(s.name)" :class="[s.id%2 ? 'btn btn-primary m-2' : 'btn btn-romoni-secondary m-2']">{{s.name}}</button>
+              <button v-for="s in main_services" @click="createOrder(s)" :class="[s.id%2 ? 'btn btn-primary m-2' : 'btn btn-romoni-secondary m-2']">{{s.name}}</button>
               <!--<button @click="createOrder('Beauty Appointment')" class="btn btn-primary m-2">Beauty Appointment</button>-->
              <!-- <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button><br>
               <button @click="createOrder('Medicines and Groceries')" class="btn btn-romoni-secondary m-2">Medicines and Groceries</button>
@@ -166,11 +166,11 @@
           this.$modal.show('modal-order_type');
           console.log('called');
       },
-      createOrder(type)
+      createOrder(service)
       {
-          this.type = type;
+          this.type = service.name;
           this.$modal.hide('modal-order_type');
-          this.$refs.Service.fetchCategories(type);
+          this.$refs.Service.fetchCategories(service.id);
       },
       getMainServices()
       {

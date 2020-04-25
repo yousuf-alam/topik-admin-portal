@@ -148,16 +148,7 @@
         EventBus.$emit('service:add', this.services);
         this.selected_accessories = [];
       },
-      fetchCategories(type) {
-        let serviceID;
-        if(type==='Beauty On-Demand')
-          serviceID = 1;
-        else if(type==='Tailor On-Demand')
-          serviceID = 2;
-        else if(type==='Medicines and Groceries')
-          serviceID = 4;
-        else if(type==='Medical Consultations')
-          serviceID = 5;
+      fetchCategories(serviceID) {
 
         console.log('sevice-id',serviceID)
 

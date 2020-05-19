@@ -70,6 +70,11 @@ const Reviews = () => import('../views/Reviews')
 const BotOffers = () => import('../views/ChatBot/BotOffers')
 const BotOfferEdit = () => import('../views/ChatBot/BotOfferEdit')
 const BotOfferCreate = () => import('../views/ChatBot/BotOfferCreate')
+
+const B2CSections = () => import('../views/B2CSections/B2CSections')
+const B2CSectionEdit = () => import('../views/B2CSections/B2CSectionEdit')
+const B2CSectionCreate = () => import('../views/B2CSections/B2CSectionCreate')
+
 const Reports = () => import('../views/Reports')
 const DetailsReport = () => import('../views/DetailsReport')
 const Otps = () => import('../views/Otps')
@@ -630,6 +635,30 @@ const router =  new Router({
         path: 'profile',
         name: 'Profile',
         component: Profile,
+      },
+      {
+        path: 'b2c-sections',
+        name: 'B2CSections',
+        component: B2CSections,
+        meta: {
+          permission_name: permissionsList.topbanner
+        },
+      },
+      {
+        path: '/b2c-sections/edit/:id',
+        name: 'B2CSection / Edit',
+        component: B2CSectionEdit,
+        meta: {
+          permission_name: permissionsList.topbanner
+        },
+      },
+      {
+        path: '/b2c-sections/create',
+        name: 'B2CSectionCreate',
+        component: B2CSectionCreate,
+        meta: {
+          //permission_name: 'banner create'
+        },
       },
       {
         path: 'bot-offers',

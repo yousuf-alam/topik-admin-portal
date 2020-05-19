@@ -1,6 +1,6 @@
 <template>
   <b-card class="m-4">
-    <h5 class="mb-4">Create Banner</h5>
+    <h5 class="mb-4">Edit Banner</h5>
     <form @submit="onSubmit" enctype="multipart/form-data">
       <!--<div class="form-group">
         <label >Select Service Page</label>
@@ -70,6 +70,7 @@
         banner: [],
         src_image : '/images/banners/',
         image_url: '',
+        image_updated: false,
         services: '',
         categories: '',
         subcategories: '',
@@ -149,6 +150,7 @@
 
       },
       onImageChange(e) {
+        this.image_updated = true
         const file = e.target.files[0];
         if (file === undefined) {
           return;
@@ -175,7 +177,11 @@
         formData.append('title', this.banner.title);
         formData.append('description', this.banner.description);
         formData.append('type', this.banner.type);
-        formData.append('image', this.banner.image);
+        if(this.image_updated)
+        {
+          formData.append('image', this.banner.image);
+        }
+
 
 
         axios.post(`${ADMIN_URL}/banners/edit`,formData,config)

@@ -43,7 +43,7 @@
         <b-col sm="6" md="6">
           <b-row>
             <b-col>
-              <service :type="type"> </service>
+              <service :type="type" ref="Service"></service>
             </b-col>
           </b-row>
           <!--

@@ -259,6 +259,29 @@
           </b-row>
         </b-card-text>
       </b-tab>
+      <b-tab title="Related B2B Products">
+        <b-card-text>
+          <div class="form-group">
+            <select class='form-control' v-model="wc_category_id" @change="getWCProducts">
+              <option value=''>Select WC category </option>
+              <option v-for="wc_cat in wc_categories" :value="wc_cat.id" :key="wc_cat.id">{{ wc_cat.name }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <multiselect
+              v-model="selected_products"
+              :options="wc_products"
+              placeholder="Select Products"
+              label="name"
+              track-by="id"
+              :multiple="true"
+            >
+            </multiselect>
+          </div>
+          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Lineitem
+          </b-button>
+        </b-card-text>
+      </b-tab>
     </b-tabs>
   </b-card>
 </template>
@@ -266,6 +289,7 @@
 <script>
 
   import axios from 'axios';
+
   const Admin_URL = process.env.VUE_APP_ADMIN_URL;
   const BASE_URL  = process.env.VUE_APP_BASE_URL;
   export default {
@@ -299,6 +323,11 @@
           bool: true,
           designs: [],
         },
+
+        wc_categories: [],
+        wc_category_id: '',
+        wc_products: [],
+        selected_products: [],
         url_thumbnail: '',
         url_banner_web: '',
         url_banner_tab: '',
@@ -328,13 +357,14 @@
       this.src_designs = BASE_URL + this.src_designs;
       */
      this.fetchData();
+     this.getWCCategories();
+     this.getAllWCProducts();
 
 
     },
     methods: {
       fetchData() {
-          let id = window.location.pathname.split("/").pop();
-          this.lineitem.id = id;
+        this.lineitem.id = window.location.pathname.split("/").pop();
           axios.post(`${Admin_URL}/line-items/getLineitem`, { id: this.lineitem.id})
           .then(response => {
             console.log('Response === === === ', response.data);
@@ -344,6 +374,7 @@
             this.lineitem.options = JSON.parse(response.data.options);
             this.lineitem.price_table = JSON.parse(response.data.price_table);
             this.lineitem.designs = JSON.parse(response.data.designs);
+            this.lineitem.b2b_product_ids = JSON.parse(response.data.b2b_product_ids)
             this.loading = false;
 
             this.url_thumbnail = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_thumbnail}${this.lineitem.thumbnail}`;
@@ -448,7 +479,44 @@
           .catch(function (error) {
             currentObj.output = error;
             console.log(error);
-            alert(response.data.message);
+            alert(error.data.message);
+          });
+      },
+      getWCCategories() {
+        axios.get(`${Admin_URL}/b2b/categories`)
+          .then(response => {
+           this.wc_categories = response.data
+            console.log('cat',response.data)
+          })
+          .catch(error => {
+            console.log('cat Errorrrrr === ', error);
+          });
+      },
+      getAllWCProducts() {
+        axios.get(`${Admin_URL}/b2b/products`,{
+          params: {
+            wc_category_id : this.wc_category_id
+          }
+        })
+          .then(response => {
+            this.wc_products = response.data
+            this.selected_products = response.data.filter(x => this.lineitem.b2b_product_ids.includes(x.id))
+          })
+          .catch(error => {
+            console.log('Errorrrrr === ', error.response);
+          });
+      },
+      getWCProducts() {
+        axios.get(`${Admin_URL}/b2b/products`,{
+          params: {
+            wc_category_id : this.wc_category_id
+          }
+        })
+          .then(response => {
+            this.wc_products = response.data
+          })
+          .catch(error => {
+            console.log('Errorrrrr === ', error.response);
           });
       },
       onSubmit() {
@@ -476,6 +544,8 @@
         formData.append('banner_tab', this.lineitem.banner_tab);
         formData.append('banner_android', this.lineitem.banner_android);
         formData.append('banner_ios', this.lineitem.banner_ios);
+        formData.append('b2b_product_ids', JSON.stringify(this.selected_products.map(x => x.id)));
+
 
 
         axios.post(`${Admin_URL}/line-items/update`, formData, config)

@@ -159,7 +159,7 @@ const navitems = {
       }
     },
     {
-      name: 'Notifications',
+      name: 'Push Notifications',
       url: '/notifications',
       icon: 'icon-bell',
       permission_name: permissionsList.notification
@@ -181,6 +181,12 @@ const navitems = {
       url: '/gp-star-check',
       icon: 'fa fa-gift',
       permission_name: permissionsList.notification
+    },
+    {
+      name: 'B2C Sections',
+      url: '/b2c-sections',
+      icon: 'fa fa-compass',
+      permission_name: permissionsList.topbanner
     },
     {
       name: 'Chat Bot',

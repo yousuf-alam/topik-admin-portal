@@ -188,9 +188,9 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row v-if="type ==='Beauty On-Demand'">
+    <b-row v-if="type !=='Tailor On-Demand'">
       <b-col sm="6" md="6">
-        <service :type="getType"></service>
+        <service :type="getType" ref="Service"></service>
       </b-col>
       <b-col sm="6" md="6">
         <cart></cart>
@@ -204,7 +204,7 @@
     <b-row v-else>
       <b-col sm="6" md="6">
         <b-row>
-          <b-col><service :type="getType"></service></b-col>
+          <b-col><service :type="getType" ref="Service"></service></b-col>
         </b-row>
         <!--<b-row>
           <b-col><design></design></b-col>
@@ -338,8 +338,10 @@
         }).then(response => {
           // console.log('fetch Order ======= ', response.data);
           this.order = response.data;
+
           this.order.shipping_address = JSON.parse(this.order.shipping_address);
           this.flag_shipping_address_details = this.order.shipping_address.address_details;
+          console.log('ser-order',this.order.service_id)
           if(response.data.scheduled_date==='regular')
           {
             this.order.scheduled_date = 'Regular Delivery'
@@ -355,6 +357,7 @@
         })
           .then(response => {
             this.partners = response.data;
+            this.$refs.Service.fetchCategories(this.order.service_id);
 
           })
           .catch(e => {
@@ -375,6 +378,7 @@
           .catch(e => {
             console.log("error occurs");
           });
+        this.$refs.Service.fetchCategories(this.order.service_id);
       },
       changeDateFormat(){
         let d = this.order.scheduled_date;

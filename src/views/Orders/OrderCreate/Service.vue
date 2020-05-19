@@ -116,7 +116,7 @@
         }
       },
       mounted() {
-       // this.fetchCategories();
+        this.fetchCategories(2);
         this.fetchAccessories();
       },
       computed: {
@@ -157,6 +157,7 @@
         })
           .then(response => {
             this.categories = response.data;
+            console.log('this.categ',this.categories)
           })
           .catch(e => {
             console.log("error occurs");

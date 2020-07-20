@@ -3,9 +3,9 @@
     <h5 class="mb-4">Create Offer Card</h5>
     <b-form-group label="Select Type">
       <select class="form-control" v-model="offer.type">
-        <option value="hot-deals">Hot Deals</option>
-        <option value="beauty">Beauty Offers</option>
-        <option value="tailor">Tailor Offers</option>
+        <option value="hot-deal">Hot Deals</option>
+        <option value="beauty">Beauty Offer</option>
+        <option value="tailor">Tailor Offer</option>
       </select>
     </b-form-group>
     <b-form-group label="Select Line Item">

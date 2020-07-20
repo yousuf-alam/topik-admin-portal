@@ -11,6 +11,7 @@ import App from './App'
 
 import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+import 'sweetalert2/dist/sweetalert2.min.css'
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
 
@@ -63,7 +64,7 @@ Vue.use(ClientTable);
 Vue.use(ServerTable);
 Vue.use(VueAxios, axios);
 Vue.use(VModal)
-Vue.use(VueSweetalert2, { confirmButtonColor: '#41b882', cancelButtonColor: '#ff7674'})
+Vue.use(VueSweetalert2, { confirmButtonColor: '#524458', cancelButtonColor: '#ff3573'})
 Vue.use(Loading);
 Vue.component('multiselect', Multiselect)
 import router from './router'

@@ -7,6 +7,7 @@
         <select class='form-control' v-model="section">
           <option value="Shop By Concern">Shop By Concern</option>
           <option  value="Spotlight">Spotlight</option>
+          <option  value="Hot Deals">Hot Deals</option>
         </select>
       </div>
       <div class="form-group">
@@ -18,6 +19,25 @@
         <input type="text" class="form-control" v-model="subtitle">
       </div>
       <div class="form-group">
+        <label>Landing Type</label>
+        <select class="form-control" v-model="landing_type">
+          <option value="category">Category</option>
+          <option value="tag">Tag</option>
+        </select>
+      </div>
+      <div class="form-group" v-if="landing_type==='category'">
+        <label>Category</label>
+        <multiselect
+          v-model="category"
+          :options="categories"
+          placeholder="Select one"
+          label="name"
+          track-by="id"
+        >
+        </multiselect>
+      </div>
+      <div class="form-group" v-else>
+        <label>Tag</label>
         <multiselect
           v-model="tag"
           :options="tags"
@@ -53,11 +73,14 @@
       return {
         title: '',
         subtitle: '',
-        section: 'Shop By Concern',
+        section: 'Hot Deals',
         image: '',
         tag: '',
         tags: [],
-        published_status: 'published'
+        categories: [],
+        category: '',
+        published_status: 'published',
+        landing_type: 'category'
       }
     },
     methods: {
@@ -80,8 +103,16 @@
         formData.append('subtitle', this.subtitle);
         formData.append('section', this.section);
         formData.append('image', this.image);
-        formData.append('tag', this.tag.id);
         formData.append('published_status', this.published_status);
+        if(this.category.id)
+        {
+          formData.append('category', this.category.id);
+        }
+        else
+        {
+          formData.append('tag', this.tag.id);
+        }
+
 
 
         axios.post(`${ADMIN_URL}/b2c/item-create`,formData,config)
@@ -114,10 +145,20 @@
           .catch(error => {
             console.log('Error  ... ', error.response);
           });
+      },
+      getCategories() {
+        axios.get(`${ADMIN_URL}/b2c/all-categories`)
+          .then(response => {
+            this.categories = response.data
+          })
+          .catch(error => {
+            console.log('Error  ... ', error.response);
+          });
       }
     },
     created() {
       this.getTags()
+      this.getCategories()
     }
   }
 </script>

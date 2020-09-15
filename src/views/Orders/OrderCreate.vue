@@ -28,12 +28,12 @@
         </b-row>
         <b-row>
             <b-col>
-                <schedule :type="type"> </schedule>
+                <schedule :service_id="type"> </schedule>
             </b-col>
         </b-row>
         <b-row v-if="type!=='Tailor On-Demand'">
             <b-col sm="6" md="6">
-                <service :type="type" ref="Service"></service>
+                <service :service_id="type" ref="Service"></service>
             </b-col>
             <b-col sm="6" md="6">
                 <cart></cart>
@@ -168,7 +168,7 @@
       },
       createOrder(service)
       {
-          this.type = service.name;
+          this.type = service.id;
           this.$modal.hide('modal-order_type');
           this.$refs.Service.fetchCategories(service.id);
       },
@@ -218,7 +218,7 @@
         this.partners = [];
 
         axios.post(`${ADMIN_URL}/available-partners`, {
-          service_type : this.type,
+          service_id : this.type,
           location : this.location,
           date : this.schedule.selected_date,
           time : this.schedule.selected_time,
@@ -265,7 +265,7 @@
 
 
         let formData = new FormData();
-        formData.append('type', this.type);
+        formData.append('service_id', this.type);
         formData.append('platform', 'admin portal');
         formData.append('partner_id', this.selected_partner.id);
         formData.append('location_id', this.location);

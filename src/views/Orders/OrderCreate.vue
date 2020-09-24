@@ -28,12 +28,12 @@
         </b-row>
         <b-row>
             <b-col>
-                <schedule :service_id="type"> </schedule>
+                <schedule :type="type"> </schedule>
             </b-col>
         </b-row>
         <b-row v-if="type!=='Tailor On-Demand'">
             <b-col sm="6" md="6">
-                <service :service_id="type" ref="Service"></service>
+                <service :type="type" ref="Service"></service>
             </b-col>
             <b-col sm="6" md="6">
                 <cart></cart>
@@ -218,7 +218,7 @@
         this.partners = [];
 
         axios.post(`${ADMIN_URL}/available-partners`, {
-          service_id : this.type,
+          service_type : this.type,
           location : this.location,
           date : this.schedule.selected_date,
           time : this.schedule.selected_time,

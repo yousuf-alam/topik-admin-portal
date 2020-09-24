@@ -47,7 +47,7 @@
       return {
         BASE_URL: BASE_URL,
         sections : [],
-        src_image : 'images/banners/',
+        src_image : 'images/b2c_assets/',
         columns: ['image', 'title', 'section', 'published_status', 'created_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},

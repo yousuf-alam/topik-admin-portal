@@ -32,7 +32,7 @@
       <div class="form-group">
         <label>Image</label><br>
         <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label><br>
-        <img :src="image_url" style="width: 200px; height: 150px;">
+        <img :src="banner.image" style="width: 200px; height: 150px;">
         <input type="file" class="form-control" v-on:change="onImageChange">
       </div>
       <div class="form-group">
@@ -151,7 +151,7 @@
       },
       onImageChange(e) {
         this.image_updated = true
-        const file = e.target.files[0];
+        const file = e[0];
         if (file === undefined) {
           return;
         }

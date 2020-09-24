@@ -7,6 +7,7 @@
         <select class='form-control' v-model="item.section">
           <option value="Shop By Concern">Shop By Concern</option>
           <option  value="Spotlight">Spotlight</option>
+          <option  value="Hot Deals">Hot Deals</option>
         </select>
       </div>
       <div class="form-group">
@@ -18,6 +19,25 @@
         <input type="text" class="form-control" v-model="item.subtitle">
       </div>
       <div class="form-group">
+        <label>Landing Type</label>
+        <select class="form-control" v-model="landing_type">
+          <option value="category">Category</option>
+          <option value="tag">Tag</option>
+        </select>
+      </div>
+      <div class="form-group" v-if="landing_type==='category'">
+        <label>Category</label>
+        <multiselect
+          v-model="item.category"
+          :options="categories"
+          placeholder="Select one"
+          label="name"
+          track-by="id"
+        >
+        </multiselect>
+      </div>
+      <div class="form-group" v-else>
+        <label>Tag</label>
         <multiselect
           v-model="item.tag"
           :options="tags"
@@ -54,10 +74,12 @@
     data() {
       return {
         tags: [],
+        categories: [],
         item: {},
-        src_image : '/images/banners/',
+        src_image : '/images/b2c_assets/',
         image_url: '',
         image_updated: false,
+        landing_type: 'category'
       }
     },
     methods: {
@@ -87,11 +109,21 @@
         formData.append('title', this.item.title);
         formData.append('subtitle', this.item.subtitle);
         formData.append('section', this.item.section);
-        formData.append('tag', this.item.tag.id);
         formData.append('published_status', this.item.published_status);
         if(this.image_updated)
         {
           formData.append('image', this.item.image);
+        }
+
+        if(this.item.category)
+        {
+          console.log('eta')
+          formData.append('category', this.item.category.id);
+        }
+        else
+        {
+          console.log('ota')
+          formData.append('tag', this.item.tag.id);
         }
 
 
@@ -126,7 +158,12 @@
           .then(response => {
             this.item = response.data
             this.image_url = BASE_URL + this.src_image + response.data.image;
+            if(response.data.tag)
+            {
+              this.landing_type = 'tag'
+            }
             this.getTags()
+            this.getCategories()
           })
           .catch(error => {
             console.log('Error  ... ', error.response);
@@ -142,6 +179,15 @@
             console.log('Error  ... ', error.response);
           });
       },
+      getCategories() {
+        axios.get(`${ADMIN_URL}/b2c/all-categories`)
+          .then(response => {
+            this.categories = response.data
+          })
+          .catch(error => {
+            console.log('Error  ... ', error.response);
+          });
+      }
 
     },
     created() {

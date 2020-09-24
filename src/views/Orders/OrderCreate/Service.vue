@@ -7,7 +7,7 @@
                 <option v-for="category in categories" :value="category.id">{{category.name}}</option>
             </select>
         </div>
-        <div class="form-group" v-if="type!=='Tailor On-Demand'">
+        <div class="form-group" v-if="type!==2">
             <label for="3">Select Subcategory</label>
             <select @change="fetchServices" v-model="selected_subcategory" class="form-control" id="3">
                 <option v-for="subcategory in subcategories" :value="subcategory.id">{{subcategory.name}}
@@ -21,7 +21,7 @@
                 <option v-for="service in servicesObject" :value="service">{{service.name}}</option>
             </select>
         </div>
-        <div class="form-group" v-if="type==='Tailor On-Demand'">
+        <div class="form-group" v-if="type===2">
           <button @click="designModal" class="btn btn-primary btn-sm m-1">Choose Design</button>
           <button @click="accessoriesModal" class="btn btn-dark btn-sm m-1">Choose Accessories</button>
         </div>
@@ -164,7 +164,7 @@
           });
       },
       fetchSubcategories() {
-        if(this.type==='Tailor On-Demand')
+        if(this.type===2)
         {
           this.fetchServices();
         }

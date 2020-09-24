@@ -1,7 +1,7 @@
 <template>
     <b-card class="m-4 p-4">
         <h5 class="mb-4">Date & Schedule</h5>
-      <div v-show="type==='Tailor On-Demand'">
+      <div v-show="service_id===2">
         <label>Select Delivery Type</label>
         <b-form-group class="ml-4">
           <input type="radio" v-model="date_type" @change="addSchedule" value="regular">
@@ -14,7 +14,7 @@
       <b-form-group v-show="date_type==='custom'" label="Select Date">
         <datepicker v-model="schedule.selected_date" @input="changeDateFormat" :disabled-dates="disabledDates"></datepicker>
       </b-form-group>
-      <b-form-group v-show="type!=='Tailor On-Demand'" label="Select Time">
+      <b-form-group v-show="service_id!==2" label="Select Time">
         <select @change="addSchedule" class="form-control" v-model="schedule.selected_time">
           <option value="08.00AM-10.00AM"> 08:00 AM - 10:00 AM </option>
           <option value="10.00AM-12.00PM"> 10:00 AM - 12:00 PM </option>
@@ -39,7 +39,7 @@
 
   export default {
     name: "Schedule",
-    props: ['type'],
+    props: ['service_id'],
     components: {
       Datepicker
     },

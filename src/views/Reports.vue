@@ -109,6 +109,7 @@
         reports: [
           'All users list',
           'All SP list',
+          'In-House SP Orders',
           'Area with subcategories',
           'Order Report of a Subcategory',
           'Order Report of a Promo',

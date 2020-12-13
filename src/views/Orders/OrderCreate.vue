@@ -107,11 +107,11 @@
           <b-col>
             <div class="form-group">
               <select class="form-control" v-model="partner_type">
-                <option :value="1">In-House Partner</option>
-                <option :value="2">Freelance Partner</option>
+                <option :value="2">In-House Partner</option>
+                <option :value="1">Freelance Partner</option>
               </select>
             </div>
-            <div class="form-group" v-if="partner_type==2">
+            <div class="form-group" v-if="partner_type==1">
               <label class="font-weight-bold">Choose Reason</label>
               <div v-for="r in freelance_reasons" :key="r">
                 <input type="radio" :value="r" v-model="freelance_reason" />
@@ -331,7 +331,7 @@ export default {
         let file = this.designs[i];
         formData.append("designs[" + i + "][image]", file);
       }
-      if(this.partner_type ==2)
+      if(this.partner_type ==1)
           formData.append("freelance_reason",this.freelance_reason)
 
       const loader = this.$loading.show({

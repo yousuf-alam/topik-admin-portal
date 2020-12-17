@@ -46,7 +46,7 @@
                 >
                 </multiselect>
               </b-form-group>
-              <b-form-group label="Select Promo" v-show="selected_report==='Order Report of a Subcategory'">
+              <b-form-group label="Select Category" v-show="selected_report==='Order Report of a Subcategory'">
                 <multiselect
                   v-model="category"
                   :options="categories"
@@ -57,7 +57,7 @@
                 >
                 </multiselect>
               </b-form-group>
-              <b-form-group label="Select Promo" v-show="selected_report==='Order Report of a Subcategory'">
+              <b-form-group label="Select Subcategory" v-show="selected_report==='Order Report of a Subcategory'">
                 <multiselect
                   v-model="subcategory"
                   :options="subcategories"
@@ -67,6 +67,12 @@
                 >
                 </multiselect>
               </b-form-group>
+               <b-form-group label="Select Date Type" v-show="selected_report==='In-House SP Orders'">
+                 <select class="form-control" v-model="date_type">
+                   <option value="scheduled_date">Scheduled Date</option>
+                    <option value="created_at">Created Date</option>
+                 </select>
+               </b-form-group>
               <b-btn class="center-div btn-block btn-romoni-secondary" @click="exportReport">Export</b-btn>
               <b-btn class="center-div btn-block btn-danger mt-1" @click="closeModal">Cancel</b-btn>
               <b-spinner variant="danger" label="Spinning" v-if="exporting"></b-spinner>
@@ -92,6 +98,7 @@
     data() {
       return {
         date_range: '',
+        date_type: 'scheduled_date',
         selected_report: '',
         exporting: false,
         coupon: {
@@ -180,7 +187,8 @@
             date_range: this.date_range,
             report: this.selected_report,
             coupon_id: this.coupon.id,
-            subcategory_id: this.subcategory.id
+            subcategory_id: this.subcategory.id,
+            date_type: this.date_type
           }
         })
           .then(response => {

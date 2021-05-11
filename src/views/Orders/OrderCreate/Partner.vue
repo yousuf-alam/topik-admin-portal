@@ -17,7 +17,10 @@
               </div>
               <div class="col-sm-6">
                 <h4 class="p-name">{{ partner.name }}</h4>
-                <p v-if="partner.is_booked ===true">[ Booked for the selected time ]</p>
+                <p v-if="partner.is_booked_slots_available === true">
+                  <span v-for="gg in partner.booked_slots" class="badge badge-success">{{ gg }}</span>
+                </p>
+<!--                <p v-if="partner.is_booked ===true">[ Booked for the selected time ]</p>-->
               </div>
               <div class="col-sm-4 text-right">
                 <h5 class="font-weight-bold">৳ {{ partner.price }}</h5>

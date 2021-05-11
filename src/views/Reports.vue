@@ -16,7 +16,7 @@
           </b-btn>
         </b-col>
       </b-row>
-      <modal name="date-picker-modal" height="600px" :adaptive="true">
+      <C-modal name="date-picker-modal" height="600px" :adaptive="true">
         <div class="m-3 p-3">
           <b-row class="p-2 border-bottom">
             <h4>Export Report</h4><br><br>
@@ -79,7 +79,7 @@
             </b-col>
           </b-row>
         </div>
-      </modal>
+      </C-modal>
     </b-card>
 
     </div>

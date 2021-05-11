@@ -18,7 +18,7 @@
               <div class="col-sm-6">
                 <h4 class="p-name">{{ partner.name }}</h4>
                 <p v-if="partner.is_booked_slots_available === true">
-                  <span v-for="gg in partner.booked_slots" class="badge badge-success">{{ gg }}</span>
+                  <span  v-for="gg in partner.booked_slots" class="badge badge-success">{{ gg }}</span>
                 </p>
 <!--                <p v-if="partner.is_booked ===true">[ Booked for the selected time ]</p>-->
               </div>

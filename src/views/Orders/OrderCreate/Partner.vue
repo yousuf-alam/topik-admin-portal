@@ -10,7 +10,8 @@
 
         <div class="tab-pane list-group partners in active show">
 
-          <div class="list-group-item list-group-item-action" v-for="(partner, i) in partners" :key="i" @click="selectPartner(partner)" :class="{active: selected_partner === partner , disabledSP: partner.is_booked ===true}">
+          <div class="list-group-item list-group-item-action" v-for="(partner, i) in partners" :key="i" @click="selectPartner(partner)" :class="{active: selected_partner === partner ,
+          disabledSP: partner.is_booked ===true}">
             <div class="row">
               <div class="col-sm-2">
                 <img class="partner-thumb" :src="partner.avatar">

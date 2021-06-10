@@ -16,6 +16,8 @@
           <option value="hot-deals">Hot Deals Banner</option>
           <option value="beauty-on-demand">Beauty On-Demand Banner</option>
           <option value="tailor-on-demand">Tailor On-Demand Banner</option>
+          <option v-if="service_id == 7" value="shohoz-top-banner">Shohoz Top Banner</option>
+          <option v-if="service_id == 7" value="shohoz-bottom-banner">Shohoz Bottom Banner</option>
         </select>
       </div>
       <div class="form-group">

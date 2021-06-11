@@ -17,6 +17,12 @@ const AppointmentShow = () => import('../views/Orders/Appointments/Appointment_S
 const AppointmentEdit = () => import('../views/Orders/Appointments/AppointmentEdit')
 const AppointmentCreate = () => import('../views/Orders/Appointments/AppointmentCreate')
 
+const ThirdPartyOrders = () => import('@/views/ThirdPartyOrders/ThirdPartyOrders')
+const ThirdPartyOrderPlace = () => import('@/views/ThirdPartyOrders/PlaceOrder')
+
+
+
+
 
 
 import SelfAllNotifications from '../views/Notifications/self/SelfAllNotifications';
@@ -243,6 +249,39 @@ const router =  new Router({
         path: '/orders/create',
         name: 'OrderCreate',
         component: OrderCreate,
+        props: true,
+        meta: {
+         permission_name: 'order create'
+        },
+      },
+      {
+        path: 'third-party-orders',
+        name: 'ThirdPartyOrders',
+        component: ThirdPartyOrders,
+        meta: {
+          permission_name: permissionsList.order
+        },
+      },
+      // {
+      //   path: '/orders/details/:id',
+      //   name: 'OrderShow',
+      //   component: OrderShow,
+      //   meta: {
+      //     permission_name: 'order read'
+      //   },
+      // },
+      // {
+      //   path: '/orders/edit/:id',
+      //   name: 'OrderEdit',
+      //   component: OrderEdit,
+      //   meta: {
+      //     permission_name: 'order read'
+      //   },
+      // },
+      {
+        path: '/third-party-orders/place-order',
+        name: 'ThirdPartyOrderPlace',
+        component: ThirdPartyOrderPlace,
         props: true,
         meta: {
          permission_name: 'order create'

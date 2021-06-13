@@ -1,29 +1,5 @@
 <template>
   <div class="animated fadeIn">
-    <modal name="modal-order_type" height="auto" :adaptive="true" :clickToClose="false">
-      <div class="m-3 p-3">
-        <b-row class="p-2">
-          <h4>Choose Order Type</h4>
-          <br /><br />
-        </b-row>
-        <b-row class="p-2">
-          <div class="center-div">
-            <button
-              v-for="s in main_services"
-              :key="s.id"
-              @click="createOrder(s)"
-              :class="[s.id % 2 ? 'btn btn-primary m-2' : 'btn btn-romoni-secondary m-2']"
-            >
-              {{ s.name }}
-            </button>
-            <!--<button @click="createOrder('Beauty Appointment')" class="btn btn-primary m-2">Beauty Appointment</button>-->
-            <!-- <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button><br>
-              <button @click="createOrder('Medicines and Groceries')" class="btn btn-romoni-secondary m-2">Medicines and Groceries</button>
-              <button @click="createOrder('Medical Consultations')" class="btn btn-primary m-2">Medical Consultations</button>-->
-          </div>
-        </b-row>
-      </div>
-    </modal>
     <b-row>
       <b-col class="mb-5" sm="6" md="6">
         <customer> </customer>
@@ -199,11 +175,12 @@ export default {
       custom_measurement: "",
       selected_partner: null,
       invoice: [],
+      order_id:'',
+      order:null
     };
   },
 
   mounted() {
-    this.modalType();
     console.log("in", this.invoice);
     EventBus.$on("customer:add", this.customerAdd.bind(this));
     EventBus.$on("location:add", this.locationAdd.bind(this));
@@ -215,16 +192,26 @@ export default {
   },
   created() {
     this.getMainServices();
+    this.fetchThirdPartyOrder();
   },
   methods: {
-    modalType() {
-      this.$modal.show("modal-order_type");
-      console.log("called");
+    fetchThirdPartyOrder(){
+        this.order_id = window.location.pathname.split("/").pop();
+        axios.get(`${ADMIN_URL}/fetch-third-party-order`, {
+          params: {
+            order_id: this.order_id
+          }
+        }).then(response => {
+          this.order = response.data;
+          this.createOrder(this.order.lineitem.service_id);
+          EventBus.$emit('customer:update',this.order);
+          EventBus.$emit('service:update',this.order);
+        }).catch(e => {
+        });
     },
-    createOrder(service) {
-      this.type = service.id;
-      this.$modal.hide("modal-order_type");
-      this.$refs.Service.fetchCategories(service.id);
+    createOrder(service_id) {
+      this.type = service_id;
+      this.$refs.Service.fetchCategories(service_id);
     },
     getMainServices() {
       axios

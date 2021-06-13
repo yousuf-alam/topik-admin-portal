@@ -279,7 +279,7 @@ const router =  new Router({
       //   },
       // },
       {
-        path: '/third-party-orders/place-order',
+        path: '/third-party-orders/place-order/:id',
         name: 'ThirdPartyOrderPlace',
         component: ThirdPartyOrderPlace,
         props: true,

@@ -313,6 +313,7 @@ export default {
       formData.append("items", JSON.stringify(this.services));
       formData.append("price", this.invoice.price);
       formData.append("discount", this.invoice.discount);
+      formData.append("third_party_order_id",this.order_id);
 
       for (let i = 0; i < this.designs.length; i++) {
         let file = this.designs[i];

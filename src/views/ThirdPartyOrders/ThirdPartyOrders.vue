@@ -186,7 +186,7 @@
             } else if (parm === 'started') {
               return 'badge badge-secondary';
 
-            } else if (parm === 'completed') {
+            } else if (parm === 'placed') {
               return 'badge badge-success';
 
             } else if (parm === 'rejected') {

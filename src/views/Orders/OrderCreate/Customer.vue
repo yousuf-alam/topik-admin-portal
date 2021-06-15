@@ -71,6 +71,8 @@
         customerUpdate(data){
           this.customer.name = data.customer_name;
           this.customer.phone = data.customer_phone;
+          this.payment_method = 'cash';
+          this.addCustomer();
         }
       }
     }

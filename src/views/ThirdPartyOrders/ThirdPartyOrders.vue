@@ -78,7 +78,17 @@
                     <td> {{ order.customer_phone }} </td>
                     <td>
                       <!-- <router-link class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link> -->
-                       <router-link :to="{ name: 'ThirdPartyOrderPlace', params: { id: order.id }}">
+                       <router-link :to="{ name: 'ThirdPartyOrderPlace', params: { id: order.id }}" v-if="order.order_id== null">
+                          <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
+                              <i class="fa fa-paper-plane"></i>
+                          </span>
+                      </router-link>
+                      <router-link :to="{ name: 'OrderShow', params: { id: order.order_id }}" v-if="order.order_id">
+                          <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
+                              <i class="fa fa-info-circle"></i>
+                          </span>
+                      </router-link>
+                      <router-link :to="{ name: 'OrderEdit', params: { id: order.order_id }}" v-if="order.order_id">
                           <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
                               <i class="fa fa-edit"></i>
                           </span>

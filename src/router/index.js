@@ -19,7 +19,9 @@ const AppointmentCreate = () => import('../views/Orders/Appointments/Appointment
 
 const ThirdPartyOrders = () => import('@/views/ThirdPartyOrders/ThirdPartyOrders')
 const ThirdPartyOrderPlace = () => import('@/views/ThirdPartyOrders/PlaceOrder')
-
+const ThirdPartyContents = () => import('@/views/ThirdPartyContent/ThirdPartyContents')
+const ThirdPartyContentCreate = () => import('@/views/ThirdPartyContent/ThirdPartyContentCreate')
+const ThirdPartyContentEdit = () => import('@/views/ThirdPartyContent/ThirdPartyContentEdit')
 
 
 
@@ -260,6 +262,32 @@ const router =  new Router({
         component: ThirdPartyOrders,
         meta: {
           permission_name: permissionsList.order
+        },
+      },
+      {
+        path: 'third-party-contents',
+        name: 'ThirdPartyContents',
+        component: ThirdPartyContents,
+        meta: {
+          permission_name: permissionsList.order
+        },
+      },
+      {
+        path: '/third-party-contents/create',
+        name: 'ThirdPartyContentCreate',
+        component: ThirdPartyContentCreate,
+        props: true,
+        meta: {
+         permission_name: 'order create'
+        },
+      },
+      {
+        path: '/third-party-contents/edit/:id',
+        name: 'Edit Content',
+        component: ThirdPartyContentEdit,
+        props: true,
+        meta: {
+         permission_name: 'order create'
         },
       },
       // {

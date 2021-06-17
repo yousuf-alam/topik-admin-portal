@@ -129,7 +129,7 @@
 
       },
       onImageChange(e) {
-        this.image = e.target.files;
+        this.image = e.target.files[0];
       },
       onSubmit(e) {
         e.preventDefault();

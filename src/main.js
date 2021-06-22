@@ -81,7 +81,7 @@ window.Pusher = require('pusher-js');
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: globalvariables.PUSHER_CREDENTIALS.APP_KEY,
-    cluster: 'ap2',
+    cluster: globalvariables.PUSHER_CREDENTIALS.APP_CLUSTER,
     encrypted: true,
     authEndpoint: `${process.env.VUE_APP_ROOT_URL}/api/broadcasting/auth`,
     auth: {headers: {Authorization: "Bearer " + bearerToken}}

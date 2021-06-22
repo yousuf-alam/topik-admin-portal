@@ -174,9 +174,16 @@ export default {
             if (notification.type === `App\\Notifications\\AdminNotification`) {
                 const order_id = notification.order.id;
                 const origin = window.location.origin;
+                const type = notification.order.type;
+                console.log(notification.order);
                 desktopNotiTitle = `Order  Notification (ID: ${order_id} )`;
                 desktopNotiBody = notification.body;
-                desktopNotiRedirectURL = `${origin}/orders/details/${order_id}`;
+                if(type === 'THIRD_PARTY'){
+                    desktopNotiRedirectURL = `${origin}/third-party-orders/place-order/${order_id}`;
+                }else{
+                    desktopNotiRedirectURL = `${origin}/orders/details/${order_id}`;
+                }
+                
                 let audio = new Audio('/message_tone.mp3');
                 audio.play();
             }
@@ -290,6 +297,9 @@ export default {
           if( notiObj.type === `App\\Notifications\\AdminNotification` ) {
               const order_id = notiObj.data.order.id;
               const origin = window.location.origin;
+              if(notiObj.data.order.type === 'THIRD_PARTY' ){
+                  return `${origin}/third-party-orders/place-order/${order_id}`;
+              }
               return `${origin}/orders/details/${order_id}`;
               //this.$router.push({ name: 'OrderShow', params: { id: order_id } }) // do not use this.
           }

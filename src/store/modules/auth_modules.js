@@ -135,6 +135,7 @@ const authModule = {
         authStatus: state => state.status,
         authUser: state => state.user,
         bearerToken: state => state.token,
+        getAllPermission: state => state.user_permissions,
         hasPermission: state => (permission_name) => {
           if (typeof(permission_name) === 'object') {
             return permission_name.some(item => state.user_permissions.includes(item));

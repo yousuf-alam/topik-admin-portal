@@ -732,7 +732,6 @@ function checkRoutePermission(to) {
 
 router.beforeEach((to, from, next) => {
   // let user_roles = JSON.parse(window.localStorage.getItem("user_roles"));
-
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters['auth/isLoggedIn']) {
       if (checkRoutePermission(to)) {

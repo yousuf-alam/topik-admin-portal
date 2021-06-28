@@ -3,6 +3,7 @@
       <div class="cardheading">
           <h4><i class="fa fa-table"></i><span class="ml-1">Orders</span></h4>
         <router-link class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link>
+
       </div>
       <b-row>
         <modal name="modal-order_export" height="auto" :adaptive="true">
@@ -66,8 +67,8 @@
       </b-row>
       <b-row>
           <b-col>
-              <b-card>
-                <button @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
+              <b-card >
+                <button v-if="getUserPermission('order create')" @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
                   <div class="d-flex">
                     <div style="margin-left: auto;" class="mb-3">
                       <span class="mx-1">Per Page: </span>
@@ -198,6 +199,7 @@
   import Datepicker from 'vuejs-datepicker';
   import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
   import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+  import store from "../../store/store";
   Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
   let typingTimer;
   const Admin_URL = process.env.VUE_APP_ADMIN_URL;
@@ -525,6 +527,7 @@
             this.pageNumber = parm - 1; // As api start from "pageNumber 0"
             this.makeReadySearchParams();
           },
+
         },
     }
 </script>

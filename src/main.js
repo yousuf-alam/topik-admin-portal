@@ -25,6 +25,8 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Multiselect from 'vue-multiselect';
 
+import Auth from './mixins/Auth';
+
 
 
 
@@ -67,6 +69,7 @@ Vue.use(VModal)
 Vue.use(VueSweetalert2, { confirmButtonColor: '#524458', cancelButtonColor: '#ff3573'})
 Vue.use(Loading);
 Vue.component('multiselect', Multiselect)
+Vue.mixin(Auth);
 import router from './router'
 import store from './store/store';
 import globalvariables from './globalvariables';

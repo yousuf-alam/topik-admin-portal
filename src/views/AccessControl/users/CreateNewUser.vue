@@ -144,7 +144,7 @@ export default {
                 axios.post(`${ADMIN_URL}/user/assignroles`, formvalues)
                     .then(res => {
                         // console.log('And Final Response ', res)
-                        alert('User create and Role assigned successfully');
+                        this.$swal('Success', 'User create and Role assigned successfully', 'success');
                         this.$router.push({name: 'Users'});
                     }).catch(error => {
                         // console.log('Error ... ', error);

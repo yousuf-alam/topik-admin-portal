@@ -12,26 +12,26 @@
                         {{name_warning}}
                     </span>
                 </div>
-                <div>
-                    <h3>Assign Permissions</h3>
-                    <div ref="p_warn" class="text-danger" tabindex="0">
-                        {{ permission_warning }}
-                    </div>
-                    <div class="px-2 py-2">
-                        <input type="checkbox" id="checkall" v-model="checkall"
-                            @change="checkAll">
-                        <label for="checkall" class="col-10 ">Check All</label>                
-                    </div>
-                    <div class="px-2">
-                        <div v-for="row in totalPermissions" :key="row.id">
-                            <input 
-                                type="checkbox" :id="row.id" :value="row" 
-                                v-model="checkedPermissions" @change="checkSingle"
-                            >
-                            <label :for="row.id" class="col-10 ">{{row.name}}</label>
-                        </div>
-                    </div>
-                </div>
+<!--                <div>-->
+<!--                    <h3>Assign Permissions</h3>-->
+<!--                    <div ref="p_warn" class="text-danger" tabindex="0">-->
+<!--                        {{ permission_warning }}-->
+<!--                    </div>-->
+<!--                    <div class="px-2 py-2">-->
+<!--                        <input type="checkbox" id="checkall" v-model="checkall"-->
+<!--                            @change="checkAll">-->
+<!--                        <label for="checkall" class="col-10 ">Check All</label>                -->
+<!--                    </div>-->
+<!--                    <div class="px-2">-->
+<!--                        <div v-for="row in totalPermissions" :key="row.id">-->
+<!--                            <input -->
+<!--                                type="checkbox" :id="row.id" :value="row" -->
+<!--                                v-model="checkedPermissions" @change="checkSingle"-->
+<!--                            >-->
+<!--                            <label :for="row.id" class="col-10 ">{{row.name}}</label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <button type="submit" class="btn btn-primary" :disabled="disableSubmitBtn"
                  @click="handleSubmit">Submit</button>
@@ -65,17 +65,17 @@ export default {
                 return true;
             }
         }
-    }, 
+    },
     mounted() {
 
     },
     methods: {
         handleSubmit() {
-            if (this.checkedPermissions.length === 0) {
-                this.permission_warning = "You haven't select any permission";
-                this.$refs.p_warn.focus();
-                return;
-            }
+            // if (this.checkedPermissions.length === 0) {
+            //     this.permission_warning = "You haven't select any permission";
+            //     this.$refs.p_warn.focus();
+            //     return;
+            // }
             this.createRole();
         },
         nameKeyUp(event) {
@@ -90,7 +90,7 @@ export default {
         },
         checkSingle() {
             this.checkall = false;
-        }, 
+        },
         fetchPermissions() {
             const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
             const role_id = this.$route.params.id;
@@ -110,7 +110,8 @@ export default {
                 .then(response => {
                     if (response.status == 201) {
                         this.role = response.data;
-                        this.assignPermissionToRole();
+                        this.$router.push({name: 'Roles'});
+                        // this.assignPermissionToRole();
                     }
                 }).catch(error => {
                     if (error.response === undefined) {
@@ -130,7 +131,7 @@ export default {
             const config = { headers: {'Content-Type': 'application/json'} };
             this.$gbvar.axios.put(URL, permission_ids, config)
                 .then(response => {
-                    alert('Permissions Updated Successfully'); 
+                    alert('Permissions Updated Successfully');
                     this.$router.push({name: 'Roles'});
                 }).catch(error => {
 

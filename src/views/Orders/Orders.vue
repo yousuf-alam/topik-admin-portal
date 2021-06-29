@@ -68,7 +68,7 @@
       <b-row>
           <b-col>
               <b-card >
-                <button v-if="getUserPermission('order create')" @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
+                <button v-if="getUserPermission('manage roles')" @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
                   <div class="d-flex">
                     <div style="margin-left: auto;" class="mb-3">
                       <span class="mx-1">Per Page: </span>
@@ -470,6 +470,11 @@
             const shipping_phone = this.getInputValue("shipping_phone");
             const shipping_address = this.getInputValue("shipping_address");
 
+            let setStatusCom = 0;
+            if(this.getUserPermission("manage roles")){
+              setStatusCom = 1;
+            }
+            const statusCompleted = setStatusCom;
             //console.log( "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
             let from = '';
             let to = '';
@@ -495,7 +500,7 @@
 
             const srcParms = {
               id, service_type, platform, status, customer,
-              partner, bill,payment_method, created_at, scheduled_date,scheduled_time, shipping_phone, shipping_address
+              partner, bill,payment_method, created_at, scheduled_date,scheduled_time, shipping_phone, shipping_address, statusCompleted
             };
 
             this.fetchOrder(srcParms);

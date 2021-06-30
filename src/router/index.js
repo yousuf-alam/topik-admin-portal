@@ -77,6 +77,7 @@ const B2CSectionCreate = () => import('../views/B2CSections/B2CSectionCreate')
 
 const Reports = () => import('../views/Reports')
 const DetailsReport = () => import('../views/DetailsReport')
+const CustomerReport = () => import('../views/CustomerReport')
 const Otps = () => import('../views/Otps')
 const GpStar = () => import('../views/GpStar')
 const Eloan = () => import('../views/Eloan')
@@ -595,6 +596,14 @@ const router =  new Router({
         path: 'reports/details',
         name: 'DetailsReport',
         component: DetailsReport,
+        meta: {
+          permission_name: permissionsList.document
+        },
+      },
+      {
+        path: 'reports/customerreport',
+        name: 'CustomerReport',
+        component: CustomerReport,
         meta: {
           permission_name: permissionsList.document
         },

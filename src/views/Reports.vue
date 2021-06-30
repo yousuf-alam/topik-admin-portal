@@ -2,9 +2,15 @@
   <div class="animated fadeIn">
     <b-card>
       <b-row class="p-2">
-        <b-col>
+        <b-col lg="4" sm="12">
           <router-link :to="{ name: 'DetailsReport'}">
             <button class="btn btn-romoni-secondary">See Details Report</button>
+          </router-link>
+        </b-col>
+
+        <b-col lg="4" sm="12">
+          <router-link :to="{ name: 'CustomerReport'}">
+            <button class="btn btn-romoni-secondary">See Customer Report</button>
           </router-link>
         </b-col>
 

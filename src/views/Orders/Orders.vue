@@ -2,7 +2,7 @@
     <div class="animated fadeIn">
       <div class="cardheading">
           <h4><i class="fa fa-table"></i><span class="ml-1">Orders</span></h4>
-        <router-link class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link>
+        <router-link v-if="getUserPermission('order create')" class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link>
 
       </div>
       <b-row>

@@ -131,7 +131,7 @@ const router =  new Router({
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: Dashboard
+        component: Dashboard,
       },
       {
         path: 'roles',

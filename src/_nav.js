@@ -66,6 +66,12 @@ const navitems = {
       permission_name: permissionsList.complain
     },
     {
+      name: 'GP Star',
+      url: '/gp-star-check',
+      icon: 'fa fa-gift',
+      permission_name: permissionsList.complain
+    },
+    {
       title: true,
       name: 'Service',
       class: '',
@@ -112,12 +118,7 @@ const navitems = {
         attributes: {}
       }
     },
-    {
-      name: 'Partner Wallet',
-      url: '/partner-wallets',
-      icon: 'cui-credit-card',
-      permission_name: permissionsList.partnerwallet
-    },
+
     {
       title: true,
       name: 'Partner',
@@ -139,6 +140,12 @@ const navitems = {
       url: '/resources',
       icon: 'fa fa-users',
       permission_name: permissionsList.resource
+    },
+    {
+      name: 'Partner Wallet',
+      url: '/partner-wallets',
+      icon: 'cui-credit-card',
+      permission_name: permissionsList.partnerwallet
     },
 /*    {
       name: 'Partner Reorder',
@@ -175,12 +182,6 @@ const navitems = {
       url: '/banners',
       icon: 'fa fa-file-image-o',
       permission_name: permissionsList.topbanner
-    },
-    {
-      name: 'GP Star',
-      url: '/gp-star-check',
-      icon: 'fa fa-gift',
-      permission_name: permissionsList.notification
     },
     {
       name: 'B2C Sections',

@@ -209,7 +209,13 @@ const navitems = {
       name: 'Reports',
       url: '/reports',
       icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.document
+      permission_name: permissionsList.reports
+    },
+    {
+      name: 'Old Reports',
+      url: '/oldreports',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
     },
     {
       name: 'Otps',

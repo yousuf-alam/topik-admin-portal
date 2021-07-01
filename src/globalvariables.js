@@ -33,7 +33,8 @@ export default {
         bottombanner: ['bottombanner create', 'bottombanner read', 'bottombanner update', 'bottombanner delete',],
         document: ['document create', 'document read', 'document update', 'document delete',],
         otps: ['otp read',],
-        dashboard : ['dashboard read',],
+        admin : ['admin',],
+        reports : ['reports',],
     },
     SECRET_KEY: 'Kali Nagin Ke Jaisi Julfe Teri Kali Kali',
     SECRET_KEY_SAME_AS_PARTNER_PANEL: 'Dust in the wind.', /* TO_EDIT_THIS_PLACE, This has to be same as Partner panel gbvar SECRET_KEY*/

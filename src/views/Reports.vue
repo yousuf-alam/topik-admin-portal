@@ -2,11 +2,6 @@
   <div class="animated fadeIn">
     <b-card>
       <b-row class="p-2">
-        <b-col lg="4" sm="12">
-          <router-link :to="{ name: 'DetailsReport'}">
-            <button class="btn btn-romoni-secondary">See Details Report</button>
-          </router-link>
-        </b-col>
 
         <b-col lg="4" sm="12">
           <router-link :to="{ name: 'CustomerReport'}">
@@ -121,18 +116,7 @@
         promos: [],
         reports: [
           'All users list',
-          'All SP list',
-          'In-House SP Orders',
-          'Area with subcategories',
-          'Order Report of a Subcategory',
-          'Order Report of a Promo',
-          'Order frequencies per SP',
-          'Order frequencies per line-item',
-          'SP list with categories',
-          'Retaining Users list',
-          'Category frequencies per SP',
-          'SP with earning,jobs done & recharges',
-          'Reviews & Ratings'
+
 
         ]
       }

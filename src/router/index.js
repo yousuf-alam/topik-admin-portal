@@ -76,6 +76,7 @@ const B2CSectionEdit = () => import('../views/B2CSections/B2CSectionEdit')
 const B2CSectionCreate = () => import('../views/B2CSections/B2CSectionCreate')
 
 const Reports = () => import('../views/Reports')
+const OldReports = () => import('../views/OldReports')
 const DetailsReport = () => import('../views/DetailsReport')
 const CustomerReport = () => import('../views/CustomerReport')
 const Otps = () => import('../views/Otps')
@@ -585,11 +586,19 @@ const router =  new Router({
         },
       },
       {
+        path: 'oldreports',
+        name: 'Old Reports',
+        component: OldReports,
+        meta: {
+          permission_name: permissionsList.admin
+        },
+      },
+      {
         path: 'reports',
         name: 'Reports',
         component: Reports,
         meta: {
-          permission_name: permissionsList.document
+          permission_name: permissionsList.reports
         },
       },
       {

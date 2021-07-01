@@ -68,7 +68,7 @@
       <b-row>
           <b-col>
               <b-card >
-                <button v-if="getUserPermission('manage roles')" @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
+                <button v-if="getUserPermission('admin')" @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
                   <div class="d-flex">
                     <div style="margin-left: auto;" class="mb-3">
                       <span class="mx-1">Per Page: </span>
@@ -157,12 +157,12 @@
                     <td> {{ order.shipping_address }} </td>
 
                     <td>
-                      <router-link :to="{ name: 'OrderShow', params: { id: order.id }}">
+                      <router-link v-if="getUserPermission('order update')" :to="{ name: 'OrderShow', params: { id: order.id }}">
                           <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
                               <i class="fa fa-search"></i>
                           </span>
                       </router-link>
-                      <router-link :to="{ name: 'OrderEdit', params: { id: order.id }}">
+                      <router-link v-if="getUserPermission('order update')" :to="{ name: 'OrderEdit', params: { id: order.id }}">
                           <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Show" :href="order.show">
                               <i class="fa fa-edit"></i>
                           </span>

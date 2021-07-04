@@ -11,11 +11,11 @@
 
       </b-row>
       <b-row>
-        <b-col lg="4" sm="12" v-for="r in reports">
-          <b-btn variant="outline-dark" class="w-75 h-75 m-2" @click="getDateModal(r)" >
-            {{r}}
-          </b-btn>
-        </b-col>
+<!--        <b-col lg="4" sm="12" v-for="r in reports">-->
+<!--          <b-btn variant="outline-dark" class="w-75 h-75 m-2" @click="getDateModal(r)" >-->
+<!--            {{r}}-->
+<!--          </b-btn>-->
+<!--        </b-col>-->
       </b-row>
       <C-modal name="date-picker-modal" height="600px" :adaptive="true">
         <div class="m-3 p-3">

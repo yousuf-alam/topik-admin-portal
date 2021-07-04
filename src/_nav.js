@@ -198,7 +198,7 @@ const navitems = {
     {
       title: true,
       name: 'Portal',
-      permission_name: [...permissionsList.document],
+      permission_name: [...permissionsList.document,...permissionsList.reports],
       class: '',
       wrapper: {
         element: '',

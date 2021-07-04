@@ -614,7 +614,7 @@ const router =  new Router({
         name: 'CustomerReport',
         component: CustomerReport,
         meta: {
-          permission_name: permissionsList.document
+          permission_name: permissionsList.reports
         },
       },
       {

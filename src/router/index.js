@@ -638,7 +638,7 @@ const router =  new Router({
         name: 'Eloan',
         component: Eloan,
         meta: {
-          permission_name: permissionsList.document
+          permission_name: permissionsList.eloan
         },
       },
       {
@@ -646,7 +646,7 @@ const router =  new Router({
         name: 'EloanShow',
         component: EloanShow,
         meta: {
-          permission_name: permissionsList.document
+          permission_name: permissionsList.eloan
         },
       },
       {

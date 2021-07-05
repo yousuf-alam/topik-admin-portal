@@ -226,7 +226,7 @@ const navitems = {
     {
       title: true,
       name: 'eLoan',
-      permission_name: [...permissionsList.document],
+      permission_name: [...permissionsList.eloan],
       class: '',
       wrapper: {
         element: '',
@@ -237,7 +237,7 @@ const navitems = {
       name: 'eLoan',
       url: '/eloan',
       icon: 'fa fa-dollar',
-      permission_name: permissionsList.document
+      permission_name: permissionsList.eloan
     }
   ]
 }

@@ -35,6 +35,7 @@ export default {
         otps: ['otp read',],
         admin : ['admin',],
         reports : ['reports',],
+        eloan : ['eloan read',],
     },
     SECRET_KEY: 'Kali Nagin Ke Jaisi Julfe Teri Kali Kali',
     SECRET_KEY_SAME_AS_PARTNER_PANEL: 'Dust in the wind.', /* TO_EDIT_THIS_PLACE, This has to be same as Partner panel gbvar SECRET_KEY*/

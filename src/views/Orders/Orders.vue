@@ -471,7 +471,7 @@
             const shipping_address = this.getInputValue("shipping_address");
 
             let setStatusCom = 0;
-            if(this.getUserPermission("manage roles")){
+            if(this.getUserPermission("admin")){
               setStatusCom = 1;
             }
             const statusCompleted = setStatusCom;

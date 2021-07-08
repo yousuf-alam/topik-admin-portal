@@ -81,6 +81,7 @@
           .then(response => {
             if( response.data.status == 'Successfully deleted'){
               this.$swal('Success', response.data.status, 'success');
+              this.$router.go(this.$router.currentRoute);
             }else{
               this.$swal('Error', response.data, 'error');
             }

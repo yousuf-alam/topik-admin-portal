@@ -74,21 +74,19 @@
     methods: {
       deleteBanner($id){
         let url = `${ROOT_URL}/api/v2.0/admin/banners/delete`;
-        console.log('clicked', $id, url);
 
         axios.post(`${ROOT_URL}/api/v2.0/admin/banners/delete`,{
           id: $id
         })
           .then(response => {
             if( response.data.status == 'Successfully deleted'){
-              console.log('response status',  response.data.status);
+              this.$swal('Success', response.data.status, 'success');
             }else{
-              console.log('response status',  response.data.status);
+              this.$swal('Error', response.data, 'error');
             }
-
           })
           .catch(e=>{
-            console.log("error occurs", e);
+            this.$swal('Error', e.message, 'error');
           });
       }
     },

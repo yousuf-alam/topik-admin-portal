@@ -123,7 +123,7 @@ const navitems = {
       title: true,
       name: 'Partner',
       class: '',
-      permission_name: [...permissionsList.partner, ...permissionsList.resource],
+      permission_name: [...permissionsList.partner, ...permissionsList.resource, ...permissionsList.partnerwallet],
       wrapper: {
         element: '',
         attributes: {}

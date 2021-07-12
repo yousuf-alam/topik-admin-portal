@@ -152,6 +152,32 @@
         </b-card>
       </b-col>
     </b-row>
+
+      <b-row>
+        <b-col>
+          <b-card title="Previous Orders">
+            <b-row>
+              <b-col
+                md="6" sm="6" v-for="(previous_order, key) in order.previous_orders"
+                :key="key">
+                <div v-if="previous_order!==null">
+                  <b-card class="card-accent-danger font-weight-bold" v-bind:header="'Created at'">
+                    <h5 class="card-title font-weight-bold">{{previous_order.created_at}}</h5>
+                    <p>
+                      <span>Partner Name:</span><span class=" ml-2 font-weight-bold">{{previous_order.partner}}</span><br>
+                      <span>Partner Phone:</span><span class=" ml-2 font-weight-bold">{{previous_order.partner_phone}}</span><br>
+
+                      <span>Assigned Resource:</span><span class=" ml-2 font-weight-bold">{{previous_order.resource_name}}</span><br>
+                      <span>Resource Phone:</span><span class=" ml-2 font-weight-bold">{{previous_order.resource_phone}}</span>
+                    </p>
+                  </b-card>
+                </div>
+
+              </b-col>
+            </b-row>
+          </b-card>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>

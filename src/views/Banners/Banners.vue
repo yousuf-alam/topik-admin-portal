@@ -26,7 +26,7 @@
               <div>
                 <router-link :to="{ name: 'Banner / Edit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
                                     <i class="fa fa-edit"></i></span></router-link>
-                <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
+                <span @click="deleteBanner(props.row.id)" class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
               </div>
             </template>
           </v-client-table>
@@ -40,7 +40,7 @@
 <script>
   import axios from 'axios';
   const BASE_URL  = process.env.VUE_APP_BASE_URL;
-
+  const ROOT_URL = process.env.VUE_APP_ROOT_URL;
   export default {
     name: 'Banners',
     data() {
@@ -72,7 +72,24 @@
         });
     },
     methods: {
+      deleteBanner($id){
+        let url = `${ROOT_URL}/api/v2.0/admin/banners/delete`;
 
+        axios.post(`${ROOT_URL}/api/v2.0/admin/banners/delete`,{
+          id: $id
+        })
+          .then(response => {
+            if( response.data.status == 'Successfully deleted'){
+              this.$swal('Success', response.data.status, 'success');
+              this.$router.go(this.$router.currentRoute);
+            }else{
+              this.$swal('Error', response.data, 'error');
+            }
+          })
+          .catch(e=>{
+            this.$swal('Error', e.message, 'error');
+          });
+      }
     },
   }
 </script>

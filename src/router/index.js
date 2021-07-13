@@ -17,6 +17,14 @@ const AppointmentShow = () => import('../views/Orders/Appointments/Appointment_S
 const AppointmentEdit = () => import('../views/Orders/Appointments/AppointmentEdit')
 const AppointmentCreate = () => import('../views/Orders/Appointments/AppointmentCreate')
 
+const ThirdPartyOrders = () => import('@/views/ThirdPartyOrders/ThirdPartyOrders')
+const ThirdPartyOrderPlace = () => import('@/views/ThirdPartyOrders/PlaceOrder')
+const ThirdPartyContents = () => import('@/views/ThirdPartyContent/ThirdPartyContents')
+const ThirdPartyContentCreate = () => import('@/views/ThirdPartyContent/ThirdPartyContentCreate')
+const ThirdPartyContentEdit = () => import('@/views/ThirdPartyContent/ThirdPartyContentEdit')
+
+
+
 
 
 import SelfAllNotifications from '../views/Notifications/self/SelfAllNotifications';
@@ -245,6 +253,65 @@ const router =  new Router({
         path: '/orders/create',
         name: 'OrderCreate',
         component: OrderCreate,
+        props: true,
+        meta: {
+         permission_name: 'order create'
+        },
+      },
+      {
+        path: 'third-party-orders',
+        name: 'ThirdPartyOrders',
+        component: ThirdPartyOrders,
+        meta: {
+          permission_name: permissionsList.order
+        },
+      },
+      {
+        path: 'third-party-contents',
+        name: 'ThirdPartyContents',
+        component: ThirdPartyContents,
+        meta: {
+          permission_name: permissionsList.order
+        },
+      },
+      {
+        path: '/third-party-contents/create',
+        name: 'ThirdPartyContentCreate',
+        component: ThirdPartyContentCreate,
+        props: true,
+        meta: {
+         permission_name: 'order create'
+        },
+      },
+      {
+        path: '/third-party-contents/edit/:id',
+        name: 'Edit Content',
+        component: ThirdPartyContentEdit,
+        props: true,
+        meta: {
+         permission_name: 'order create'
+        },
+      },
+      // {
+      //   path: '/orders/details/:id',
+      //   name: 'OrderShow',
+      //   component: OrderShow,
+      //   meta: {
+      //     permission_name: 'order read'
+      //   },
+      // },
+      // {
+      //   path: '/orders/edit/:id',
+      //   name: 'OrderEdit',
+      //   component: OrderEdit,
+      //   meta: {
+      //     permission_name: 'order read'
+      //   },
+      // },
+      {
+        path: '/third-party-orders/place-order/:id',
+        name: 'ThirdPartyOrderPlace',
+        component: ThirdPartyOrderPlace,
         props: true,
         meta: {
          permission_name: 'order create'

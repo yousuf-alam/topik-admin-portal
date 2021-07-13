@@ -118,6 +118,7 @@
       mounted() {
         this.fetchCategories(2);
         this.fetchAccessories();
+        EventBus.$on("service:update", this.serviceUpdate.bind(this));
       },
       computed: {
         options() {
@@ -235,6 +236,14 @@
       },
       confirmDesign() {
         this.$modal.hide('modal-designs');
+      },
+      serviceUpdate(data){
+          this.selected_category = data.lineitem.category_id;
+          this.fetchSubcategories();
+          this.selected_subcategory = data.lineitem.subcategory_id;
+          this.fetchServices();
+          this.selected_service = data.lineitem;
+          this.fetchQuestion();
       }
     }
  }

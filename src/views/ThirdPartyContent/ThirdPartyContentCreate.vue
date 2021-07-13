@@ -57,7 +57,7 @@
     },
     methods: {
         getAllLineitems() {
-            axios.get(`${ADMIN_URL}/all-line-items`)
+            axios.get(`${ADMIN_URL}/all-line-items-third-party`)
                 .then(response => {
                     this.lineitems = response.data;
                 })

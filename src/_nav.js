@@ -121,6 +121,28 @@ const navitems = {
 
     {
       title: true,
+      name: 'Third Party',
+      class: '',
+      permission_name: [...permissionsList.order, ...permissionsList.order],
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'Third Party Orders',
+      url: '/third-party-orders',
+      icon: 'fa fa-user',
+      permission_name: permissionsList.order
+    },
+    {
+      name: 'Third Party Contents',
+      url: '/third-party-contents',
+      icon: 'fa fa-user',
+      permission_name: permissionsList.order
+    },
+    {
+      title: true,
       name: 'Partner',
       class: '',
       permission_name: [...permissionsList.partner, ...permissionsList.resource, ...permissionsList.partnerwallet],

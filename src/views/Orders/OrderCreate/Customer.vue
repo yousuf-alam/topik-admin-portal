@@ -43,6 +43,9 @@
 
         }
       },
+      mounted(){
+          EventBus.$on("customer:update", this.customerUpdate.bind(this));
+      },
       methods: {
         onKeyUpPhone(event) {
           const phoneIsValid = /(^()?(01){1}[23456789]{1}(\d){8})$/i.test(this.customer.phone);
@@ -64,6 +67,12 @@
         addCustomer() {
           this.onKeyUpPhone();
           EventBus.$emit('customer:add',this.customer) ;
+        },
+        customerUpdate(data){
+          this.customer.name = data.customer_name;
+          this.customer.phone = data.customer_phone;
+          this.payment_method = 'cash';
+          this.addCustomer();
         }
       }
     }

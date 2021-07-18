@@ -140,6 +140,24 @@
           </div>
 
           <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Validity</label>
+            <div class="col-sm-9">
+              <VueCtkDateTimePicker
+                :overlay=true
+                :range=true
+                :no-label=true
+                label="Select"
+                id="RangeDatePicker"
+                format="YYYY-MM-DD"
+                formatted="ll"
+                color="#7D4E77"
+                v-model="validity"
+              >
+              </VueCtkDateTimePicker>
+            </div>
+          </div>
+
+          <div class="form-group row">
             <label class="col-sm-3 col-form-label">Short Description</label>
             <div class="col-sm-9">
               <input class="form-control" type="text" v-model="description">
@@ -355,7 +373,12 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import axios from 'axios';
+  import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+  import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+  import moment from "moment";
+  Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 
   export default {
     name: 'LineItemCreate',
@@ -381,6 +404,7 @@
           benefits: '',
         },
         duration: '',
+        validity:'',
         description: '',
         thumbnail: '',
         banner_web: '',
@@ -676,6 +700,10 @@
           formData.append('banner_tab', this.banner_tab);
           formData.append('banner_android', this.banner_android);
           formData.append('banner_ios', this.banner_android);
+
+          formData.append('validity', JSON.stringify(this.validity));
+          // formData.append('validity["end"]', this.validity.end);
+
 
 
           for( let i = 0; i < this.designs.length; i++ ){

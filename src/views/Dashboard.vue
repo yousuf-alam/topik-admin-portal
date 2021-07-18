@@ -134,6 +134,59 @@
           <b-card
             style="font-size: 16px; font-weight: bold"
             border-variant="none"
+            header="LAST DAY"
+            header-bg-variant="dark"
+            header-text-variant="white"
+            align="center"
+            v-if="getUserPermission('customer service')"
+          >
+            <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.last_day.revenue }}</b-card-title>
+            <b-card-text class="center-div">
+            <span class="text-justify" style="list-style: none;">
+              <li>
+              <i class="fa fa-shopping-cart mr-2"></i>&nbsp;
+              <b>{{finance.last_day.order_no}}</b>
+                  Orders Placed
+              </li>
+              <li>
+              <i class="fa fa-user-circle mr-2"></i>&nbsp;
+              <b>{{finance.last_day.customer}}</b>
+                  Customers
+              </li>
+              <li>
+              <i class="fa fa-check mr-2"></i>&nbsp;
+              <b>{{finance.last_day.success}} %</b>
+                  Success
+              </li>
+              <li>
+              <i class="fa fa-unlock mr-2"></i>&nbsp;
+              <b>{{finance.last_day.pending}}</b>
+                  Orders Pending
+              </li>
+               <li>
+               <i class="fa fa-ticket mr-2"></i>&nbsp;
+              <b> ৳ {{finance.last_day.avg_ticket}}</b>
+                  Ticket Average
+              </li>
+              <li>
+               <i class="fa fa-users mr-2"></i>&nbsp;
+              <b> {{finance.last_day.active_sp}}</b>
+                  Active SP
+              </li>
+              <li>
+              <i class="fa fa-money mr-2"></i>&nbsp;
+              <b>৳ {{finance.last_day.revenue}} </b>
+                  GMV
+              </li>
+
+
+            </span>
+            </b-card-text>
+          </b-card>
+
+          <b-card
+            style="font-size: 16px; font-weight: bold"
+            border-variant="none"
             header="THIS MONTH"
             header-bg-variant="dark"
             header-text-variant="white"
@@ -242,6 +295,7 @@
             header-bg-variant="dark"
             header-text-variant="white"
             align="center"
+            v-if="! getUserPermission('customer service')"
           >
             <b-card-title class="h3 font-weight-bold mb-4">৳ {{ finance.lifetime.revenue }}</b-card-title>
             <b-card-text class="center-div">

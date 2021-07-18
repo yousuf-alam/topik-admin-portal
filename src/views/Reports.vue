@@ -17,70 +17,70 @@
 <!--          </b-btn>-->
 <!--        </b-col>-->
       </b-row>
-      <C-modal name="date-picker-modal" height="600px" :adaptive="true">
-        <div class="m-3 p-3">
-          <b-row class="p-2 border-bottom">
-            <h4>Export Report</h4><br><br>
-          </b-row>
-          <b-row class="p-5 h-100">
-            <b-col>
-              <VueCtkDateTimePicker
-                :overlay=true
-                :range=true
-                :no-label=true
-                label="Select"
-                id="RangeDatePicker"
-                format="YYYY-MM-DD"
-                formatted="ll"
-                color="#7D4E77"
-                v-model="date_range"
-              >
-              </VueCtkDateTimePicker>
-              <h6 class="my-3">Report : <b>{{selected_report}}</b></h6>
-              <b-form-group label="Select Promo" v-show="selected_report==='Order Report of a Promo'">
-                <multiselect
-                  v-model="coupon"
-                  :options="promos"
-                  placeholder="Select one"
-                  label="code"
-                  track-by="id"
-                >
-                </multiselect>
-              </b-form-group>
-              <b-form-group label="Select Category" v-show="selected_report==='Order Report of a Subcategory'">
-                <multiselect
-                  v-model="category"
-                  :options="categories"
-                  placeholder="Select one"
-                  label="name"
-                  track-by="id"
-                  @input="getSubcategories"
-                >
-                </multiselect>
-              </b-form-group>
-              <b-form-group label="Select Subcategory" v-show="selected_report==='Order Report of a Subcategory'">
-                <multiselect
-                  v-model="subcategory"
-                  :options="subcategories"
-                  placeholder="Select one"
-                  label="name"
-                  track-by="id"
-                >
-                </multiselect>
-              </b-form-group>
-               <b-form-group label="Select Date Type" v-show="selected_report==='In-House SP Orders'">
-                 <select class="form-control" v-model="date_type">
-                   <option value="scheduled_date">Scheduled Date</option>
-                    <option value="created_at">Created Date</option>
-                 </select>
-               </b-form-group>
-              <b-btn class="center-div btn-block btn-romoni-secondary" @click="exportReport">Export</b-btn>
-              <b-btn class="center-div btn-block btn-danger mt-1" @click="closeModal">Cancel</b-btn>
-              <b-spinner variant="danger" label="Spinning" v-if="exporting"></b-spinner>
-            </b-col>
-          </b-row>
-        </div>
-      </C-modal>
+<!--      <C-modal name="date-picker-modal" height="600px" :adaptive="true">-->
+<!--        <div class="m-3 p-3">-->
+<!--          <b-row class="p-2 border-bottom">-->
+<!--            <h4>Export Report</h4><br><br>-->
+<!--          </b-row>-->
+<!--          <b-row class="p-5 h-100">-->
+<!--            <b-col>-->
+<!--              <VueCtkDateTimePicker-->
+<!--                :overlay=true-->
+<!--                :range=true-->
+<!--                :no-label=true-->
+<!--                label="Select"-->
+<!--                id="RangeDatePicker"-->
+<!--                format="YYYY-MM-DD"-->
+<!--                formatted="ll"-->
+<!--                color="#7D4E77"-->
+<!--                v-model="date_range"-->
+<!--              >-->
+<!--              </VueCtkDateTimePicker>-->
+<!--              <h6 class="my-3">Report : <b>{{selected_report}}</b></h6>-->
+<!--              <b-form-group label="Select Promo" v-show="selected_report==='Order Report of a Promo'">-->
+<!--                <multiselect-->
+<!--                  v-model="coupon"-->
+<!--                  :options="promos"-->
+<!--                  placeholder="Select one"-->
+<!--                  label="code"-->
+<!--                  track-by="id"-->
+<!--                >-->
+<!--                </multiselect>-->
+<!--              </b-form-group>-->
+<!--              <b-form-group label="Select Category" v-show="selected_report==='Order Report of a Subcategory'">-->
+<!--                <multiselect-->
+<!--                  v-model="category"-->
+<!--                  :options="categories"-->
+<!--                  placeholder="Select one"-->
+<!--                  label="name"-->
+<!--                  track-by="id"-->
+<!--                  @input="getSubcategories"-->
+<!--                >-->
+<!--                </multiselect>-->
+<!--              </b-form-group>-->
+<!--              <b-form-group label="Select Subcategory" v-show="selected_report==='Order Report of a Subcategory'">-->
+<!--                <multiselect-->
+<!--                  v-model="subcategory"-->
+<!--                  :options="subcategories"-->
+<!--                  placeholder="Select one"-->
+<!--                  label="name"-->
+<!--                  track-by="id"-->
+<!--                >-->
+<!--                </multiselect>-->
+<!--              </b-form-group>-->
+<!--               <b-form-group label="Select Date Type" v-show="selected_report==='In-House SP Orders'">-->
+<!--                 <select class="form-control" v-model="date_type">-->
+<!--                   <option value="scheduled_date">Scheduled Date</option>-->
+<!--                    <option value="created_at">Created Date</option>-->
+<!--                 </select>-->
+<!--               </b-form-group>-->
+<!--              <b-btn class="center-div btn-block btn-romoni-secondary" @click="exportReport">Export</b-btn>-->
+<!--              <b-btn class="center-div btn-block btn-danger mt-1" @click="closeModal">Cancel</b-btn>-->
+<!--              <b-spinner variant="danger" label="Spinning" v-if="exporting"></b-spinner>-->
+<!--            </b-col>-->
+<!--          </b-row>-->
+<!--        </div>-->
+<!--      </C-modal>-->
     </b-card>
 
     </div>

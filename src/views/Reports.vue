@@ -11,79 +11,88 @@
 
       </b-row>
       <b-row>
-<!--        <b-col lg="4" sm="12" v-for="r in reports">-->
-<!--          <b-btn variant="outline-dark" class="w-75 h-75 m-2" @click="getDateModal(r)" >-->
-<!--            {{r}}-->
-<!--          </b-btn>-->
-<!--        </b-col>-->
+        <b-col lg="4" sm="12" v-for="r in reports">
+          <b-btn variant="outline-dark" class="w-75 h-75 m-2" @click="getDateModal(r)" >
+            {{r}}
+          </b-btn>
+        </b-col>
       </b-row>
-<!--      <C-modal name="date-picker-modal" height="600px" :adaptive="true">-->
-<!--        <div class="m-3 p-3">-->
-<!--          <b-row class="p-2 border-bottom">-->
-<!--            <h4>Export Report</h4><br><br>-->
-<!--          </b-row>-->
-<!--          <b-row class="p-5 h-100">-->
-<!--            <b-col>-->
-<!--              <VueCtkDateTimePicker-->
-<!--                :overlay=true-->
-<!--                :range=true-->
-<!--                :no-label=true-->
-<!--                label="Select"-->
-<!--                id="RangeDatePicker"-->
-<!--                format="YYYY-MM-DD"-->
-<!--                formatted="ll"-->
-<!--                color="#7D4E77"-->
-<!--                v-model="date_range"-->
-<!--              >-->
-<!--              </VueCtkDateTimePicker>-->
-<!--              <h6 class="my-3">Report : <b>{{selected_report}}</b></h6>-->
-<!--              <b-form-group label="Select Promo" v-show="selected_report==='Order Report of a Promo'">-->
-<!--                <multiselect-->
-<!--                  v-model="coupon"-->
-<!--                  :options="promos"-->
-<!--                  placeholder="Select one"-->
-<!--                  label="code"-->
-<!--                  track-by="id"-->
-<!--                >-->
-<!--                </multiselect>-->
-<!--              </b-form-group>-->
-<!--              <b-form-group label="Select Category" v-show="selected_report==='Order Report of a Subcategory'">-->
-<!--                <multiselect-->
-<!--                  v-model="category"-->
-<!--                  :options="categories"-->
-<!--                  placeholder="Select one"-->
-<!--                  label="name"-->
-<!--                  track-by="id"-->
-<!--                  @input="getSubcategories"-->
-<!--                >-->
-<!--                </multiselect>-->
-<!--              </b-form-group>-->
-<!--              <b-form-group label="Select Subcategory" v-show="selected_report==='Order Report of a Subcategory'">-->
-<!--                <multiselect-->
-<!--                  v-model="subcategory"-->
-<!--                  :options="subcategories"-->
-<!--                  placeholder="Select one"-->
-<!--                  label="name"-->
-<!--                  track-by="id"-->
-<!--                >-->
-<!--                </multiselect>-->
-<!--              </b-form-group>-->
-<!--               <b-form-group label="Select Date Type" v-show="selected_report==='In-House SP Orders'">-->
-<!--                 <select class="form-control" v-model="date_type">-->
-<!--                   <option value="scheduled_date">Scheduled Date</option>-->
-<!--                    <option value="created_at">Created Date</option>-->
-<!--                 </select>-->
-<!--               </b-form-group>-->
-<!--              <b-btn class="center-div btn-block btn-romoni-secondary" @click="exportReport">Export</b-btn>-->
+      <C-modal name="date-picker-modal" height="600px" :adaptive="true">
+        <div class="m-3 p-3">
+          <b-row class="p-2 border-bottom">
+            <h4>Export Report</h4><br><br>
+          </b-row>
+          <b-row class="p-5 h-100">
+            <b-col>
+              <VueCtkDateTimePicker
+                :overlay=true
+                :range=true
+                :no-label=true
+                label="Select"
+                id="RangeDatePicker"
+                format="YYYY-MM-DD"
+                formatted="ll"
+                color="#7D4E77"
+                v-model="date_range"
+              >
+              </VueCtkDateTimePicker>
+              <h6 class="my-3">Report : <b>{{selected_report}}</b></h6>
+              <b-form-group label="Select Promo" v-show="selected_report==='Order Report of a Promo'">
+                <multiselect
+                  v-model="coupon"
+                  :options="promos"
+                  placeholder="Select one"
+                  label="code"
+                  track-by="id"
+                >
+                </multiselect>
+              </b-form-group>
+              <b-form-group label="Select Category" v-show="selected_report==='Order Report of a Subcategory'">
+                <multiselect
+                  v-model="category"
+                  :options="categories"
+                  placeholder="Select one"
+                  label="name"
+                  track-by="id"
+                  @input="getSubcategories"
+                >
+                </multiselect>
+              </b-form-group>
+              <b-form-group label="Select Subcategory" v-show="selected_report==='Order Report of a Subcategory'">
+                <multiselect
+                  v-model="subcategory"
+                  :options="subcategories"
+                  placeholder="Select one"
+                  label="name"
+                  track-by="id"
+                >
+                </multiselect>
+              </b-form-group>
+               <b-form-group label="Select Date Type" v-show="selected_report==='In-House SP Orders'">
+                 <select class="form-control" v-model="date_type">
+                   <option value="scheduled_date">Scheduled Date</option>
+                    <option value="created_at">Created Date</option>
+                 </select>
+               </b-form-group>
+              <b-btn class="center-div btn-block btn-primary" @click="showReport">Show</b-btn>
+              <b-btn class="center-div btn-block btn-romoni-secondary" @click="exportReport">Export</b-btn>
 <!--              <b-btn class="center-div btn-block btn-danger mt-1" @click="closeModal">Cancel</b-btn>-->
-<!--              <b-spinner variant="danger" label="Spinning" v-if="exporting"></b-spinner>-->
-<!--            </b-col>-->
-<!--          </b-row>-->
-<!--        </div>-->
-<!--      </C-modal>-->
+              <b-spinner variant="danger" label="Spinning" v-if="exporting"></b-spinner>
+            </b-col>
+
+          </b-row>
+
+          <div class="card" v-if="show" >
+            <v-client-table :data="dailyreport" :columns="columns" :options="options">
+            </v-client-table>
+          </div>
+
+        </div>
+      </C-modal>
+
     </b-card>
 
-    </div>
+  </div>
 </template>
 
 <script>
@@ -98,7 +107,10 @@
     name: 'Reports',
     data() {
       return {
-        date_range: '',
+        date_range:  {
+          'start' : null,
+          'end' : null
+        },
         date_type: 'scheduled_date',
         selected_report: '',
         exporting: false,
@@ -114,11 +126,22 @@
         categories: [],
         subcategories: [],
         promos: [],
+        dailyreport:[],
         reports: [
-          'All users list',
+          'Daily Report',
 
+        ],
+        show:false,
+        columns: ['Time', 'Total No Of Orders','No of Orders from apps/website', 'No of Orders from existing clients','No of Orders from Outbound Calls',
+          'No of Orders from Social Media','Orders Served by InHousedSP', 'Orders Served by Freelancers','Revenue from Outbound Calls', 'Total Revenue'],
+        options: {
+          pagination: {nav: 'fixed'},
+          filterByColumn: true,
+          //dateColumns: ['created_at'],
+          toMomentFormat: 'YYYY-MM-DD',
+          sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
-        ]
+        }
       }
     },
     created() {
@@ -166,6 +189,30 @@
             //console.log("error occurs");
           });
 
+      },
+      showReport(){
+        this.dailyreport = [];
+        // this.skip = 0;
+        this.loadingData();
+      },
+      loadingData(){
+        axios({
+          method: 'post',
+          url: `${ADMIN_URL}/show-report`,
+          data: {
+            date_range: this.date_range,
+            report: this.selected_report,
+          }
+        })
+          .then(response => {
+            this.loading = false;
+            this.show = true;
+            this.dailyreport = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log("error occurs",e);
+          });
       },
       exportReport(){
         this.exporting = true;

@@ -209,8 +209,6 @@ export default {
           console.log("error occurs",e);
           this.$swal('Error', 'Something Went Wrong', 'error');
         });
-
-
     }
   },
 

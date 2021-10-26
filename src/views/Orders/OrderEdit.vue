@@ -91,6 +91,7 @@
               <b-form-group label="Payment Method">
                 <b-form-radio v-model="order.payment_method" value="cash">Cash On Delivery</b-form-radio>
                 <b-form-radio v-model="order.payment_method" value="bKash">bKash</b-form-radio>
+                <b-form-radio v-model="order.payment_method" value="sslcommerz">Card</b-form-radio>
               </b-form-group>
             </b-col>
             <b-col>

@@ -114,6 +114,18 @@ export default {
       date_type: "scheduled_date",
       selected_report: "",
       exporting: false,
+      coupon: {
+        id: ''
+      },
+      subcategory: {
+        id: ''
+      },
+      category: {
+        id: ''
+      },
+      categories: [],
+      subcategories: [],
+      promos: [],
       sp_type: "3",
       dailyreport: [],
       spreport: [],
@@ -148,8 +160,8 @@ export default {
     };
   },
   created() {
-    // this.getCoupons();
-    // this.getCategories();
+    this.getCoupons();
+    this.getCategories();
   },
   methods: {
     getDateModal(report) {
@@ -158,6 +170,40 @@ export default {
     },
     closeModal() {
       this.$modal.hide("date-picker-modal");
+    },
+    getCoupons(){
+      axios.get(`${ADMIN_URL}/all-promos`, {
+        params : {
+          type : 'all'
+        }
+      })
+        .then(response =>{
+          this.promos = response.data;
+        })
+        .catch(e=>{
+          //console.log("error occurs");
+        });
+    },
+    getCategories() {
+      axios.get(`${ADMIN_URL}/all-categories`)
+        .then(response => {
+          this.categories = response.data;
+        })
+        .catch(e => {
+          //console.log("error occurs");
+        });
+    },
+    getSubcategories() {
+      axios.post(`${ADMIN_URL}/subcategories`, {
+        category_id: this.category.id
+      })
+        .then(response => {
+          this.subcategories = response.data;
+        })
+        .catch(e => {
+          //console.log("error occurs");
+        });
+
     },
     showReport() {
       this.dailyreport = [];
@@ -182,7 +228,7 @@ export default {
           } else {
             this.spshow = true;
             this.spreport = response.data;
- 
+
           }
           console.log("response", response.data);
         })

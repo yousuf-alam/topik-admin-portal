@@ -247,6 +247,7 @@ export default {
           report: this.selected_report,
           coupon_id: this.coupon.id,
           subcategory_id: this.subcategory.id,
+          sp_type: this.sp_type,
           date_type: this.date_type
         }
       })

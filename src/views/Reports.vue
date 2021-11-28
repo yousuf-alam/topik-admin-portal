@@ -144,7 +144,7 @@ export default {
         "Revenue from Outbound Calls",
         "Total Revenue"
       ],
-      spcolumns: ["SP Name", "SP Type", "Job Created", "Job Served", "Total Service Value", "SP Commission", "Romoni Revenue"],
+      spcolumns: ["SP Name", "SP Type", "Job Created","Job Completed", "Job Served", "Total Service Value", "SP Commission", "Romoni Revenue"],
       options: {
         pagination: { nav: "fixed" },
         filterByColumn: true,

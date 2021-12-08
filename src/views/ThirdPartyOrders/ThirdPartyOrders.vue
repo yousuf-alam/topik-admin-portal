@@ -21,7 +21,7 @@
                  <label class="font-weight-bold">Select Platform:</label>
                  <select class="form-control" v-model="platform">
                    <option selected value="all">All</option>
-                   <option value="SHOHOZ">SHOHOZ1</option>
+                   <option value="SHOHOZ">SHOHOZ</option>
                    <option value="OFFER">OFFER</option>
                  </select>
                </div>

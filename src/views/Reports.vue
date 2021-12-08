@@ -12,15 +12,27 @@
       </b-row>
       <b-row>
         <b-col lg="4" sm="12" v-for="r in reports">
-          <b-btn
-            variant="outline-dark"
-            class="w-75 h-75 m-2"
-            @click="getDateModal(r)"
-          >
-            {{ r }}
-          </b-btn>
+          <div v-if="(r === 'SP Report' && getUserPermission('daily reports'))">
+            <!-- <b-btn
+              variant="outline-dark"
+              class="w-75 h-75 m-2"
+              @click="getDateModal(r)"
+            >
+              {{ r }}
+            </b-btn> -->
+          </div>
+          <div v-else>
+            <b-btn
+              variant="outline-dark"
+              class="w-75 h-75 m-2"
+              @click="getDateModal(r)"
+            >
+              {{ r }}
+            </b-btn>
+          </div>
         </b-col>
       </b-row>
+
       <C-modal name="date-picker-modal" height="600px" :adaptive="true">
         <div class="m-3 p-3">
           <b-row class="p-2 border-bottom">
@@ -115,13 +127,13 @@ export default {
       selected_report: "",
       exporting: false,
       coupon: {
-        id: ''
+        id: ""
       },
       subcategory: {
-        id: ''
+        id: ""
       },
       category: {
-        id: ''
+        id: ""
       },
       categories: [],
       subcategories: [],
@@ -144,7 +156,16 @@ export default {
         "Revenue from Outbound Calls",
         "Total Revenue"
       ],
-      spcolumns: ["SP Name", "SP Type", "Job Created","Job Completed", "Job Served", "Total Service Value", "SP Commission", "Romoni Revenue"],
+      spcolumns: [
+        "SP Name",
+        "SP Type",
+        "Job Created",
+        "Job Completed",
+        "Job Served",
+        "Total Service Value",
+        "SP Commission",
+        "Romoni Revenue"
+      ],
       options: {
         pagination: { nav: "fixed" },
         filterByColumn: true,
@@ -171,21 +192,23 @@ export default {
     closeModal() {
       this.$modal.hide("date-picker-modal");
     },
-    getCoupons(){
-      axios.get(`${ADMIN_URL}/all-promos`, {
-        params : {
-          type : 'all'
-        }
-      })
-        .then(response =>{
+    getCoupons() {
+      axios
+        .get(`${ADMIN_URL}/all-promos`, {
+          params: {
+            type: "all"
+          }
+        })
+        .then(response => {
           this.promos = response.data;
         })
-        .catch(e=>{
+        .catch(e => {
           //console.log("error occurs");
         });
     },
     getCategories() {
-      axios.get(`${ADMIN_URL}/all-categories`)
+      axios
+        .get(`${ADMIN_URL}/all-categories`)
         .then(response => {
           this.categories = response.data;
         })
@@ -194,16 +217,16 @@ export default {
         });
     },
     getSubcategories() {
-      axios.post(`${ADMIN_URL}/subcategories`, {
-        category_id: this.category.id
-      })
+      axios
+        .post(`${ADMIN_URL}/subcategories`, {
+          category_id: this.category.id
+        })
         .then(response => {
           this.subcategories = response.data;
         })
         .catch(e => {
           //console.log("error occurs");
         });
-
     },
     showReport() {
       this.dailyreport = [];
@@ -228,7 +251,6 @@ export default {
           } else {
             this.spshow = true;
             this.spreport = response.data;
-
           }
           console.log("response", response.data);
         })

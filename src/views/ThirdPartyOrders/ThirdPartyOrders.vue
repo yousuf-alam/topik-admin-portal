@@ -44,7 +44,7 @@
       <b-row>
           <b-col>
               <b-card>
-                <button v-if="getUserPermission('admin')" @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
+                <button @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
                   <div class="d-flex">
                     <div style="margin-left: auto;" class="mb-3">
                       <span class="mx-1">Per Page: </span>

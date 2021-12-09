@@ -103,7 +103,8 @@ export default {
     reports: ["reports"],
     eloan: ["eloan read"],
     thirdparty: ["third party"],
-    dashboard: ["dashboard"]
+    dashboard: ["dashboard"],
+    shohoz: ["shohoz"]
   },
   SECRET_KEY: "Kali Nagin Ke Jaisi Julfe Teri Kali Kali",
   SECRET_KEY_SAME_AS_PARTNER_PANEL:

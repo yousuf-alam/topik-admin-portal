@@ -271,7 +271,7 @@ const router = new Router({
           name: "ThirdPartyOrders",
           component: ThirdPartyOrders,
           meta: {
-            permission_name: permissionsList.thirdparty
+            permission_name: [...permissionsList.thirdparty, ...permissionsList.shohoz]
           }
         },
         {

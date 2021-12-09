@@ -123,7 +123,7 @@ const navitems = {
       title: true,
       name: 'Third Party',
       class: '',
-      permission_name: [...permissionsList.thirdparty, ...permissionsList.order],
+      permission_name: [...permissionsList.thirdparty, ...permissionsList.order, ...permissionsList.shohoz],
       wrapper: {
         element: '',
         attributes: {}
@@ -133,7 +133,7 @@ const navitems = {
       name: 'Third Party Orders',
       url: '/third-party-orders',
       icon: 'fa fa-user',
-      permission_name: permissionsList.thirdparty
+      permission_name: [...permissionsList.thirdparty, ...permissionsList.shohoz]
     },
     {
       name: 'Third Party Contents',

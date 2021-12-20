@@ -101,6 +101,14 @@
             >
             </v-client-table>
           </div>
+          <div class="card" v-if="spshow">
+            <v-client-table
+              :data="inhousespreport"
+              :columns="inhousespcolumns"
+              :options="options"
+            >
+            </v-client-table>
+          </div>
         </div>
       </C-modal>
     </b-card>
@@ -141,7 +149,8 @@ export default {
       sp_type: "3",
       dailyreport: [],
       spreport: [],
-      reports: ["Daily Report", "SP Report"],
+      inhousespreport: [],
+      reports: ["Daily Report", "SP Report","In-house SP Report"],
       show: false,
       spshow: false,
       columns: [
@@ -165,6 +174,16 @@ export default {
         "Total Service Value",
         "SP Commission",
         "Romoni Revenue"
+      ],
+      inhousespcolumns: [
+        "Borsha's Salon and Spa",
+        "Selina's Beauty World",
+        "Jubly's Beauty Parlor",
+        "Lolona Beauty parlor",
+        "Mishu Rose Salon",
+        "Shumi Beauty Bar",
+        "Brishtys Makeover And Salon",
+        "Labonno beauty world"
       ],
       options: {
         pagination: { nav: "fixed" },
@@ -248,6 +267,9 @@ export default {
           if (this.selected_report === "Daily Report") {
             this.show = true;
             this.dailyreport = response.data;
+          }else if (this.selected_report === "In-house SP Report") {
+            this.show = true;
+            this.inhousespreport = response.data;
           } else {
             this.spshow = true;
             this.spreport = response.data;

@@ -177,6 +177,7 @@ export default {
         "Romoni Revenue"
       ],
       inhousespcolumns: [
+        "Time",
         "Borsha's Salon and Spa",
         "Selina's Beauty World",
         "Jubly's Beauty Parlor",

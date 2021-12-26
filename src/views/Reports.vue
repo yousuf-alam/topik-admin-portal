@@ -12,7 +12,7 @@
       </b-row>
       <b-row>
         <b-col lg="4" sm="12" v-for="r in reports">
-          <div v-if="(r === 'SP Report' && getUserPermission('daily reports'))">
+          <div v-if="r === 'SP Report' && getUserPermission('daily reports')">
             <!-- <b-btn
               variant="outline-dark"
               class="w-75 h-75 m-2"
@@ -101,7 +101,7 @@
             >
             </v-client-table>
           </div>
-          <div class="card" v-if="spshow">
+          <div class="card" v-if="inhousespshow">
             <v-client-table
               :data="inhousespreport"
               :columns="inhousespcolumns"
@@ -150,9 +150,10 @@ export default {
       dailyreport: [],
       spreport: [],
       inhousespreport: [],
-      reports: ["Daily Report", "SP Report","In-house SP Report"],
+      reports: ["Daily Report", "SP Report", "In-house SP Report"],
       show: false,
       spshow: false,
+      inhousespshow: false,
       columns: [
         "Time",
         "Total No Of Orders",
@@ -176,8 +177,8 @@ export default {
         "Romoni Revenue"
       ],
       inhousespcolumns: [
+        "Time",
         "Borsha's Salon and Spa",
-        "Selina's Beauty World",
         "Jubly's Beauty Parlor",
         "Lolona Beauty parlor",
         "Mishu Rose Salon",
@@ -267,8 +268,8 @@ export default {
           if (this.selected_report === "Daily Report") {
             this.show = true;
             this.dailyreport = response.data;
-          }else if (this.selected_report === "In-house SP Report") {
-            this.show = true;
+          } else if (this.selected_report === "In-house SP Report") {
+            this.inhousespshow = true;
             this.inhousespreport = response.data;
           } else {
             this.spshow = true;

@@ -179,7 +179,6 @@ export default {
       inhousespcolumns: [
         "Time",
         "Borsha's Salon and Spa",
-        "Selina's Beauty World",
         "Jubly's Beauty Parlor",
         "Lolona Beauty parlor",
         "Mishu Rose Salon",

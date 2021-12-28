@@ -337,6 +337,8 @@ export default {
           return "badge badge-secondary";
         } else if (parm === "placed") {
           return "badge badge-success";
+        } else if (parm === "decline") {
+          return "badge badge-danger";
         } else if (parm === "rejected") {
           return "badge badge-danger";
         } else if (parm === "cancelled") {
@@ -403,6 +405,7 @@ export default {
           if (response.data.success) {
             this.$modal.hide("orderModal");
           }
+          this.$swal("Order decline Successfully", "", "success");
         })
         .catch(e => {
           console.log("error occurs");

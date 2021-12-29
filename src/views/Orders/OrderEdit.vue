@@ -393,9 +393,6 @@
       },
 
       updateOrder(e) {
-
-        //this.changeDateFormat();
-
         e.preventDefault();
         let currentObj = this;
         const config = {

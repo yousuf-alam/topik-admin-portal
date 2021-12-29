@@ -65,7 +65,10 @@
     </b-row>
     <b-row>
       <b-col>
-        <order-summary :invoice="invoice" v-if="invoice.length !== 0"></order-summary>
+        <order-summary
+          :invoice="invoice"
+          v-if="invoice.length !== 0"
+        ></order-summary>
       </b-col>
     </b-row>
     <b-card class="bg-white text-center">
@@ -73,7 +76,12 @@
         Place Order
       </button>
     </b-card>
-    <modal name="modal-partner_type" height="auto" :adaptive="true" :clickToClose="false">
+    <modal
+      name="modal-partner_type"
+      height="auto"
+      :adaptive="true"
+      :clickToClose="false"
+    >
       <div class="m-3 p-3">
         <b-row class="p-2">
           <h4>Choose Partner Type</h4>
@@ -87,7 +95,7 @@
                 <option :value="1">Freelance Partner</option>
               </select>
             </div>
-            <div class="form-group" v-if="partner_type==1">
+            <div class="form-group" v-if="partner_type == 1">
               <label class="font-weight-bold">Choose Reason</label>
               <div v-for="r in freelance_reasons" :key="r">
                 <input type="radio" :value="r" v-model="freelance_reason" />
@@ -102,9 +110,9 @@
                 />
               </div>
             </div>
-             <button class="btn btn-primary m-2" @click="fetchPartner">
-                <i class="fa fa-search"></i>Search Partners
-              </button>
+            <button class="btn btn-primary m-2" @click="fetchPartner">
+              <i class="fa fa-search"></i>Search Partners
+            </button>
           </b-col>
         </b-row>
       </div>
@@ -138,14 +146,14 @@ export default {
     Partner,
     OrderSummary,
     Design,
-    Accessories,
+    Accessories
   },
   data() {
     return {
       type: "",
       customer: {
         name: "",
-        phone: "",
+        phone: ""
       },
       location: "",
       categories: [],
@@ -156,15 +164,15 @@ export default {
         address: {
           latitude: "",
           longitude: "",
-          address_details: "",
-        },
+          address_details: ""
+        }
       },
       partner_type: 1,
       freelance_reasons: [
         "Customer asked for SP specifically",
         "No IH SP in that area",
         "No IH SP free/available during this time slot",
-        "No IH SP can do this job (skill gap)",
+        "No IH SP can do this job (skill gap)"
       ],
       freelance_reason: "",
       services: [],
@@ -175,8 +183,8 @@ export default {
       custom_measurement: "",
       selected_partner: null,
       invoice: [],
-      order_id:'',
-      order:null
+      order_id: "",
+      order: null
     };
   },
 
@@ -195,19 +203,21 @@ export default {
     this.fetchThirdPartyOrder();
   },
   methods: {
-    fetchThirdPartyOrder(){
-        this.order_id = window.location.pathname.split("/").pop();
-        axios.get(`${ADMIN_URL}/fetch-third-party-order`, {
+    fetchThirdPartyOrder() {
+      this.order_id = window.location.pathname.split("/").pop();
+      axios
+        .get(`${ADMIN_URL}/fetch-third-party-order`, {
           params: {
             order_id: this.order_id
           }
-        }).then(response => {
+        })
+        .then(response => {
           this.order = response.data;
           this.createOrder(this.order.lineitem.service_id);
-          EventBus.$emit('customer:update',this.order);
-          EventBus.$emit('service:update',this.order);
-        }).catch(e => {
-        });
+          EventBus.$emit("customer:update", this.order);
+          EventBus.$emit("service:update", this.order);
+        })
+        .catch(e => {});
     },
     createOrder(service_id) {
       this.type = service_id;
@@ -216,13 +226,13 @@ export default {
     getMainServices() {
       axios
         .get(`${ADMIN_URL}/services`)
-        .then((response) => {
+        .then(response => {
           this.main_services = response.data.filter(
-            (x) => x.published_status == "published"
+            x => x.published_status == "published"
           );
           console.log("Services.vue, Response === ", response.data);
         })
-        .catch((e) => {
+        .catch(e => {
           //console.log("error occurs");
         });
     },
@@ -261,17 +271,19 @@ export default {
           location: this.location,
           date: this.schedule.selected_date,
           time: this.schedule.selected_time,
-          services: this.services,
+          services: this.services
         })
-        .then((response) => {
+        .then(response => {
           if (response.data.success === true) {
-            this.partners = response.data.data.filter((x) => x.plan_id === this.partner_type);
-            console.log('partners',this.partners);
+            this.partners = response.data.data.filter(
+              x => x.plan_id === this.partner_type
+            );
+            console.log("partners", this.partners);
           } else {
             this.partners = [];
           }
         })
-        .catch((e) => {
+        .catch(e => {
           console.log("error fetchPartner === ", e.response);
         });
     },
@@ -287,14 +299,13 @@ export default {
         discount: 0,
         serviceNo: this.services.length,
         sp: this.selected_partner.name,
-        schedule: this.schedule,
+        schedule: this.schedule
       };
     },
     orderPlace(e) {
       e.preventDefault();
-      let currentObj = this;
       const config = {
-        headers: { "content-type": "multipart/form-data" },
+        headers: { "content-type": "multipart/form-data" }
       };
 
       let formData = new FormData();
@@ -305,7 +316,10 @@ export default {
       formData.append("scheduled_time", this.schedule.selected_time);
       formData.append("scheduled_date", this.schedule.selected_date);
       formData.append("shipping_name", this.customer.name);
-      formData.append("shipping_address", JSON.stringify(this.schedule.address));
+      formData.append(
+        "shipping_address",
+        JSON.stringify(this.schedule.address)
+      );
       formData.append("shipping_phone", this.customer.phone);
       formData.append("payment_method", this.customer.payment_method);
       formData.append("measurement", this.measurement_type);
@@ -313,24 +327,25 @@ export default {
       formData.append("items", JSON.stringify(this.services));
       formData.append("price", this.invoice.price);
       formData.append("discount", this.invoice.discount);
-      formData.append("third_party_order_id",this.order_id);
+      formData.append("third_party_order_id", this.order_id);
+      formData.append("order_id", window.location.pathname.split("/").pop());
 
       for (let i = 0; i < this.designs.length; i++) {
         let file = this.designs[i];
         formData.append("designs[" + i + "][image]", file);
       }
-      if(this.partner_type ==1)
-          formData.append("freelance_reason",this.freelance_reason)
+      if (this.partner_type == 1)
+        formData.append("freelance_reason", this.freelance_reason);
 
       const loader = this.$loading.show({
         loader: "spinner",
         color: "#ff3573",
-        canCancel: true,
+        canCancel: true
       });
 
       axios
         .post(`${ADMIN_URL}/place-order`, formData, config)
-        .then((response) => {
+        .then(response => {
           setTimeout(() => {
             loader.hide();
           }, 3 * 1000);
@@ -345,26 +360,15 @@ export default {
             );
           }
         })
-        .catch((error) => {
-          // console.log('Error  ... ', error.response);
-
+        .catch(error => {
           this.$swal(
             "Something went wrong",
             "Please check all the fields & try again",
             "error"
           );
-          /* if(error.response.status===422)
-            {
-                this.$swal('Invalid Phone Number', error.response.data, 'error');
-            }
-            else
-            {
-                this.$swal('Something went wrong', 'Please check all the fields', 'error');
-
-            }*/
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

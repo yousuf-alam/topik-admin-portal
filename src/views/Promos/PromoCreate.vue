@@ -166,7 +166,7 @@
         formData.append('discount_amount', this.discount_amount);
         formData.append('percentage_amount', this.percentage_amount);
         formData.append('discount_per_usage', this.discount_per_usage);
-        formData.append('expires_at', moment(this.expires_at).format('MMMM Do YYYY hh:mm:ss'));
+        formData.append('expires_at', moment(this.expires_at).format('MMMM Do YYYY HH:MM:SS'));
         formData.append('service_id', this.service_id);
         formData.append('category_id', this.category_id);
         if(this.platforms)

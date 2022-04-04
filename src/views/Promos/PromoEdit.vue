@@ -180,7 +180,7 @@
         formData.append('discount_amount', this.promo.discount_amount);
         formData.append('percentage_amount', this.promo.percentage_amount);
         formData.append('discount_per_usage', this.promo.discount_per_usage);
-        formData.append('expires_at', moment(this.promo.expires_at).format('MMMM Do YYYY hh:mm:ss'));
+        formData.append('expires_at', moment(this.promo.expires_at).format('MMMM Do YYYY HH:MM:SS'));
         formData.append('service_id', this.promo.service_id);
         formData.append('category_id', this.promo.category_id);
 

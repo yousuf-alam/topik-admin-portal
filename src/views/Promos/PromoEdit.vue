@@ -54,7 +54,7 @@
       </div>
       <div class="form-group">
         <label>Expires on</label>
-        <datepicker format="dd MMM yyyy" :disabledDates="disabledDates" v-model="promo.expires_at"></datepicker>
+        <datetimepicker :disabledDates="disabledDates" v-model="promo.expires_at"></datetimepicker>
       </div>
       <div class="form-group">
 
@@ -85,11 +85,13 @@
 <script>
   import axios from 'axios';
   import Datepicker from 'vuejs-datepicker';
+  import Datetimepicker from 'vuejs-datetimepicker';
   import MultiSelect from 'vue-multiselect';
   export default {
     name: "PromoEdit",
     components: {
       Datepicker,
+      Datetimepicker,
       MultiSelect
     },
     data() {
@@ -178,7 +180,7 @@
         formData.append('discount_amount', this.promo.discount_amount);
         formData.append('percentage_amount', this.promo.percentage_amount);
         formData.append('discount_per_usage', this.promo.discount_per_usage);
-        formData.append('expires_at', moment(this.promo.expires_at).format('MMMM Do YYYY'));
+        formData.append('expires_at', moment(this.promo.expires_at).format('MMMM Do YYYY hh:mm:ss'));
         formData.append('service_id', this.promo.service_id);
         formData.append('category_id', this.promo.category_id);
 

@@ -54,7 +54,7 @@
       </div>
       <div class="form-group">
         <label>Expires on</label>
-        <datepicker :disabledDates="disabledDates" v-model="expires_at"></datepicker>
+        <datetimepicker :disabledDates="disabledDates" v-model="expires_at"></datetimepicker>
       </div>
       <div class="form-group">
         <div class="form-check checkbox">
@@ -84,11 +84,13 @@
 <script>
   import axios from 'axios';
   import Datepicker from 'vuejs-datepicker';
+  import Datetimepicker from 'vuejs-datetimepicker';
   import MultiSelect from 'vue-multiselect';
   export default {
     name: "PromoCreate",
     components: {
       Datepicker,
+      Datetimepicker,
       MultiSelect
     },
     data() {
@@ -164,7 +166,7 @@
         formData.append('discount_amount', this.discount_amount);
         formData.append('percentage_amount', this.percentage_amount);
         formData.append('discount_per_usage', this.discount_per_usage);
-        formData.append('expires_at', moment(this.expires_at).format('MMMM Do YYYY'));
+        formData.append('expires_at', moment(this.expires_at).format('MMMM Do YYYY hh:mm:ss'));
         formData.append('service_id', this.service_id);
         formData.append('category_id', this.category_id);
         if(this.platforms)

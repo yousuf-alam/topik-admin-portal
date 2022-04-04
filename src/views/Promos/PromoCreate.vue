@@ -54,7 +54,7 @@
       </div>
       <div class="form-group">
         <label>Expires on</label>
-        <datetimepicker :disabledDates="disabledDates" v-model="expires_at"></datetimepicker>
+        <datetimepicker format="YYYY-MM-DD H:i:s" :disabledDates="disabledDates" v-model="expires_at"></datetimepicker>
       </div>
       <div class="form-group">
         <div class="form-check checkbox">
@@ -166,7 +166,7 @@
         formData.append('discount_amount', this.discount_amount);
         formData.append('percentage_amount', this.percentage_amount);
         formData.append('discount_per_usage', this.discount_per_usage);
-        formData.append('expires_at', moment(this.expires_at).format('MMMM Do YYYY HH:MM:SS'));
+        formData.append('expires_at', this.expires_at);
         formData.append('service_id', this.service_id);
         formData.append('category_id', this.category_id);
         if(this.platforms)

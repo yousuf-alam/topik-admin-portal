@@ -54,7 +54,7 @@
       </div>
       <div class="form-group">
         <label>Expires on</label>
-        <datetimepicker :disabledDates="disabledDates" v-model="promo.expires_at"></datetimepicker>
+        <datetimepicker format="YYYY-MM-DD H:i:s" :disabledDates="disabledDates" v-model="promo.expires_at"></datetimepicker>
       </div>
       <div class="form-group">
 
@@ -180,7 +180,7 @@
         formData.append('discount_amount', this.promo.discount_amount);
         formData.append('percentage_amount', this.promo.percentage_amount);
         formData.append('discount_per_usage', this.promo.discount_per_usage);
-        formData.append('expires_at', moment(this.promo.expires_at).format('MMMM Do YYYY HH:MM:SS'));
+        formData.append('expires_at', this.promo.expires_at);
         formData.append('service_id', this.promo.service_id);
         formData.append('category_id', this.promo.category_id);
 

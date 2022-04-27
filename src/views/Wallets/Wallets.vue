@@ -27,7 +27,7 @@
     data() {
       return {
         partners : [],
-        columns: ['id', 'name', 'type', 'booking_type', 'phone' ,'status', 'balance', 'action'],
+        columns: ['id', 'name', 'type', 'sp_type', 'booking_type', 'phone' ,'status', 'balance', 'action'],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,

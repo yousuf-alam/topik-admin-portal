@@ -464,6 +464,7 @@
           makeReadySearchParams() {
             const id = this.getInputValue("id")
             const service_type = this.getInputValue("service_type");
+            const placed_by = this.getInputValue("placed_by");
             const platform = this.getInputValue("platform");
             const status = this.getInputValue("status");
             const customer = this.getInputValue("customer");
@@ -503,7 +504,7 @@
 
 
             const srcParms = {
-              id, service_type, platform, status, customer,
+              id, service_type, placed_by, platform, status, customer,
               partner, bill,payment_method, created_at, scheduled_date,scheduled_time, shipping_phone, shipping_address, statusCompleted
             };
 

@@ -136,6 +136,9 @@
                     <td> {{ order.id }} </td>
                     <td> {{ order.service_type }} </td>
                     <td> {{ order.platform }} </td>
+                    <td v-if="order.user_name == null"> - </td>
+                    <td v-else-if="order.user_name == undefined"> - </td>
+                    <td v-else> {{ order.user_name }} </td>
                     <td class="text-center">
                       <span :class="getStyleOfStatus(order.status)" style="font-size: 12px;">
                         {{ order.status }}
@@ -235,6 +238,7 @@
                 'id',
                 'service_type' ,
                 'platform',
+                'placed_by',
                 'status',
                 'scheduled_date',
                 /*'scheduled_time',*/

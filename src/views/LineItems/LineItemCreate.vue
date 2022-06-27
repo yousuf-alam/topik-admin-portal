@@ -161,7 +161,7 @@
             <label class="col-sm-3 col-form-label">Short Description</label>
             <div class="col-sm-9">
               <input class="form-control" type="text" v-model="description">
-              <p class="text-danger">Character left: {{100 - description.length}}</p>
+              <p class="text-danger">Character left: {{200 - description.length}}</p>
             </div>
           </div>
 

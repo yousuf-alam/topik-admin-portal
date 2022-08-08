@@ -316,11 +316,13 @@ export default {
           price: this.invoice.price,
         })
         .then((response) => {
+          console.log(response.data);
           if (response.data.success === true) {
             this.invoice.discount = response.data.discount;
             this.coupon_id = response.data.coupon_id;
             this.$modal.hide("modal-coupon");
           } else {
+            this.$modal.hide("modal-coupon");
           }
         })
         .catch((e) => {

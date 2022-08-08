@@ -24,6 +24,29 @@
         </b-row>
       </div>
     </modal>
+
+    <modal name="modal-coupon" height="auto" :clickToClose="false" v-if="var_modal_coupon">
+      <div class="modal-header">
+        <h5 class="modal-title">Coupon</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModalCoupon">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="m-3 p-3">
+<!--        <b-row class="p-2">-->
+<!--          <h4>Enter Coupon</h4>-->
+<!--          <br /><br />-->
+<!--        </b-row>-->
+        <b-row class="p-2">
+          <div class="center-div d-flex">
+            <input type="text" id="coupon" v-model="coupon" class="form-control">
+            <button @click="submitCoupon" class="btn btn-success ml-1"> Apply </button>
+          </div>
+        </b-row>
+      </div>
+    </modal>
+
+
     <b-row>
       <b-col class="mb-5" sm="6" md="6">
         <customer> </customer>
@@ -93,6 +116,14 @@
       </b-col>
     </b-row>
     <b-card class="bg-white text-center">
+<!--      <span style="margin-right: 5px" @click="modalCoupon">-->
+<!--        <label>Apply Coupon</label>-->
+<!--        <i class="fa fa-plus" aria-hidden="true"></i>-->
+<!--      </span>-->
+
+      <button type="button" class="btn btn-outline-secondary" style="margin-right: 5px" @click="modalCoupon">Apply Coupon<i class="fa fa-plus" aria-hidden="true"></i></button>
+
+
       <button class="btn btn-romoni-secondary btn-lg" @click="orderPlace">
         Place Order
       </button>
@@ -172,6 +203,8 @@ export default {
         phone: "",
       },
       location: "",
+      var_modal_coupon: false,
+      coupon: "",
       categories: [],
       partners: [],
       schedule: {
@@ -264,6 +297,38 @@ export default {
       if (this.measurement_type === "own")
         this.measurement_type = data.custom_measurement;
     },
+
+    modalCoupon(){
+      this.$modal.show("modal-coupon");
+      this.var_modal_coupon = true;
+    },
+
+    closeModalCoupon(){
+      this.$modal.hide("modal-coupon");
+    },
+
+    submitCoupon(){
+      console.log(this.coupon);
+      axios
+        .post(`${ADMIN_URL}/submit-coupon`, {
+          coupon: this.coupon,
+          category_id: this.services[0].category_id,
+          price: this.invoice.price,
+        })
+        .then((response) => {
+          if (response.data.success === true) {
+            this.invoice.discount = response.data.discount;
+            this.coupon_id = response.data.coupon_id;
+            this.$modal.hide("modal-coupon");
+          } else {
+          }
+        })
+        .catch((e) => {
+          console.log("error applying promo === ", e.response);
+          this.$modal.hide("modal-coupon");
+        });
+    },
+
     fetchPartner() {
       this.$modal.hide("modal-partner_type");
       this.partners = [];
@@ -326,6 +391,7 @@ export default {
       formData.append("items", JSON.stringify(this.services));
       formData.append("price", this.invoice.price);
       formData.append("discount", this.invoice.discount);
+      formData.append("coupon_id", this.coupon_id);
 
       for (let i = 0; i < this.designs.length; i++) {
         let file = this.designs[i];
@@ -339,6 +405,7 @@ export default {
         color: "#ff3573",
         canCancel: true,
       });
+
 
       axios
         .post(`${ADMIN_URL}/place-order`, formData, config)

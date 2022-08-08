@@ -31,6 +31,14 @@
             <input type="number" v-model="quantity" class="form-control" placeholder="1">
         </div>
 
+<!--        <div class="form-group">-->
+<!--          <label>Add Coupon</label>-->
+<!--          <select v-model="selected_coupon" class="form-control" id="1">-->
+<!--            <option v-for="coupon in coupons" :value="coupon.id">{{coupon.code}}-->
+<!--            </option>-->
+<!--          </select>-->
+<!--        </div>-->
+
         <div class="form-group" v-if="questions">
             <ul class="list-group">
                 <li class="list-group-item" v-for="(question, i) in questions" :key="i">
@@ -103,8 +111,10 @@
           categories: [],
           subcategories: [],
           servicesObject: [],
+          coupons: [],
           selected_category: "",
           selected_subcategory: "",
+          selected_coupon: "",
           selected_service: '',
           quantity: 1,
           questions: [],
@@ -127,6 +137,7 @@
         services() {
           return {
             service_id: this.selected_service.id,
+            category_id: this.selected_category,
             service_name: this.selected_service.name,
             quantity: this.quantity,
             price: this.selected_service.price,
@@ -146,6 +157,7 @@
       },
     methods: {
       addService() {
+        console.log('service', this.services)
         EventBus.$emit('service:add', this.services);
         this.selected_accessories = [];
       },
@@ -192,6 +204,18 @@
         })
           .then(response => {
             this.servicesObject = response.data;
+          })
+          .catch(e => {
+            console.log("error occurs",e);
+          });
+
+        axios.post(`${Admin_URL}/all-coupons`, {
+          category_id: this.selected_category,
+          subcategory_id: this.selected_subcategory
+
+        })
+          .then(response => {
+            this.coupons = response.data;
           })
           .catch(e => {
             console.log("error occurs",e);

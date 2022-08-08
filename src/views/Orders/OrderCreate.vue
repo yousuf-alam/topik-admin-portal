@@ -377,6 +377,10 @@ export default {
         headers: { "content-type": "multipart/form-data" },
       };
 
+      if(this.coupon_id === undefined){
+        this.coupon_id = 0;
+      }
+
       let formData = new FormData();
       formData.append("service_id", this.type);
       formData.append("platform", "admin portal");

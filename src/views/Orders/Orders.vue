@@ -145,6 +145,7 @@
                       </span>
                     </td>
                     <td> {{ order.scheduled_date }} </td>
+                    <td> {{ order.scheduled_time }} </td>
                     <!--<td> {{ order.scheduled_time }} </td>-->
 
                     <td> {{ order.customer }} </td>
@@ -241,7 +242,7 @@
                 'placed_by',
                 'status',
                 'scheduled_date',
-                /*'scheduled_time',*/
+                'scheduled_time',
                 'customer',
                 'partner',
 

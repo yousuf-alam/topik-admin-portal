@@ -169,11 +169,11 @@ const navitems = {
       icon: 'cui-credit-card',
       permission_name: permissionsList.partnerwallet
     },
-/*    {
-      name: 'Partner Reorder',
-      url: '/partner-reorder',
+   {
+      name: 'PartnerPayments',
+      url: '/partner-payment',
       icon: 'fa fa-reorder'
-    },*/
+    },
     {
       title: true,
       name: 'Marketing',

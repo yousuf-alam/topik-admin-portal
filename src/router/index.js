@@ -66,6 +66,7 @@ const LineItemShow = () => import("../views/LineItems/LineItemShow");
 
 const Partners = () => import("@/views/Partners/Partners");
 const PartnerShow = () => import("../views/Partners/PartnerShow");
+const PartnerPayments = () => import("../views/Partners/PartnerPayments");
 
 const Resources = () => import("@/views/Resources/Resources");
 const ResourceShow = () => import("../views/Resources/ResourceShow");
@@ -568,6 +569,14 @@ const router = new Router({
           path: "/partners/show/:id",
           name: "PartnerShow",
           component: PartnerShow,
+          meta: {
+            permission_name: "partner read"
+          }
+        },
+        {
+          path: "Partner-payment",
+          name: "PartnerPayments",
+          component: PartnerPayments,
           meta: {
             permission_name: "partner read"
           }

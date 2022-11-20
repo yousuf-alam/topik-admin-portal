@@ -53,7 +53,7 @@
               <option value="08.00AM-11.00AM"> 08:00 AM - 11:00 AM </option>
               <option value="11.00AM-02.00PM"> 11:00 AM - 02:00 PM </option>
               <option value="02.00PM-05.00PM"> 02:00 PM - 05:00 PM </option>
-              <option value="02.00PM-04.00PM"> 05:00 PM - 08:00 PM </option>
+              <option value="05.00PM-08.00PM"> 05:00 PM - 08:00 PM </option>
             </select>
           </b-form-group>
             <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>

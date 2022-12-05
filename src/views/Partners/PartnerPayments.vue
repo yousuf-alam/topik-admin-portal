@@ -11,15 +11,19 @@
               </div>
             </template>-->
             <template slot="action" slot-scope="props">
-              <div class="d-flex">
-                <div @click="approveId(props.row.id)"><span class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.id">
-                                    <i class="fa fa-check-square"></i></span></div>
+              <div class="d-flex" >
+                <div v-if="(props.row.status).toLowerCase() == 'pending' || (props.row.status).toLowerCase() == 'declined'  " @click="approveId(props.row.id)">
+                  <span class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.id">
+                                    <i class="fa fa-check-square"></i></span>
+                </div>
 <!--                <span class="btn btn-warning btn-sm m-1 cursor-pointer"   data-toggle="tooltip" title="Redirect to Partner Portal"-->
 <!--                      @click="declineId(props.row.id)">-->
 <!--                    <i class="fa fa-times-circle"></i>-->
 <!--                </span>-->
-                <div @click="declineId(props.row.id)"><span class="btn btn-warning btn-sm m-1 cursor-pointer" data-toggle="tooltip" title="Show" :href="props.row.id">
-                  <i class="fa fa-times-circle"></i></span></div>
+                <div v-else-if="(props.row.status).toLowerCase() == 'approved'" @click="declineId(props.row.id)">
+                  <span class="btn btn-warning btn-sm m-1 cursor-pointer" data-toggle="tooltip" title="Show" :href="props.row.id">
+                  <i class="fa fa-times-circle"></i></span>
+                </div>
 
 
               </div>

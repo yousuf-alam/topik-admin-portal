@@ -121,6 +121,7 @@ import UserEdit from "../views/AccessControl/users/UserEdit";
 
 import TestComponent from "../views/Test/TestComponent";
 import TestOrders from "../views/Test/TestOrders";
+import PartnerCalender from "../views/Calendar/PartnerCalender";
 
 import store from "../store/store";
 Vue.use(Router);
@@ -691,6 +692,14 @@ const router = new Router({
           component: DetailsReport,
           meta: {
             permission_name: permissionsList.document
+          }
+        },
+        {
+          path: "partner/calender",
+          name: "Partner Calender",
+          component: PartnerCalender,
+          meta: {
+            permission_name: permissionsList.reports
           }
         },
         {

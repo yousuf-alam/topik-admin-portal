@@ -234,6 +234,12 @@ const navitems = {
       permission_name: [...permissionsList.reports, ...permissionsList.thirdparty]
     },
     {
+      name: 'Parnter Calender',
+      url: '/partner/calender',
+      icon: 'fa fa-file-word-o',
+      permission_name: [...permissionsList.reports, ...permissionsList.thirdparty]
+    },
+    {
       name: 'Old Reports',
       url: '/oldreports',
       icon: 'fa fa-file-word-o',

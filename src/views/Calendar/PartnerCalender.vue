@@ -81,8 +81,8 @@
                                         <span>Total Partners: <strong>{{ slotItem.count }}</strong> </span>
                                     </div>
                                     <div class="user-item nowrap">
-                                        <div class="user-item-list" v-html="showPartnerList(slotItem.partners)"></div>
-                                        <span class="user-item-span" @click="showSingleData(slotItemIndex, slotItem.partners)">More...</span>
+                                        <div class="user-item-list" v-html="showPartnerList(slotItem.partners,'#e05080')"></div>
+                                        <span v-if="slotItem.count > 4" class="user-item-span" @click="showSingleData(slotItemIndex, slotItem.partners)">More...</span>
                                     </div>
                                 </div>
                             </div>
@@ -158,8 +158,8 @@ export default {
     }),
     created() {
         var now = new Date();
-        this.date_range.start = moment(now).subtract(7, "days").format("YYYY-MM-DD");
-        this.date_range.end = moment(now).format("YYYY-MM-DD");
+        this.date_range.start = moment(now).format("YYYY-MM-DD");
+        this.date_range.end = moment(now).add(7, "days").format("YYYY-MM-DD");
     },
     mounted() {
         this.searchApi();
@@ -211,17 +211,19 @@ export default {
                 return item+1 + "<sup>th</sup>";
             }
         },
-        showPartnerList(item) {
+        showPartnerList(item, color) {
             let data = "";
             let count = 0;
             for ( var i = 0; i < item.length; i++) {
-                if (count >= 3) {
+                if (count >= 4) {
                     break;
                 }
                 if (item[i].name != null || item[i].name != "" || item[i].name != "null") {
                   let dataMake = `<span style="
-                    color: rgb(34, 33, 61);
-                    border: thin solid #bbb;
+                    /* color: #fff;
+                    background: ${color}; */
+                    color: #4f5f6f;
+                    border: thin solid #999;
                     font-weight: normal;
                     font-size: 12px;
                     padding: 0px 5px;

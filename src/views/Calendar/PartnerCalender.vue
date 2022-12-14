@@ -12,6 +12,7 @@
                         :overlay="true"
                         :range="true"
                         :no-label="true"
+                        @validate="hiddenPicker($event)"
                         label="Select"
                         format="YYYY-MM-DD"
                         formatted="ll"
@@ -33,6 +34,11 @@
             <div class="buttons-group">
                 <div @click="changeDataType('booked')" :class="`btn-item ${active == 'booked' ? 'active' : ''} booked-data`">Booked</div>
                 <div @click="changeDataType('free')" :class="`btn-item ${active == 'free' ? 'active' : ''} free-data`">Free</div>
+            </div>
+            <div class="free-types">
+                <div @click="setFreeType('all')" :class="`free-type-btn ${freeType == 'all' ? 'active' : ''}`">All</div>
+                <div @click="setFreeType('inhouse')" :class="`free-type-btn ${freeType == 'inhouse' ? 'active' : ''}`">In House</div>
+                <div @click="setFreeType('freelancer')" :class="`free-type-btn ${freeType == 'freelancer' ? 'active' : ''}`">Freelancer</div>
             </div>
         </div>
     </div>
@@ -138,6 +144,7 @@ export default {
         apiLoading: false,
         openSingle: false,
         active: "booked",
+        freeType: "all",
         searchBtnText: "Search",
         changed: false,
         date_range: {
@@ -161,6 +168,7 @@ export default {
         changeDataType(type) {
             this.changed = true;
             this.active = type;
+            this.searchApi();
         },
         searchApi() {
             if (this.apiLoading) {
@@ -174,6 +182,7 @@ export default {
                 data: {
                     date_range: this.date_range,
                     type: this.active,
+                    plan: this.freeType
                 }
             })
             .then(response => {
@@ -257,6 +266,15 @@ export default {
                 });
                 this.singleSlot.data = newArray;
             }
+        },
+        setFreeType(type) {
+            this.changed = true;
+            this.freeType = type;
+            this.searchApi();
+        },
+        hiddenPicker(event) {
+            this.changed = true;
+            this.searchApi();
         }
     },
     watch : {
@@ -510,6 +528,29 @@ export default {
                 }
             }
         }
+        .free-types {
+            margin-top: 10px;
+            right: 30px;
+            display: flex;
+            position: absolute;
+            justify-content: flex-end;
+            .free-type-btn {
+                border: thin solid #ff3573;
+                min-width: 56px;
+                padding: 0 5px;
+                margin-left: 5px;
+                text-align: center;
+                border-radius: 0.25rem;
+                color: #ff3573;
+                cursor: pointer;
+                transition: all 200ms linear;
+                font-size: 12px;
+                &:hover, &.active {
+                    background: #ff3573;
+                    color: #fff;
+                }
+            }
+        }
     }
     .btn-search-item {
         border: none;
@@ -574,7 +615,7 @@ export default {
             .item-view {
                 border-width: 1px;
                 border-style: solid;
-                border-image: linear-gradient(45deg, #e91e63, #fff) 30;
+                border-image: linear-gradient(45deg, #ff3573, #fff) 30;
                 display: flex;
                 align-items: flex-start;
                 justify-content: flex-start;

@@ -158,8 +158,8 @@ export default {
     }),
     created() {
         var now = new Date();
-        this.date_range.start = moment(now).subtract(7, "days").format("YYYY-MM-DD");
-        this.date_range.end = moment(now).format("YYYY-MM-DD");
+        this.date_range.start = moment(now).format("YYYY-MM-DD");
+        this.date_range.end = moment(now).add(7, "days").format("YYYY-MM-DD");
     },
     mounted() {
         this.searchApi();
@@ -220,8 +220,9 @@ export default {
                 }
                 if (item[i].name != null || item[i].name != "" || item[i].name != "null") {
                   let dataMake = `<span style="
-                    color: rgb(34, 33, 61);
-                    border: thin solid #bbb;
+                    color: #fff;
+                    background: #c01950;
+                    /*border: thin solid #bbb;*/
                     font-weight: normal;
                     font-size: 12px;
                     padding: 0px 5px;

@@ -545,6 +545,7 @@
           });
       },
       onSubmit() {
+        console.log('hey action');
         let currentObj = this;
         const config = {
           headers: {'content-type': 'multipart/form-data'}
@@ -558,10 +559,10 @@
         formData.append('brand', this.lineitem.brandInfo);
         formData.append('tips', this.lineitem.tips);
         formData.append('benefits', this.lineitem.benefits);
-        formData.append('things_to_know', this.details.things_to_know);
-        formData.append('service_steps', this.details.service_steps);
-        formData.append('products', this.details.products);
-        formData.append('services', this.details.services);
+        formData.append('things_to_know', this.lineitem.things_to_know);
+        formData.append('service_steps', this.lineitem.service_steps);
+        formData.append('products', this.lineitem.products);
+        formData.append('services', this.lineitem.services);
         formData.append('recommendation', this.lineitem.recommendation);
         formData.append('duration', this.lineitem.duration);
         formData.append('description', this.lineitem.description);

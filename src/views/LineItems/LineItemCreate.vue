@@ -9,7 +9,7 @@
             <div class="col-sm-9">
               <select @change="getCategories" class='form-control' v-model="service_id">
                 <option disabled selected value="0">Select Service</option>
-                <option :value="serv.id" v-for="serv in services" :key="serv.id">{{ serv.name }}</option>
+                <option :value="serv.id" v-for="serv in service" :key="serv.id">{{ serv.name }}</option>
               </select>
             </div>
           </div>
@@ -35,6 +35,12 @@
             <label class="col-sm-3 col-form-label">Name *</label>
             <div class="col-sm-9">
               <input class="form-control" name="name" type="text" v-model="name" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Name Bang*</label>
+            <div class="col-sm-9">
+              <input class="form-control" name="name_bang" type="text" v-model="name_bang" required>
             </div>
           </div>
 
@@ -265,6 +271,30 @@
               <input class="form-control" v-model="details.tips" type="text">
             </div>
           </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Service Steps</label>
+              <div class="col-sm-9">
+                <input class="form-control" v-model="details.service_steps" type="text">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Things to Know</label>
+              <div class="col-sm-9">
+                <input class="form-control" v-model="details.things_to_know" type="text">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Products</label>
+              <div class="col-sm-9">
+                <input class="form-control" v-model="details.products" type="text">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Services</label>
+              <div class="col-sm-9">
+                <input class="form-control" v-model="details.services" type="text">
+              </div>
+            </div>
           </div>
         </tab-content>
 
@@ -389,7 +419,7 @@
         answer: [],
         new_question: "",
 
-        services: '',
+        service: '',
         categories: '',
         subcategories: '',
         service_id: '0',
@@ -397,11 +427,17 @@
         subcategory_id: '',
         subcategory: [],
         name: '',
+        name_bang:'',
         details: {
           brand: '',
           recommendation: '',
           tips: '',
           benefits: '',
+          service_steps:'',
+          things_to_know:'',
+          products:'',
+          services:'',
+
         },
         duration: '',
         validity:'',
@@ -439,7 +475,7 @@
       axios.get(`${ADMIN_URL}/services`)
         .then(response => {
           console.log('At created(), LineItemCreate ===== ', response);
-          this.services = response.data;
+          this.service = response.data;
         })
         .catch(e => {
           //console.log("error occurs");
@@ -679,6 +715,7 @@
 
           let formData = new FormData();
           formData.append('name', this.name);
+          formData.append('name_bang', this.name_bang);
           formData.append('service_id', this.service_id);
           formData.append('category_id', this.category_id);
           formData.append('subcategory_id', this.subcategory_id);
@@ -694,6 +731,11 @@
           formData.append('tips', this.details.tips);
           formData.append('benefits', this.details.benefits);
           formData.append('recommendation', this.details.recommendation);
+          //
+          formData.append('things_to_know', this.details.things_to_know);
+          formData.append('service_steps', this.details.service_steps);
+          formData.append('products', this.details.products);
+          formData.append('services', this.details.services);
           formData.append('faq', JSON.stringify(this.faqs));
           formData.append('thumbnail', this.thumbnail);
           formData.append('banner_web', this.banner_web);

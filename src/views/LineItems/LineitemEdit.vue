@@ -7,6 +7,10 @@
             <label>Name</label>
             <input class="form-control" type="text" v-model="lineitem.name">
           </div>
+          <div class="form-group">
+            <label>Name Bang</label>
+            <input class="form-control" type="text" v-model="lineitem.name_bang">
+          </div>
           <div v-show="lineitem.pricing_type==='fixed'" class="form-group">
             <label>Price</label>
             <input class="form-control" type="number" v-model="lineitem.fixed_price">
@@ -214,6 +218,22 @@
             <label>Tips For Customer</label>
             <input class="form-control" v-model="lineitem.tips" type="text">
           </div>
+          <div class="form-group">
+            <label>Sevice Steps</label>
+            <input class="form-control" v-model="lineitem.service_steps" type="text">
+          </div>
+          <div class="form-group">
+            <label>Things to Know</label>
+            <input class="form-control" v-model="lineitem.things_to_know" type="text">
+          </div>
+          <div class="form-group">
+            <label>Products</label>
+            <input class="form-control" v-model="lineitem.products" type="text">
+          </div>
+          <div class="form-group">
+            <label>Services</label>
+            <input class="form-control" v-model="lineitem.services" type="text">
+          </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label"></label>
             <div class="col-sm-9">
@@ -300,6 +320,7 @@
         lineitem: {
           id: '',
           name: '',
+          name_bang:'',
           service_id: '',
           category_id: '',
           subcategory_id: '',
@@ -314,6 +335,10 @@
             recommendation: '',
             tips: '',
             benefits: '',
+            things_to_know: '',
+            service_steps: '',
+            products: '',
+            services:'',
           },
           duration: '',
           pricing_type: '',

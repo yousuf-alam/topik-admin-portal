@@ -552,11 +552,16 @@
         let formData = new FormData();
         formData.append('id', this.lineitem.id);
         formData.append('name', this.lineitem.name);
+        formData.append('name_bang', this.lineitem.name_bang);
         formData.append('published_status', this.lineitem.published_status);
         formData.append('subscribable', this.lineitem.subscribable);
         formData.append('brand', this.lineitem.brandInfo);
         formData.append('tips', this.lineitem.tips);
         formData.append('benefits', this.lineitem.benefits);
+        formData.append('things_to_know', this.details.things_to_know);
+        formData.append('service_steps', this.details.service_steps);
+        formData.append('products', this.details.products);
+        formData.append('services', this.details.services);
         formData.append('recommendation', this.lineitem.recommendation);
         formData.append('duration', this.lineitem.duration);
         formData.append('description', this.lineitem.description);

@@ -127,6 +127,9 @@ import store from "../store/store";
 Vue.use(Router);
 
 import globalvariable from "../globalvariables";
+import RedeemShow from "@/views/Redeem/RedeemShow";
+import CreateRedeem from "@/views/Redeem/CreateRedeem";
+import EditRedeem from "@/views/Redeem/EditRedeem";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -554,6 +557,30 @@ const router = new Router({
           path: "/test-line-items/create",
           name: "TestLineItemCreate",
           component: TestLineItemCreate,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/redeem",
+          name: "RedeemShow",
+          component: RedeemShow,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/redeem-create",
+          name: "CreateRedeem",
+          component: CreateRedeem,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-redeem/:id",
+          name: "EditRedeem",
+          component: EditRedeem,
           meta: {
             permission_name: "lineitem create"
           }

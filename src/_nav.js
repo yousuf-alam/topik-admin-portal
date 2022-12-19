@@ -103,6 +103,12 @@ const navitems = {
       permission_name: permissionsList.lineitem
     },
     {
+      name: 'Redeem',
+      url: '/redeem',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
       name: 'Location',
       url: '/locations',
       icon: 'icon-location-pin',
@@ -239,12 +245,14 @@ const navitems = {
       icon: 'fa fa-file-word-o',
       permission_name: [...permissionsList.reports, ...permissionsList.thirdparty]
     },
+
     {
       name: 'Old Reports',
       url: '/oldreports',
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.admin
     },
+
     {
       name: 'Otps',
       url: '/otps',

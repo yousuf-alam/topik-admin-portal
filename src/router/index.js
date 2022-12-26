@@ -130,6 +130,8 @@ import globalvariable from "../globalvariables";
 import RedeemShow from "@/views/Redeem/RedeemShow";
 import CreateRedeem from "@/views/Redeem/CreateRedeem";
 import EditRedeem from "@/views/Redeem/EditRedeem";
+import ShowSlot from "@/views/SlotCount/ShowSlot";
+import CreateSlot from "@/views/SlotCount/CreateSlot";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -581,6 +583,22 @@ const router = new Router({
           path: "/edit-redeem/:id",
           name: "EditRedeem",
           component: EditRedeem,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/slot-count",
+          name: "ShowSlot",
+          component: ShowSlot,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/slot-create",
+          name: "CreateSlot",
+          component: CreateSlot,
           meta: {
             permission_name: "lineitem create"
           }

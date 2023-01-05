@@ -3,17 +3,26 @@
     <b-tabs card pills>
       <b-tab active title="Create Slot">
         <b-card-text>
-          <b-form-group label="Scheduled Date">
-            <datepicker input-class="date-input" @input="changeDateFormat()" v-model="date" ></datepicker>
-          </b-form-group>
+<!--          <b-form-group label="Scheduled Date">-->
+<!--            <datepicker input-class="date-input" @input="changeDateFormat()" v-model="date" ></datepicker>-->
+<!--          </b-form-group>-->
           <div class="form-group">
-            <label>Time Slot</label>
-            <select class="form-control" v-model="time_slot">
+            <label>Select Type</label>
+            <select class="form-control" v-model="type">
+              <option value="slot"> Slot </option>
+              <option value="cancel"> Cancel </option>
+
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Name</label>
+            <select class="form-control" v-model="time_slot" v-if="type ==='slot'">
               <option value="08.00AM-11.00AM"> 08:00 AM - 11:00 AM </option>
               <option value="11.00AM-02.00PM"> 11:00 AM - 02:00 PM </option>
               <option value="02.00PM-05.00PM"> 02:00 PM - 05:00 PM </option>
               <option value="05.00PM-08.00PM"> 05:00 PM - 08:00 PM </option>
             </select>
+            <input class="form-control" type="text" v-model="time_slot" v-if="type === 'cancel'" >
           </div>
           <div  class="form-group">
             <label>No Of Served</label>
@@ -40,7 +49,7 @@ export default {
   },
   data(){
     return {
-      date:'',
+      type:'',
       time_slot:'',
       no_of_served:''
     }
@@ -51,7 +60,7 @@ export default {
 
 
       let formData = {
-        date:this.date,
+        type:this.type,
         time_slot:this.time_slot,
         no_of_served:this.no_of_served
       }

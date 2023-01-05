@@ -55,7 +55,7 @@ export default {
     return {
       slotCount : [],
       columns: [
-        'id', 'date', 'time_slot', 'no_of_served','user_id', 'created_at'
+        'id', 'type', 'name', 'value','user_id', 'created_at'
       ],
 
       options: {

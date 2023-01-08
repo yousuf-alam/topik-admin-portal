@@ -17,10 +17,10 @@
           <div class="form-group">
             <label>Name</label>
             <select class="form-control" v-model="time_slot" v-if="type ==='slot'">
-              <option value="08.00AM-11.00AM"> 08:00 AM - 11:00 AM </option>
-              <option value="11.00AM-02.00PM"> 11:00 AM - 02:00 PM </option>
-              <option value="02.00PM-05.00PM"> 02:00 PM - 05:00 PM </option>
-              <option value="05.00PM-08.00PM"> 05:00 PM - 08:00 PM </option>
+              <option value="max_orders_in_8am_to_11am"> 08:00 AM - 11:00 AM </option>
+              <option value="max_orders_in_11am_to_2pm"> 11:00 AM - 02:00 PM </option>
+              <option value="max_orders_in_2pm_to_5pm"> 02:00 PM - 05:00 PM </option>
+              <option value="max_orders_in_5pm_to_8pm"> 05:00 PM - 08:00 PM </option>
             </select>
             <input class="form-control" type="text" v-model="time_slot" v-if="type === 'cancel'" >
           </div>

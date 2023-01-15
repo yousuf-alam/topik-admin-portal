@@ -29,8 +29,6 @@
             <input class="form-control" type="text" v-model="no_of_served" >
           </div>
 
-
-
           <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Slot
           </b-button>
         </b-card-text>

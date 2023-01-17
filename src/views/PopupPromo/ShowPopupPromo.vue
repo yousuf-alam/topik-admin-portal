@@ -65,7 +65,7 @@ export default {
       ],
       BASE_URL:BASE_URL,
       ADMIN_URL:ADMIN_URL,
-      src_image : 'images/b2c_assets/',
+      src_image : 'images/popup/',
 
 
       options: {

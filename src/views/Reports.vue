@@ -174,7 +174,8 @@ export default {
         "Job Served",
         "Total Service Value",
         "SP Commission",
-        "Romoni Revenue"
+        "Romoni Revenue",
+        "Sp Conveyance"
       ],
       inhousespcolumns: [
         "Time",

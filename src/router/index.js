@@ -135,6 +135,9 @@ import CreateSlot from "@/views/SlotCount/CreateSlot";
 import ShowPopupPromo from "@/views/PopupPromo/ShowPopupPromo";
 import CreatePopup from "@/views/PopupPromo/CreatePopup";
 import EditPopupPromo from "@/views/PopupPromo/EditPopupPromo";
+import FeedShow from "@/views/Feed/FeedShow";
+import CreateFeed from "@/views/Feed/CreateFeed";
+import EditFeed from "@/views/Feed/EditFeed.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -626,6 +629,30 @@ const router = new Router({
           path: "/edit-popup/:id",
           name: "EditPopupPromo",
           component: EditPopupPromo,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/feed-show",
+          name: "FeedShow",
+          component: FeedShow,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/create-feed",
+          name: "CreateFeed",
+          component: CreateFeed,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-feed/:id",
+          name: "EditFeed",
+          component: EditFeed,
           meta: {
             permission_name: "lineitem create"
           }

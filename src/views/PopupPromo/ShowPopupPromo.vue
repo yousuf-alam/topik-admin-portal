@@ -13,6 +13,7 @@
         </router-link>
       </div>
     </div>
+
     <b-row>
       <b-col>
         <b-card>
@@ -22,6 +23,26 @@
                 <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;">
               </div>
             </template>
+            <template slot="is_active" slot-scope="props">
+            <div v-if="props.row.is_active == true">
+
+              Active
+
+            </div>
+
+              <div v-if="props.row.is_active == false">
+
+                Deactived
+
+              </div>
+
+
+
+
+
+
+          </template>
+
             <template slot="action" slot-scope="props">
                             <div>
                               <router-link :to="{ name: 'EditPopupPromo', params: { id: props.row.id }}"
@@ -61,7 +82,7 @@ export default {
     return {
       popupPromo : [],
       columns: [
-        'image', 'title', 'description', 'type','button_text', 'action'
+        'image', 'title', 'description', 'type','button_text','is_active', 'action'
       ],
       BASE_URL:BASE_URL,
       ADMIN_URL:ADMIN_URL,
@@ -83,8 +104,10 @@ export default {
 
     axios.get(`${ADMIN_URL}/popup/get-popup`)
         .then(response => {
-          console.log('response',response);
+
           this.popupPromo = response.data.data;
+          // this.popupPromo = response.data.data.map(function (item){return item.assign({}, item, item.is_active="true")})
+          console.log('resepnse pormo',this.popupPromo);
         })
         .catch(e => {
           console.log("error occurs", e.response);

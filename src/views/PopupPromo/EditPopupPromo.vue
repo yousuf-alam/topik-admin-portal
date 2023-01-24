@@ -5,24 +5,32 @@
         <b-card-text>
           <div class="form-group">
             <label>Type</label>
-            <input class="form-control" type="text" v-model="type"  :placeholder="this.type">
+            <input class="form-control" type="text" v-model="type" :disabled="isDisabled">
           </div>
           <div class="form-group" v-if="this.type ==='clickable' || this.type === 'data_collector'">
             <label>Title</label>
-            <input class="form-control" type="text" v-model="title" :placeholder="this.title">
+            <input class="form-control" type="text" v-model="title">
           </div>
           <div  class="form-group" v-if="this.type ==='clickable' || this.type === 'data_collector'">
             <label>Description</label>
-            <input class="form-control" type="text" v-model="description" :placeholder="this.description">
+            <input class="form-control" type="text" v-model="description" >
           </div>
           <div  class="form-group" v-if="this.type ==='clickable'">
             <label>Link</label>
-            <input class="form-control" type="text" v-model="link" :placeholder="this.link">
+            <input class="form-control" type="text" v-model="link" >
           </div>
 
           <div  class="form-group" v-if="this.type ==='clickable' || this.type === 'data_collector'">
             <label>Button Text</label>
-            <input class="form-control" type="text" v-model="buttonText" :placeholder="this.buttonText">
+            <input class="form-control" type="text" v-model="buttonText">
+          </div>
+
+          <div  class="form-group">
+            <label>Is  Active</label>
+            <select class="form-control" v-model="isActive">
+              <option value="1"> True</option>
+              <option value="0"> False </option>
+            </select>
           </div>
 
           <div  class="form-group" v-if="this.type ==='clickable' || this.type === 'image'">
@@ -61,7 +69,9 @@ export default {
       oldDescription:'',
       oldButtonText:'',
       oldLink:'',
-      popupItems:[]
+      popupItems:[],
+      isActive:null,
+      isDisabled: true
     }
   },
   created() {
@@ -81,6 +91,7 @@ export default {
             this.description = this.popupItems.description;
             this.link = this.popupItems.link;
             this.buttonText = this.popupItems.button_text;
+            this.isActive = this.popupItems.is_active;
             // console.log('redeem id data',this.popupItems);
           })
           .catch(e => {
@@ -106,6 +117,7 @@ export default {
       formData.append('description', this.description);
       formData.append('button_text', this.buttonText);
       formData.append('link', this.link);
+      formData.append('is_active', this.isActive);
       formData.append('image', this.image);
 
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;

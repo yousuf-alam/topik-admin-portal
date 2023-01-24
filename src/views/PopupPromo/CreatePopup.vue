@@ -37,7 +37,15 @@
             <input class="form-control" type="text" v-model="buttonText"  >
           </div>
 
-          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Slot
+          <div  class="form-group">
+            <label>Is  Active</label>
+            <select class="form-control" v-model="isActive">
+              <option value="1"> True</option>
+              <option value="0"> False </option>
+            </select>
+          </div>
+
+          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Popup
           </b-button>
         </b-card-text>
       </b-tab>
@@ -58,7 +66,9 @@ export default {
       selectedFile:'',
       buttonText:'',
       link:'',
-      image:''
+      image:'',
+      isActive:'',
+
 
 
     }
@@ -84,6 +94,7 @@ export default {
       formData.append('description', this.description);
       formData.append('button_text', this.buttonText);
       formData.append('link', this.link);
+      formData.append('is_active', this.isActive);
 
       formData.append('image', this.image);
 

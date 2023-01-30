@@ -7,9 +7,10 @@
           <div class="form-group">
             <label>Select Type</label>
             <select class="form-control" v-model="type">
-              <option value="pool"> Pool</option>
+              <option value="pool"> Poll</option>
               <option value="image"> Image </option>
               <option value="video"> Video </option>
+              <option value="multiple_image"> Multiple Image </option>
 
             </select>
           </div>
@@ -38,6 +39,15 @@
               <b-button variant="primary" @click="addField" class="mt-2">Add Poll Option</b-button>
 
           </div>
+<!--          <img :src="demoimage" v-if="demoimage" alt="" ref="demoimage">-->
+          <div  class="form-group" v-if="type === 'multiple_image'">
+            <label>Upload multiple Image</label>
+            <div v-for="(image, index) in images" :key="index">
+              <input   type="file"  @change="getFileValue(index, $event.target)" class="mt-2 form-control">
+            </div>
+            <b-button variant="primary" @click="addImage" class="mt-2">Add image uploader</b-button>
+
+          </div>
 
           <b-button @click="onSubmit" variant="primary" ><i class="fa fa-dot-circle-o"></i> Create Feed
           </b-button>
@@ -62,7 +72,15 @@ export default {
       url:'',
       image:'',
       options:[],
-      fields: [{ value: "" }]
+      fields: [{ value: "" }],
+      images:[{image:"",
+        ext:null,
+        name:null
+
+      }],
+      demoimage:null
+
+
 
 
     }
@@ -75,18 +93,45 @@ export default {
     updateFieldValue(index, value) {
       this.fields[index].value = value;
     },
+    getFileValue(index,target){
+
+      let file=target.files[0]
+      // console.log(file
+      let ext = file.type.replace('image/','')
+      let name = file.name
+      this.images[index].ext=ext;
+      this.images[index].name=name;
+      const reader = new FileReader();
+      reader.onload = (res) => {
+          this.images[index].image=res.target.result;
+        };
+        reader.onerror = (err) => console.log(err);
+        reader.readAsDataURL(file);
+    },
     addField() {
       this.fields.push({ value: "" });
     },
+    addImage(){
+      this.images.push({ image: "" });
+    },
+
 
     onImageChange(e) {
       this.image = e.target.files[0];
+    },
+    OnImagesChange(e){
+
     },
     onSubmit(e) {
       let fieldValue = [];
       this.fields.map(ele => {
         fieldValue.push(ele.value);
       });
+
+      // let imageValue =[];
+      // this.images.map(ele=> {
+      //   imageValue.push(ele.image);
+      // });
 
       e.preventDefault();
       let currentObj = this;
@@ -103,6 +148,7 @@ export default {
       formData.append('title', this.title);
       formData.append('description', this.description);
       formData.append('options', JSON.stringify(fieldValue));
+      formData.append('images', JSON.stringify(this.images));
 
       formData.append('url', this.url);
 

@@ -6,7 +6,7 @@
 
           <div class="form-group">
             <label> Type</label>
-            <input class="form-control" type="text" v-model="type"  >
+            <input class="form-control" type="text" v-model="type" :disabled="isDisabled" >
           </div>
           <div class="form-group">
             <label>Title</label>
@@ -59,6 +59,8 @@ export default {
       url:'',
       image:'',
       options:[],
+      isDisabled: true,
+
       fields: [{ name: "" }]
     }
   },

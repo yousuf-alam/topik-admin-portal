@@ -22,6 +22,12 @@
                 <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;">
               </div>
             </template>
+            <template slot="images" slot-scope="props">
+              <div class="center-div">
+                <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;">
+              </div>
+            </template>
+
             <template slot="action" slot-scope="props">
               <div>
                 <router-link :to="{ name: 'EditFeed', params: { id: props.row.id }}"

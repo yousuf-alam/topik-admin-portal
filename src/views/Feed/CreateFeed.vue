@@ -7,7 +7,7 @@
           <div class="form-group">
             <label>Select Type</label>
             <select class="form-control" v-model="type">
-              <option value="pool"> Poll</option>
+              <option value="poll"> Poll</option>
               <option value="image"> Image </option>
               <option value="video"> Video </option>
               <option value="multiple_image"> Multiple Image </option>
@@ -31,8 +31,8 @@
             <label>URL</label>
             <input class="form-control" type="text" v-model="url" >
           </div>
-          <div  class="form-group" v-if="type === 'pool'">
-            <label>Create Pool Option</label>
+          <div  class="form-group" v-if="type === 'poll'">
+            <label>Create poll Option</label>
               <div v-for="(field, index) in fields" :key="index">
                 <input  v-model="field.value" @input="updateFieldValue(index, $event.target.value)" class="mt-2 form-control">
               </div>

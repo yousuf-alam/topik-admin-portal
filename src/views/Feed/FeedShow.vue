@@ -22,11 +22,11 @@
                 <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;">
               </div>
             </template>
-            <template slot="images" slot-scope="props">
-              <div class="center-div">
-                <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;">
-              </div>
-            </template>
+<!--            <template slot="images" slot-scope="props">-->
+<!--              <div class="center-div">-->
+<!--                <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;">-->
+<!--              </div>-->
+<!--            </template>-->
 
             <template slot="action" slot-scope="props">
               <div>
@@ -71,7 +71,7 @@ export default {
       ],
       BASE_URL:BASE_URL,
       ADMIN_URL:ADMIN_URL,
-      src_image : 'images/popup/',
+      src_image : 'images/feed/',
 
 
       options: {

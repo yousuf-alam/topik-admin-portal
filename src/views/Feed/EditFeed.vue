@@ -33,6 +33,15 @@
             <b-button variant="primary" @click="addField" class="mt-2">Add Poll Option</b-button>
 
           </div>
+          <div  class="form-group">
+            <label>Select Status</label>
+            <select class="form-control" v-model="status">
+              <option value="active"> Active</option>
+              <option value="finished"> Finished </option>
+              <option value="disabled"> Disable </option>
+
+            </select>
+          </div>
 
           <b-button @click="onSubmit" variant="primary" ><i class="fa fa-dot-circle-o"></i> Edit Feed
           </b-button>
@@ -52,6 +61,7 @@ export default {
       feedItems:[],
 
       type:'',
+      status:'',
       title:'',
       description:'',
       selectedFile:'',
@@ -99,10 +109,10 @@ export default {
       this.image = e.target.files[0];
     },
     onSubmit(e) {
-      let fieldValue = [];
-      this.fields.map(ele => {
-        fieldValue.push(ele.name);
-      });
+      // let fieldValue = [];
+      // this.fields.map(ele => {
+      //   fieldValue.push(ele.name);
+      // });
 
       e.preventDefault();
       let currentObj = this;
@@ -112,20 +122,14 @@ export default {
           'Accept' : 'application/json',
         }
       };
-      // console.log('option', fieldValue);
-
       let formData = new FormData();
       formData.append('type', this.type);
       formData.append('title', this.title);
       formData.append('description', this.description);
-      formData.append('options', JSON.stringify(fieldValue));
-
+      // formData.append('options', JSON.stringify(fieldValue));
       formData.append('url', this.url);
-
       formData.append('image', this.image);
-
-
-
+      formData.append('status', this.status);
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
       axios.post(`${ADMIN_URL}/feed/update-feed/${this.feed_id}`, formData)

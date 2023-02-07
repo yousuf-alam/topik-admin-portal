@@ -55,9 +55,12 @@
               <option value="02.00PM-05.00PM"> 02:00 PM - 05:00 PM </option>
               <option value="05.00PM-08.00PM"> 05:00 PM - 08:00 PM </option>
             </select>
-            <b-form-group label="Reason">
-              <input type="text" class="form-control" v-model="order.reason">
-            </b-form-group>
+          </b-form-group>
+          <b-form-group label="Request from customer" class="mt-2">
+            <input type="text" class="form-control" v-model="order.req_from_customer">
+          </b-form-group>
+          <b-form-group label="Internal Notes" class="mt-2">
+            <input type="text" class="form-control" v-model="order.internal_notes">
           </b-form-group>
             <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
 
@@ -414,7 +417,8 @@
         formData.append('partner_id', this.order.partner.id);
         formData.append('location_id', this.order.location_id);
         formData.append('scheduled_time', this.order.scheduled_time);
-        formData.append('reason', this.order.reason);
+        formData.append('req_from_customer', this.order.req_from_customer);
+        formData.append('internal_notes', this.order.internal_notes);
         formData.append('scheduled_date', this.order.scheduled_date);
         formData.append('shipping_name', this.order.shipping_name);
         formData.append('shipping_address',  JSON.stringify(this.order.shipping_address));

@@ -53,6 +53,13 @@
           </option>
         </select>
       </div>
+      <div  class="form-group">
+        <label >Select Status</label>
+        <select class='form-control' v-model="status">
+          <option value="published">Published</option>
+          <option value="unpublished">Unpublished</option>
+        </select>
+      </div>
       <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Edit Banner</b-button>
     </form>
   </b-card>
@@ -74,6 +81,7 @@
         services: '',
         categories: '',
         subcategories: '',
+        status:'',
 
       }
     },
@@ -177,6 +185,7 @@
         formData.append('title', this.banner.title);
         formData.append('description', this.banner.description);
         formData.append('type', this.banner.type);
+        formData.append('status', this.banner.status);
         if(this.image_updated)
         {
           formData.append('image', this.banner.image);

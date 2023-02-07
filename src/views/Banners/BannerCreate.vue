@@ -48,6 +48,13 @@
             <option :value="subcat.id" v-for="subcat in subcategories" :key="subcat.id">{{ subcat.name }}</option>
           </select>
         </div>
+      <div  class="form-group">
+        <label >Select Status</label>
+        <select class='form-control' v-model="status">
+          <option value="published">Published</option>
+          <option value="unpublished">Unpublished</option>
+        </select>
+      </div>
       <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Add Banner</b-button>
     </form>
   </b-card>
@@ -71,6 +78,7 @@
         service_id: '-1',
         category_id: '',
         subcategory_id: '',
+        status:'',
       }
     },
     created() {
@@ -150,6 +158,7 @@
         formData.append('description', this.description);
         formData.append('type', this.type);
         formData.append('image', this.image);
+        formData.append('status', this.status);
 
 
         axios.post(`${ADMIN_URL}/banners/create`,formData,config)

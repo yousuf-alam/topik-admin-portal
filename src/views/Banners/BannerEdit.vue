@@ -55,7 +55,7 @@
       </div>
       <div  class="form-group">
         <label >Select Status</label>
-        <select class='form-control' v-model="status">
+        <select class='form-control' v-model="banner.status">
           <option value="published">Published</option>
           <option value="unpublished">Unpublished</option>
         </select>

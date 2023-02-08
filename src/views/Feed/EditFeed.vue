@@ -18,8 +18,13 @@
             <input class="form-control" type="text" v-model="description"  >
           </div>
           <div  class="form-group" v-if="type === 'image'">
-            <label>Upload Image</label>
-            <input class="form-control" type="file"   v-on:change="onImageChange">
+<!--            <label>Upload Image</label>-->
+<!--            <input class="form-control" type="file"   v-on:change="onImageChange">-->
+              <label>Image</label><br>
+              <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label><br>
+              <img :src="single_image" style="width: 200px; height: 150px;">
+              <input type="file" class="form-control" v-on:change="onImageChange">
+
           </div>
           <div  class="form-group" v-if="type ==='video'">
             <label>URL</label>
@@ -68,8 +73,10 @@ export default {
       buttonText:'',
       url:'',
       image:'',
+      single_image:'',
       options:[],
       isDisabled: true,
+      src_image : '/images/feed/',
 
       fields: [{ name: "" }]
     }
@@ -92,7 +99,9 @@ export default {
             this.description = this.feedItems.description;
             this.url = this.feedItems.url;
             this.buttonText = this.feedItems.button_text;
-            // console.log('redeem id data',this.feedItems);
+            this.status = this.feedItems.status;
+            this.single_image = this.feedItems.single_image;
+            console.log('this imag e url',this.single_image);
           })
           .catch(e => {
             console.log("error occurs", e.response);

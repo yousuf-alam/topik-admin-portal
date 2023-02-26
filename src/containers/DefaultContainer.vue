@@ -53,7 +53,7 @@
         <a href="https://coreui.io">
           Romoni Services Ltd
         </a>
-        <span class="ml-1">&copy; 2019 </span>
+        <span class="ml-1">&copy; {{ new Date().getFullYear() }} </span>
       </div>
     </TheFooter>
   </div>

@@ -127,6 +127,12 @@ const navitems = {
       permission_name: permissionsList.admin
     },
     {
+      name: 'Future Notification',
+      url: '/show-future-notification',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
       name: 'Location',
       url: '/locations',
       icon: 'icon-location-pin',

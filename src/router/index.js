@@ -138,6 +138,9 @@ import EditPopupPromo from "@/views/PopupPromo/EditPopupPromo";
 import FeedShow from "@/views/Feed/FeedShow";
 import CreateFeed from "@/views/Feed/CreateFeed";
 import EditFeed from "@/views/Feed/EditFeed.vue";
+import ShowFutureNotification from "@/views/FutureNotification/ShowFutureNotification.vue";
+import CreateFutureNotification from "@/views/FutureNotification/CreateFutureNotification.vue";
+import EditFutureNotification from "@/views/FutureNotification/EditFutureNotification.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -653,6 +656,30 @@ const router = new Router({
           path: "/edit-feed/:id",
           name: "EditFeed",
           component: EditFeed,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/show-future-notification",
+          name: "ShowFutureNotification",
+          component: ShowFutureNotification,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/create-future-notification",
+          name: "CreateFutureNotification",
+          component: CreateFutureNotification,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-future-notification/:id",
+          name: "EditFutureNotification",
+          component: EditFutureNotification,
           meta: {
             permission_name: "lineitem create"
           }

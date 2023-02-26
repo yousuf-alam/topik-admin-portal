@@ -30,10 +30,11 @@
             <label>URL</label>
             <input class="form-control" type="text" v-model="url" >
           </div>
-          <div  class="form-group" v-if="type === 'pool'">
+          <div  class="form-group" v-if="type === 'poll'">
             <label>Create Pool Option</label>
-            <div v-for="(field, index) in fields" :key="index">
-              <input  v-model="field.name" @input="updateFieldValue(index, $event.target.value)" class="mt-2 form-control">
+            <div v-for="(field, index) in fields" :key="index" class="d-flex gap-1">
+              <input  v-model="field.name" @input="updateFieldValue(index, $event.target.value)" class="mt-2  form-control" >
+              <button type="button" @click="removeField" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-remove-des mt-2">X</button>
             </div>
             <b-button variant="primary" @click="addField" class="mt-2">Add Poll Option</b-button>
 
@@ -77,6 +78,7 @@ export default {
       options:[],
       isDisabled: true,
       src_image : '/images/feed/',
+      show:true,
 
       fields: [{ name: "" }]
     }
@@ -113,15 +115,19 @@ export default {
     addField() {
       this.fields.push({ name: "" });
     },
+    removeField() {
+     this.fields.pop({ name: ""});
+
+    },
 
     onImageChange(e) {
       this.image = e.target.files[0];
     },
     onSubmit(e) {
-      // let fieldValue = [];
-      // this.fields.map(ele => {
-      //   fieldValue.push(ele.name);
-      // });
+      let fieldValue = [];
+      this.fields.map(ele => {
+        fieldValue.push(ele.name);
+      });
 
       e.preventDefault();
       let currentObj = this;
@@ -135,7 +141,7 @@ export default {
       formData.append('type', this.type);
       formData.append('title', this.title);
       formData.append('description', this.description);
-      // formData.append('options', JSON.stringify(fieldValue));
+      formData.append('options', JSON.stringify(fieldValue));
       formData.append('url', this.url);
       formData.append('image', this.image);
       formData.append('status', this.status);
@@ -157,5 +163,7 @@ export default {
 </script>
 
 <style scoped>
-
+.btn-remove-des{
+  height: 35px;
+}
 </style>

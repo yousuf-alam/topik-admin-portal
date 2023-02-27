@@ -8,6 +8,10 @@
             <input class="form-control" type="text" v-model="type" :disabled="isDisabled">
           </div>
           <div class="form-group">
+            <label>Title</label>
+            <input class="form-control" type="text" v-model="title">
+          </div>
+          <div class="form-group">
             <label>message</label>
             <input class="form-control" type="text" v-model="message">
           </div>
@@ -37,6 +41,7 @@ export default {
       message:'',
       days:'',
       lineitem_id:'',
+      title:'',
       contentItems:[],
       isActive:null,
       isDisabled: true
@@ -57,6 +62,7 @@ export default {
             this.message = this.contentItems.message;
             this.type = this.contentItems.type;
             this.days = this.contentItems.days;
+            this.title = this.contentItems.title;
             this.lineitem_id = this.contentItems.lineitem_id;
 
             // console.log('redeem id data',this.contentItems);
@@ -82,6 +88,7 @@ export default {
       formData.append('type', this.type);
       formData.append('message', this.message);
       formData.append('days', this.days);
+      formData.append('title', this.title);
       formData.append('lineitem_id', this.lineitem_id);
 
 

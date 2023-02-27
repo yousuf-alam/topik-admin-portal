@@ -68,7 +68,7 @@ export default {
     return {
       futureNotification : [],
       columns: [
-        'lineitem_name', 'type', 'message', 'days','action'
+        'lineitem_name', 'type', 'title','message', 'days','action'
       ],
       BASE_URL:BASE_URL,
       ADMIN_URL:ADMIN_URL,

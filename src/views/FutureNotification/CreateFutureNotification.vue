@@ -35,6 +35,10 @@
       </select>
     </div>
     <div class="form-group">
+      <label>Enter Title</label>
+      <input class="form-control" type="text" v-model="title"  >
+    </div>
+    <div class="form-group">
       <label>Enter Message</label>
       <input class="form-control" type="text" v-model="message"  >
     </div>
@@ -136,7 +140,8 @@ export default {
       type:'',
       message:'',
       days:'',
-      lineitem_id:''
+      lineitem_id:'',
+      title:''
     }
   },
   mounted() {
@@ -183,6 +188,7 @@ export default {
       let formData = new FormData();
       formData.append('type', this.type);
       formData.append('days', this.days);
+      formData.append('title', this.title);
       formData.append('message', this.message);
       formData.append('lineitem_id', this.selected_service);
 

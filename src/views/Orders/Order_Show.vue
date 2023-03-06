@@ -102,7 +102,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-card title="Order History">
+        <b-card title="Order History" class="scrollable">
           <b-row>
             <b-col
               md="3" sm="3" v-for="(history, key) in order.order_history"
@@ -182,7 +182,7 @@
       <b-row v-if="getUserPermission('admin')">
         <b-col>
           <b-card title="Order Log History">
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered" style="display: block;overflow-x: auto;">
               <thead>
               <tr>
                 <th>Description</th>

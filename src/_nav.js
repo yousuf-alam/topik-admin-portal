@@ -109,6 +109,18 @@ const navitems = {
       permission_name: permissionsList.admin
     },
     {
+      name: 'RewardFaq',
+      url: '/reward-faq',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'RewardStatus',
+      url: '/reward-status',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
       name: 'Slot Count',
       url: '/slot-count',
       icon: 'fa fa-file-word-o',

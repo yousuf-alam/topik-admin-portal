@@ -39,7 +39,7 @@
               <b-button variant="primary" @click="addField" class="mt-2">Add Poll Option</b-button>
 
           </div>
-<!--          <img :src="demoimage" v-if="demoimage" alt="" ref="demoimage">-->
+
           <div  class="form-group" v-if="type === 'multiple_image'">
             <label>Upload multiple Image</label>
             <div v-for="(image, index) in images" :key="index">

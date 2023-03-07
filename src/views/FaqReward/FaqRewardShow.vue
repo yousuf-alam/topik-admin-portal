@@ -1,33 +1,34 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">Redeem</span></h4>
+      <h4><i class="fa fa-bars"></i><span class="ml-1">FaQ Reward</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
 
         </h1>
       </div>
       <div class="">
-        <router-link :to="{ name: 'CreateRedeem'}" >
-          <button class="btn btn-success">Create New Redeem</button>
+        <router-link :to="{ name: 'CreateFaqReward'}" >
+          <button class="btn btn-success">Create New FaqReward</button>
         </router-link>
       </div>
     </div>
     <b-row>
       <b-col>
         <b-card>
-          <v-client-table :data="redeems" :columns="columns" :options="options">
+          <v-client-table :data="faqs" :columns="columns" :options="options">
+
             <template slot="action" slot-scope="props">
               <div>
-<!--                <router-link :to="{ name: 'EditRedeem', params: { id: props.row.id }}"-->
-<!--                             >-->
-<!--                  <span-->
-<!--                      class="btn btn-warning btn-sm m-1"-->
-<!--                      data-toggle="tooltip" title="Edit"-->
-<!--                      :href="props.row.id">-->
-<!--                    <i class="fa fa-edit"></i>-->
-<!--                  </span>-->
-<!--                </router-link>-->
+                <!--                <router-link :to="{ name: 'EditRedeem', params: { id: props.row.id }}"-->
+                <!--                             >-->
+                <!--                  <span-->
+                <!--                      class="btn btn-warning btn-sm m-1"-->
+                <!--                      data-toggle="tooltip" title="Edit"-->
+                <!--                      :href="props.row.id">-->
+                <!--                    <i class="fa fa-edit"></i>-->
+                <!--                  </span>-->
+                <!--                </router-link>-->
                 <span
                     class="btn btn-danger btn-sm m-1"
                     data-toggle="tooltip"
@@ -49,16 +50,17 @@
 <script>
 import axios from 'axios';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
 export default {
-  name: "RedeemShow",
+  name: "FaqRewardShow",
 
   data() {
     return {
-      redeems : [],
+      faqs : [],
       columns: [
-        'id', 'items', 'sub_items', 'reward_point','name', 'action'
+        'id', 'question', 'answer',  'action'
       ],
-      redeem_id:'',
+      faq_id:'',
       options: {
         pagination: {nav: 'fixed'},
         filterByColumn: true,
@@ -71,10 +73,10 @@ export default {
     }
   },
   created(){
-    axios.get(`${ADMIN_URL}/redeem/get-data`)
+    axios.get(`${ADMIN_URL}/reward-faq/get-faq`)
         .then(response => {
           console.log('response',response);
-          this.redeems = response.data.data;
+          this.faqs = response.data.data;
         })
         .catch(e => {
           console.log("error occurs", e.response);
@@ -88,7 +90,7 @@ export default {
     }
   },
   methods: {
-    handleDelete(redeem_id) {
+    handleDelete(faq_id) {
       this.$swal({
         title: 'Are you sure?',
         type: 'warning',
@@ -97,16 +99,16 @@ export default {
         focusConfirm: false,
       }).then(result => {
         if(result.value) {
-          this.deleteRedeem(redeem_id);
+          this.deleteRedeem(faq_id);
         }
       }).catch(error => {
         // console.log('Sweetalert ERROR');
       });
     },
-    deleteRedeem(redeem_id) {
+    deleteRedeem(faq_id) {
 
-      axios.delete(`${ADMIN_URL}/redeem/delete-redeem/${redeem_id}`
-          )
+      axios.delete(`${ADMIN_URL}/reward-faq/delete-faq/${faq_id}`
+      )
           .then(response => {
             if(response.data.success===true)
             {

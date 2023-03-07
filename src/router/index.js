@@ -141,6 +141,12 @@ import EditFeed from "@/views/Feed/EditFeed.vue";
 import ShowFutureNotification from "@/views/FutureNotification/ShowFutureNotification.vue";
 import CreateFutureNotification from "@/views/FutureNotification/CreateFutureNotification.vue";
 import EditFutureNotification from "@/views/FutureNotification/EditFutureNotification.vue";
+import FaqRewardShow from "@/views/FaqReward/FaqRewardShow.vue";
+import CreateFaqReward from "@/views/FaqReward/CreateFaqReward.vue";
+import EditRewardFaq from "@/views/FaqReward/EditRewardFaq.vue";
+import StatusShow from "@/views/RewardStatus/StatusShow.vue";
+import CreateStatus from "@/views/RewardStatus/CreateStatus.vue";
+import EditStatus from "@/views/RewardStatus/EditStatus.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -596,6 +602,57 @@ const router = new Router({
             permission_name: "lineitem create"
           }
         },
+          //
+        {
+          path: "/reward-faq",
+          name: "FaqRewardShow",
+          component: FaqRewardShow,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/create-reward-faq",
+          name: "CreateFaqReward",
+          component: CreateFaqReward,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-reward-faq/:id",
+          name: "EditRewardFaq",
+          component: EditRewardFaq,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+          //
+        {
+          path: "/reward-status",
+          name: "StatusShow",
+          component: StatusShow,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/create-reward-status",
+          name: "CreateStatus",
+          component: CreateStatus,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-status/:id",
+          name: "EditStatus",
+          component: EditStatus,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+          //
         {
           path: "/slot-count",
           name: "ShowSlot",

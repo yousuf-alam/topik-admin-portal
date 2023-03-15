@@ -50,6 +50,15 @@
               <input class="form-control" type="file" v-on:change="onThumbnailChange">
             </div>
           </div>
+          <div  class="form-group row ">
+            <label class="col-sm-3 col-form-label">Upload multiple Thumbnail *</label>
+            <div class="col-sm-9 " v-for="(image, index) in images" :key="index">
+              <input   type="file"  @change="getFileValue(index, $event.target)" class="mt-2  form-control">
+            </div>
+
+              <b-button  variant="primary" @click="addImage" class="mt-2 ">Add image uploader</b-button>
+
+          </div>
 
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Upload Banner (Web) *</label>
@@ -464,7 +473,12 @@
         bool: true,
         designs: [],
         new_design: {},
-        src_url: ''
+        src_url: '',
+        images:[{image:"",
+          ext:null,
+          name:null
+
+        }],
 
       }
     },
@@ -482,6 +496,24 @@
         });
     },
     methods: {
+      getFileValue(index,target){
+
+        let file=target.files[0]
+        // console.log(file
+        let ext = file.type.replace('image/','')
+        let name = file.name
+        this.images[index].ext=ext;
+        this.images[index].name=name;
+        const reader = new FileReader();
+        reader.onload = (res) => {
+          this.images[index].image=res.target.result;
+        };
+        reader.onerror = (err) => console.log(err);
+        reader.readAsDataURL(file);
+      },
+      addImage(){
+        this.images.push({ image: "" });
+      },
         updatePrice(){
         let ques = this.question_data;
         let price_table = [];
@@ -744,6 +776,7 @@
           formData.append('banner_ios', this.banner_android);
 
           formData.append('validity', JSON.stringify(this.validity));
+          formData.append('images', JSON.stringify(this.images));
           // formData.append('validity["end"]', this.validity.end);
 
 

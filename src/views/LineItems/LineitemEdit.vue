@@ -51,8 +51,9 @@
             <label class="col-md-3 control-label">Thumbnail</label>
             <div class="col-md-9">
               <div class="fileinput fileinput-new" data-provides="fileinput">
-                <div class="fileinput-new thumbnail">
-                  <img :src="url_thumbnail" style="width: 200px; height: 150px;">
+                <div class="fileinput-new thumbnail " v-for="url_multi in multiple_thumbnail_url " >
+                  <img :src="url_multi" style="width: 200px; height: 150px; margin-top: 10px">
+                  <button class="delete-thumbnail" @click="onDeleteThumbnil(url_multi)">Delete</button>
                 </div>
                 <div>
                     <span class="btn default btn-file">
@@ -354,6 +355,8 @@
         wc_products: [],
         selected_products: [],
         url_thumbnail: '',
+        url_multi_thumbnail:'',
+        multiple_thumbnail_url:[],
         url_banner_web: '',
         url_banner_tab: '',
         url_banner_android: '',
@@ -388,6 +391,35 @@
 
     },
     methods: {
+      onDeleteThumbnil(item) {
+       let value =item.slice(62,item.length);
+        console.log('hey delete thumbnail');
+        let currentObj = this;
+        const config = {
+          headers: {'content-type': 'multipart/form-data'}
+        };
+        let formData = new FormData();
+        formData.append('id', this.lineitem.id);
+        formData.append('image_name', value);
+        axios.post(`${Admin_URL}/line-items/delete-thumbnail`, formData, config)
+            .then(function (response) {
+              console.log('Lineitem Update Successful === ', response.data);
+              currentObj.success = response.data.success;
+              if(response.data.success===true)
+              {
+                alert(response.data.message);
+              }
+              else
+              {
+                alert("Something wrong happened");
+              }
+            })
+            .catch(function (error) {
+              currentObj.output = error;
+              console.log('Errorrrrr === ', error.response);
+
+            });
+      },
       fetchData() {
         this.lineitem.id = window.location.pathname.split("/").pop();
           axios.post(`${Admin_URL}/line-items/getLineitem`, { id: this.lineitem.id})
@@ -407,6 +439,15 @@
             this.url_banner_tab = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_bantab}${this.lineitem.banner_tab}`;
             this.url_banner_android = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_banand}${this.lineitem.banner_android}`;
             this.url_banner_ios = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_banios}${this.lineitem.banner_ios}`;
+            this.url_multi_thumbnail = JSON.parse(this.lineitem.multiple_thumbnail);
+            let sumon =[];
+            for (const item in this.url_multi_thumbnail) {
+              let value = this.url_multi_thumbnail[item];
+              let image_item=`${BASE_URL}${this.src_thumbnail}` + value;
+              sumon.push(image_item) ;
+            }
+            this.multiple_thumbnail_url= sumon;
+
             if(this.lineitem.description===null)
             {
                 this.lineitem.description = ''
@@ -571,6 +612,7 @@
         formData.append('price_table', JSON.stringify(this.lineitem.price_table));
         formData.append('designs', JSON.stringify(this.lineitem.designs));
         formData.append('thumbnail', this.lineitem.thumbnail);
+        formData.append('multiple_thumbnail', this.lineitem.thumbnail);
         formData.append('banner_web', this.lineitem.banner_web);
         formData.append('banner_tab', this.lineitem.banner_tab);
         formData.append('banner_android', this.lineitem.banner_android);
@@ -615,5 +657,15 @@
   }
   .top{
     vertical-align: top;
+  }
+  .delete-thumbnail {
+    background-color: #FF3572;
+    padding: 8px;
+    margin-left: 10px;
+    color: #ffffff;
+    border-radius: 8px;
+    border: 2px solid #FF3572;
+    font-size: 14px;
+    font-weight: 700;
   }
 </style>

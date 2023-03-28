@@ -17,6 +17,7 @@
           <option value="beauty-on-demand">Beauty On-Demand Banner</option>
           <option value="tailor-on-demand">Tailor On-Demand Banner</option>
           <option value="middle-banner">Middle Banner</option>
+          <option value="top-deals">Top Deals Banner</option>
           <option v-if="service_id == 7" value="shohoz-top-banner">Shohoz Top Banner</option>
           <option v-if="service_id == 7" value="shohoz-bottom-banner">Shohoz Bottom Banner</option>
         </select>

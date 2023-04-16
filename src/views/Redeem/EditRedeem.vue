@@ -5,15 +5,19 @@
         <b-card-text>
           <div class="form-group">
             <label>Item</label>
-            <input class="form-control" type="text" v-model="items"  :placeholder="this.oldItem">
+            <input class="form-control" type="text" v-model="items"   :disabled="isDisabled" >
           </div>
           <div class="form-group">
             <label>Sub Item</label>
-            <input class="form-control" type="text" v-model="sub_items" :placeholder="this.oldSubItem">
+            <input class="form-control" type="text" v-model="sub_items"  :disabled="isDisabled" >
+          </div>
+          <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" type="text" v-model="name"  >
           </div>
           <div  class="form-group">
             <label>Reward Point</label>
-            <input class="form-control" type="text" v-model="reward_point" :placeholder="this.oldRewardPoint">
+            <input class="form-control" type="text" v-model="reward_point">
           </div>
 
 
@@ -38,9 +42,8 @@ export default {
       sub_items:'',
       reward_point:'',
       redeem_id:'',
-      oldItem:'',
-      oldSubItem:'',
-      oldRewardPoint:''
+      name:'',
+      isDisabled: true,
     }
   },
   created() {
@@ -55,9 +58,10 @@ export default {
           .then(response => {
 
             this.redeems = response.data.data;
-            this.oldItem = this.redeems.items;
-            this.oldSubItem = this.redeems.sub_items;
-            this.oldRewardPoint=this.redeems.reward_point;
+            this.items = this.redeems.items;
+            this.sub_items = this.redeems.sub_items;
+            this.name = this.redeems.name;
+            this.reward_point=this.redeems.reward_point;
             console.log('redeem id data',this.redeems);
           })
           .catch(e => {

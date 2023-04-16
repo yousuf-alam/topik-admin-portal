@@ -73,7 +73,8 @@ export default {
       let formData = {
         items:this.items,
         sub_items:this.sub_items,
-        reward_point:this.reward_point
+        reward_point:this.reward_point,
+        name:this.name
       }
 
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;

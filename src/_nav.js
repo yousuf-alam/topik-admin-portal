@@ -109,6 +109,26 @@ const navitems = {
       permission_name: permissionsList.admin
     },
     {
+      name: 'Min Order Amount',
+      url: '/minimum-order-amount',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'First Order Discount',
+      url: '/first-order-discount',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'Min Order Time',
+      url: '/minimum-order-time',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+
+
+    {
       name: 'RewardFaq',
       url: '/reward-faq',
       icon: 'fa fa-file-word-o',
@@ -274,6 +294,12 @@ const navitems = {
       url: '/reports',
       icon: 'fa fa-file-word-o',
       permission_name: [...permissionsList.reports, ...permissionsList.thirdparty]
+    },
+    {
+      name:'Order Number Sp',
+      url:'/order-number-sp',
+      icon:'fa fa-file-word-o',
+      permission_name: permissionsList.admin
     },
     {
       name: 'Parnter Calender',

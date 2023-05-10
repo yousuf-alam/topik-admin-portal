@@ -147,6 +147,16 @@ import EditRewardFaq from "@/views/FaqReward/EditRewardFaq.vue";
 import StatusShow from "@/views/RewardStatus/StatusShow.vue";
 import CreateStatus from "@/views/RewardStatus/CreateStatus.vue";
 import EditStatus from "@/views/RewardStatus/EditStatus.vue";
+import ShowMinimumAmount from "@/views/MinimumOrderAmount/ShowMinimumAmount.vue";
+import CreateMinimumAmount from "@/views/MinimumOrderAmount/CreateMinimumAmount.vue";
+import EditMinimumAmount from "@/views/MinimumOrderAmount/EditMinimumAmount.vue";
+import showDiscount from "@/views/FirstOrderDiscount/ShowDiscount.vue";
+import CreatDiscount from "@/views/FirstOrderDiscount/CreatDiscount.vue";
+import EditDiscount from "@/views/FirstOrderDiscount/EditDiscount.vue";
+import EditMinimumTime from "@/views/MinimumTimeOrder/EditMinimumTime.vue";
+import CreateMinimumTime from "@/views/MinimumTimeOrder/CreateMinimumTime.vue";
+import ShowMinimumTime from "@/views/MinimumTimeOrder/ShowMinimumTime.vue";
+import OrderNumberSp from "@/views/OrderNumberSp.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -602,7 +612,82 @@ const router = new Router({
             permission_name: "lineitem create"
           }
         },
-          //
+
+          //minimum order amount
+        {
+          path: "/minimum-order-amount",
+          name: "ShowMinimumAmount",
+          component: ShowMinimumAmount,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/min-order-amount-create",
+          name: "CreateMinimumAmount",
+          component: CreateMinimumAmount,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-min-order-amount/:id",
+          name: "EditMinimumAmount",
+          component: EditMinimumAmount,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+          // First Order Discount
+        {
+          path: "/first-order-discount",
+          name: "showDiscount",
+          component: showDiscount,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/first-order-discount-create",
+          name: "CreatDiscount",
+          component: CreatDiscount,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-first-order-discount/:id",
+          name: "EditDiscount",
+          component: EditDiscount,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+          //minimum order time
+        {
+          path: "/minimum-order-time",
+          name: "ShowMinimumTime",
+          component: ShowMinimumTime,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/minimum-order-time-create",
+          name: "CreateMinimumTime",
+          component: CreateMinimumTime,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-minimum-order-time/:id",
+          name: "EditMinimumTime",
+          component: EditMinimumTime,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
         {
           path: "/reward-faq",
           name: "FaqRewardShow",
@@ -861,6 +946,15 @@ const router = new Router({
             permission_name: permissionsList.admin
           }
         },
+        {
+          path: "order-number-sp",
+          name: "OrderNumberSp",
+          component: OrderNumberSp,
+          meta: {
+            permission_name: permissionsList.admin
+          }
+        },
+
         {
           path: "reports",
           name: "Reports",

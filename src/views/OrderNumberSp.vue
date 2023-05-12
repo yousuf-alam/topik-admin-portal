@@ -51,8 +51,8 @@
      </div>
 
      <div v-if="dataShow">
-       <table border="1" class="th-st" style="max-height: 500px;overflow-y:scroll;">
-         <thead  style="position: sticky">
+       <table border="1" class="th-st">
+         <thead >
          <tr >
            <th>Date</th>
            <th>Day of Week</th>

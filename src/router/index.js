@@ -157,6 +157,7 @@ import EditMinimumTime from "@/views/MinimumTimeOrder/EditMinimumTime.vue";
 import CreateMinimumTime from "@/views/MinimumTimeOrder/CreateMinimumTime.vue";
 import ShowMinimumTime from "@/views/MinimumTimeOrder/ShowMinimumTime.vue";
 import OrderNumberSp from "@/views/OrderNumberSp.vue";
+import RouteSpDaily from "@/views/RouteSpDaily.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -953,6 +954,14 @@ const router = new Router({
           meta: {
             permission_name: permissionsList.admin
           }
+        },
+        {  path: "route-sp-daily",
+           name: "RouteSpDaily",
+           component: RouteSpDaily,
+          meta: {
+            permission_name: permissionsList.admin
+          }
+
         },
 
         {

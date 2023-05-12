@@ -302,6 +302,13 @@ const navitems = {
       permission_name: permissionsList.admin
     },
     {
+      name: 'Route Sp Daily',
+      url: '/route-sp-daily',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+
+    },
+    {
       name: 'Parnter Calender',
       url: '/partner/calender',
       icon: 'fa fa-file-word-o',

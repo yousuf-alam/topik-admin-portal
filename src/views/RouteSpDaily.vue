@@ -62,10 +62,10 @@
             <tr v-for="item in value.items" :key="item.name">
               <td> - </td>
               <td>{{ item.name }}</td>
-              <td :class="{'black-cell':item.first===false,'sky-cell':item.first===true}"> {{ item.first==true?'':item.first }}</td>
-              <td :class="{'black-cell':item.second===false,'sky-cell':item.second===true}"> {{ item.second==true?'':item.second }}</td>
-              <td :class="{'black-cell':item.third===false,'sky-cell':item.third==true}"> {{ item.third==true?'':item.third }}</td>
-              <td :class="{'black-cell':item.forth===false,'sky-cell':item.forth==true}"> {{  item.forth == true?'':item.forth}}</td>
+              <td :class="{'black-cell':item.first===false,'sky-cell':item.first===true}"> {{ item.first}}</td>
+              <td :class="{'black-cell':item.second===false,'sky-cell':item.second===true}"> {{ item.second}}</td>
+              <td :class="{'black-cell':item.third===false,'sky-cell':item.third==true}"> {{ item.third}}</td>
+              <td :class="{'black-cell':item.forth===false,'sky-cell':item.forth==true}"> {{  item.forth }}</td>
             </tr>
 
             </tbody>

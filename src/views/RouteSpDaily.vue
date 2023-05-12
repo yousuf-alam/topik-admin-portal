@@ -59,13 +59,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in items">
+            <tr v-for="item in value.items" :key="item.name">
               <td> - </td>
               <td>{{ item.name }}</td>
-              <td :class="{'black-cell':item.first===true,'sky-cell':item.first===false}"> {{ value.item }}</td>
-              <td :class="{'black-cell':item.second===true,'sky-cell':item.second===false}"> {{ item.second }}</td>
-              <td :class="{'black-cell':item.third===true,'sky-cell':item.third==false}"> {{ item.third }}</td>
-              <td :class="{'black-cell':item.forth===true,'sky-cell':item.forth==false}"> {{  item.forth }}</td>
+              <td :class="{'black-cell':item.first===false,'sky-cell':item.first===true}"> {{ value.item }}</td>
+              <td :class="{'black-cell':item.second===false,'sky-cell':item.second===true}"> {{ item.second }}</td>
+              <td :class="{'black-cell':item.third===false,'sky-cell':item.third==true}"> {{ item.third }}</td>
+              <td :class="{'black-cell':item.forth===false,'sky-cell':item.forth==true}"> {{  item.forth }}</td>
             </tr>
 
             </tbody>

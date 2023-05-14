@@ -175,9 +175,9 @@ export default {
     }
   },
   mounted() {
-    this.month = '5';
-    this.year = '2023';
-    this.onSubmit();
+    // this.month = '5';
+    // this.year = '2023';
+    // this.onSubmit();
 
 
   },

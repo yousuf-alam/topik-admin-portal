@@ -1,5 +1,5 @@
 <template>
-  <div class=" " style="overflow-x:scroll" >
+  <div class=" " >
 <!--    <div class="cardheading">-->
 <!--      <h4><i class="fa fa-bars"></i><span class="ml-1">Minimum Order</span></h4>-->
 <!--      <div class="">-->
@@ -50,21 +50,67 @@
 
      </div>
 
-     <div v-if="dataShow">
-       <table border="1" class="th-st">
+     <div v-if="dataShow" class="table-container">
+
+       <div class="header-part-item-wrapper">
+         <div class="header-td-items">
+           <div class="fixed-item">
+             <div class="h-td-item">
+               Date
+             </div>
+             <div class="h-td-item">
+               Day of Week
+             </div>
+           </div>
+           <div class="scrollable-item" id="headerTdItem">
+             <div class="h-td-item" v-for="columnItem in columns">
+               {{ columnItem.name }}
+             </div>
+             <div class="h-td-item">
+               Total
+             </div>
+             <div class="h-td-item">
+               Fr
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="table-body-data">
+         <div class="left-bar">
+<!--           <div class="left-header header-fixed-part">-->
+<!--             <div class="head-item">-->
+<!--               Date-->
+<!--             </div>-->
+<!--             <div class="head-item">-->
+<!--               Day of Week-->
+<!--             </div>-->
+<!--           </div>-->
+           <div class="left-body">
+             <div class="left-body-item" v-for="(dateItem, index) in dates" :key="(index) + '-' + dateItem" :class="{ 'divide' : dateItem.line_break == true, 'colorfull' : (index+1) % 8 == 0 || (index+1) == dates.length }">
+                <div class="left-body-item-data">
+                  {{ dateItem.date }}
+                </div>
+                <div class="left-body-item-data">
+                  {{ dateItem.day_of_week }}
+                </div>
+             </div>
+           </div>
+         </div>
+         <div class="table-wrapper">
+          <table border="1" class="th-st">
          <thead >
-         <tr >
-           <th>Date</th>
-           <th>Day of Week</th>
-           <th v-for="columnItem in columns">{{columnItem.name}}</th>
-           <th>Total</th>
-           <th>Fr</th>
+         <tr class="header-fixed-part">
+<!--           <th class="sticky-col">Date</th>-->
+<!--           <th class="sticky-col">Day of Week</th>-->
+<!--           <th v-for="columnItem in columns">{{columnItem.name}}</th>-->
+<!--           <th>Total</th>-->
+<!--           <th>Fr</th>-->
          </tr>
          </thead>
          <tbody>
          <tr v-for="(dateItem, index) in dates" :key="(index) + '-' + dateItem" :class="{ 'divide' : dateItem.line_break == true, 'colorfull' : (index+1) % 8 == 0 || (index+1) == dates.length }">
-           <td style="white-space: nowrap">{{ dateItem.date }}</td>
-           <td>{{dateItem.day_of_week}}</td>
+<!--           <td style="white-space: nowrap" class="sticky-col">{{ dateItem.date }}</td>-->
+<!--           <td class="sticky-col">{{dateItem.day_of_week}}</td>-->
 
            <td v-for="columnItem in dateItem.value"
                :class="{
@@ -82,6 +128,8 @@
 
          </tbody>
        </table>
+       </div>
+       </div>
      </div>
      <div class="noData">
        <span> Please select month and year and submit button</span>
@@ -113,6 +161,8 @@ export default {
       month:'',
       year:'',
       redeem_id:'',
+      tableTdWidth: "160px",
+      tableThWidth120: "120px",
       options: {
         pagination: {nav: 'fixed'},
         filterByColumn: true,
@@ -123,6 +173,13 @@ export default {
       }
 
     }
+  },
+  mounted() {
+    this.month = '5';
+    this.year = '2023';
+    this.onSubmit();
+
+
   },
   // created(){
   //   axios.get(`${ADMIN_URL}/order-number-sp`)
@@ -169,14 +226,16 @@ export default {
             this.dates = response.data.value;
             this.columns=response.data.data;
             this.isExtraEnable = response.data.isExtraEnable;
-
+            setTimeout( (e) => {
+              this.scrollDetection();
+            }, 1000);
             return this.$router.push('/order-number-sp');
 
           })
           .catch(error => {
 
           });
-    }
+    },
     // showCount(partnerItem, result, date) {
     //   let count = 0;
     //
@@ -212,6 +271,14 @@ export default {
     //   // }
     //   return total;
     // }
+    scrollDetection() {
+      $(".table-wrapper").on("scroll", function(e) {
+        let scrollLeft = $(".table-wrapper").scrollLeft();
+        document.getElementById("headerTdItem").scrollLeft = scrollLeft;
+      });
+
+    }
+
   },
 
 }
@@ -220,12 +287,14 @@ export default {
 <style scoped lang="scss">
 .th-st
 {
-
+  position:relative;
+  //overflow: auto;
   tr {
     th {
       white-space: nowrap;
       padding: 5px 10px;
       text-align: center;
+      min-width: v-bind(tableTdWidth);
     }
     td {
       &.red-cell {
@@ -252,6 +321,7 @@ export default {
   td {
     padding: 5px 10px;
     text-align: center;
+    min-width: v-bind(tableTdWidth);
   }
 
 }
@@ -277,5 +347,153 @@ export default {
   font-size: 20px;
   color: #FF3572;
 }
+.table-container {
+  //width: 100%;
+
+  //white-space: nowrap;
+  //position: relative;/* Set the overflow property to enable scrolling */
+  //display: flex;
+  //align-items: flex-start;
+  //flex-direction: column;
+
+  .table-body-data {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 300px; /* Set the height of the table container */
+    overflow-y: auto;
+  }
+  .left-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .head-item {
+      min-width: v-bind(tableThWidth120);
+      flex: 0 50%;
+      text-align: center;
+      background: #fff;
+      padding: 5px;
+      border: thin solid #000;
+      &:nth-last-child(1) {
+        border-left: none;
+        //border-right: none;
+      }
+    }
+  }
+  .left-body {
+
+    .left-body-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+
+      .left-body-item-data {
+        min-width: v-bind(tableThWidth120);
+        flex: 0 50%;
+        text-align: center;
+        background: #fff;
+        padding: 5px;
+        border: thin solid #000;
+        &:nth-last-child(1) {
+          border-left: none;
+          border-top: none;
+          //border-right: none;
+        }
+        &:nth-last-child(2) {
+          //border-left: none;
+          border-top: none;
+        }
+      }
+
+      &.divide {
+        border-bottom: 9px solid #000;
+      }
+      &.colorfull{
+        background: #00c55152 !important;
+      }
+    }
+  }
+  .table-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    table {
+      //width: 100%;
+    }
+  }
+
+}
+
+//table {
+//  width: 230%;
+//  table-layout: fixed; /* Set the table layout to fixed */
+//}
+
+th {
+  //position: sticky;
+  top: 0;
+  background-color: white; /* Set the background color of the header cells */
+}
+
+.table-body {
+  //height: calc(100% - 40px); /* Set the height of the table body */
+  //overflow-y: auto; /* Set the overflow property of the table body to enable vertical scrolling */
+}
+
+.sticky-col {
+  position: -webkit-sticky;
+  position: sticky;
+  //background-color: white;
+}
+
+ .header-fixed-part {
+  //position: absolute;
+   //top: -80px;
+   top: 0;
+ }
+
+ .header-part-item-wrapper {
+   .header-td-items {
+     display: flex;
+     align-items: center;
+     justify-content: flex-start;
+     .fixed-item {
+       display: flex;
+       align-items: center;
+       justify-content: flex-start;
+     }
+      .scrollable-item  {
+        overflow-x: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+     .h-td-item {
+       min-width: 120px;
+       text-align: center;
+       background: #fff;
+       padding: 5px;
+       border: thin solid #000;
+       white-space: nowrap;
+       &:nth-last-child(1) {
+         //border-left: none;
+         border-right: none;
+       }
+     }
+
+     .scrollable-item  {
+       .h-td-item {
+         min-width: v-bind(tableTdWidth);
+         border-right: none;
+       }
+     }
+   }
+ }
+
 
 </style>

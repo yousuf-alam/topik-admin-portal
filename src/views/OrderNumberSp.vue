@@ -50,7 +50,7 @@
 
      </div>
 
-     <div v-if="dataShow" class="table-container">
+     <div v-if="dataShow && columns.length" class="table-container">
 
        <div class="header-part-item-wrapper">
          <div class="header-td-items">
@@ -285,6 +285,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$tableTdWidth:160px;
+$tableThWidth120:120px;
 .th-st
 {
   position:relative;
@@ -294,7 +296,7 @@ export default {
       white-space: nowrap;
       padding: 5px 10px;
       text-align: center;
-      min-width: v-bind(tableTdWidth);
+      min-width: $tableTdWidth;
     }
     td {
       &.red-cell {
@@ -321,7 +323,8 @@ export default {
   td {
     padding: 5px 10px;
     text-align: center;
-    min-width: v-bind(tableTdWidth);
+    //min-width: v-bind(tableTdWidth);
+    min-width: $tableTdWidth
   }
 
 }
@@ -368,7 +371,7 @@ export default {
     align-items: center;
     justify-content: center;
     .head-item {
-      min-width: v-bind(tableThWidth120);
+      min-width: $tableThWidth120;
       flex: 0 50%;
       text-align: center;
       background: #fff;
@@ -390,7 +393,7 @@ export default {
 
 
       .left-body-item-data {
-        min-width: v-bind(tableThWidth120);
+        min-width: $tableThWidth120;
         flex: 0 50%;
         text-align: center;
         background: #fff;
@@ -488,7 +491,7 @@ th {
 
      .scrollable-item  {
        .h-td-item {
-         min-width: v-bind(tableTdWidth);
+         min-width: $tableTdWidth;
          border-right: none;
        }
      }

@@ -211,7 +211,8 @@ export default {
   td {
     padding: 5px 10px;
     text-align: center;
-    min-width: 160px;
+    min-width: 190px;
+    min-height: 100px;
 
   }
 

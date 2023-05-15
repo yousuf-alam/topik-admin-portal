@@ -62,10 +62,26 @@
             <tr v-for="item in value.items" :key="item.name">
               <td> - </td>
               <td>{{ item.name }}</td>
-              <td :class="{'black-cell':item.first===false,'sky-cell':item.first===true}"> {{ item.first==true?'':item.first}}</td>
-              <td :class="{'black-cell':item.second===false,'sky-cell':item.second===true}"> {{ item.second==true?'':item.second}}</td>
-              <td :class="{'black-cell':item.third===false,'sky-cell':item.third==true}"> {{ item.third==true?'':item.third}}</td>
-              <td :class="{'black-cell':item.forth===false,'sky-cell':item.forth==true}"> {{  item.forth==true?'':item.forth }}</td>
+              <td :class="{'black-cell':item.first===false,'sky-cell':item.first===true}">
+               <div class="location-name">{{item.first.name}}</div>
+                <div class="service-name"> {{item.first.service_name}} </div>
+                <div class="total-bill"> {{item.first.total_bill}} </div>
+              </td>
+              <td :class="{'black-cell':item.second===false,'sky-cell':item.second===true}">
+                  <div class="location-name">{{item.second.name}} </div>
+                <div class="service-name"> {{item.second.service_name}} </div>
+                <div class="total-bill"> {{item.second.total_bill}} </div>
+              </td>
+              <td :class="{'black-cell':item.third===false,'sky-cell':item.third==true}">
+                <div class="location-name">{{item.third.name}} </div>
+                <div class="service-name"> {{item.third.service_name}} </div>
+                <div class="total-bill"> {{item.third.total_bill}} </div>
+              </td>
+              <td :class="{'black-cell':item.forth===false,'sky-cell':item.forth==true}">
+                 <div class="location-name">{{item.forth.name}}</div>
+                <div class="service-name"> {{item.forth.service_name}} </div>
+                <div class="total-bill"> {{item.forth.total_bill}} </div>
+              </td>
             </tr>
 
             </tbody>
@@ -195,8 +211,26 @@ export default {
   td {
     padding: 5px 10px;
     text-align: center;
+    min-width: 160px;
+
   }
 
+}
+.location-name{
+  font-size: 13px;
+  font-weight: 700;
+  color: #FF3572;
+}
+.service-name{
+  font-size: 11px;
+  font-weight: 650;
+  color: #0187CE ;
+
+}
+.total-bill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #C10417;
 }
 
 .show-btn {

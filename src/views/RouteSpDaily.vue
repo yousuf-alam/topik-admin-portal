@@ -62,23 +62,23 @@
             <tr v-for="item in value.items" :key="item.name">
               <td> - </td>
               <td>{{ item.name }}</td>
-              <td :class="{'black-cell':item.first===false,'sky-cell':item.first===true}">
+              <td :class="{'paste-cell':item.first.city==='Chittagong','black-cell':item.first===false,'sky-cell':item.first===true}">
                <div class="location-name">{{item.first.name}}</div>
                 <div class="service-name"> {{item.first.service_name}} </div>
                 <div class="total-bill"> {{item.first.total_bill}} </div>
               </td>
-              <td :class="{'black-cell':item.second===false,'sky-cell':item.second===true}">
+              <td :class="{'paste-cell':item.second.city==='Chittagong','black-cell':item.second===false,'sky-cell':item.second===true}">
                   <div class="location-name">{{item.second.name}} </div>
                 <div class="service-name"> {{item.second.service_name}} </div>
                 <div class="total-bill"> {{item.second.total_bill}} </div>
               </td>
-              <td :class="{'black-cell':item.third===false,'sky-cell':item.third==true}">
+              <td :class="{'paste-cell':item.third.city==='Chittagong','black-cell':item.third===false,'sky-cell':item.third==true}">
                 <div class="location-name">{{item.third.name}} </div>
                 <div class="service-name"> {{item.third.service_name}} </div>
                 <div class="total-bill"> {{item.third.total_bill}} </div>
               </td>
-              <td :class="{'black-cell':item.forth===false,'sky-cell':item.forth==true}">
-                 <div class="location-name">{{item.forth.name}}</div>
+              <td :class="{'paste-cell':item.forth.city==='Chittagong','black-cell':item.forth===false,'sky-cell':item.forth==true}">
+                 <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">{{item.forth.name}}</div>
                 <div class="service-name"> {{item.forth.service_name}} </div>
                 <div class="total-bill"> {{item.forth.total_bill}} </div>
               </td>
@@ -183,14 +183,14 @@ export default {
   tr {
     th {
       white-space: nowrap;
-      padding: 5px 10px;
+      padding: 5px 5px;
       text-align: center;
     }
     td {
-      padding: 5px 10px;
+      padding: 5px 5px;
       text-align: center;
       min-width: 190px;
-      height: 75px;
+      height: 60px;
       .location-name{
         font-size: 13px;
         font-weight: 700;
@@ -214,6 +214,12 @@ export default {
       }
       &.sky-cell {
         background-color: #01FFFF;
+        min-width: 190px;
+        min-height: 100px !important;
+      }
+      &.paste-cell {
+        background-color: #9FC5E8;
+        //color: yellow;
         min-width: 190px;
         min-height: 100px !important;
       }

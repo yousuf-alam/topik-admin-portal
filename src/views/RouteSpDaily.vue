@@ -187,52 +187,44 @@ export default {
       text-align: center;
     }
     td {
-      &.red-cell {
-        background-color: #FF0000;
+      padding: 5px 10px;
+      text-align: center;
+      min-width: 190px;
+      height: 75px;
+      .location-name{
+        font-size: 13px;
+        font-weight: 700;
+        color: #FF3572;
       }
-      &.yellow-cell {
-        background-color: #FFD965;
+      .service-name{
+        font-size: 11px;
+        font-weight: 650;
+        color: #0187CE ;
+
       }
-      &.green-cell {
-        background-color: #01FF00;
+      .total-bill {
+        font-size: 11px;
+        font-weight: 700;
+        color: #C10417;
+      }
+      &.black-cell {
+        background-color: #000000;
+        min-width: 190px;
+        min-height: 100px !important;
+      }
+      &.sky-cell {
+        background-color: #01FFFF;
+        min-width: 190px;
+        min-height: 100px !important;
       }
 
     }
-    &.divide {
-      border-bottom: 10px solid #000000;
-    }
-    &.colorfull {
-      background: #00c55152!important;
-      td {
-        background: #00c55152!important;
-      }
-    }
+
   }
-  td {
-    padding: 5px 10px;
-    text-align: center;
-    min-width: 190px;
-    min-height: 100px;
 
-  }
 
 }
-.location-name{
-  font-size: 13px;
-  font-weight: 700;
-  color: #FF3572;
-}
-.service-name{
-  font-size: 11px;
-  font-weight: 650;
-  color: #0187CE ;
 
-}
-.total-bill {
-  font-size: 11px;
-  font-weight: 700;
-  color: #C10417;
-}
 
 .show-btn {
   padding: 10px;
@@ -255,11 +247,6 @@ export default {
   font-size: 20px;
   color: #FF3572;
 }
-.black-cell {
-  background-color: #000000;
-}
-.sky-cell {
-  background-color: #01FFFF;
-}
+
 
 </style>

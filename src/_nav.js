@@ -299,13 +299,13 @@ const navitems = {
       name:'Order Number Sp',
       url:'/order-number-sp',
       icon:'fa fa-file-word-o',
-      permission_name: permissionsList.admin
+      permission_name:[...permissionsList.admin,...permissionsList.complain ]
     },
     {
       name: 'Route Sp Daily',
       url: '/route-sp-daily',
       icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
+      permission_name: [...permissionsList.admin,...permissionsList.complain]
 
     },
     {

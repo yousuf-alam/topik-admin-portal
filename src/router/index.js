@@ -952,14 +952,14 @@ const router = new Router({
           name: "OrderNumberSp",
           component: OrderNumberSp,
           meta: {
-            permission_name: permissionsList.admin
+            permission_name: permissionsList.complain
           }
         },
         {  path: "route-sp-daily",
            name: "RouteSpDaily",
            component: RouteSpDaily,
           meta: {
-            permission_name: permissionsList.admin
+            permission_name: permissionsList.complain
           }
 
         },

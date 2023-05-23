@@ -125,6 +125,11 @@
               <b>৳ {{finance.today.revenue}} </b>
                   GMV
               </li>
+                <li>
+              <i class="fa fa-money mr-2"></i>&nbsp;
+              <b>৳ {{finance.today.amount}} </b>
+                  BDT
+              </li>
 
 
             </span>
@@ -176,6 +181,11 @@
               <li>
               <i class="fa fa-money mr-2"></i>&nbsp;
               <b>৳ {{finance.last_day.revenue}} </b>
+                  GMV
+              </li>
+                 <li>
+              <i class="fa fa-money mr-2"></i>&nbsp;
+              <b>৳ {{finance.last_day.amount}} </b>
                   GMV
               </li>
 
@@ -230,6 +240,11 @@
               <b>৳ {{finance.month.revenue}} </b>
                   GMV
               </li>
+                 <li>
+              <i class="fa fa-money mr-2"></i>&nbsp;
+              <b>৳ {{finance.month.amount}} </b>
+                  BDT
+              </li>
 
 
             </span>
@@ -281,6 +296,11 @@
               <i class="fa fa-money mr-2"></i>&nbsp;
               <b>৳ {{finance.last_month.revenue}} </b>
                   GMV
+              </li>
+                 <li>
+              <i class="fa fa-money mr-2"></i>&nbsp;
+              <b>৳ {{finance.last_month.amount}} </b>
+                  BDT
               </li>
 
 
@@ -334,6 +354,11 @@
               <i class="fa fa-money mr-2"></i>&nbsp;
               <b>৳ {{finance.lifetime.revenue}} </b>
                   GMV
+              </li>
+                <li>
+              <i class="fa fa-money mr-2"></i>&nbsp;
+              <b>৳ {{finance.lifetime.amount}} </b>
+                  BDT
               </li>
 
             </span>

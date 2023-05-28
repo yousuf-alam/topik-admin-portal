@@ -1,5 +1,5 @@
 <template>
-  <div class=" " style="overflow-x:scroll" >
+  <div class=" " style="overflow-x:scroll">
 
     <div class="d-flex gap-20 mb-5  mt-8">
 
@@ -29,73 +29,68 @@
           <option value="2020">2020</option>
           <option value="2021">2021</option>
           <option value="2022">2022</option>
-          <option value="2023" >2023</option>
+          <option value="2023">2023</option>
           <option value="2024">2024</option>
           <option value="2025">2025</option>
         </select>
       </div>
 
 
-
-      <button @click="onSubmit"  class="show-btn"> Show Data
+      <button @click="onSubmit" class="show-btn"> Show Data
       </button>
 
     </div>
 
     <div class="d-flex gap-10  mt-8 mb-6">
-      <div v-for="value in values"  :key="values.dates"  class="d-flex flex-column">
+      <div v-for="value in values" :key="values.dates" class="d-flex flex-column">
         <div class="mt-3 mb-3">
-         <h4>{{value.date}}</h4>
+          <h4>{{ value.date }}</h4>
         </div>
         <div>
           <table class="th-st" border="1" style="margin-right: 20px">
             <thead>
             <tr>
-              <th>Sr.</th>
+
               <th>Providers Name</th>
 
-              <th v-for="columnItem in columns">{{columnItem}}</th>
+              <th v-for="columnItem in columns">{{ columnItem }}</th>
 
             </tr>
             </thead>
             <tbody>
             <tr v-for="item in value.items" :key="item.name">
-              <td> - </td>
+
               <td>{{ item.name }}</td>
               <td :class="{'paste-cell':item.first.city==='Chittagong','black-cell':item.first===false,'sky-cell':item.first===true}">
-               <div class="location-name">{{item.first.name}}</div>
-                <div class="service-name"> {{item.first.service_name}} </div>
-                <div class="total-bill"> {{item.first.total_bill}} </div>
+                <div class="location-name">{{ item.first.name }}</div>
+                <div class="service-name"> {{ item.first.service_name }}</div>
+                <div class="total-bill"> {{ item.first.total_bill }}</div>
               </td>
               <td :class="{'paste-cell':item.second.city==='Chittagong','black-cell':item.second===false,'sky-cell':item.second===true}">
-                  <div class="location-name">{{item.second.name}} </div>
-                <div class="service-name"> {{item.second.service_name}} </div>
-                <div class="total-bill"> {{item.second.total_bill}} </div>
+                <div class="location-name">{{ item.second.name }}</div>
+                <div class="service-name"> {{ item.second.service_name }}</div>
+                <div class="total-bill"> {{ item.second.total_bill }}</div>
               </td>
               <td :class="{'paste-cell':item.third.city==='Chittagong','black-cell':item.third===false,'sky-cell':item.third==true}">
-                <div class="location-name">{{item.third.name}} </div>
-                <div class="service-name"> {{item.third.service_name}} </div>
-                <div class="total-bill"> {{item.third.total_bill}} </div>
+                <div class="location-name">{{ item.third.name }}</div>
+                <div class="service-name"> {{ item.third.service_name }}</div>
+                <div class="total-bill"> {{ item.third.total_bill }}</div>
               </td>
               <td :class="{'paste-cell':item.forth.city==='Chittagong','black-cell':item.forth===false,'sky-cell':item.forth==true}">
-                 <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">{{item.forth.name}}</div>
-                <div class="service-name"> {{item.forth.service_name}} </div>
-                <div class="total-bill"> {{item.forth.total_bill}} </div>
+                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
+                  {{ item.forth.name }}
+                </div>
+                <div class="service-name"> {{ item.forth.service_name }}</div>
+                <div class="total-bill"> {{ item.forth.total_bill }}</div>
               </td>
             </tr>
 
             </tbody>
           </table>
         </div>
-
-
-
       </div>
 
     </div>
-
-
-
 
   </div>
 
@@ -103,21 +98,22 @@
 
 <script>
 import axios from 'axios';
+
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
   name: "RouteSpDaily",
   data() {
     return {
-      items : [],
+      items: [],
       values: [],
       columns: [],
       // dates: ["2023-05-01","2023-05-02","2023-05-03","2023-05-04"],
       isExtraEnable: false,
 
-      dataShow:false,
+      dataShow: false,
 
-      month:'',
-      year:'',
+      month: '',
+      year: '',
 
       options: {
         pagination: {nav: 'fixed'},
@@ -144,8 +140,8 @@ export default {
       // this.dataShow=true;
 
       let formData = {
-        month:this.month,
-        year:this.year,
+        month: this.month,
+        year: this.year,
 
       }
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
@@ -153,15 +149,14 @@ export default {
       axios.post(`${ADMIN_URL}/route-sp-daily`, formData)
           .then(response => {
 
-            this.columns=response.data.columns;
-            this.values=response.data.value;
+            this.columns = response.data.columns;
+            this.values = response.data.value;
             // console.log("values here",this.values);
             // this.items=this.values[0].items;
-            for(let i=0;i<this.values.length;i++)
-            {
-              this.items[i]=this.values[i].items
+            for (let i = 0; i < this.values.length; i++) {
+              this.items[i] = this.values[i].items
             }
-            console.log("item is here",this.items[5]);
+            console.log("item is here", this.items[5]);
 
             return this.$router.push('/route-sp-daily');
 
@@ -177,8 +172,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.th-st
-{
+.th-st {
 
   tr {
     th {
@@ -186,37 +180,44 @@ export default {
       padding: 5px 5px;
       text-align: center;
     }
+
     td {
       padding: 5px 5px;
       text-align: center;
       min-width: 190px;
       height: 60px;
-      .location-name{
+
+      .location-name {
         font-size: 13px;
         font-weight: 700;
         color: #FF3572;
       }
-      .service-name{
+
+      .service-name {
         font-size: 11px;
         font-weight: 650;
-        color: #0187CE ;
+        color: #0187CE;
 
       }
+
       .total-bill {
         font-size: 11px;
         font-weight: 700;
         color: #C10417;
       }
+
       &.black-cell {
         background-color: #000000;
         min-width: 190px;
         min-height: 100px !important;
       }
+
       &.sky-cell {
         background-color: #01FFFF;
         min-width: 190px;
         min-height: 100px !important;
       }
+
       &.paste-cell {
         background-color: #9FC5E8;
         //color: yellow;
@@ -239,12 +240,13 @@ export default {
   font-weight: 700;
   border-radius: 10px;
   margin-left: 30px;
-  border:2px solid #ffffff;
+  border: 2px solid #ffffff;
   height: 43px;
   margin-top: 25px;
   width: 100px;
 
 }
+
 .noData {
   text-align: center;
   margin-top: 20px;

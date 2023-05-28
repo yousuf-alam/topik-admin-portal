@@ -27,12 +27,12 @@
               <span>{{order.scheduled_date}}</span></h6></li>
             <li><h6><span class="font-weight-bold">  Scheduled Time : </span>
               <span> {{order.scheduled_time}}</span></h6></li>
-            <li><h6><span class="font-weight-bold">  Payment Method : </span><span>{{order.payment_method}}</span>
-            </h6></li>
+<!--            <li><h6><span class="font-weight-bold">  Payment Method : </span><span>{{order.payment_method}}</span>-->
+<!--            </h6></li>-->
             <li><h6><span class="font-weight-bold">  Total Bill : </span><span>{{order.total_bill}}</span></h6></li>
-            <!--<li><h6><span class="font-weight-bold">  Commission Recieved : </span>
-              <span class=" ml-2 badge badge-danger">no</span>
-            </h6></li>-->
+            <li><h6><span class="font-weight-bold">  Request From Customer : </span><span >{{order.request_from_customer}}</span></h6></li>
+            <li><h6><span class="font-weight-bold">  Internal Notes : </span><span>{{order.internal_notes}}</span></h6></li>
+
           </ul>
         </b-card>
       </b-col>
@@ -48,6 +48,8 @@
               <span>{{order.location}}</span></h6></li>
             <li><h6><span class="font-weight-bold">  Delivery Contact : </span>
               <span>{{order.shipping_phone}}</span></h6></li>
+            <li><h6><span class="font-weight-bold">  Payment Method : </span>
+              <span>{{order.payment_method}}</span></h6></li>
 
           </ul>
           <br>
@@ -161,16 +163,20 @@
                 md="6" sm="6" v-for="(previous_order, key) in order.previous_orders"
                 :key="key">
                 <div v-if="previous_order!==null">
-                  <b-card class="card-accent-danger font-weight-bold" v-bind:header="'Created at'">
-                    <h5 class="card-title font-weight-bold">{{previous_order.created_at}}</h5>
-                    <p>
-                      <span>Partner Name:</span><span class=" ml-2 font-weight-bold">{{previous_order.partner}}</span><br>
-                      <span>Partner Phone:</span><span class=" ml-2 font-weight-bold">{{previous_order.partner_phone}}</span><br>
+                  <a class="previous-order" href="#" v-if="getUserPermission('order update')" @click.prevent="orderDetails('OrderShow', previous_order.order_id)">
+                    <b-card class="card-accent-danger font-weight-bold" v-bind:header="previous_order.order_id">
+<!--                      <h5 class="card-title font-weight-bold">{{previous_order.created_at}}</h5>-->
+                      <p class="previous-order-text">
+                        <span>Created At:</span><span class=" ml-2 font-weight-bold">{{previous_order.created_at}}</span> <br>
+                        <span>Partner Name:</span><span class=" ml-2 font-weight-bold">{{previous_order.partner}}</span><br>
+                        <span>Partner Phone:</span><span class=" ml-2 font-weight-bold">{{previous_order.partner_phone}}</span><br>
 
-                      <span>Assigned Resource:</span><span class=" ml-2 font-weight-bold">{{previous_order.resource_name}}</span><br>
-                      <span>Resource Phone:</span><span class=" ml-2 font-weight-bold">{{previous_order.resource_phone}}</span>
-                    </p>
-                  </b-card>
+                        <span>Assigned Resource:</span><span class=" ml-2 font-weight-bold">{{previous_order.resource_name}}</span><br>
+                        <span>Resource Phone:</span><span class=" ml-2 font-weight-bold">{{previous_order.resource_phone}}</span>
+                      </p>
+                    </b-card>
+                  </a>
+
                 </div>
 
               </b-col>
@@ -222,7 +228,9 @@
     data() {
       return {
         order: [],
-        order_id: '',
+        // order_id: window.location.pathname.split("/").pop() || '',
+        order_id: this.$route.params.id || '',
+
 
         order_fetched_successfully: false,
       }
@@ -232,7 +240,7 @@
     },
     methods: {
       fetchOrder() {
-        this.order_id = window.location.pathname.split("/").pop();
+        // this.order_id = window.location.pathname.split("/").pop();
         axios.get(`${ADMIN_URL}/orders/show`, {
           params: {
             order_id: this.order_id
@@ -245,11 +253,29 @@
         }).catch(e => {
           // console.log("error occurs",e);
         });
-      }
+      },
+      orderDetails(route, order_id) {
+
+        this.$router.push({name: route, params: {id: order_id}});
+        window.location.reload();
+      },
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.previous-order {
+    text-decoration: none;
+    font-size: 20px;
+     &:hover {
+       text-decoration: none;
+     }
+  .previous-order-text {
+    font-size: 14px;
+    color: black;
+  }
+  }
+
+
 
 </style>

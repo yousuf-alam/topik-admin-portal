@@ -47,14 +47,14 @@ const navitems = {
       icon: 'fa fa-cart-plus',
       permission_name: permissionsList.order
     },
+    // {
+    //   name: 'Appointments',
+    //   url: '/appointments',
+    //   icon: 'fa fa-calendar',
+    //   permission_name: permissionsList.order
+    // },
     {
-      name: 'Appointments',
-      url: '/appointments',
-      icon: 'fa fa-calendar',
-      permission_name: permissionsList.order
-    },
-    {
-      name: 'Complains',
+      name: 'Complaints',
       url: '/complains',
       icon: 'fa fa-thumbs-down',
       permission_name: permissionsList.complain
@@ -65,43 +65,23 @@ const navitems = {
       icon: 'fa fa-thumbs-up',
       permission_name: permissionsList.complain
     },
-    {
-      name: 'GP Star',
-      url: '/gp-star-check',
-      icon: 'fa fa-gift',
-      permission_name: permissionsList.complain
-    },
+    // {
+    //   name: 'GP Star',
+    //   url: '/gp-star-check',
+    //   icon: 'fa fa-gift',
+    //   permission_name: permissionsList.complain
+    // },
     {
       title: true,
-      name: 'Service',
+      name: 'Order Settings',
+      permission_name: [...permissionsList.order, ...permissionsList.complain],
       class: '',
-      permission_name: [
-        ...permissionsList.service, ...permissionsList.category,
-        ...permissionsList.lineitem, ...permissionsList.location
-      ],
       wrapper: {
         element: '',
         attributes: {}
       }
     },
-    {
-      name: 'Service',
-      url: '/services',
-      icon: 'fa fa-stumbleupon ',
-      permission_name: permissionsList.service
-    },
-    {
-      name: 'Category',
-      url: '/categories',
-      icon: 'fa fa-barcode',
-      permission_name: permissionsList.category
-    },
-    {
-      name: 'Line Item',
-      url: '/line-items',
-      icon: 'fa fa-bars',
-      permission_name: permissionsList.lineitem
-    },
+
     {
       name: 'Redeem',
       url: '/redeem',
@@ -141,29 +121,44 @@ const navitems = {
       permission_name: permissionsList.admin
     },
     {
+      title: true,
+      name: 'Service',
+      class: '',
+      permission_name: [
+        ...permissionsList.service, ...permissionsList.category,
+        ...permissionsList.lineitem, ...permissionsList.location
+      ],
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'Service',
+      url: '/services',
+      icon: 'fa fa-stumbleupon ',
+      permission_name: permissionsList.service
+    },
+    {
+      name: 'Categories',
+      url: '/categories',
+      icon: 'fa fa-barcode',
+      permission_name: permissionsList.category
+    },
+    {
+      name: 'Line Item',
+      url: '/line-items',
+      icon: 'fa fa-bars',
+      permission_name: permissionsList.lineitem
+    },
+
+    {
       name: 'Slot Count',
       url: '/slot-count',
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.admin
     },
-    {
-      name: 'Popup Promo',
-      url: '/popup-promo',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'Feed',
-      url: '/feed-show',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'Future Notification',
-      url: '/show-future-notification',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
+
     {
       name: 'Location',
       url: '/locations',
@@ -181,28 +176,28 @@ const navitems = {
       }
     },
 
-    {
-      title: true,
-      name: 'Third Party',
-      class: '',
-      permission_name: [...permissionsList.thirdparty, ...permissionsList.order, ...permissionsList.shohoz],
-      wrapper: {
-        element: '',
-        attributes: {}
-      }
-    },
-    {
-      name: 'Third Party Orders',
-      url: '/third-party-orders',
-      icon: 'fa fa-user',
-      permission_name: [...permissionsList.thirdparty, ...permissionsList.shohoz]
-    },
-    {
-      name: 'Third Party Contents',
-      url: '/third-party-contents',
-      icon: 'fa fa-user',
-      permission_name: permissionsList.order
-    },
+    // {
+    //   title: true,
+    //   name: 'Third Party',
+    //   class: '',
+    //   permission_name: [...permissionsList.thirdparty, ...permissionsList.order, ...permissionsList.shohoz],
+    //   wrapper: {
+    //     element: '',
+    //     attributes: {}
+    //   }
+    // },
+    // {
+    //   name: 'Third Party Orders',
+    //   url: '/third-party-orders',
+    //   icon: 'fa fa-user',
+    //   permission_name: [...permissionsList.thirdparty, ...permissionsList.shohoz]
+    // },
+    // {
+    //   name: 'Third Party Contents',
+    //   url: '/third-party-contents',
+    //   icon: 'fa fa-user',
+    //   permission_name: permissionsList.order
+    // },
     {
       title: true,
       name: 'Partner',
@@ -237,6 +232,11 @@ const navitems = {
       icon: 'fa fa-reorder'
     },
     {
+      name: 'Partner Leave',
+      url: '/partner-leave',
+      icon: 'fa fa-reorder'
+    },
+    {
       title: true,
       name: 'Marketing',
       permission_name: [
@@ -268,20 +268,38 @@ const navitems = {
       permission_name: permissionsList.topbanner
     },
     {
-      name: 'B2C Sections',
-      url: '/b2c-sections',
-      icon: 'fa fa-compass',
-      permission_name: permissionsList.topbanner
+      name: 'Popup Promo',
+      url: '/popup-promo',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
     },
     {
-      name: 'Chat Bot',
-      url: '/bot-offers',
-      icon: 'fa fa-reddit-alien',
-      permission_name: permissionsList.topbanner
+      name: 'Feed',
+      url: '/feed-show',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
     },
+    {
+      name: 'Future Notification',
+      url: '/show-future-notification',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    // {
+    //   name: 'B2C Sections',
+    //   url: '/b2c-sections',
+    //   icon: 'fa fa-compass',
+    //   permission_name: permissionsList.topbanner
+    // },
+    // {
+    //   name: 'Chat Bot',
+    //   url: '/bot-offers',
+    //   icon: 'fa fa-reddit-alien',
+    //   permission_name: permissionsList.topbanner
+    // },
     {
       title: true,
-      name: 'Portal',
+      name: 'Reports',
       permission_name: [...permissionsList.document,...permissionsList.reports],
       class: '',
       wrapper: {
@@ -296,30 +314,41 @@ const navitems = {
       permission_name: [...permissionsList.reports, ...permissionsList.thirdparty]
     },
     {
-      name:'Order Number Sp',
+      name:'Sp Wise Order Count',
       url:'/order-number-sp',
       icon:'fa fa-file-word-o',
       permission_name:[...permissionsList.admin,...permissionsList.complain ]
     },
-    {
-      name: 'Route Sp Daily',
-      url: '/route-sp-daily',
-      icon: 'fa fa-file-word-o',
-      permission_name: [...permissionsList.admin,...permissionsList.complain]
 
-    },
-    {
-      name: 'Parnter Calender',
-      url: '/partner/calender',
-      icon: 'fa fa-file-word-o',
-      permission_name: [...permissionsList.reports, ...permissionsList.thirdparty]
-    },
+    // {
+    //   name: 'Parnter Calender',
+    //   url: '/partner/calender',
+    //   icon: 'fa fa-file-word-o',
+    //   permission_name: [...permissionsList.reports, ...permissionsList.thirdparty]
+    // },
 
     {
       name: 'Old Reports',
       url: '/oldreports',
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.admin
+    },
+    {
+      title: true,
+      name: ' CS Reports',
+      permission_name: [...permissionsList.document,...permissionsList.reports],
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'SP Route',
+      url: '/route-sp-daily',
+      icon: 'fa fa-file-word-o',
+      permission_name: [...permissionsList.admin,...permissionsList.complain]
+
     },
 
     {
@@ -328,22 +357,22 @@ const navitems = {
       icon: 'fa fa-phone',
       permission_name: permissionsList.otps
     },
-    {
-      title: true,
-      name: 'eLoan',
-      permission_name: [...permissionsList.eloan],
-      class: '',
-      wrapper: {
-        element: '',
-        attributes: {}
-      }
-    },
-    {
-      name: 'eLoan',
-      url: '/eloan',
-      icon: 'fa fa-dollar',
-      permission_name: permissionsList.eloan
-    }
+    // {
+    //   title: true,
+    //   name: 'eLoan',
+    //   permission_name: [...permissionsList.eloan],
+    //   class: '',
+    //   wrapper: {
+    //     element: '',
+    //     attributes: {}
+    //   }
+    // },
+    // {
+    //   name: 'eLoan',
+    //   url: '/eloan',
+    //   icon: 'fa fa-dollar',
+    //   permission_name: permissionsList.eloan
+    // }
   ]
 }
 

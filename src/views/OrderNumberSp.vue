@@ -63,15 +63,22 @@
              </div>
            </div>
            <div class="scrollable-item" id="headerTdItem">
+             <div class="h-td-item">
+               In House Order Served
+             </div>
+             <div class="h-td-item">
+               Freelance Order Served
+             </div>
+             <div class="h-td-item">
+               Total Order Served
+             </div>
+             <div class="h-td-item">
+               Percentage
+             </div>
              <div class="h-td-item" v-for="columnItem in columns">
                {{ columnItem.name }}
              </div>
-             <div class="h-td-item">
-               Total
-             </div>
-             <div class="h-td-item">
-               Fr
-             </div>
+
            </div>
          </div>
        </div>
@@ -111,7 +118,10 @@
          <tr v-for="(dateItem, index) in dates" :key="(index) + '-' + dateItem" :class="{ 'divide' : dateItem.line_break == true, 'colorfull' : (index+1) % 8 == 0 || (index+1) == dates.length }">
 <!--           <td style="white-space: nowrap" class="sticky-col">{{ dateItem.date }}</td>-->
 <!--           <td class="sticky-col">{{dateItem.day_of_week}}</td>-->
-
+           <td> {{ dateItem.total }}</td>
+           <td>{{dateItem.fr}}</td>
+           <td> {{ dateItem.total_order }}</td>
+           <td>{{dateItem.percentage_inhouse}}</td>
            <td v-for="columnItem in dateItem.value"
                :class="{
                                 'green-cell': columnItem.rebonding == true,
@@ -122,8 +132,7 @@
              {{ columnItem.count }}
            </td>
 
-           <td> {{ dateItem.total }}</td>
-           <td>{{dateItem.fr}}</td>
+
          </tr>
 
          </tbody>

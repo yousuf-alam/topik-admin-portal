@@ -158,6 +158,9 @@ import CreateMinimumTime from "@/views/MinimumTimeOrder/CreateMinimumTime.vue";
 import ShowMinimumTime from "@/views/MinimumTimeOrder/ShowMinimumTime.vue";
 import OrderNumberSp from "@/views/OrderNumberSp.vue";
 import RouteSpDaily from "@/views/RouteSpDaily.vue";
+import ShowPartnerLeave from "@/views/PartnerLeave/ShowPartnerLeave.vue";
+import CreatePartnerLeave from "@/views/PartnerLeave/CreatePartnerLeave.vue";
+import EditPartnerLeave from "@/views/PartnerLeave/EditPartnerLeave.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -871,6 +874,30 @@ const router = new Router({
           path: "partner-wallets",
           name: "wallets",
           component: Wallets,
+          meta: {
+            permission_name: permissionsList.partnerwallet
+          }
+        },
+        {
+          path: "/partner-leave",
+          name: "ShowPartnerLeave",
+          component: ShowPartnerLeave,
+          meta: {
+            permission_name: permissionsList.partnerwallet
+          }
+        },
+        {
+          path: "/partner-leave-create",
+          name: "CreatePartnerLeave",
+          component: CreatePartnerLeave,
+          meta: {
+            permission_name: permissionsList.partnerwallet
+          }
+        },
+        {
+          path: "/partner-leave-edit/:id",
+          name: "EditPartnerLeave",
+          component: EditPartnerLeave,
           meta: {
             permission_name: permissionsList.partnerwallet
           }

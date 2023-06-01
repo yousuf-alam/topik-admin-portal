@@ -1,10 +1,10 @@
 <template>
   <b-card class="m-4">
     <b-tabs card pills>
-      <b-tab active title="Basic Info">
+      <b-tab active title="Leave Info">
         <b-card-text>
           <div class="form-group">
-            <label>name</label>
+            <label>Name</label>
 <!--            <input class="form-control" type="text" v-model="partner_id" >-->
             <select name="" id="" v-model="partner_id" class="form-control">
               <option v-for="item in inHouse" :value=item.id>{{item.name}}</option>
@@ -12,7 +12,7 @@
 
           </div>
           <div class="form-group">
-            <label>leave_date</label>
+            <label>Leave Date</label>
 <!--            <input class="form-control" type="text" v-model="leave_date">-->
             <VueCtkDateTimePicker
                 :overlay=true

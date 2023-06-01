@@ -82,21 +82,10 @@ const navitems = {
       }
     },
 
-    {
-      name: 'Redeem',
-      url: '/redeem',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
+
     {
       name: 'Min Order Amount',
       url: '/minimum-order-amount',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'First Order Discount',
-      url: '/first-order-discount',
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.admin
     },
@@ -106,7 +95,12 @@ const navitems = {
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.admin
     },
-
+    {
+      name: 'First Order Discount',
+      url: '/first-order-discount',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
 
     {
       name: 'RewardFaq',
@@ -117,6 +111,12 @@ const navitems = {
     {
       name: 'RewardStatus',
       url: '/reward-status',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'Redeem Settings',
+      url: '/redeem',
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.admin
     },
@@ -134,7 +134,7 @@ const navitems = {
       }
     },
     {
-      name: 'Service',
+      name: 'Services',
       url: '/services',
       icon: 'fa fa-stumbleupon ',
       permission_name: permissionsList.service
@@ -146,21 +146,21 @@ const navitems = {
       permission_name: permissionsList.category
     },
     {
-      name: 'Line Item',
+      name: 'Line Items',
       url: '/line-items',
       icon: 'fa fa-bars',
       permission_name: permissionsList.lineitem
     },
 
     {
-      name: 'Slot Count',
+      name: 'Slot Counts',
       url: '/slot-count',
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.admin
     },
 
     {
-      name: 'Location',
+      name: 'Locations',
       url: '/locations',
       icon: 'icon-location-pin',
       permission_name: permissionsList.location
@@ -232,7 +232,7 @@ const navitems = {
       icon: 'fa fa-reorder'
     },
     {
-      name: 'Partner Leave',
+      name: 'Partner Leaves',
       url: '/partner-leave',
       icon: 'fa fa-reorder'
     },
@@ -256,6 +256,24 @@ const navitems = {
       permission_name: permissionsList.notification
     },
     {
+      name: 'Future Notification',
+      url: '/show-future-notification',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'Feed',
+      url: '/feed-show',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'Popup Promo',
+      url: '/popup-promo',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
       name: 'Promo Codes',
       url: '/promos',
       icon: 'fa fa-gift',
@@ -267,24 +285,9 @@ const navitems = {
       icon: 'fa fa-file-image-o',
       permission_name: permissionsList.topbanner
     },
-    {
-      name: 'Popup Promo',
-      url: '/popup-promo',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'Feed',
-      url: '/feed-show',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'Future Notification',
-      url: '/show-future-notification',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
+
+
+
     // {
     //   name: 'B2C Sections',
     //   url: '/b2c-sections',

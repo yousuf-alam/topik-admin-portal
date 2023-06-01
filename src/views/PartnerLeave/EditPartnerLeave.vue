@@ -1,14 +1,14 @@
 <template>
   <b-card class="m-4">
     <b-tabs card pills>
-      <b-tab active title="Edit Info">
+      <b-tab active title="Edit Leave">
         <b-card-text>
           <div class="form-group">
             <label>Name</label>
             <input class="form-control" type="text" v-model="partner_id" :disabled="isDisabled">
           </div>
           <div class="form-group">
-            <label>leave_date</label>
+            <label>Leave Date</label>
             <input class="form-control" type="text" v-model="leave_date"   >
           </div>
           <div class="form-group">

@@ -134,6 +134,12 @@ export default {
       }
     }
   },
+  mounted() {
+    const currentDate = new Date();
+    this.month = currentDate.getMonth() + 1;
+    this.year = currentDate.getFullYear();
+    this.onSubmit();
+  },
   methods: {
 
     onSubmit() {

@@ -73,7 +73,16 @@
                Total Order Served
              </div>
              <div class="h-td-item">
-               Percentage
+               In House%
+             </div>
+             <div class="h-td-item">
+               In House Order Placed
+             </div>
+             <div class="h-td-item">
+               Freelance Order Placed
+             </div>
+             <div class="h-td-item">
+               Total Order Placed
              </div>
              <div class="h-td-item" v-for="columnItem in columns">
                {{ columnItem.name }}
@@ -94,12 +103,12 @@
 <!--           </div>-->
            <div class="left-body">
              <div class="left-body-item" v-for="(dateItem, index) in dates" :key="(index) + '-' + dateItem" :class="{ 'divide' : dateItem.line_break == true, 'colorfull' : (index+1) % 8 == 0 || (index+1) == dates.length }">
-                <div class="left-body-item-data">
-                  {{ dateItem.date }}
-                </div>
-                <div class="left-body-item-data">
-                  {{ dateItem.day_of_week }}
-                </div>
+               <div class="left-body-item-data" :class="{ 'collapsable' : dateItem.day_of_week == 'collapsed' }">
+                 {{ dateItem.date }}
+               </div>
+               <div class="left-body-item-data" v-if="dateItem.day_of_week != 'collapsed'">
+                 {{ dateItem.day_of_week }}
+               </div>
              </div>
            </div>
          </div>
@@ -118,10 +127,13 @@
          <tr v-for="(dateItem, index) in dates" :key="(index) + '-' + dateItem" :class="{ 'divide' : dateItem.line_break == true, 'colorfull' : (index+1) % 8 == 0 || (index+1) == dates.length }">
 <!--           <td style="white-space: nowrap" class="sticky-col">{{ dateItem.date }}</td>-->
 <!--           <td class="sticky-col">{{dateItem.day_of_week}}</td>-->
-           <td> {{ dateItem.total }}</td>
-           <td>{{dateItem.fr}}</td>
+           <td> {{ dateItem.in_house_order_served }}</td>
+           <td>{{dateItem.fr_order_served}}</td>
            <td> {{ dateItem.total_order }}</td>
-           <td>{{dateItem.percentage_inhouse}}</td>
+           <td>{{dateItem.percentage_inhouse}}%</td>
+           <td>{{dateItem.inhouse_placed}}</td>
+           <td> {{ dateItem.freelancer_placed }}</td>
+           <td>{{dateItem.total_placed}}</td>
            <td v-for="columnItem in dateItem.value"
                :class="{
                                 'green-cell': columnItem.rebonding == true,
@@ -140,9 +152,9 @@
        </div>
        </div>
      </div>
-     <div class="noData">
-       <span> Please select month and year and submit button</span>
-     </div>
+<!--     <div class="noData">-->
+<!--       <span> Please select month and year and submit button</span>-->
+<!--     </div>-->
 
 
 
@@ -167,8 +179,8 @@ export default {
       dates:[],
       dataShow:false,
       results:[],
-      month:'',
-      year:'',
+      month:'05',
+      year:'2023',
       redeem_id:'',
       tableTdWidth: "160px",
       tableThWidth120: "120px",
@@ -184,9 +196,10 @@ export default {
     }
   },
   mounted() {
-    // this.month = '5';
-    // this.year = '2023';
-    // this.onSubmit();
+    const currentDate = new Date();
+    this.month = currentDate.getMonth() + 1;
+    this.year = currentDate.getFullYear();
+    this.onSubmit();
 
 
   },
@@ -296,6 +309,7 @@ export default {
 <style scoped lang="scss">
 $tableTdWidth:160px;
 $tableThWidth120:120px;
+$tableThWidth1202x:240px;
 .th-st
 {
   position:relative;
@@ -416,6 +430,10 @@ $tableThWidth120:120px;
         &:nth-last-child(2) {
           //border-left: none;
           border-top: none;
+        }
+        &.collapsable {
+          min-width: $tableThWidth1202x;
+          border-left: thin solid #000;
         }
       }
 

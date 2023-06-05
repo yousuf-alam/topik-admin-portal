@@ -879,7 +879,7 @@ const router = new Router({
           }
         },
         {
-          path: "/partner-leave",
+          path: "/partner-leaves",
           name: "ShowPartnerLeave",
           component: ShowPartnerLeave,
           meta: {
@@ -887,7 +887,7 @@ const router = new Router({
           }
         },
         {
-          path: "/partner-leave-create",
+          path: "/show-partner-leave-data",
           name: "CreatePartnerLeave",
           component: CreatePartnerLeave,
           meta: {

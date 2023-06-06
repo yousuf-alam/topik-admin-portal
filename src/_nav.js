@@ -233,7 +233,7 @@ const navitems = {
     },
     {
       name: 'Partner Leaves',
-      url: '/partner-leave',
+      url: '/partner-leaves',
       icon: 'fa fa-reorder'
     },
     {

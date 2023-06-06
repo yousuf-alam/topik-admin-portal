@@ -45,6 +45,30 @@
         </router-link>
       </div>
 
+      <div>
+        <button @click="openModal">Show modal</button>
+      </div>
+
+
+      <modal name="modal-order_type" height="auto" :adaptive="true"  :clickToClose="false">
+        <div class="m-3 p-3">
+          <b-row class="p-2">
+            <h4>Please Write Remarks</h4>
+            <br /><br />
+          </b-row>
+          <b-row class="p-2">
+            <div class="center-div">
+              <input v-model="remarks" type="text" >
+              <button @click="closeModal">
+                submit
+              </button>
+
+            </div>
+          </b-row>
+        </div>
+      </modal>
+
+
 
     </div>
 
@@ -69,13 +93,13 @@
 
               <td>{{ item.name }}</td>
               <td>
-                <div class="location-name"><input type="radio" @change="updateApi(item,value.date,'wl')" :name="item.id" :checked="item.first"/></div>
+                <div class="location-name"><input type="radio" @click="openModal(item,value.date,'wl')" :name="item.id" :checked="item.first"/></div>
               </td>
               <td>
-                <div class="location-name"><input type="radio" :name="item.id" @change="updateApi(item,value.date,'sl')" :checked="item.second"/></div>
+                <div class="location-name"><input type="radio" :name="item.id" @click="openModal(item,value.date,'sl')" :checked="item.second"/></div>
               </td>
               <td>
-                <div class="location-name"><input type="radio" :name="item.id" @change="updateApi(item,value.date,'up')" :checked="item.third"/></div>
+                <div class="location-name"><input type="radio" :name="item.id" @click="openModal(item,value.date,'up')" :checked="item.third"/></div>
               </td>
 
             </tr>
@@ -94,12 +118,14 @@
 <script>
 import axios from 'axios';
 import LeaveModal from "@/views/PartnerLeave/LeaveModal.vue";
+import VueFinalModal from 'vue-final-modal';
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
   name: "ShowPartnerLeave",
   components: {
-    LeaveModal
+    LeaveModal,
+    VueFinalModal
   },
   data() {
     return {
@@ -115,6 +141,8 @@ export default {
       is_weekly_leave:'',
       is_casual_or_sick_leave:'',
       is_unpaid_leave:'',
+      remarks:'',
+      key:'',
       showModal: false,
       selectedItem: null,
 
@@ -142,8 +170,22 @@ export default {
     this.month = currentDate.getMonth() + 1;
     this.year = currentDate.getFullYear();
     this.onSubmit();
+
   },
   methods: {
+    openModal(value,date,key) {
+      this.$modal.show("modal-order_type");
+      // this.closeModal(value,date,key);
+      this.partner_id= value.id;
+      this.leave_date= date;
+      this.key=key;
+
+
+    },
+    closeModal() {
+      this.updateApi();
+      this.$modal.hide("modal-order_type");
+    },
 
     onSubmit() {
       // this.dataShow=true;
@@ -177,10 +219,10 @@ export default {
     updateApi(value,date,key) {
       console.log(value,date,key);
       let formData = {
-        partner_id: value.id,
-        leave_date: date,
-        key,
-        remarks: "test",
+        partner_id: this.partner_id,
+        leave_date: this.leave_date,
+        key: this.key,
+        remarks: this.remarks,
 
 
       }
@@ -285,6 +327,19 @@ export default {
   font-size: 20px;
   color: #FF3572;
 }
+::v-deep .modal-content {
+  display: inline-block;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  background: #fff;
+}
+.modal__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+
 
 
 </style>

@@ -1,33 +1,21 @@
 <template>
-  <transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+  <modal name="modal-order_type" height="auto" :adaptive="true"  :clickToClose="false">
+    <div class="m-3 p-3">
+      <b-row class="p-2">
+        <h4>Please Write Remarks</h4>
+        <br /><br />
+      </b-row>
+      <b-row class="p-2">
+        <div class="center-div">
+          <input v-model="remarks" type="text" >
+          <button @click="closeModal">
+            submit
+          </button>
 
-          <div class="modal-header">
-            <slot name="header">
-              Default Header
-            </slot>
-          </div>
-
-          <div class="modal-body">
-            <slot name="body">
-              Default Body
-            </slot>
-          </div>
-
-          <div class="modal-footer">
-            <slot name="footer">
-              Default Footer
-              <button class="modal-default-button" @click="closeModal">
-                Close
-              </button>
-            </slot>
-          </div>
         </div>
-      </div>
+      </b-row>
     </div>
-  </transition>
+  </modal>
 </template>
 
 <script>

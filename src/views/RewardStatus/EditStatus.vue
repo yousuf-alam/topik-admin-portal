@@ -17,8 +17,23 @@
           </div>
 
            <div  class="form-group">
-            <label>Status Color</label>
-            <input class="form-control" type="text" v-model="status_color" >
+            <label>Background Color</label>
+            <input class="form-control" type="text" v-model="background_color" >
+          </div>
+
+           <div  class="form-group">
+            <label>Points Color</label>
+            <input class="form-control" type="text" v-model="points_color" >
+          </div>
+
+           <div  class="form-group">
+            <label>Progress Background Color</label>
+            <input class="form-control" type="text" v-model="progress_bg_color" >
+          </div>
+
+           <div  class="form-group">
+            <label>Bottom Text Color</label>
+            <input class="form-control" type="text" v-model="bottom_text_color" >
           </div>
 
           <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Edit Status
@@ -41,7 +56,10 @@ export default {
       high_limit:'',
       status:'',
       status_id:'',
-      status_color:''
+      background_color:'',
+      points_color:'',
+      progress_bg_color:'',
+      bottom_text_color:''
       
     }
   },
@@ -60,7 +78,10 @@ export default {
             this.low_limit = this.reward.low_limit;
             this.high_limit = this.reward.high_limit;
             this.status=this.reward.status;
-            this.status_color=this.reward.status_color;
+            this.background_color=this.reward.background_color;
+            this.points_color=this.reward.points_color;
+            this.progress_bg_color=this.reward.progress_bg_color;
+            this.bottom_text_color=this.reward.bottom_text_color;
 
           })
           .catch(e => {
@@ -73,7 +94,10 @@ export default {
         low_limit:this.low_limit,
         high_limit:this.high_limit,
         status:this.status,
-        status_color:this.status_color,
+        background_color:this.background_color,
+        points_color:this.points_color,
+        progress_bg_color:this.progress_bg_color,
+        bottom_text_color:this.bottom_text_color
       }
 
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;

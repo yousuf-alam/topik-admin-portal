@@ -16,6 +16,11 @@
             <input class="form-control" type="text" v-model="status" >
           </div>
 
+           <div  class="form-group">
+            <label>Status Color</label>
+            <input class="form-control" type="text" v-model="status_color" >
+          </div>
+
           <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Edit Status
           </b-button>
         </b-card-text>
@@ -35,7 +40,8 @@ export default {
       low_limit:'',
       high_limit:'',
       status:'',
-      status_id:''
+      status_id:'',
+      status_color:''
       
     }
   },
@@ -54,6 +60,7 @@ export default {
             this.low_limit = this.reward.low_limit;
             this.high_limit = this.reward.high_limit;
             this.status=this.reward.status;
+            this.status_color=this.reward.status_color;
 
           })
           .catch(e => {
@@ -65,7 +72,8 @@ export default {
       let formData = {
         low_limit:this.low_limit,
         high_limit:this.high_limit,
-        status:this.status
+        status:this.status,
+        status_color:this.status_color,
       }
 
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;

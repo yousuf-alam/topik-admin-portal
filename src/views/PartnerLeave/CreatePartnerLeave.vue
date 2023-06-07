@@ -1,5 +1,6 @@
 <template>
   <div class=" " style="overflow-x:scroll">
+    <Loader :loader="activeLoader"/>
 
     <div class="d-flex gap-20 mb-5  mt-8">
 
@@ -38,6 +39,11 @@
 
       <button @click="onSubmit" class="show-btn"> Show Data
       </button>
+      <div class="">
+        <router-link :to="{ name: 'ShowPartnerLeave'}" >
+          <button class="show-btn">Create</button>
+        </router-link>
+      </div>
 
     </div>
 
@@ -62,19 +68,32 @@
 
               <td>{{ item.name }}</td>
               <td>
-                <div class="location-name">{{ item.weekly.remarks }}</div>
-                <div class="service-name"> {{ item.weekly.created_by }}</div>
-                <div class="total-bill"> {{ item.weekly.updated_by }}</div>
+
+                <router-link :to="{ name: 'LeaveLog', params: { id: item.leave_id }}">
+                  <div class="location-name">{{ item.weekly.remarks }}</div>
+                  <div class="service-name"> {{ item.weekly.created_by }}</div>
+                  <div class="total-bill"> {{ item.weekly.updated_by }}</div>
+                  <div class="total-bill"> {{ item.weekly.time }}</div>
+                </router-link>
               </td>
               <td>
-                <div class="location-name">{{ item.sick_casual.remarks }}</div>
-                <div class="service-name"> {{ item.sick_casual.created_by }}</div>
-                <div class="total-bill"> {{ item.sick_casual.updated_by }}</div>
+                <router-link :to="{ name: 'LeaveLog', params: { id: item.leave_id }}">
+                  <div class="location-name">{{ item.sick_casual.remarks }}</div>
+                  <div class="service-name"> {{ item.sick_casual.created_by }}</div>
+                  <div class="total-bill"> {{ item.sick_casual.updated_by }}</div>
+                  <div class="total-bill"> {{ item.sick_casual.time }}</div>
+
+                </router-link>
+
               </td>
               <td>
-                <div class="location-name">{{ item.unpaid.remarks }}</div>
-                <div class="service-name"> {{ item.unpaid.created_by }}</div>
-                <div class="total-bill"> {{ item.unpaid.updated_by }}</div>
+                <router-link :to="{ name: 'LeaveLog', params: { id: item.leave_id }}">
+                  <div class="location-name">{{ item.unpaid.remarks }}</div>
+                  <div class="service-name"> {{ item.unpaid.created_by }}</div>
+                  <div class="total-bill"> {{ item.unpaid.updated_by }}</div>
+                  <div class="total-bill"> {{ item.unpaid.time }}</div>
+                </router-link>
+
               </td>
 
             </tr>
@@ -92,12 +111,19 @@
 
 <script>
 import axios from 'axios';
+import Loader from "@/views/Loader.vue";
+import TableColumn from "@/views/TableColumn.vue";
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
   name: "CreatePartnerLeave",
+  components: {
+    Loader,
+    TableColumn
+  },
   data() {
     return {
+      activeLoader: false,
       items: [],
       values: [],
       columns: [],
@@ -139,6 +165,7 @@ export default {
   methods: {
 
     onSubmit() {
+      this.activeLoader = true;
       // this.dataShow=true;
 
       let formData = {
@@ -150,6 +177,7 @@ export default {
 
       axios.post(`${ADMIN_URL}/partner-leaves-show`, formData)
           .then(response => {
+            this.activeLoader = false;
 
             this.columns = response.data.columns;
             this.values = response.data.value;

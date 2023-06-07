@@ -1,5 +1,6 @@
 <template>
   <div class=" " style="overflow-x:scroll">
+    <Loader :loader="activeLoader"/>
 
     <div class="d-flex gap-20 mb-5  mt-8">
 
@@ -93,7 +94,7 @@
 
               <td>{{ item.name }}</td>
               <td>
-                <div class="location-name"><input type="radio" @click="openModal(item,value.date,'wl')" :name="item.id" :checked="item.first"/></div>
+                <div class="location-name"><input type="radio" @click="openModal(item,value.date,'wl')"  :checked="item.first"/></div>
               </td>
               <td>
                 <div class="location-name"><input type="radio" :name="item.id" @click="openModal(item,value.date,'sl')" :checked="item.second"/></div>
@@ -119,16 +120,21 @@
 import axios from 'axios';
 import LeaveModal from "@/views/PartnerLeave/LeaveModal.vue";
 import VueFinalModal from 'vue-final-modal';
+import Loader from "@/views/Loader.vue";
+import TableColumn from "@/views/TableColumn.vue";
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
   name: "ShowPartnerLeave",
+
   components: {
     LeaveModal,
-    VueFinalModal
+    VueFinalModal,
+    Loader,
   },
   data() {
     return {
+      activeLoader: false,
       items: [],
       values: [],
       columns: [],
@@ -188,6 +194,7 @@ export default {
     },
 
     onSubmit() {
+      this.activeLoader = true;
       // this.dataShow=true;
 
       let formData = {
@@ -199,6 +206,7 @@ export default {
 
       axios.post(`${ADMIN_URL}/partner-leaves-calender`, formData)
           .then(response => {
+            this.activeLoader = false;
 
             this.columns = response.data.columns;
             this.values = response.data.value;

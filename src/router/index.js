@@ -161,6 +161,7 @@ import RouteSpDaily from "@/views/RouteSpDaily.vue";
 import ShowPartnerLeave from "@/views/PartnerLeave/ShowPartnerLeave.vue";
 import CreatePartnerLeave from "@/views/PartnerLeave/CreatePartnerLeave.vue";
 import EditPartnerLeave from "@/views/PartnerLeave/EditPartnerLeave.vue";
+import LeaveLog from "@/views/PartnerLeave/LeaveLog.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -895,9 +896,9 @@ const router = new Router({
           }
         },
         {
-          path: "/partner-leave-edit/:id",
-          name: "EditPartnerLeave",
-          component: EditPartnerLeave,
+          path: "/partner-leaves-log/:id",
+          name: "LeaveLog",
+          component: LeaveLog,
           meta: {
             permission_name: permissionsList.partnerwallet
           }

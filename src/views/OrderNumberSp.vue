@@ -1,5 +1,6 @@
 <template>
   <div class=" " >
+    <Loader :loader="activeLoader"/>
 <!--    <div class="cardheading">-->
 <!--      <h4><i class="fa fa-bars"></i><span class="ml-1">Minimum Order</span></h4>-->
 <!--      <div class="">-->
@@ -166,13 +167,16 @@
 import axios from 'axios';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 import TableColumn from './TableColumn.vue';
+import Loader from "@/views/Loader.vue";
 export default {
   name: "OrderNumberSp",
   components: {
+    Loader,
       TableColumn
   },
   data() {
     return {
+      activeLoader: false,
       amounts : [],
       columns: ['Date','Days'],
       isExtraEnable: false,
@@ -233,6 +237,7 @@ export default {
   methods: {
 
     onSubmit() {
+      this.activeLoader = true;
       this.dataShow=true;
 
       let formData = {
@@ -244,6 +249,7 @@ export default {
 
       axios.post(`${ADMIN_URL}/order-number-sp`, formData)
           .then(response => {
+            this.activeLoader = false;
             console.log('Success', response);
             this.dates = response.data.value;
             this.columns=response.data.data;

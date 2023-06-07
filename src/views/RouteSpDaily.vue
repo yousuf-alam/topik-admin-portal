@@ -1,5 +1,6 @@
 <template>
   <div class=" " style="overflow-x:scroll">
+    <Loader :loader="activeLoader"/>
 
     <div class="d-flex gap-20 mb-5  mt-8">
 
@@ -98,12 +99,20 @@
 
 <script>
 import axios from 'axios';
+import Loader from "@/views/Loader.vue";
+import TableColumn from "@/views/TableColumn.vue";
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
 export default {
   name: "RouteSpDaily",
+  components: {
+    Loader,
+    TableColumn
+  },
   data() {
     return {
+      activeLoader: false,
       items: [],
       values: [],
       columns: [],
@@ -143,6 +152,7 @@ export default {
   methods: {
 
     onSubmit() {
+      this.activeLoader = true;
       // this.dataShow=true;
 
       let formData = {
@@ -154,6 +164,7 @@ export default {
 
       axios.post(`${ADMIN_URL}/route-sp-daily`, formData)
           .then(response => {
+            this.activeLoader = false;
 
             this.columns = response.data.columns;
             this.values = response.data.value;

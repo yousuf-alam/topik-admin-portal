@@ -46,6 +46,7 @@
     "vue-form-wizard": "^0.8.4",
     "vue-js-modal": "^1.3.28",
     "vue-loading-overlay": "^3.2.0",
+    "vue-loading-spinner": "^1.0.11",
     "vue-moment": "^4.0.0",
     "vue-multiselect": "^2.1.6",
     "vue-perfect-scrollbar": "^0.1.0",

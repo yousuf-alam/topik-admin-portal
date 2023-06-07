@@ -45,9 +45,9 @@
         </router-link>
       </div>
 
-      <div>
-        <button @click="openModal">Show modal</button>
-      </div>
+<!--      <div>-->
+<!--        <button @click="openModal">Show modal</button>-->
+<!--      </div>-->
 
 
       <modal name="modal-order_type" height="auto" :adaptive="true"  :clickToClose="false">

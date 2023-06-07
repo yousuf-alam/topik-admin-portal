@@ -62,13 +62,19 @@
 
               <td>{{ item.name }}</td>
               <td>
-                <div class="location-name"><input type="radio" @change="updateApi(item,value.date,'wl')" :name="item.id" :checked="item.first"/></div>
+                <div class="location-name">{{ item.weekly.remarks }}</div>
+                <div class="service-name"> {{ item.weekly.created_by }}</div>
+                <div class="total-bill"> {{ item.weekly.updated_by }}</div>
               </td>
               <td>
-                <div class="location-name"><input type="radio" :name="item.id" @change="updateApi(item,value.date,'sl')" :checked="item.second"/></div>
+                <div class="location-name">{{ item.sick_casual.remarks }}</div>
+                <div class="service-name"> {{ item.sick_casual.created_by }}</div>
+                <div class="total-bill"> {{ item.sick_casual.updated_by }}</div>
               </td>
               <td>
-                <div class="location-name"><input type="radio" :name="item.id" @change="updateApi(item,value.date,'up')" :checked="item.third"/></div>
+                <div class="location-name">{{ item.unpaid.remarks }}</div>
+                <div class="service-name"> {{ item.unpaid.created_by }}</div>
+                <div class="total-bill"> {{ item.unpaid.updated_by }}</div>
               </td>
 
             </tr>
@@ -142,7 +148,7 @@ export default {
       }
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
-      axios.post(`${ADMIN_URL}/partner-leaves-calender`, formData)
+      axios.post(`${ADMIN_URL}/partner-leaves-show`, formData)
           .then(response => {
 
             this.columns = response.data.columns;

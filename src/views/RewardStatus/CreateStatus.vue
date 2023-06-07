@@ -17,6 +17,11 @@
             <input class="form-control" type="text" v-model="status" >
           </div>
 
+           <div  class="form-group">
+            <label>Status Color</label>
+            <input class="form-control" type="text" v-model="status_color" >
+          </div>
+
           <div  class="form-group">
             <label>Background Color</label>
             <input class="form-control" type="text" v-model="background_color" >
@@ -58,6 +63,7 @@ export default {
       low_limit:'',
       high_limit:'',
       status:'',
+      status_color:'',
      background_color:'',
      points_color:'',
      progress_bg_color:'',
@@ -71,6 +77,7 @@ export default {
         low_limit:this.low_limit,
         high_limit:this.high_limit,
         status:this.status,
+        status_color:this.status_color,
        background_color:this.background_color,
        points_color:this.points_color,
        progress_bg_color:this.progress_bg_color,

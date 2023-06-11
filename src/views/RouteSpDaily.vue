@@ -59,25 +59,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in value.items" :key="item.name">
+            <tr v-for="item in value.items" :key="item.name" >
 
-              <td>{{ item.name }}</td>
-              <td :class="{'paste-cell':item.first.city==='Chittagong','black-cell':item.first===false,'sky-cell':item.first===true}">
+              <td :class="{'off-cell':item.offDay===true}">{{ item.name }}</td>
+              <td :class="{'paste-cell':item.first.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.first===false,'sky-cell':item.first===true}">
                 <div class="location-name">{{ item.first.name }}</div>
                 <div class="service-name"> {{ item.first.service_name }}</div>
                 <div class="total-bill"> {{ item.first.total_bill }}</div>
               </td>
-              <td :class="{'paste-cell':item.second.city==='Chittagong','black-cell':item.second===false,'sky-cell':item.second===true}">
+              <td :class="{'paste-cell':item.second.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.second===false,'sky-cell':item.second===true}">
                 <div class="location-name">{{ item.second.name }}</div>
                 <div class="service-name"> {{ item.second.service_name }}</div>
                 <div class="total-bill"> {{ item.second.total_bill }}</div>
               </td>
-              <td :class="{'paste-cell':item.third.city==='Chittagong','black-cell':item.third===false,'sky-cell':item.third==true}">
+              <td :class="{'paste-cell':item.third.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.third===false,'sky-cell':item.third==true}">
                 <div class="location-name">{{ item.third.name }}</div>
                 <div class="service-name"> {{ item.third.service_name }}</div>
                 <div class="total-bill"> {{ item.third.total_bill }}</div>
               </td>
-              <td :class="{'paste-cell':item.forth.city==='Chittagong','black-cell':item.forth===false,'sky-cell':item.forth==true}">
+              <td :class="{'paste-cell':item.forth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.forth===false,'sky-cell':item.forth==true}">
                 <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
                   {{ item.forth.name }}
                 </div>
@@ -240,6 +240,12 @@ export default {
         //color: yellow;
         min-width: 190px;
         min-height: 100px !important;
+      }
+      &.off-cell {
+        background-color: yellow !important;
+        min-width: 190px;
+        min-height: 100px !important;
+
       }
 
     }

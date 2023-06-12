@@ -308,63 +308,63 @@
         </tab-content>
 
 
-        <tab-content icon="ti-view-list-alt" title="QUESTION SET">
+<!--        <tab-content icon="ti-view-list-alt" title="QUESTION SET">-->
 
-          <div class="form-group row" v-show="pricing_type ==='option' ">
+<!--          <div class="form-group row" v-show="pricing_type ==='option' ">-->
 
-            <label class="col-sm-3 col-form-label">Question*</label>
-            <div class="col-sm-9">
-              <b-button @click="quesModal" class="btn btn-sm btn-success">
-                +Add Question
-              </b-button>
+<!--            <label class="col-sm-3 col-form-label">Question*</label>-->
+<!--            <div class="col-sm-9">-->
+<!--              <b-button @click="quesModal" class="btn btn-sm btn-success">-->
+<!--                +Add Question-->
+<!--              </b-button>-->
 
-              <div v-for="(faq, index) in questions" :key="index+5000">
+<!--              <div v-for="(faq, index) in questions" :key="index+5000">-->
 
-                <b-button @click="quesIndexModal(index)" class="btn btn-sm btn-dark m-1">
-                  Question - {{ index+1 }}
-                </b-button>
+<!--                <b-button @click="quesIndexModal(index)" class="btn btn-sm btn-dark m-1">-->
+<!--                  Question - {{ index+1 }}-->
+<!--                </b-button>-->
 
-                <modal :name="'ques-'+index" height="auto" :scrollable="true">
-                  <div class="m-3 p-3">
-                    <div class="form-group">
-                      <label for="question">Question</label>
-                      <input :id="'spquestion'+index" :name="'question'+index" :value=faq.question class="form-control"
-                             type="text">
-                    </div>
-                    <div class="form-group" v-for="(ans, index) in faq.answer" :key="index">
-                      <label for="answer">Answer</label>
-                      <input :id="'spanswer'+index" :name="'answer'+ index +'[]'" class="form-control" type="text"
-                             v-model="ans.value">
-                    </div>
-                    <b-button @click="updateQuestion(index)" class="btn btn-primary">Update</b-button>
-                    <button @click="deleteQuestion(index)" class="btn btn-primary m-3">Delete</button>
-                  </div>
-                </modal>
-              </div>
-            </div>
+<!--                <modal :name="'ques-'+index" height="auto" :scrollable="true">-->
+<!--                  <div class="m-3 p-3">-->
+<!--                    <div class="form-group">-->
+<!--                      <label for="question">Question</label>-->
+<!--                      <input :id="'spquestion'+index" :name="'question'+index" :value=faq.question class="form-control"-->
+<!--                             type="text">-->
+<!--                    </div>-->
+<!--                    <div class="form-group" v-for="(ans, index) in faq.answer" :key="index">-->
+<!--                      <label for="answer">Answer</label>-->
+<!--                      <input :id="'spanswer'+index" :name="'answer'+ index +'[]'" class="form-control" type="text"-->
+<!--                             v-model="ans.value">-->
+<!--                    </div>-->
+<!--                    <b-button @click="updateQuestion(index)" class="btn btn-primary">Update</b-button>-->
+<!--                    <button @click="deleteQuestion(index)" class="btn btn-primary m-3">Delete</button>-->
+<!--                  </div>-->
+<!--                </modal>-->
+<!--              </div>-->
+<!--            </div>-->
 
-            <modal name="modal-ques" height="auto" :scrollable="true">
-                  <div class="m-3 p-3">
-                    <div class="form-group">
-                      <label for="question">Title</label>
-                      <input class="form-control" id="sptitle" type="text" v-model="new_sptitle">
-                    </div>
-                    <div class="form-group">
-                      <label for="question">Question</label>
-                      <input class="form-control" id="spquestion" type="text" v-model="new_spquestion">
-                    </div>
-                    <div class="form-group" v-for="(ans,index) in answer" :key="index+4000">
-                      <label for="answer">Answer <a href="#" data-toggle="tooltip" title="Delete Answer" @click="deleteAns(index)"><i class="fa fa-close"></i></a></label>
-                      <input class="form-control" id="spanswer" name="answer[]" type="text" v-model="ans.value">
-                    </div>
-                    <button @click="addNewAnswer" class="btn btn-success" type="button"><i class="fa fa-plus"></i> Add New Answer</button>
-                    <button @click="addQuestion" class="btn btn-primary m-3" data-dismiss="modal" type="button">Submit
-                    </button>
-                  </div>
-            </modal>
-          </div>
+<!--            <modal name="modal-ques" height="auto" :scrollable="true">-->
+<!--                  <div class="m-3 p-3">-->
+<!--                    <div class="form-group">-->
+<!--                      <label for="question">Title</label>-->
+<!--                      <input class="form-control" id="sptitle" type="text" v-model="new_sptitle">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                      <label for="question">Question</label>-->
+<!--                      <input class="form-control" id="spquestion" type="text" v-model="new_spquestion">-->
+<!--                    </div>-->
+<!--                    <div class="form-group" v-for="(ans,index) in answer" :key="index+4000">-->
+<!--                      <label for="answer">Answer <a href="#" data-toggle="tooltip" title="Delete Answer" @click="deleteAns(index)"><i class="fa fa-close"></i></a></label>-->
+<!--                      <input class="form-control" id="spanswer" name="answer[]" type="text" v-model="ans.value">-->
+<!--                    </div>-->
+<!--                    <button @click="addNewAnswer" class="btn btn-success" type="button"><i class="fa fa-plus"></i> Add New Answer</button>-->
+<!--                    <button @click="addQuestion" class="btn btn-primary m-3" data-dismiss="modal" type="button">Submit-->
+<!--                    </button>-->
+<!--                  </div>-->
+<!--            </modal>-->
+<!--          </div>-->
 
-        </tab-content>
+<!--        </tab-content>-->
 
         <tab-content icon="ti-wallet" title="PRICING">
 

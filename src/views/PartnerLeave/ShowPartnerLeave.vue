@@ -55,6 +55,7 @@
         <div class="m-3 p-3">
           <b-row class="p-2">
             <h4>Please Write Remarks</h4>
+            <div  style="margin-left: 300px;cursor: pointer" @click="closeModal">X</div>
             <br /><br />
           </b-row>
           <b-row class="p-2">
@@ -191,6 +192,7 @@ export default {
     closeModal() {
       this.updateApi();
       this.$modal.hide("modal-order_type");
+      window.location.reload();
     },
 
     onSubmit() {

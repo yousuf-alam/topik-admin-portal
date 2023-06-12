@@ -61,7 +61,7 @@
           <b-row class="p-2">
             <div class="center-div">
               <input v-model="remarks" type="text" >
-              <button @click="closeModal">
+              <button  class="modal-button" @click="submitLeave">
                 submit
               </button>
 
@@ -189,8 +189,12 @@ export default {
 
 
     },
-    closeModal() {
+    submitLeave() {
       this.updateApi();
+      this.$modal.hide("modal-order_type");
+      window.location.reload();
+    },
+    closeModal() {
       this.$modal.hide("modal-order_type");
       window.location.reload();
     },
@@ -347,6 +351,17 @@ export default {
 .modal__title {
   font-size: 1.5rem;
   font-weight: 700;
+}
+.modal-button{
+  background: #FF3572;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 10px;
+  margin-left: 30px;
+  border: 2px solid #ffffff;
+  height: 43px;
+  margin-top: 25px;
+  width: 150px;
 }
 
 

@@ -370,9 +370,15 @@
 
           <section v-if="pricing_type ==='fixed' ">
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Preferred Price *</label>
+              <label class="col-sm-3 col-form-label">Old Price *</label>
               <div class="col-sm-9">
-                <input class="form-control" v-model="fixed_price" type="number">
+                <input class="form-control" v-model="old_price" type="number">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">New Price *</label>
+              <div class="col-sm-9">
+                <input class="form-control" v-model="new_price" type="number">
               </div>
             </div>
           </section>
@@ -468,6 +474,8 @@
         subscribable: 0,
         price: [],
         fixed_price : '',
+        old_price:'',
+        new_price:'',
         price_table: [],
         question_data: [],
         bool: true,
@@ -756,7 +764,8 @@
           formData.append('options', JSON.stringify(this.ques_ans));
           formData.append('pricing_type', this.pricing_type);
           formData.append('price_table', JSON.stringify(this.price_table));
-          formData.append('fixed_price', this.fixed_price);
+          formData.append('old_price', this.old_price);
+          formData.append('new_price', this.new_price);
           formData.append('duration', this.duration);
           formData.append('description', this.description);
           formData.append('brand', this.details.brand);

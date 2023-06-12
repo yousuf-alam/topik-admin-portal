@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Loader :loader="activeLoader"/>
     <form @submit="onSubmit" enctype="multipart/form-data">
       <form-wizard color="#675871" subtitle="" title="Add New Line Item">
 
@@ -420,6 +421,7 @@
 <script>
   import Vue from 'vue';
   import axios from 'axios';
+  import Loader from "@/views/Loader.vue";
   import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
   import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
   import moment from "moment";
@@ -427,10 +429,11 @@
 
   export default {
     name: 'LineItemCreate',
-    components: {},
+    components: {Loader},
 
     data() {
       return {
+        activeLoader: false,
         answer: [],
         new_question: "",
 
@@ -744,6 +747,7 @@
             });
         },
         onSubmit(e) {
+          this.activeLoader = true;
 
           e.preventDefault();
           let currentObj = this;
@@ -803,6 +807,7 @@
           console.log(this.name);
           axios.post(`${ADMIN_URL}/line-items/create`, formData, config)
             .then(response => {
+              this.activeLoader = false;
               console.log('Success', response);
               currentObj.success = response.data.success;
               console.log(response.data);

@@ -811,9 +811,10 @@
               console.log('Success', response);
               currentObj.success = response.data.success;
               console.log(response.data);
+              let id = response.data.data.toString();
               if(response.data.success===true)
               {
-                this.$swal('Success',response.data.message,'success');
+                this.$swal('Success',id,'success');
               }
               else
               {

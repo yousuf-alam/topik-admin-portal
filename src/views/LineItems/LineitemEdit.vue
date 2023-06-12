@@ -627,7 +627,8 @@
             currentObj.success = response.data.success;
             if(response.data.success===true)
             {
-              alert(response.data.message);
+              // alert(response.data.message);
+              window.location.reload();
             }
             else
             {

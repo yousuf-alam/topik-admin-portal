@@ -54,13 +54,22 @@
       <modal name="modal-order_type" height="auto" :adaptive="true"  :clickToClose="false">
         <div class="m-3 p-3">
           <b-row class="p-2">
-            <h4>Please Write Remarks</h4>
-            <div  style="margin-left: 300px;cursor: pointer" @click="closeModal">X</div>
-            <br /><br />
+            <h4>Please Write Leave Details</h4>
+            <div  class="cross-button" @click="closeModal">X</div>
+
           </b-row>
           <b-row class="p-2">
             <div class="center-div">
+              <label>Remarks: </label>
+
               <input v-model="remarks" type="text" >
+              <div>
+                <label>Status:</label>
+                <select v-model="status">
+                  <option value="1">Approved</option>
+                  <option value="0">Rejected</option>
+                </select>
+              </div>
               <button  class="modal-button" @click="submitLeave">
                 submit
               </button>
@@ -149,6 +158,7 @@ export default {
       is_casual_or_sick_leave:'',
       is_unpaid_leave:'',
       remarks:'',
+      status:'',
       key:'',
       showModal: false,
       selectedItem: null,
@@ -237,6 +247,7 @@ export default {
         leave_date: this.leave_date,
         key: this.key,
         remarks: this.remarks,
+        status:this.status
 
 
       }
@@ -364,7 +375,35 @@ export default {
   width: 150px;
 }
 
-
+select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.cross-button {
+ margin-left: 500px;
+  color:white;
+  margin-top:-25px;
+  cursor: pointer;
+  font-size: 25px;
+  border-radius: 50%;
+  padding: 5px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FF3572;
+}
 
 
 </style>

@@ -237,6 +237,11 @@ const navitems = {
       icon: 'fa fa-reorder'
     },
     {
+      name: 'Partner Salary',
+      url: '/partner-salary',
+      icon: 'fa fa-reorder'
+    },
+    {
       title: true,
       name: 'Marketing',
       permission_name: [

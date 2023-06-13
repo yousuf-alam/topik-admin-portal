@@ -162,6 +162,8 @@ import ShowPartnerLeave from "@/views/PartnerLeave/ShowPartnerLeave.vue";
 import CreatePartnerLeave from "@/views/PartnerLeave/CreatePartnerLeave.vue";
 import EditPartnerLeave from "@/views/PartnerLeave/EditPartnerLeave.vue";
 import LeaveLog from "@/views/PartnerLeave/LeaveLog.vue";
+import ShowSalary from "@/views/PartnerSalary/ShowSalary.vue";
+import WalletMonthly from "@/views/PartnerSalary/WalletMonthly.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -899,6 +901,22 @@ const router = new Router({
           path: "/partner-leaves-log/:id",
           name: "LeaveLog",
           component: LeaveLog,
+          meta: {
+            permission_name: permissionsList.partnerwallet
+          }
+        },
+        {
+          path: "/partner-salary",
+          name: "ShowSalary",
+          component: ShowSalary,
+          meta: {
+            permission_name: permissionsList.partnerwallet
+          }
+        },
+        {
+          path: "/sp-wallet-monthly/:id",
+          name: "WalletMonthly",
+          component: WalletMonthly,
           meta: {
             permission_name: permissionsList.partnerwallet
           }

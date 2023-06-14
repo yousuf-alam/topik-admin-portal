@@ -60,17 +60,14 @@
           </b-row>
           <b-row class="p-2">
             <div class="center-div">
-              <label>Remarks: </label>
+              <label>Amount: </label>
 
-              <input v-model="remarks" type="text" >
+              <input v-model="amount"  type="number" >
               <div>
-                <label>Status:</label>
-                <select v-model="status">
-                  <option value="1">Approved</option>
-                  <option value="0">Rejected</option>
-                </select>
+                <label>Remarks:</label>
+                <input v-model="remarks"  type="text" >
               </div>
-              <button  class="modal-button" @click="submitLeave">
+              <button  class="modal-button" @click="submitData">
                 submit
               </button>
 
@@ -86,39 +83,39 @@
     <div>
       <table border="1" class="my-table">
         <thead>
-          <td>Sp Name</td>
-          <td>No of Order</td>
-          <td>Order Value</td>
-          <td>Basic Salary</td>
-          <td>TA</td>
-          <td>Extra Product</td>
-          <td>Reward of Month</td>
-          <td>Gap Amount</td>
-          <td>Deduction</td>
-          <td>Sub Total</td>
-          <td>Commission</td>
-          <td>Total</td>
-          <td>Percentage</td>
+        <td>Sp Name</td>
+        <td>No of Order</td>
+        <td>Order Value</td>
+        <td>Basic Salary</td>
+        <td>TA</td>
+        <td>Extra Product</td>
+        <td>Reward of Month</td>
+        <td>Gap Amount</td>
+        <td>Deduction</td>
+        <td>Sub Total</td>
+        <td>Commission</td>
+        <td>Total</td>
+        <td>Percentage</td>
 
         </thead>
         <tbody>
-           <tr v-for="item in items" :key="item.id">
-             <router-link :to="{ name: 'WalletMonthly', params: { id: item.id }}">
-              <td>{{item.name}}</td>
-            </router-link>
-            <td>{{item.total_orders}}</td>
-            <td>{{item.total_bill}}</td>
-            <td>{{item.basic_salary}}</td>
-            <td>{{item.ta}}</td>
-            <td>{{item.extra_product}}</td>
-            <td>{{item.reward}}</td>
-            <td>{{item.gap_amount}}</td>
-            <td>{{item.deduction}}</td>
-            <td>{{item.sub_total}}</td>
-            <td>{{item.commission}}</td>
-            <td>{{item.total}}</td>
-            <td>{{item.percentage}}%</td>
-           </tr>
+        <tr v-for="item in items" :key="item.id">
+          <router-link :to="{ name: 'WalletMonthly', params: { id: item.id }}">
+            <td>{{item.name}}</td>
+          </router-link>
+          <td>{{item.total_orders}}</td>
+          <td>{{item.total_bill}}</td>
+          <td>{{item.basic_salary}}</td>
+          <td>{{item.ta}}</td>
+          <td @click="openModal(item.id,'extra')" style="cursor: pointer">{{item.extra_product}}</td>
+          <td>{{item.reward}}</td>
+          <td>{{item.gap_amount}}</td>
+          <td @click="openModal(item.id,'deduction')" style="cursor: pointer">{{item.deduction}}</td>
+          <td>{{item.sub_total}}</td>
+          <td>{{item.commission}}</td>
+          <td>{{item.total}}</td>
+          <td>{{item.percentage}}%</td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -138,7 +135,7 @@ import TableColumn from "@/views/TableColumn.vue";
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
-  name: "ShowSalary",
+  name: "CreateSalary",
 
   components: {
     LeaveModal,
@@ -155,6 +152,10 @@ export default {
       dataShow: false,
       month: '',
       year: '',
+      partner_id: '',
+      slug: '',
+      remarks: '',
+      amount:'',
 
       showModal: false,
       selectedItem: null,
@@ -186,12 +187,13 @@ export default {
 
   },
   methods: {
-    openModal(value,date,key) {
+    openModal(id,slug) {
+      // console.log("i am cliked");
       this.$modal.show("modal-order_type");
       // this.closeModal(value,date,key);
-      this.partner_id= value.id;
-      this.leave_date= date;
-      this.key=key;
+      this.partner_id= id;
+      this.slug= slug;
+
 
 
     },
@@ -223,13 +225,36 @@ export default {
             console.log(this.items);
 
 
-            return this.$router.push('/partner-salary');
+            return this.$router.push('/partner-salary-create');
 
           })
           .catch(error => {
 
           });
     },
+    submitData() {
+
+      let formData = {
+        partner_id: this.partner_id,
+        slug: this.slug,
+        amount: this.amount,
+        remarks: this.remarks,
+
+      }
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      console.log(formData);
+
+      axios.post(`${ADMIN_URL}/partner-payment-deduction-extra`, formData)
+          .then(response => {
+            console.log(response);
+            this.$modal.hide("modal-order_type");
+            window.location.reload();
+
+          })
+          .catch(error => {
+
+          });
+    }
 
 
   },

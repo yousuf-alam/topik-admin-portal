@@ -35,16 +35,23 @@
           <option value="2025">2025</option>
         </select>
       </div>
+      <div style="margin-left: 30px">
+        <label>Partner Name</label>
+        <select class="form-control" v-model="partner_id">
+          <option v-for="partner in partners" :key="partner.id" :value="partner.id">{{partner.name}}</option>
+
+        </select>
+      </div>
 
 
-      <button @click="onSubmit" class="show-btn"> Show Salary
+      <button @click="onSubmit" class="show-btn"> Show Wallet
       </button>
 
-      <div class="">
-        <router-link :to="{ name: 'CreatePartnerLeave'}" >
-          <button class="show-btn">Add Deduction</button>
-        </router-link>
-      </div>
+<!--      <div class="">-->
+<!--        <router-link :to="{ name: 'CreatePartnerLeave'}" >-->
+<!--          <button class="show-btn">Add Deduction</button>-->
+<!--        </router-link>-->
+<!--      </div>-->
 
       <!--      <div>-->
       <!--        <button @click="openModal">Show modal</button>-->
@@ -111,6 +118,7 @@ export default {
       month: '',
       year: '',
       partner_id : this.$route.params.id,
+      partners:[],
 
       showModal: false,
       selectedItem: null,
@@ -140,9 +148,20 @@ export default {
     this.year = currentDate.getFullYear();
     this.partner_id = this.$route.params.id;
     this.onSubmit();
+    this.getPartners();
 
   },
   methods: {
+    getPartners() {
+      axios.get(`${ADMIN_URL}/in-house-partners`)
+          .then(response => {
+            this.partners = response.data.data;
+            console.log(this.partners);
+          })
+          .catch(error => {
+
+          });
+    },
     openModal(value,date,key) {
       this.$modal.show("modal-order_type");
       // this.closeModal(value,date,key);

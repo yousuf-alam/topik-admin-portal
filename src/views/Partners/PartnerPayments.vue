@@ -3,6 +3,11 @@
     <b-row>
       <b-col>
         <h4><i class="fa fa-user"></i><span class="ml-1">Payment Approve</span></h4>
+        <div class="mb-3">
+          <router-link :to="{ name: 'CreatePayment'}" >
+            <button class="btn btn-success">Create  Payment</button>
+          </router-link>
+        </div>
         <b-card>
           <v-client-table :data="partners" :columns="columns" :options="options">
             <!--<template slot="logo" slot-scope="props">

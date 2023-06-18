@@ -165,6 +165,7 @@ import LeaveLog from "@/views/PartnerLeave/LeaveLog.vue";
 import ShowSalary from "@/views/PartnerSalary/ShowSalary.vue";
 import WalletMonthly from "@/views/PartnerSalary/WalletMonthly.vue";
 import CreateSalary from "@/views/PartnerSalary/CreateSalary.vue";
+import CreatePayment from "@/views/Partners/CreatePayment.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -858,6 +859,16 @@ const router = new Router({
             permission_name: "partner read"
           }
         },
+        {
+          path: "create-partner-payment",
+          name: "CreatePayment",
+          component: CreatePayment,
+          meta: {
+            permission_name: "partner read"
+          }
+        },
+
+
         {
           path: "resources",
           name: "Resources",

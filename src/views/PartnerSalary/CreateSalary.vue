@@ -37,12 +37,12 @@
       </div>
 
 
-      <button @click="onSubmit" class="show-btn"> Show Salary
+      <button @click="onSubmit" class="show-btn"> Create Salary
       </button>
 
       <div class="">
-        <router-link :to="{ name: 'CreateSalary'}" >
-          <button class="show-btn">Create Salary</button>
+        <router-link :to="{ name: 'ShowSalary'}" >
+          <button class="show-btn">Show Salary</button>
         </router-link>
       </div>
 
@@ -90,6 +90,8 @@
         <td>TA</td>
         <td>Extra Product</td>
         <td>Reward of Month</td>
+        <td>Bkash</td>
+        <td>Cash</td>
         <td>Gap Amount</td>
         <td>Deduction</td>
         <td>Sub Total</td>
@@ -109,6 +111,8 @@
           <td>{{item.ta}}</td>
           <td @click="openModal(item.id,'extra')" style="cursor: pointer">{{item.extra_product}}</td>
           <td>{{item.reward}}</td>
+          <td>{{item.bkash}}</td>
+          <td>{{item.cash}}</td>
           <td>{{item.gap_amount}}</td>
           <td @click="openModal(item.id,'deduction')" style="cursor: pointer">{{item.deduction}}</td>
           <td>{{item.sub_total}}</td>

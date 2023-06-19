@@ -93,6 +93,8 @@
           <td>TA</td>
           <td>Extra Product</td>
           <td>Reward of Month</td>
+          <td>Bkash</td>
+          <td>Cash</td>
           <td>Gap Amount</td>
           <td>Deduction</td>
           <td>Sub Total</td>
@@ -112,6 +114,8 @@
             <td>{{item.ta}}</td>
             <td>{{item.extra_product}}</td>
             <td>{{item.reward}}</td>
+            <td>{{item.bkash}}</td>
+            <td>{{item.cash}}</td>
             <td>{{item.gap_amount}}</td>
             <td>{{item.deduction}}</td>
             <td>{{item.sub_total}}</td>

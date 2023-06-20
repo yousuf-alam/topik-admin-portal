@@ -95,6 +95,7 @@ export default {
         payment_method:this.payment_method,
         amount:this.amount,
         payment_to:this.payment_to,
+        remarks:this.remarks,
         recieved_date:this.recieved_date,
       }
 

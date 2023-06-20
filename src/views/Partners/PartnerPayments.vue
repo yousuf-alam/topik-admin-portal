@@ -27,6 +27,15 @@
                     <span class="btn btn-warning btn-sm m-1 cursor-pointer" data-toggle="tooltip" title="Show" :href="props.row.id">
                     <i class="fa fa-times-circle"></i></span>
                 </div>
+                <router-link :to="{ name: 'EditPayment', params: { id: props.row.id }}"
+                >
+                  <span
+                      class="btn btn-warning btn-sm m-1"
+                      data-toggle="tooltip" title="Edit"
+                      :href="props.row.id">
+                    <i class="fa fa-edit"></i>
+                  </span>
+                </router-link>
 
 
               </div>

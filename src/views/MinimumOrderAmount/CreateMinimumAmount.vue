@@ -17,7 +17,7 @@
 
 
 
-          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Redeem
+          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Amount
           </b-button>
         </b-card-text>
       </b-tab>

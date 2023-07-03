@@ -1,7 +1,15 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">LineItems</span></h4>
+      <h4><i class="fa fa-bars"></i><span class="ml-1">LineItems</span>
+      
+      
+         
+   
+      </h4>
+
+    
+
       <div class="">
         <h1 class="my-auto tableName">
 
@@ -13,9 +21,14 @@
         </router-link>
       </div>
     </div>
+     
+    
+   
     <b-row>
+ 
       <b-col>
         <b-card>
+            <button class="btn btn-success"  @click="ExportLineItems">Export as .xlsx</button>
           <v-client-table :data="lineitems" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
@@ -49,6 +62,7 @@
 
 <script>
   import axios from 'axios';
+  import FileSaver from 'file-saver';
   const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
   export default {
     name: 'Lineitems',
@@ -121,6 +135,26 @@
                 // console.log('Error response :::: ', error.response);
             })
         },
+        ExportLineItems() {
+      // Use axios to request the backend to generate the Excel file
+      axios
+        .get(`${ADMIN_URL}/line-items/export-lineitems`, { responseType: 'blob' })
+        .then(response => {
+          const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          const fileName = 'line_items.xlsx';
+          FileSaver.saveAs(blob, fileName);
+        })
+        .catch(error => {
+          console.error('Error while downloading the Excel file', error);
+        });
+    },
+
+
+
+
+
+
+
     },
   }
 </script>

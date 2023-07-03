@@ -68,6 +68,7 @@
     "@vue/cli-plugin-eslint": "^3.3.0",
     "@vue/cli-plugin-unit-jest": "^4.5.11",
     "@vue/cli-service": "^4.5.11",
+    "@vue/runtime-dom": "latest",
     "@vue/test-utils": "^1.0.0-beta.28",
     "babel-core": "^7.0.0-bridge.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",

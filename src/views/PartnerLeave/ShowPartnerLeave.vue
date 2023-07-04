@@ -100,11 +100,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in value.items" :key="item.name">
+            <tr v-for="item in value.items" :key="item.name+ `${item.id}`">
 
               <td>{{ item.name }}</td>
               <td>
-                <div class="location-name"><input type="radio" @click="openModal(item,value.date,'wl')"  :checked="item.first"/></div>
+                <div class="location-name"><input type="radio" :name="item.id" @click="openModal(item,value.date,'wl')"  :checked="item.first"/></div>
               </td>
               <td>
                 <div class="location-name"><input type="radio" :name="item.id" @click="openModal(item,value.date,'sl')" :checked="item.second"/></div>

@@ -228,10 +228,10 @@ export default {
             this.values = response.data.value;
             // console.log("values here",this.values);
             // this.items=this.values[0].items;
-            for (let i = 0; i < this.values.length; i++) {
-              this.items[i] = this.values[i].items
-            }
-            console.log("item is here", this.items[5]);
+            // for (let i = 0; i < this.values.length; i++) {
+            //   this.items[i] = this.values[i].items
+            // }
+            // console.log("item is here", this.items[5]);
 
             return this.$router.push('/partner-leaves');
 

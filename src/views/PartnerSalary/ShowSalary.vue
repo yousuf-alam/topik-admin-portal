@@ -97,6 +97,7 @@
           <td>Cash</td>
           <td>Gap Amount</td>
           <td>Deduction</td>
+          <td>Bonus Amount</td>
           <td>Sub Total</td>
           <td>Commission</td>
           <td>Total</td>
@@ -118,6 +119,7 @@
             <td>{{item.cash}}</td>
             <td>{{item.gap_amount}}</td>
             <td>{{item.deduction}}</td>
+            <td>{{item.bonus_amount}}</td>
             <td>{{item.sub_total}}</td>
             <td>{{item.commission}}</td>
             <td>{{item.total}}</td>

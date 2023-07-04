@@ -94,6 +94,7 @@
         <td>Cash</td>
         <td>Gap Amount</td>
         <td>Deduction</td>
+        <td>Bonus Amount</td>
         <td>Sub Total</td>
         <td>Commission</td>
         <td>Total</td>
@@ -115,6 +116,7 @@
           <td>{{item.cash}}</td>
           <td>{{item.gap_amount}}</td>
           <td @click="openModal(item.id,'deduction')" style="cursor: pointer">{{item.deduction}}</td>
+          <td @click="openModal(item.id,'bonus')" style="cursor: pointer">{{item.bonus_amount}}</td>
           <td>{{item.sub_total}}</td>
           <td>{{item.commission}}</td>
           <td>{{item.total}}</td>

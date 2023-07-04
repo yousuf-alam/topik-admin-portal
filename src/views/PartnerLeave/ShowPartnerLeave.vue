@@ -104,13 +104,19 @@
 
               <td>{{ item.name }}</td>
               <td>
-                <div class="location-name"><input type="radio" :name="item.id" @click="openModal(item,value.date,'wl')"  :checked="item.first"/></div>
+                <div class="location-name">
+                  <input type="radio" :name="'player_id' + value.date + item.id " @click="openModal(item,value.date,'wl')" :checked="item.first"/>
+                </div>
               </td>
               <td>
-                <div class="location-name"><input type="radio" :name="item.id" @click="openModal(item,value.date,'sl')" :checked="item.second"/></div>
+                <div class="location-name">
+                  <input type="radio" :name="'player_id' + value.date + item.id" @click="openModal(item,value.date,'sl')" :checked="item.second"/>
+                </div>
               </td>
               <td>
-                <div class="location-name"><input type="radio" :name="item.id" @click="openModal(item,value.date,'up')" :checked="item.third"/></div>
+                <div class="location-name">
+                  <input type="radio" :name="'player_id' + value.date + item.id" @click="openModal(item,value.date,'up')" :checked="item.third"/>
+                </div>
               </td>
 
             </tr>
@@ -134,6 +140,7 @@ import Loader from "@/views/Loader.vue";
 import TableColumn from "@/views/TableColumn.vue";
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+import dataJson from './data.json'
 export default {
   name: "ShowPartnerLeave",
 
@@ -225,6 +232,8 @@ export default {
             this.activeLoader = false;
 
             this.columns = response.data.columns;
+            // this.values = dataJson.value;
+            // console.log("values here",this.values);
             this.values = response.data.value;
             // console.log("values here",this.values);
             // this.items=this.values[0].items;

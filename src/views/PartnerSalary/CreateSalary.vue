@@ -91,7 +91,7 @@
         <td>Extra Product</td>
         <td>Reward of Month</td>
         <td>Bkash</td>
-        <td>Cash</td>
+        <td>Cash/Bkash/Sp</td>
         <td>Gap Amount</td>
         <td>Deduction</td>
         <td>Bonus Amount</td>

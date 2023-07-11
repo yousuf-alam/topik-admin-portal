@@ -94,7 +94,7 @@
           <td>TA</td>
           <td>Extra Product</td>
           <td>Reward of Month</td>
-          <td>Mehtod Bkash</td>
+          <td>Method Bkash</td>
           <td>(Cash/207/208)Sp</td>
           <td>Gap Amount</td>
           <td>Deduction</td>

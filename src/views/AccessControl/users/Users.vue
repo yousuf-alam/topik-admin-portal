@@ -34,7 +34,7 @@
         </modal>
        </b-row>
        <div>
-        <button v-if="getUserPermission('admin')" @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
+        <button v-if="getUserPermission('admin')" @click="modalExport" class="btn btn-success p-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
 
        </div>
   			<div class="">
@@ -136,6 +136,11 @@ export default {
         modalExport() {
             this.$modal.show('modal-user_export');
           },
+          resetModal() {
+            this.date_from = '';
+            this.date_to = '';
+          },
+
           closeModal(){
             this.$modal.hide('modal-user_export')
           },
@@ -161,6 +166,7 @@ export default {
                 document.body.appendChild(link);
                 link.click();
                 this.$swal('Report Exported Successfully', '', 'success');
+                this.resetModal();
                 this.closeModal();
               })
               .catch(e => {

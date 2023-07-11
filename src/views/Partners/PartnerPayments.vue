@@ -66,7 +66,7 @@ export default {
       BASE_URL: BASE_URL,
       PARTNER_FRONTEND_DOMAIN: PARTNER_FRONTEND_DOMAIN, /* TO_EDIT_THIS_PLACE */
       partners : [],
-      columns: ['id', 'partner_id', 'method','tid', 'amount' ,'status', 'payment_to', 'created_at', 'action'],
+      columns: ['id', 'partner_name', 'method','tid', 'amount' ,'status', 'payment_to', 'created_at', 'action'],
       options: {
         pagination: {nav: 'fixed'},
         filterByColumn: true,

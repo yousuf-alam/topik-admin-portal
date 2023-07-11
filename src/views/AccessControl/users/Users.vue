@@ -5,7 +5,7 @@
   			<div class="">
   				<h1 class="my-auto tableName"></h1>
   			</div>
-       
+
         <b-row>
         <modal name="modal-user_export" height="500px" width="800px" :adaptive="true">
           <div class="m-3 p-3">
@@ -23,7 +23,7 @@
                    <datepicker calendar-class="vdp-datepicker" v-model="date_to" format="yyyy-MM-dd"></datepicker>
                  </p>
                </div>
-               
+
                <button @click="closeModal" class="btn btn-danger float-right m-1">Cancel</button>
                <button @click="ExportUser" class="btn btn-romoni-secondary float-right m-1">Export User Report</button>
                <b-spinner variant="danger" label="Spinning" v-if="exporting"></b-spinner>
@@ -45,11 +45,11 @@
                   </span>
                   </p>
   				</router-link>
-         
+
   			</div>
-       
+
   		</div>
-     
+
     <div class="card">
       <v-client-table :data="users" :columns="columns" :options="options">
         <template slot="action" slot-scope="props">
@@ -87,7 +87,7 @@ export default {
     name: 'Users',
     components: {
         Datepicker,
-     
+
       },
     data() {
         return {
@@ -173,7 +173,7 @@ export default {
                 console.log("error occurs",e);
               });
 
-            
+
           }
     }
 }
@@ -183,8 +183,8 @@ export default {
  .vdp-datepicker{
     display: inline-block;
     margin-right: 1rem;
-   
-    
+
+
   }
 
   .exportButton {

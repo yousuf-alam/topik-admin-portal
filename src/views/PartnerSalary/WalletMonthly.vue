@@ -186,8 +186,8 @@ export default {
       // this.dataShow=true;
 
       let formData = {
-        month: 5,
-        year: 2023,
+        month: this.month,
+        year: this.year,
         partner_id:this.partner_id
 
       }

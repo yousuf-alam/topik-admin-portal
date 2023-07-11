@@ -33,7 +33,7 @@
           </div>
         </modal>
        </b-row>
-       <div>
+       <div class="exportButton">
         <button v-if="getUserPermission('admin')" @click="modalExport" class="btn btn-success p-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
 
        </div>
@@ -187,5 +187,13 @@ export default {
     
   }
 
- 
+  .exportButton {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+ }
+
+ .exportButton button {
+    margin-right: 1rem;
+ }
 </style>

@@ -49,7 +49,7 @@ export default {
     data() {
         return {
             users: [],
-            columns: ['id', 'name','phone','action'],
+            columns: ['id', 'name','phone','role_name','action'],
             options: {
               pagination: {nav: 'fixed'},
               filterByColumn: true,

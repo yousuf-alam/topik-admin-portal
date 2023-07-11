@@ -45,6 +45,7 @@
           <button class="show-btn">Create Salary</button>
         </router-link>
       </div>
+      <button class="show-btn"  @click="exportSalary">Export as .xlsx</button>
 
       <!--      <div>-->
       <!--        <button @click="openModal">Show modal</button>-->
@@ -58,24 +59,24 @@
             <div  class="cross-button" @click="closeModal">X</div>
 
           </b-row>
-          <b-row class="p-2">
-            <div class="center-div">
-              <label>Remarks: </label>
+<!--          <b-row class="p-2">-->
+<!--            <div class="center-div">-->
+<!--              <label>Remarks: </label>-->
 
-              <input v-model="remarks" type="text" >
-              <div>
-                <label>Status:</label>
-                <select v-model="status">
-                  <option value="1">Approved</option>
-                  <option value="0">Rejected</option>
-                </select>
-              </div>
-              <button  class="modal-button" @click="submitLeave">
-                submit
-              </button>
+<!--              <input v-model="remarks" type="text" >-->
+<!--              <div>-->
+<!--                <label>Status:</label>-->
+<!--                <select v-model="status">-->
+<!--                  <option value="1">Approved</option>-->
+<!--                  <option value="0">Rejected</option>-->
+<!--                </select>-->
+<!--              </div>-->
+<!--              <button  class="modal-button" @click="submitLeave">-->
+<!--                submit-->
+<!--              </button>-->
 
-            </div>
-          </b-row>
+<!--            </div>-->
+<!--          </b-row>-->
         </div>
       </modal>
 
@@ -140,7 +141,9 @@ import axios from 'axios';
 import LeaveModal from "@/views/PartnerLeave/LeaveModal.vue";
 import VueFinalModal from 'vue-final-modal';
 import Loader from "@/views/Loader.vue";
+import FileSaver from 'file-saver';
 import TableColumn from "@/views/TableColumn.vue";
+import moment from "moment/moment";
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
@@ -237,7 +240,42 @@ export default {
           });
     },
 
+    exportSalary() {
+      this.exporting = true;
+      axios({
+        method: "post",
+        url: `${ADMIN_URL}/export-salary`,
+        responseType: "blob",
+        data: {
+          year: this.year,
+          month: this.month,
 
+        }
+      })
+          .then(response => {
+            console.log(response.data);
+            this.exporting = false;
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute(
+                "download",
+                'Partner_Salary' +
+                "_" +
+                "~" +
+                ".xlsx"
+            );
+            document.body.appendChild(link);
+            link.click();
+            this.$swal("Report Exported Successfully", "", "success");
+            this.closeModal();
+          })
+          .catch(e => {
+            this.exporting = false;
+            console.log("error occurs", e);
+            this.$swal("Error", "Something Went Wrong", "error");
+          });
+    }
   },
 
 }

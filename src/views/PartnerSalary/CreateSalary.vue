@@ -46,6 +46,7 @@
         </router-link>
       </div>
 
+
       <!--      <div>-->
       <!--        <button @click="openModal">Show modal</button>-->
       <!--      </div>-->
@@ -90,8 +91,8 @@
         <td>TA</td>
         <td>Extra Product</td>
         <td>Reward of Month</td>
-        <td>Bkash</td>
-        <td>Cash/Bkash/Sp</td>
+        <td>Bkash Payment</td>
+        <td>Cash/Bkash-Sp</td>
         <td>Gap Amount</td>
         <td>Deduction</td>
         <td>Bonus Amount</td>
@@ -260,7 +261,8 @@ export default {
           .catch(error => {
 
           });
-    }
+    },
+
 
 
   },

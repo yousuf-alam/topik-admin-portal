@@ -84,6 +84,35 @@
                 <div class="service-name"> {{ item.forth.service_name }}</div>
                 <div class="total-bill"> {{ item.forth.total_bill }}</div>
               </td>
+
+              <td :class="{'paste-cell':item.fifth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.fifth===false,'sky-cell':item.fifth==true}">
+                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
+                  {{ item.fifth.name }}
+                </div>
+                <div class="service-name"> {{ item.fifth.service_name }}</div>
+                <div class="total-bill"> {{ item.fifth.total_bill }}</div>
+              </td>
+              <td :class="{'paste-cell':item.sixth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.sixth===false,'sky-cell':item.sixth==true}">
+                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
+                  {{ item.sixth.name }}
+                </div>
+                <div class="service-name"> {{ item.sixth.service_name }}</div>
+                <div class="total-bill"> {{ item.sixth.total_bill }}</div>
+              </td>
+              <td :class="{'paste-cell':item.seventh.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.seventh===false,'sky-cell':item.seventh==true}">
+                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
+                  {{ item.seventh.name }}
+                </div>
+                <div class="service-name"> {{ item.seventh.service_name }}</div>
+                <div class="total-bill"> {{ item.seventh.total_bill }}</div>
+              </td>
+              <td :class="{'paste-cell':item.eighth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.eighth===false,'sky-cell':item.eighth==true}">
+                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
+                  {{ item.eighth.name }}
+                </div>
+                <div class="service-name"> {{ item.eighth.service_name }}</div>
+                <div class="total-bill"> {{ item.eighth.total_bill }}</div>
+              </td>
             </tr>
 
             </tbody>

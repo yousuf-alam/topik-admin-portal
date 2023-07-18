@@ -50,10 +50,10 @@
           </b-form-group>
           <b-form-group label="Scheduled Time">
             <select class="form-control" v-model="order.scheduled_time">
-              <option value="08.00AM-11.00AM"> 08:00 AM - 11:00 AM </option>
-              <option value="11.00AM-02.00PM"> 11:00 AM - 02:00 PM </option>
-              <option value="02.00PM-05.00PM"> 02:00 PM - 05:00 PM </option>
-              <option value="05.00PM-08.00PM"> 05:00 PM - 08:00 PM </option>
+              <option value="09.00AM-12.00PM"> 09:00 AM - 12:00 PM </option>
+              <option value="12.00PM-03.00PM"> 12:00 PM - 03:00 PM </option>
+              <option value="03.00PM-06.00PM"> 03:00 PM - 06:00 PM </option>
+              <option value="06.00PM-09.00PM"> 06:00 PM - 09:00 PM </option>
             </select>
           </b-form-group>
           <b-form-group label="Request from customer" class="mt-2">

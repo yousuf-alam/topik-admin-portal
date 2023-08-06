@@ -49,11 +49,12 @@
 
     <div class="d-flex gap-10  mt-8 mb-6">
       <div v-for="value in values" :key="values.dates" class="d-flex flex-column">
-        <div class="mt-3 mb-3">
-          <h4>{{ value.date }}</h4>
+        <div class="mt-3 mb-3 date-box">
+          <h4>{{ value.date }}:</h4>
+          <h4>{{ formattedDay(value.date) }}</h4>
         </div>
-        <div>
-          <table class="th-st" border="1" style="margin-right: 20px">
+        <div class="table-container">
+          <table class="th-st my-table" border="1" style="margin-right: 20px">
             <thead>
             <tr>
 
@@ -95,6 +96,15 @@
                 </router-link>
 
               </td>
+              <td>
+                <router-link :to="{ name: 'LeaveLog', params: { id: item.leave_id }}">
+                  <div class="location-name">{{ item.training.remarks }}</div>
+                  <div class="service-name"> {{ item.training.created_by }}</div>
+                  <div class="total-bill"> {{ item.training.updated_by }}</div>
+                  <div class="total-bill"> {{ item.training.time }}</div>
+                </router-link>
+
+              </td>
 
             </tr>
 
@@ -113,6 +123,7 @@
 import axios from 'axios';
 import Loader from "@/views/Loader.vue";
 import TableColumn from "@/views/TableColumn.vue";
+import moment from "moment/moment";
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
@@ -163,6 +174,9 @@ export default {
     this.onSubmit();
   },
   methods: {
+    formattedDay(date) {
+      return moment(date).format('dddd');
+    },
 
     onSubmit() {
       this.activeLoader = true;
@@ -223,6 +237,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.date-box {
+  background: #FF3571;
+  width: 250px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-left: 30px;
+}
 .th-st {
 
   tr {
@@ -305,6 +330,31 @@ export default {
   font-weight: 700;
   font-size: 20px;
   color: #FF3572;
+}
+.table-container {
+  /* Set a fixed height for the table container to enable scrolling */
+  height: 300px; /* Adjust the height as per your requirements */
+  overflow-y: auto;
+  margin-left: 30px;
+}
+
+.my-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.my-table th,
+.my-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.my-table thead {
+  /* Set the table header row to be sticky at the top */
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  z-index: 1;
 }
 
 

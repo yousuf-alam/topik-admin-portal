@@ -44,11 +44,12 @@
 
     <div class="d-flex gap-10  mt-8 mb-6">
       <div v-for="value in values" :key="values.dates" class="d-flex flex-column">
-        <div class="mt-3 mb-3">
-          <h4>{{ value.date }}</h4>
+        <div class="mt-3 mb-3 date-box">
+          <h4>{{ value.date }}:</h4>
+          <h4>{{ formattedDay(value.date) }}</h4>
         </div>
-        <div>
-          <table class="th-st" border="1" style="margin-right: 20px">
+        <div class="table-container">
+          <table class="th-st my-table" border="1" style="margin-right: 20px">
             <thead>
             <tr>
 
@@ -62,52 +63,52 @@
             <tr v-for="item in value.items" :key="item.name" >
 
               <td :class="{'off-cell':item.offDay===true}">{{ item.name }}</td>
-              <td :class="{'paste-cell':item.first.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.first===false,'sky-cell':item.first===true}">
-                <div class="location-name">{{ item.first.name }}</div>
-                <div class="service-name"> {{ item.first.service_name }}</div>
-                <div class="total-bill"> {{ item.first.total_bill }}</div>
-              </td>
-              <td :class="{'paste-cell':item.second.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.second===false,'sky-cell':item.second===true}">
-                <div class="location-name">{{ item.second.name }}</div>
-                <div class="service-name"> {{ item.second.service_name }}</div>
-                <div class="total-bill"> {{ item.second.total_bill }}</div>
-              </td>
-              <td :class="{'paste-cell':item.third.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.third===false,'sky-cell':item.third==true}">
-                <div class="location-name">{{ item.third.name }}</div>
-                <div class="service-name"> {{ item.third.service_name }}</div>
-                <div class="total-bill"> {{ item.third.total_bill }}</div>
-              </td>
-              <td :class="{'paste-cell':item.forth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.forth===false,'sky-cell':item.forth==true}">
-                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
-                  {{ item.forth.name }}
-                </div>
-                <div class="service-name"> {{ item.forth.service_name }}</div>
-                <div class="total-bill"> {{ item.forth.total_bill }}</div>
-              </td>
+<!--              <td :class="{'paste-cell':item.first.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.first===false,'sky-cell':item.first===true}">-->
+<!--                <div class="location-name">{{ item.first.name }}</div>-->
+<!--                <div class="service-name"> {{ item.first.service_name }}</div>-->
+<!--                <div class="total-bill"> {{ item.first.total_bill }}</div>-->
+<!--              </td>-->
+<!--              <td :class="{'paste-cell':item.second.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.second===false,'sky-cell':item.second===true}">-->
+<!--                <div class="location-name">{{ item.second.name }}</div>-->
+<!--                <div class="service-name"> {{ item.second.service_name }}</div>-->
+<!--                <div class="total-bill"> {{ item.second.total_bill }}</div>-->
+<!--              </td>-->
+<!--              <td :class="{'paste-cell':item.third.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.third===false,'sky-cell':item.third==true}">-->
+<!--                <div class="location-name">{{ item.third.name }}</div>-->
+<!--                <div class="service-name"> {{ item.third.service_name }}</div>-->
+<!--                <div class="total-bill"> {{ item.third.total_bill }}</div>-->
+<!--              </td>-->
+<!--              <td :class="{'paste-cell':item.forth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.forth===false,'sky-cell':item.forth==true}">-->
+<!--                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">-->
+<!--                  {{ item.forth.name }}-->
+<!--                </div>-->
+<!--                <div class="service-name"> {{ item.forth.service_name }}</div>-->
+<!--                <div class="total-bill"> {{ item.forth.total_bill }}</div>-->
+<!--              </td>-->
 
-              <td :class="{'paste-cell':item.fifth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.fifth===false,'sky-cell':item.fifth==true}">
-                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
+              <td :class="{'paste-cell':item.fifth.city==='Chittagong','tr-cell':item.fifth===2 || item.fifth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.fifth===false,'sky-cell':item.fifth==true}">
+                <div  class="location-name">
                   {{ item.fifth.name }}
                 </div>
                 <div class="service-name"> {{ item.fifth.service_name }}</div>
                 <div class="total-bill"> {{ item.fifth.total_bill }}</div>
               </td>
-              <td :class="{'paste-cell':item.sixth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.sixth===false,'sky-cell':item.sixth==true}">
-                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
+              <td :class="{'paste-cell':item.sixth.city==='Chittagong','tr-cell':item.sixth===2 || item.sixth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.sixth===false,'sky-cell':item.sixth==true}">
+                <div  class="location-name">
                   {{ item.sixth.name }}
                 </div>
                 <div class="service-name"> {{ item.sixth.service_name }}</div>
                 <div class="total-bill"> {{ item.sixth.total_bill }}</div>
               </td>
-              <td :class="{'paste-cell':item.seventh.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.seventh===false,'sky-cell':item.seventh==true}">
-                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
+              <td :class="{'paste-cell':item.seventh.city==='Chittagong','tr-cell':item.seventh===2 || item.seventh===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.seventh===false,'sky-cell':item.seventh==true}">
+                <div  class="location-name">
                   {{ item.seventh.name }}
                 </div>
                 <div class="service-name"> {{ item.seventh.service_name }}</div>
                 <div class="total-bill"> {{ item.seventh.total_bill }}</div>
               </td>
-              <td :class="{'paste-cell':item.eighth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.eighth===false,'sky-cell':item.eighth==true}">
-                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">
+              <td :class="{'paste-cell':item.eighth.city==='Chittagong','tr-cell':item.eighth===2 || item.eighth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.eighth===false,'sky-cell':item.eighth==true}">
+                <div  class="location-name">
                   {{ item.eighth.name }}
                 </div>
                 <div class="service-name"> {{ item.eighth.service_name }}</div>
@@ -130,6 +131,7 @@
 import axios from 'axios';
 import Loader from "@/views/Loader.vue";
 import TableColumn from "@/views/TableColumn.vue";
+import moment from "moment";
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
@@ -210,7 +212,10 @@ export default {
           .catch(error => {
 
           });
-    }
+    },
+    formattedDay(date) {
+      return moment(date).format('dddd');
+    },
 
   },
 
@@ -218,6 +223,42 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.date-box {
+  background: #FF3571;
+  width: 250px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-left: 30px;
+}
+.table-container {
+  /* Set a fixed height for the table container to enable scrolling */
+  height: 300px; /* Adjust the height as per your requirements */
+  overflow-y: auto;
+  margin-left: 30px;
+}
+
+.my-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.my-table th,
+.my-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.my-table thead {
+  /* Set the table header row to be sticky at the top */
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  z-index: 1;
+}
 .th-st {
 
   tr {
@@ -276,6 +317,19 @@ export default {
         min-height: 100px !important;
 
       }
+      &.tr-cell {
+        background-color: #9F91CC !important;
+        min-width: 190px;
+        min-height: 100px !important;
+
+      }
+      &.tr-cell-full {
+        background-color: #9F91CC !important;
+        min-width: 190px;
+        min-height: 100px !important;
+
+      }
+
 
     }
 

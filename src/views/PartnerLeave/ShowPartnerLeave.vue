@@ -70,6 +70,16 @@
                   <option value="0">Rejected</option>
                 </select>
               </div>
+              <div>
+                <label>Training time:</label>
+                <select v-model="training_time">
+                  <option value="1">Full Day</option>
+                  <option value="2">1st Half</option>
+                  <option value="3">2nd Half</option>
+
+
+                </select>
+              </div>
               <button  class="modal-button" @click="submitLeave">
                 submit
               </button>
@@ -85,11 +95,12 @@
 
     <div class="d-flex gap-10  mt-8 mb-6">
       <div v-for="value in values" :key="values.dates" class="d-flex flex-column">
-        <div class="mt-3 mb-3">
-          <h4>{{ value.date }}</h4>
+        <div class="mt-3 mb-3 date-box" >
+          <h4>{{ value.date }}:</h4>
+          <h4>{{ formattedDay(value.date) }}</h4>
         </div>
-        <div>
-          <table class="th-st" border="1" style="margin-right: 20px">
+        <div class="table-container">
+          <table class="th-st my-table" border="1" style="margin-right: 20px">
             <thead>
             <tr>
 
@@ -118,6 +129,11 @@
                   <input type="radio" :name="'player_id' + value.date + item.id" @click="openModal(item,value.date,'up')" :checked="item.third"/>
                 </div>
               </td>
+              <td>
+                <div class="location-name">
+                  <input type="radio" :name="'player_id' + value.date + item.id" @click="openModal(item,value.date,'tr')" :checked="item.forth"/>
+                </div>
+              </td>
 
             </tr>
 
@@ -141,6 +157,7 @@ import TableColumn from "@/views/TableColumn.vue";
 
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 import dataJson from './data.json'
+import moment from "moment/moment";
 export default {
   name: "ShowPartnerLeave",
 
@@ -166,6 +183,7 @@ export default {
       is_unpaid_leave:'',
       remarks:'',
       status:'',
+      training_time:'',
       key:'',
       showModal: false,
       selectedItem: null,
@@ -205,6 +223,9 @@ export default {
       this.key=key;
 
 
+    },
+    formattedDay(date) {
+      return moment(date).format('dddd');
     },
     submitLeave() {
       this.updateApi();
@@ -255,6 +276,7 @@ export default {
         partner_id: this.partner_id,
         leave_date: this.leave_date,
         key: this.key,
+        training_time:this.training_time,
         remarks: this.remarks,
         status:this.status
 
@@ -278,6 +300,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.date-box {
+  background: #FF3571;
+  width: 250px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-left: 30px;
+}
 .th-st {
 
   tr {
@@ -412,6 +445,31 @@ input {
   justify-content: center;
   align-items: center;
   background-color: #FF3572;
+}
+.table-container {
+  /* Set a fixed height for the table container to enable scrolling */
+  height: 300px; /* Adjust the height as per your requirements */
+  overflow-y: auto;
+  margin-left: 30px;
+}
+
+.my-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.my-table th,
+.my-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.my-table thead {
+  /* Set the table header row to be sticky at the top */
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  z-index: 1;
 }
 
 

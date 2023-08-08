@@ -25,6 +25,19 @@
             <option value="cancelled">cancelled</option>
           </select>
         </b-form-group>
+          <b-form-group label="Cancel Reason *" v-if="order.status==='cancelled'">
+            <p v-if="order.cancel_reason==''" class="text-danger">You have to select cancel reason</p>
+            <select class="form-control" v-model="order.cancel_reason" >
+              <option value="SP Unreachable">SP Unreachable</option>
+              <option value="Cus Unreachable">Cus Unreachable</option>
+              <option value="OPS Unreachable">OPS Unreachable </option>
+              <option value="Cus Denied">Cus Denied</option>
+              <option value="SP Denied">SP Denied </option>
+              <option value="SP Unavailable">SP Unavailable</option>
+              <option value="Location Prob">Location Prob</option>
+              <option value="SP Time Management Issue">SP Time Management Issue</option>
+            </select>
+          </b-form-group>
           <b-form-group label="Assigned SP">
             <multiselect
               v-model="order.partner"
@@ -62,7 +75,8 @@
           <b-form-group label="Internal Notes" class="mt-2">
             <input type="text" class="form-control" v-model="order.internal_notes">
           </b-form-group>
-            <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
+            <button class="btn btn-dark mt-3" v-show="order.status !== 'cancelled' || (order.status === 'cancelled' && order.cancel_reason !== '')"
+                    @click="updateOrder"> Update</button>
 
         </b-card>
       </b-col>
@@ -419,6 +433,7 @@
         formData.append('scheduled_time', this.order.scheduled_time);
         formData.append('req_from_customer', this.order.req_from_customer);
         formData.append('internal_notes', this.order.internal_notes);
+        formData.append('cancel_reason', this.order.cancel_reason);
         formData.append('scheduled_date', this.order.scheduled_date);
         formData.append('shipping_name', this.order.shipping_name);
         formData.append('shipping_address',  JSON.stringify(this.order.shipping_address));

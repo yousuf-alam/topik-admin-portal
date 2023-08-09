@@ -393,7 +393,7 @@
     methods: {
       onDeleteThumbnil(item) {
        let value =item.slice(62,item.length);
-        console.log('hey delete thumbnail');
+        // console.log('hey delete thumbnail');
         let currentObj = this;
         const config = {
           headers: {'content-type': 'multipart/form-data'}
@@ -407,7 +407,7 @@
               currentObj.success = response.data.success;
               if(response.data.success===true)
               {
-                alert(response.data.message);
+                window.location.reload();
               }
               else
               {
@@ -440,13 +440,13 @@
             this.url_banner_android = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_banand}${this.lineitem.banner_android}`;
             this.url_banner_ios = this.lineitem.thumbnail === null ? null : `${BASE_URL}${this.src_banios}${this.lineitem.banner_ios}`;
             this.url_multi_thumbnail = JSON.parse(this.lineitem.multiple_thumbnail);
-            let sumon =[];
+            let images =[];
             for (const item in this.url_multi_thumbnail) {
               let value = this.url_multi_thumbnail[item];
               let image_item=`${BASE_URL}${this.src_thumbnail}` + value;
-              sumon.push(image_item) ;
+              images.push(image_item) ;
             }
-            this.multiple_thumbnail_url= sumon;
+            this.multiple_thumbnail_url= images;
 
             if(this.lineitem.description===null)
             {
@@ -618,12 +618,13 @@
         formData.append('banner_android', this.lineitem.banner_android);
         formData.append('banner_ios', this.lineitem.banner_ios);
         formData.append('b2b_product_ids', JSON.stringify(this.selected_products.map(x => x.id)));
+        console.log('form data', formData.value);
 
 
 
         axios.post(`${Admin_URL}/line-items/update`, formData, config)
           .then(function (response) {
-            console.log('Lineitem Update Successful === ', response.data);
+            // console.log('Lineitem Update Successful === ', response.data);
             currentObj.success = response.data.success;
             if(response.data.success===true)
             {

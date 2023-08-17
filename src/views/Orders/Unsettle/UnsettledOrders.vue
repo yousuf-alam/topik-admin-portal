@@ -1,44 +1,44 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">Redeem</span></h4>
+      <h4><i class="fa fa-bars"></i><span class="ml-1">Unsettle Order</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
 
         </h1>
       </div>
       <div class="">
-        <router-link :to="{ name: 'CreateRedeem'}" >
-          <button class="btn btn-success">Create New Redeem</button>
-        </router-link>
+<!--        <router-link :to="{ name: 'CreateRedeem'}" >-->
+<!--          <button class="btn btn-success">Create New Redeem</button>-->
+<!--        </router-link>-->
       </div>
     </div>
     <b-row>
       <b-col>
         <b-card>
           <v-client-table :data="redeems" :columns="columns" :options="options">
-            <template slot="action" slot-scope="props">
-              <div>
-                <router-link :to="{ name: 'EditRedeem', params: { id: props.row.id }}"
-                >
-                  <span
-                      class="btn btn-warning btn-sm m-1"
-                      data-toggle="tooltip" title="Edit"
-                      :href="props.row.id">
-                    <i class="fa fa-edit"></i>
-                  </span>
-                </router-link>
-                <span
-                    class="btn btn-danger btn-sm m-1"
-                    data-toggle="tooltip"
-                    title="Delete Redeem"
-                    :href="props.row.id"
-                    @click="handleDelete(props.row.id)"
-                >
-                    <i class="fa fa-trash"></i>
-                </span>
-              </div>
-            </template>
+<!--            <template slot="action" slot-scope="props">-->
+<!--              <div>-->
+<!--                <router-link :to="{ name: 'EditRedeem', params: { id: props.row.id }}"-->
+<!--                >-->
+<!--                  <span-->
+<!--                      class="btn btn-warning btn-sm m-1"-->
+<!--                      data-toggle="tooltip" title="Edit"-->
+<!--                      :href="props.row.id">-->
+<!--                    <i class="fa fa-edit"></i>-->
+<!--                  </span>-->
+<!--                </router-link>-->
+<!--                <span-->
+<!--                    class="btn btn-danger btn-sm m-1"-->
+<!--                    data-toggle="tooltip"-->
+<!--                    title="Delete Redeem"-->
+<!--                    :href="props.row.id"-->
+<!--                    @click="handleDelete(props.row.id)"-->
+<!--                >-->
+<!--                    <i class="fa fa-trash"></i>-->
+<!--                </span>-->
+<!--              </div>-->
+<!--            </template>-->
           </v-client-table>
         </b-card>
       </b-col>

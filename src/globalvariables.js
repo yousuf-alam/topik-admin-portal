@@ -98,6 +98,18 @@ export default {
       "document update",
       "document delete"
     ],
+    partnerSalary:[
+        "partner salary"
+    ],
+    partnerLeaves:[
+        "partner leaves"
+    ],
+    spRoutes:[
+       "sp route"
+    ],
+    spOrderCount:[
+        "sp order count"
+    ],
     otps: ["otp read"],
     admin: ["admin"],
     reports: ["reports"],

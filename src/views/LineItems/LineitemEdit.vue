@@ -463,10 +463,24 @@
         if (file === undefined) {
           return;
         }
-        this.lineitem[file_name] = file;
+        // this.lineitem[file_name] = file;
+        this.setLineItemImage(file_name, file);
         this[file_url] = URL.createObjectURL(file);
       },
 
+      setLineItemImage(file_name, file) {
+        if (file_name == "thubmnail") {
+          this.lineitem.thumbnail = file;
+        } else if (file_name == "banner_web") {
+          this.lineitem.banner_web = file;
+        } else if (file_name == "banner_tab") {
+          this.lineitem.banner_tab = file;
+        } else if (file_name == "banner_android") {
+          this.lineitem.banner_android = file;
+        } else if (file_name == "banner_ios") {
+          this.lineitem.banner_ios = file;
+        }
+      },
 
       onThumbnailChange(e) {
         this.previewImage(e, 'thumbnail', 'url_thumbnail');
@@ -618,7 +632,9 @@
         formData.append('banner_android', this.lineitem.banner_android);
         formData.append('banner_ios', this.lineitem.banner_ios);
         formData.append('b2b_product_ids', JSON.stringify(this.selected_products.map(x => x.id)));
-        console.log('form data', formData.value);
+        // console.log('form data', formData.getLength());
+        // console.log('line-item', this.lineitem);
+        // return;
 
 
 

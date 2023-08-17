@@ -4,12 +4,29 @@
       <h4 class="card-title text-center mb-5">Order Summary</h4>
       <div class="row m-3">
         <div class="col-6">
-          Total Price :
+          Total Service Charge :
         </div>
         <div class="col-6">
-          {{invoice.price}}
+          {{invoice.total_service_charge}}
         </div>
       </div>
+      <div class="row m-3">
+        <div class="col-6">
+          Total Discount :
+        </div>
+        <div class="col-6">
+          {{invoice.discount}}
+        </div>
+      </div>
+      <div class="row m-3">
+        <div class="col-6">
+          Total Bill :
+        </div>
+        <div class="col-6">
+          {{invoice.total_bill}}
+        </div>
+      </div>
+
       <div class="row m-3">
         <div class="col-6">
           Total Service:

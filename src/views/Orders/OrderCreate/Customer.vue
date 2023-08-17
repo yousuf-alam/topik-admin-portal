@@ -34,17 +34,17 @@
       </b-form-radio>
       <b-form-radio
         v-model="customer.payment_method"
-        value="bkash"
+        value="bKash"
         @input="addCustomer"
       >
         Bkash
       </b-form-radio>
       <b-form-radio
         v-model="customer.payment_method"
-        value="sslcommerz"
+        value="ssl"
         @input="addCustomer"
       >
-        Card
+        Sslcommerz
       </b-form-radio>
     </b-form-group>
   </b-card>

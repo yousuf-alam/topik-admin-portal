@@ -42,10 +42,10 @@
           <router-view></router-view>
         </div>
       </main>
-      <AppAside fixed>
-        <!--aside-->
-        <DefaultAside/>
-      </AppAside>
+<!--      <AppAside fixed>-->
+<!--        &lt;!&ndash;aside&ndash;&gt;-->
+<!--        <DefaultAside/>-->
+<!--      </AppAside>-->
     </div>
     <TheFooter>
       <!--footer-->

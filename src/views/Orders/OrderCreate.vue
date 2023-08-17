@@ -112,6 +112,7 @@
     </b-row>
     <b-row>
       <b-col>
+        
         <order-summary :invoice="invoice" v-if="invoice.length !== 0"></order-summary>
       </b-col>
     </b-row>
@@ -363,8 +364,9 @@ export default {
     },
     invoiceFormatter() {
       return {
-        price: this.selected_partner.price,
-        discount: 0,
+        total_service_charge: this.selected_partner.price,
+        discount: (this.customer.payment_method ==='bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * 0.1) : 0,
+        total_bill:(this.customer.payment_method ==='bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * 0.9) : this.selected_partner.price,
         serviceNo: this.services.length,
         sp: this.selected_partner.name,
         schedule: this.schedule,
@@ -395,7 +397,8 @@ export default {
       formData.append("measurement", this.measurement_type);
       formData.append("accessories", JSON.stringify(this.accessories));
       formData.append("items", JSON.stringify(this.services));
-      formData.append("price", this.invoice.price);
+      formData.append("price", this.invoice.total_bill);
+      formData.append("total_service_charge", this.invoice.total_service_charge);
       formData.append("discount", this.invoice.discount);
       formData.append("coupon_id", this.coupon_id);
 

@@ -74,6 +74,15 @@
             <li><h6><span class="font-weight-bold"> Service Charge : </span> {{order.total_service_charge}}</h6></li>
             <li><h6><span class="font-weight-bold">  Discount : </span>{{order.total_discount}}</h6></li>
             <li><h6><span class="font-weight-bold">  Total Bill : </span>{{order.total_bill}} </h6></li>
+            <b-form-group label="Payment Link">
+              <div class="payment-box d-flex " v-if="order.payment_status ==='Pending' && (order.payment_method==='bKash' || order.payment_method==='ssl')">
+                <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                  <i class="fa fa-copy"></i>
+                </button>
+                <p class="content ml-2 " v-if="order.payment_method==='ssl'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To avail a 10% discount on your advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}</p>
+                <p class="content ml-2" v-if="order.payment_method==='bKash'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To avail a 10% discount on your advance payment, kindly pay through this link: https://romoni.com.bd/bKash/order/{{order.crypt_order_id}}</p>
+              </div>
+            </b-form-group>
           </ul>
         </b-card>
       </b-col>
@@ -239,6 +248,25 @@
       this.fetchOrder();
     },
     methods: {
+      copyText() {
+        // Get the text content of the div
+        const textToCopy = this.$el.querySelector('.content').textContent;
+
+        // Create a temporary input element
+        const tempInput = document.createElement('textarea');
+        tempInput.style.position = 'absolute';
+        tempInput.style.left = '-9999px';
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+
+        // Select and copy the text
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        // Provide some visual feedback (optional)
+        alert('Text copied to clipboard!');
+      },
       fetchOrder() {
         // this.order_id = window.location.pathname.split("/").pop();
         axios.get(`${ADMIN_URL}/orders/show`, {

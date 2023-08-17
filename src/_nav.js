@@ -47,6 +47,12 @@ const navitems = {
       icon: 'fa fa-cart-plus',
       permission_name: permissionsList.order
     },
+    {
+      name: 'Unsettled Orders',
+      url: '/un-settled-orders',
+      icon: 'fa fa-cart-plus',
+      permission_name: permissionsList.order
+    },
     // {
     //   name: 'Appointments',
     //   url: '/appointments',
@@ -229,17 +235,20 @@ const navitems = {
    {
       name: 'PartnerPayments',
       url: '/partner-payment',
-      icon: 'fa fa-reorder'
+      icon: 'fa fa-reorder',
+     permission_name: permissionsList.partnerwallet
     },
     {
       name: 'Partner Leaves',
       url: '/partner-leaves',
-      icon: 'fa fa-reorder'
+      icon: 'fa fa-reorder',
+      permission_name: permissionsList.partnerLeaves
     },
     {
       name: 'Partner Salary',
       url: '/partner-salary',
-      icon: 'fa fa-reorder'
+      icon: 'fa fa-reorder',
+      permission_name: permissionsList.partnerSalary
     },
     {
       title: true,
@@ -264,7 +273,7 @@ const navitems = {
       name: 'Future Notification',
       url: '/show-future-notification',
       icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
+      permission_name: permissionsList.notification
     },
     {
       name: 'Feed',
@@ -325,7 +334,7 @@ const navitems = {
       name:'Sp Wise Order Count',
       url:'/order-number-sp',
       icon:'fa fa-file-word-o',
-      permission_name:[...permissionsList.admin,...permissionsList.complain ]
+      permission_name:[...permissionsList.spOrderCount]
     },
 
     // {
@@ -355,7 +364,7 @@ const navitems = {
       name: 'SP Route',
       url: '/route-sp-daily',
       icon: 'fa fa-file-word-o',
-      permission_name: [...permissionsList.admin,...permissionsList.complain]
+      permission_name: [...permissionsList.spRoutes]
 
     },
 

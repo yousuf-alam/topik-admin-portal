@@ -5,7 +5,8 @@
         <div></div>
         <button @click="deleteOrder" class="btn btn-danger float-right"><i class="fa fa-trash"></i> Delete This Order</button>
       </div>
-    <b-row>
+
+      <b-row>
       <b-col class="mb-5" sm="6" md="6">
         <b-card class="h-100 p-4 m-4">
           <h5 class="mb-4">SP & Schedule Details</h5>
@@ -103,21 +104,39 @@
           <b-form-group label="Delivery Address">
             <input type="text" class="form-control" v-model="order.shipping_address.address_details">
           </b-form-group>
-          <b-row>
-            <b-col>
+<!--          <b-row>-->
+<!--            <b-col>-->
+<!--              <b-form-group label="Payment Method" @change="changePayment">-->
+<!--                <b-form-radio v-model="order.payment_method" value="cash">Cash On Delivery</b-form-radio>-->
+<!--                <b-form-radio v-model="order.payment_method" value="bKash">bKash</b-form-radio>-->
+<!--                <b-form-radio v-model="order.payment_method" value="ssl">SSl</b-form-radio>-->
+<!--              </b-form-group>-->
               <b-form-group label="Payment Method">
-                <b-form-radio v-model="order.payment_method" value="cash">Cash On Delivery</b-form-radio>
-                <b-form-radio v-model="order.payment_method" value="bKash">bKash</b-form-radio>
-                <b-form-radio v-model="order.payment_method" value="sslcommerz">Card</b-form-radio>
+              <select class="form-control" v-model="order.payment_method" @change="changePayment">
+                <option value="bKash">bKash</option>
+                <option value="ssl">ssl</option>
+                <option value="cash">Cash on delivery</option>
+
+              </select>
               </b-form-group>
-            </b-col>
+<!--            </b-col>-->
+
+           <b-form-group label="Payment Link">
+             <div class="payment-box d-flex " v-if="order.payment_status ==='Pending' && (order.payment_method==='bKash' || order.payment_method==='ssl')">
+               <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                 <i class="fa fa-copy"></i>
+               </button>
+               <p class="content ml-2 " v-if="order.payment_method==='ssl'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To avail a 10% discount on your advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}</p>
+               <p class="content ml-2" v-if="order.payment_method==='bKash'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To avail a 10% discount on your advance payment, kindly pay through this link: https://romoni.com.bd/bKash/order/{{order.crypt_order_id}}</p>
+             </div>
+           </b-form-group>
             <b-col>
               <b-form-group label="Payment Status?" v-show="order.payment_method==='bKash' && order.status==='completed'">
-                <b-form-radio v-model="order.bkash_status" value="Paid">Paid</b-form-radio>
-                <b-form-radio v-model="order.bkash_status" value="Pending">Pending</b-form-radio>
+                <b-form-radio v-model="order.bKash_status" value="Paid">Paid</b-form-radio>
+                <b-form-radio v-model="order.bKash_status" value="Pending">Pending</b-form-radio>
               </b-form-group>
             </b-col>
-          </b-row>
+<!--          </b-row>-->
 
           <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
         </b-card>
@@ -333,6 +352,9 @@
       EventBus.$on('cart:add'       , this.servicesAdd.bind(this));
       EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
     },
+    watch: {
+
+    },
     methods : {
       designAdd(designs) {
         this.designs = designs;
@@ -408,6 +430,43 @@
 
         this.order.scheduled_date =  [year, month, day].join('-');
       },
+      copyText() {
+        // Get the text content of the div
+        const textToCopy = this.$el.querySelector('.content').textContent;
+
+        // Create a temporary input element
+        const tempInput = document.createElement('textarea');
+        tempInput.style.position = 'absolute';
+        tempInput.style.left = '-9999px';
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+
+        // Select and copy the text
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        // Provide some visual feedback (optional)
+        alert('Text copied to clipboard!');
+      },
+      changePayment()
+      {
+        // console.log(this.order.payment_method);
+        // console.log(order.payment_method);
+        if(this.order.payment_method==='bKash' || this.order.payment_method==='ssl')
+        {
+          this.order.total_discount= (this.order.total_service_charge*0.1);
+          this.order.total_bill= (this.order.total_service_charge*0.9);
+         console.log(this.order.total_service_charge);
+         console.log(this.order.total_discount);
+         console.log(this.order.total_bill);
+        }
+        else {
+          this.order.total_discount= 0;
+          this.order.total_bill= this.order.total_service_charge;
+        }
+
+      },
 
       updateOrder(e) {
         e.preventDefault();
@@ -445,9 +504,9 @@
         formData.append('review', JSON.stringify(this.order.review));
         formData.append('new_rating', this.new_rating);
         formData.append('new_review', this.new_review);
-        if(this.order.bkash_status)
+        if(this.order.bKash_status)
         {
-            formData.append('bkash_status', this.order.bkash_status);
+            formData.append('bKash_status', this.order.bKash_status);
         }
 
       /*
@@ -597,5 +656,11 @@
   }
   .item-input {
     width: 30px;
+  }
+  .payment-box {
+    padding: 5px;
+    background: white;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 </style>

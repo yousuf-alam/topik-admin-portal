@@ -167,6 +167,7 @@ import WalletMonthly from "@/views/PartnerSalary/WalletMonthly.vue";
 import CreateSalary from "@/views/PartnerSalary/CreateSalary.vue";
 import CreatePayment from "@/views/Partners/CreatePayment.vue";
 import EditPayment from "@/views/Partners/EditPayment.vue";
+import UnsettledOrders from "@/views/Orders/Unsettle/UnsettledOrders.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -307,6 +308,15 @@ const router = new Router({
           meta: {
             permission_name: "order create"
           }
+        },
+        {
+          path: "/un-settled-orders",
+          name: "UnsettledOrders",
+          component: UnsettledOrders,
+          meta: {
+            permission_name: "order read"
+          }
+
         },
         {
           path: "third-party-orders",
@@ -907,7 +917,7 @@ const router = new Router({
           name: "ShowPartnerLeave",
           component: ShowPartnerLeave,
           meta: {
-            permission_name: permissionsList.partnerwallet
+            permission_name: permissionsList.partnerLeaves
           }
         },
         {
@@ -915,7 +925,7 @@ const router = new Router({
           name: "CreatePartnerLeave",
           component: CreatePartnerLeave,
           meta: {
-            permission_name: permissionsList.partnerwallet
+            permission_name: permissionsList.partnerLeaves
           }
         },
         {
@@ -923,7 +933,7 @@ const router = new Router({
           name: "LeaveLog",
           component: LeaveLog,
           meta: {
-            permission_name: permissionsList.partnerwallet
+            permission_name: permissionsList.partnerLeaves
           }
         },
         {
@@ -931,7 +941,7 @@ const router = new Router({
           name: "ShowSalary",
           component: ShowSalary,
           meta: {
-            permission_name: permissionsList.partnerwallet
+            permission_name: permissionsList.partnerSalary
           }
         },
         {
@@ -939,7 +949,7 @@ const router = new Router({
           name: "CreateSalary",
           component: CreateSalary,
           meta: {
-            permission_name: permissionsList.partnerwallet
+            permission_name: permissionsList.partnerSalary
           }
         },
         {
@@ -947,7 +957,7 @@ const router = new Router({
           name: "WalletMonthly",
           component: WalletMonthly,
           meta: {
-            permission_name: permissionsList.partnerwallet
+            permission_name: permissionsList.partnerSalary
           }
         },
         {
@@ -1027,14 +1037,14 @@ const router = new Router({
           name: "OrderNumberSp",
           component: OrderNumberSp,
           meta: {
-            permission_name: permissionsList.complain
+            permission_name: permissionsList.spOrderCount
           }
         },
         {  path: "route-sp-daily",
            name: "RouteSpDaily",
            component: RouteSpDaily,
           meta: {
-            permission_name: permissionsList.complain
+            permission_name: permissionsList.spRoutes
           }
 
         },

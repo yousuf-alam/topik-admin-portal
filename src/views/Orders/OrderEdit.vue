@@ -455,15 +455,19 @@
         // console.log(order.payment_method);
         if(this.order.payment_method==='bKash' || this.order.payment_method==='ssl')
         {
-          this.order.total_discount= (this.order.total_service_charge*0.1);
-          this.order.total_bill= (this.order.total_service_charge*0.9);
-         console.log(this.order.total_service_charge);
-         console.log(this.order.total_discount);
-         console.log(this.order.total_bill);
+          if(this.order.discount_adv_pay===0) {
+
+            this.order.discount_adv_pay = (this.order.total_service_charge * 0.1);
+            this.order.total_discount = this.order.discount_adv_pay;
+            this.order.total_bill = (this.order.total_service_charge * 0.9);
+          }
+
+
         }
         else {
-          this.order.total_discount= 0;
-          this.order.total_bill= this.order.total_service_charge;
+          this.order.total_discount = this.order.total_discount-this.order.discount_adv_pay;
+          this.order.discount_adv_pay= 0;
+          this.order.total_bill= this.order.total_service_charge - this.order.total_discount;
         }
 
       },
@@ -499,6 +503,7 @@
         formData.append('shipping_phone', this.order.shipping_phone);
         formData.append('total_service_charge', this.order.total_service_charge);
         formData.append('total_discount', this.order.total_discount);
+        formData.append('discount_adv_pay', this.order.discount_adv_pay);
         formData.append('total_bill', this.order.total_bill);
         formData.append('payment_method', this.order.payment_method);
         formData.append('review', JSON.stringify(this.order.review));

@@ -112,7 +112,7 @@
     </b-row>
     <b-row>
       <b-col>
-        
+
         <order-summary :invoice="invoice" v-if="invoice.length !== 0"></order-summary>
       </b-col>
     </b-row>
@@ -233,6 +233,7 @@ export default {
       custom_measurement: "",
       selected_partner: null,
       invoice: [],
+      promo_discount:""
     };
   },
 
@@ -319,7 +320,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           if (response.data.success === true) {
-            this.invoice.discount = response.data.discount;
+            this.promo_discount = response.data.discount;
             this.coupon_id = response.data.coupon_id;
             this.$modal.hide("modal-coupon");
           } else {
@@ -363,14 +364,28 @@ export default {
       console.log("len", this.invoice.length);
     },
     invoiceFormatter() {
-      return {
+      // const { selected_partner, customer, promo_discount, services, schedule } = this;
+
+      const discount_adv_pay = (this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * 0.1) : 0;
+      const promo_discount = this.promo_discount ? this.promo_discount : 0;
+      const discount = promo_discount + discount_adv_pay;
+      const total_bill = this.selected_partner.price - discount;
+      const serviceNo = this.services.length;
+      const sp = this.selected_partner.name;
+
+     return  {
         total_service_charge: this.selected_partner.price,
-        discount: (this.customer.payment_method ==='bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * 0.1) : 0,
-        total_bill:(this.customer.payment_method ==='bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * 0.9) : this.selected_partner.price,
-        serviceNo: this.services.length,
-        sp: this.selected_partner.name,
-        schedule: this.schedule,
+        discount_adv_pay: discount_adv_pay,
+        promo_discount: promo_discount,
+        discount: discount,
+        total_bill: total_bill,
+        serviceNo: serviceNo,
+        sp: sp,
+        schedule: this.schedule
       };
+
+// You can use the 'result' object as needed.
+
     },
     orderPlace(e) {
       e.preventDefault();
@@ -400,6 +415,7 @@ export default {
       formData.append("price", this.invoice.total_bill);
       formData.append("total_service_charge", this.invoice.total_service_charge);
       formData.append("discount", this.invoice.discount);
+      formData.append("discount_adv_pay", this.invoice.discount_adv_pay);
       formData.append("coupon_id", this.coupon_id);
 
       for (let i = 0; i < this.designs.length; i++) {

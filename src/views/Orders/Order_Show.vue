@@ -73,6 +73,8 @@
           <ul style="list-style:none">
             <li><h6><span class="font-weight-bold"> Service Charge : </span> {{order.total_service_charge}}</h6></li>
             <li><h6><span class="font-weight-bold">  Discount : </span>{{order.total_discount}}</h6></li>
+            <li><h6><span class="font-weight-bold">Advance Payment Discount : </span>{{order.discount_adv_pay}}</h6></li>
+            <li><h6><span class="font-weight-bold">Promo Discount : </span>{{order.total_discount - order.discount_adv_pay}}</h6></li>
             <li><h6><span class="font-weight-bold">  Total Bill : </span>{{order.total_bill}} </h6></li>
             <b-form-group label="Payment Link">
               <div class="payment-box d-flex " v-if="order.payment_status ==='Pending' && (order.payment_method==='bKash' || order.payment_method==='ssl')">

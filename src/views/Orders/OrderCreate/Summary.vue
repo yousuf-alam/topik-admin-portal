@@ -12,6 +12,22 @@
       </div>
       <div class="row m-3">
         <div class="col-6">
+          Advance Payment Discount :
+        </div>
+        <div class="col-6">
+          {{invoice.discount_adv_pay}}
+        </div>
+      </div>
+      <div class="row m-3">
+        <div class="col-6">
+          Promo Discount :
+        </div>
+        <div class="col-6">
+          {{invoice.promo_discount}}
+        </div>
+      </div>
+      <div class="row m-3">
+        <div class="col-6">
           Total Discount :
         </div>
         <div class="col-6">

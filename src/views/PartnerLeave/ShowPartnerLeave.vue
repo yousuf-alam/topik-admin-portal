@@ -40,9 +40,12 @@
       <button @click="onSubmit" class="show-btn"> Create Leave
       </button>
 
-      <div class="">
+      <div class="d-flex gap-5">
         <router-link :to="{ name: 'CreatePartnerLeave'}" >
           <button class="show-btn">Show Leave</button>
+        </router-link>
+        <router-link :to="{ name: 'FilterPartnerLeave'}" >
+          <button class="show-btn">Filter Leave</button>
         </router-link>
       </div>
 

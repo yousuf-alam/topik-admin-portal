@@ -168,6 +168,7 @@ import CreateSalary from "@/views/PartnerSalary/CreateSalary.vue";
 import CreatePayment from "@/views/Partners/CreatePayment.vue";
 import EditPayment from "@/views/Partners/EditPayment.vue";
 import UnsettledOrders from "@/views/Orders/Unsettle/UnsettledOrders.vue";
+import FilterPartnerLeave from "@/views/PartnerLeave/FilterPartnerLeave.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -932,6 +933,14 @@ const router = new Router({
           path: "/partner-leaves-log/:id",
           name: "LeaveLog",
           component: LeaveLog,
+          meta: {
+            permission_name: permissionsList.partnerLeaves
+          }
+        },
+        {
+          path: "/filter-leave",
+          name: "FilterPartnerLeave",
+          component: FilterPartnerLeave,
           meta: {
             permission_name: permissionsList.partnerLeaves
           }

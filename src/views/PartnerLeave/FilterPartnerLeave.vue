@@ -120,6 +120,7 @@ import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 import paginate from "vuejs-paginate";
 import LeaveModal from "@/views/PartnerLeave/LeaveModal.vue";
 import VueFinalModal from "vue-final-modal";
+import {formatDate} from "vue-tables-2/compiled/mixins/methods";
 Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 export default {
 name: "FilterPartnerLeave",
@@ -186,13 +187,15 @@ name: "FilterPartnerLeave",
       this.$modal.show("modal-order_type");
       // this.closeModal(value,date,key);
       this.partner_id= value.id;
-      this.leave_date= this.leaveDate;
       this.key=key;
 
 
     },
     formattedDay(date) {
       return moment(date).format('dddd');
+    },
+    formattedDate(date){
+      return moment(date).format('YYYY-MM-DD');
     },
     submitLeave() {
       this.updateApi();
@@ -218,7 +221,10 @@ name: "FilterPartnerLeave",
             this.activeLoader = false;
             this.columns = response.data.columns;
             this.items = response.data.data;
-            return this.$router.push('/filter-leave');
+            this.leave_date = response.data.result_date;
+            // console.log("this leave",this.leave_date);
+
+            // return this.$router.push('/filter-leave');
 
           })
           .catch(error => {
@@ -226,10 +232,11 @@ name: "FilterPartnerLeave",
           });
     },
     updateApi(value,date,key) {
-      console.log(value,date,key);
+     const leave_taken = this.formattedDate(this.leave_date)
+      // console.log('leave taken',leave_taken);
       let formData = {
         partner_id: this.partner_id,
-        leave_date: this.leaveDate,
+        leave_date: leave_taken ,
         key: this.key,
         training_time:this.training_time,
         remarks: this.remarks,

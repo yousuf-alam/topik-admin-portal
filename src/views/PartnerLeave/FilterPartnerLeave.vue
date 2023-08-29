@@ -249,6 +249,7 @@ name: "FilterPartnerLeave",
       axios.post(`${ADMIN_URL}/partner-leaves`, formData)
           .then(response => {
             console.log(response);
+            this.onSubmit();
 
           })
           .catch(error => {

@@ -76,6 +76,9 @@
             <li><h6><span class="font-weight-bold">Advance Payment Discount : </span>{{order.discount_adv_pay}}</h6></li>
             <li><h6><span class="font-weight-bold">Promo Discount : </span>{{order.total_discount - order.discount_adv_pay}}</h6></li>
             <li><h6><span class="font-weight-bold">  Total Bill : </span>{{order.total_bill}} </h6></li>
+            <li  :class="{ 'paid-show' : order.payment_status == 'Paid'} "><h6><span class="font-weight-bold" >  Payment Status : </span>{{order.payment_status}} </h6></li>
+
+
             <b-form-group label="Payment Link">
               <div class="payment-box d-flex " v-if="order.payment_status ==='Pending' && (order.payment_method==='bKash' || order.payment_method==='ssl')">
                 <button @click="copyText" class="copy-icon" style="border: none;background: white">
@@ -306,6 +309,9 @@
   }
   }
 
+.paid-show{
+  color: #4dbd74;
+}
 
 
 </style>

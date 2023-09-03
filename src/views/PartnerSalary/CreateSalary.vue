@@ -246,6 +246,8 @@ export default {
         slug: this.slug,
         amount: this.amount,
         remarks: this.remarks,
+        month:this.month,
+        year:this.year
 
       }
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;

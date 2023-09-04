@@ -48,7 +48,7 @@
           <button class="show-btn">Filter Leave</button>
         </router-link>
         <router-link :to="{ name: 'LeaveCalender'}" >
-          <button class="show-btn">Filter Calender</button>
+          <button class="show-btn">Leave Calender</button>
         </router-link>
       </div>
 

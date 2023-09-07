@@ -369,7 +369,7 @@ input {
 }
 .table-container {
   /* Set a fixed height for the table container to enable scrolling */
-  height: 700px; /* Adjust the height as per your requirements */
+  height: 500px; /* Adjust the height as per your requirements */
   overflow-y: auto;
   //margin-left: 30px;
 }

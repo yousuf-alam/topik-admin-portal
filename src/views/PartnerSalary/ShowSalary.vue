@@ -95,6 +95,7 @@
           <td>Extra Product</td>
           <td>Reward of Month</td>
           <td>Method Bkash</td>
+          <td>Method SSL</td>
           <td>(Cash/207/208)Sp</td>
           <td>Gap Amount</td>
           <td>Deduction</td>
@@ -117,6 +118,7 @@
             <td>{{item.extra_product}}</td>
             <td>{{item.reward}}</td>
             <td>{{item.bkash}}</td>
+            <td>{{item.ssl}}</td>
             <td>{{item.cash}}</td>
             <td>{{item.gap_amount}}</td>
             <td>{{item.deduction}}</td>

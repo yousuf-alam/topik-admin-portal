@@ -92,6 +92,7 @@
         <td>Extra Product</td>
         <td>Reward of Month</td>
         <td>Bkash Payment</td>
+        <td>Ssl Commerze</td>
         <td>Cash/Bkash-Sp</td>
         <td>Gap Amount</td>
         <td>Deduction</td>
@@ -111,13 +112,14 @@
           <td>{{item.total_bill}}</td>
           <td>{{item.basic_salary}}</td>
           <td>{{item.ta}}</td>
-          <td @click="openModal(item.id,'extra')" style="cursor: pointer">{{item.extra_product}}</td>
+          <td @click="openModal(item.id,'extra')" style="cursor: pointer;background: #00badd">{{item.extra_product}}</td>
           <td>{{item.reward}}</td>
           <td>{{item.bkash}}</td>
+          <td>{{item.ssl}}</td>
           <td>{{item.cash}}</td>
           <td>{{item.gap_amount}}</td>
-          <td @click="openModal(item.id,'deduction')" style="cursor: pointer">{{item.deduction}}</td>
-          <td @click="openModal(item.id,'bonus')" style="cursor: pointer">{{item.bonus_amount}}</td>
+          <td @click="openModal(item.id,'deduction')" style="cursor: pointer;background: #00badd">{{item.deduction}}</td>
+          <td @click="openModal(item.id,'bonus')" style="cursor: pointer;background: #00badd">{{item.bonus_amount}}</td>
           <td>{{item.sub_total}}</td>
           <td>{{item.commission}}</td>
           <td>{{item.total}}</td>
@@ -207,11 +209,11 @@ export default {
     submitLeave() {
       this.updateApi();
       this.$modal.hide("modal-order_type");
-      window.location.reload();
+      // window.location.reload();
     },
     closeModal() {
       this.$modal.hide("modal-order_type");
-      window.location.reload();
+      // window.location.reload();
     },
 
     onSubmit() {
@@ -229,7 +231,7 @@ export default {
           .then(response => {
             this.activeLoader = false;
             this.items = response.data.data;
-            console.log(this.items);
+            // console.log(this.items);
 
 
             return this.$router.push('/partner-salary-create');
@@ -257,7 +259,8 @@ export default {
           .then(response => {
             console.log(response);
             this.$modal.hide("modal-order_type");
-            window.location.reload();
+            this.onSubmit()
+            // window.location.reload();
 
           })
           .catch(error => {

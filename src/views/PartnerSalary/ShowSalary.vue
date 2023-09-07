@@ -84,8 +84,8 @@
 
     </div>
 
-    <div>
-      <table border="1" class="my-table">
+    <div class="table-container">
+      <table border="1" class="my-table th-st">
         <thead>
           <td>Sp Name</td>
           <td>No of Order</td>
@@ -366,6 +366,31 @@ input {
   justify-content: center;
   align-items: center;
   background-color: #FF3572;
+}
+.table-container {
+  /* Set a fixed height for the table container to enable scrolling */
+  height: 700px; /* Adjust the height as per your requirements */
+  overflow-y: auto;
+  //margin-left: 30px;
+}
+
+.my-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.my-table th,
+.my-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.my-table thead {
+  /* Set the table header row to be sticky at the top */
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  z-index: 1;
 }
 
 

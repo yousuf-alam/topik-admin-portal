@@ -240,7 +240,7 @@ const navitems = {
     },
     {
       name: 'Partner Leaves',
-      url: '/partner-leaves',
+      url: '/filter-leave',
       icon: 'fa fa-reorder',
       permission_name: permissionsList.partnerLeaves
     },

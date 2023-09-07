@@ -16,6 +16,14 @@
 
      </div>
      <button @click="onSubmit" class="show-btn">Filter Leave</button>
+     <div class="d-flex gap-5">
+       <router-link :to="{ name: 'CreatePartnerLeave'}" >
+         <button class="show-btn">Show Leave</button>
+       </router-link>
+       <router-link :to="{ name: 'LeaveCalender'}" >
+         <button class="show-btn">Leave Calender</button>
+       </router-link>
+     </div>
    </div>
 
 
@@ -413,7 +421,7 @@ input {
 }
 .table-container {
   /* Set a fixed height for the table container to enable scrolling */
-  height: 300px; /* Adjust the height as per your requirements */
+  height: 700px; /* Adjust the height as per your requirements */
   overflow-y: auto;
   margin-left: 30px;
 }

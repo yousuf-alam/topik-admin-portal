@@ -4,19 +4,19 @@
     <table class="th-st my-table" border="1" style="margin-right: 20px">
       <thead>
         <tr>
-          <th>Partner Name</th>
-          <th>Leave Consumed</th>
+          <th>Partner Name</th>       
           <th>Sick/Casual Leave</th>
           <th>Unpaid Leave </th>
+          <th>Leave Consumed</th>
           <th>Leave Remained</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="partner in leaveSummary" :key="partner.partner_name">
           <td>{{ partner.partner_name }}</td>
-          <td>{{ partner.leave_consumed }}</td>
           <td>{{ partner.sick_or_casual_leave_count }}</td>
           <td>{{ partner.unpaid_leave_count }}</td>
+          <td>{{ partner.leave_consumed }}</td>
           <td>{{ partner.leave_remained }}</td>
         </tr>
       </tbody>
@@ -64,7 +64,7 @@ export default {
 
 .table-container {
 
-  height: 300px;
+  height: 500px;
   overflow-y: auto;
   margin-left: 30px;
 }

@@ -162,6 +162,7 @@ import ShowPartnerLeave from "@/views/PartnerLeave/ShowPartnerLeave.vue";
 import CreatePartnerLeave from "@/views/PartnerLeave/CreatePartnerLeave.vue";
 import EditPartnerLeave from "@/views/PartnerLeave/EditPartnerLeave.vue";
 import LeaveCalender from "@/views/PartnerLeave/LeaveCalender.vue";
+import LeaveSummary from "@/views/PartnerLeave/LeaveSummary.vue";
 import LeaveLog from "@/views/PartnerLeave/LeaveLog.vue";
 import ShowSalary from "@/views/PartnerSalary/ShowSalary.vue";
 import WalletMonthly from "@/views/PartnerSalary/WalletMonthly.vue";
@@ -950,6 +951,14 @@ const router = new Router({
           path: "/date-wise-leave-data",
           name: "LeaveCalender",
           component: LeaveCalender,
+          meta: {
+            permission_name: permissionsList.partnerLeaves
+          }
+        },
+        {
+          path: "/leave-summery",
+          name: "LeaveSummary",
+          component: LeaveSummary,
           meta: {
             permission_name: permissionsList.partnerLeaves
           }

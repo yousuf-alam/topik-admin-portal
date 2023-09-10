@@ -50,6 +50,10 @@
         <router-link :to="{ name: 'LeaveCalender'}" >
           <button class="show-btn">Leave Calender</button>
         </router-link>
+
+        <router-link :to="{ name: 'LeaveSummary'}" >
+          <button class="show-btn">Leave Summary</button>
+        </router-link>
       </div>
 
 <!--      <div>-->

@@ -81,8 +81,8 @@
 
     </div>
 
-    <div>
-      <table border="1" class="my-table">
+    <div class="table-container">
+      <table border="1" class="my-table th-st">
         <thead>
         <td>Sp Name</td>
         <td>No of Order</td>
@@ -92,6 +92,7 @@
         <td>Extra Product</td>
         <td>Reward of Month</td>
         <td>Bkash Payment</td>
+        <td>Ssl Commerze</td>
         <td>Cash/Bkash-Sp</td>
         <td>Gap Amount</td>
         <td>Deduction</td>
@@ -111,13 +112,14 @@
           <td>{{item.total_bill}}</td>
           <td>{{item.basic_salary}}</td>
           <td>{{item.ta}}</td>
-          <td @click="openModal(item.id,'extra')" style="cursor: pointer">{{item.extra_product}}</td>
+          <td @click="openModal(item.id,'extra')" style="cursor: pointer;background: #00badd">{{item.extra_product}}</td>
           <td>{{item.reward}}</td>
           <td>{{item.bkash}}</td>
+          <td>{{item.ssl}}</td>
           <td>{{item.cash}}</td>
           <td>{{item.gap_amount}}</td>
-          <td @click="openModal(item.id,'deduction')" style="cursor: pointer">{{item.deduction}}</td>
-          <td @click="openModal(item.id,'bonus')" style="cursor: pointer">{{item.bonus_amount}}</td>
+          <td @click="openModal(item.id,'deduction')" style="cursor: pointer;background: #00badd">{{item.deduction}}</td>
+          <td @click="openModal(item.id,'bonus')" style="cursor: pointer;background: #00badd">{{item.bonus_amount}}</td>
           <td>{{item.sub_total}}</td>
           <td>{{item.commission}}</td>
           <td>{{item.total}}</td>
@@ -207,11 +209,11 @@ export default {
     submitLeave() {
       this.updateApi();
       this.$modal.hide("modal-order_type");
-      window.location.reload();
+      // window.location.reload();
     },
     closeModal() {
       this.$modal.hide("modal-order_type");
-      window.location.reload();
+      // window.location.reload();
     },
 
     onSubmit() {
@@ -229,7 +231,7 @@ export default {
           .then(response => {
             this.activeLoader = false;
             this.items = response.data.data;
-            console.log(this.items);
+            // console.log(this.items);
 
 
             return this.$router.push('/partner-salary-create');
@@ -257,7 +259,8 @@ export default {
           .then(response => {
             console.log(response);
             this.$modal.hide("modal-order_type");
-            window.location.reload();
+            this.onSubmit()
+            // window.location.reload();
 
           })
           .catch(error => {
@@ -355,6 +358,31 @@ input {
   justify-content: center;
   align-items: center;
   background-color: #FF3572;
+}
+.table-container {
+  /* Set a fixed height for the table container to enable scrolling */
+  height: 500px; /* Adjust the height as per your requirements */
+  overflow-y: auto;
+  //margin-left: 30px;
+}
+
+.my-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.my-table th,
+.my-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.my-table thead {
+  /* Set the table header row to be sticky at the top */
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  z-index: 1;
 }
 
 

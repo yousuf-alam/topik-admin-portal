@@ -1,6 +1,6 @@
 <template>
   <div class=" " style="overflow-x:scroll">
-    <Loader :loader="activeLoader"/>
+    <Loader :loader="activeLoader" />
 
     <div class="d-flex gap-20 mb-5  mt-8">
 
@@ -38,7 +38,7 @@
       <div style="margin-left: 30px">
         <label>Partner Name</label>
         <select class="form-control" v-model="partner_id">
-          <option v-for="partner in partners" :key="partner.id" :value="partner.id">{{partner.name}}</option>
+          <option v-for="partner in partners" :key="partner.id" :value="partner.id">{{ partner.name }}</option>
 
         </select>
       </div>
@@ -47,11 +47,11 @@
       <button @click="onSubmit" class="show-btn"> Show Wallet
       </button>
 
-<!--      <div class="">-->
-<!--        <router-link :to="{ name: 'CreatePartnerLeave'}" >-->
-<!--          <button class="show-btn">Add Deduction</button>-->
-<!--        </router-link>-->
-<!--      </div>-->
+      <!--      <div class="">-->
+      <!--        <router-link :to="{ name: 'CreatePartnerLeave'}" >-->
+      <!--          <button class="show-btn">Add Deduction</button>-->
+      <!--        </router-link>-->
+      <!--      </div>-->
 
       <!--      <div>-->
       <!--        <button @click="openModal">Show modal</button>-->
@@ -63,32 +63,50 @@
 
     </div>
 
-    <div>
-      <table border="1" class="my-table">
-        <thead>
-        <td>Scheduled Date</td>
-        <td>Scheduled_time</td>
-        <td>Payment Method</td>
-        <td>Total Bill</td>
+    <div style="display: grid; grid-template-columns:repeat(2, 1fr);">
+      <div>
+        <table border="1" class="my-table">
+          <thead>
+            <td>Scheduled Date</td>
+            <td>Scheduled_time</td>
+            <td>Payment Method</td>
+            <td>Total Bill</td>
 
 
-        </thead>
-        <tbody>
-        <tr v-for="item in items" :key="item.id">
-          <td>{{item.scheduled_date}}</td>
-          <td>{{item.scheduled_time}}</td>
-          <td>{{item.payment_method}}</td>
-          <td>{{item.total_bill}}</td>
+          </thead>
+          <tbody>
+            <tr v-for="item in items" :key="item.id">
+              <td>{{ item.scheduled_date }}</td>
+              <td>{{ item.scheduled_time }}</td>
+              <td>{{ item.payment_method }}</td>
+              <td>{{ item.total_bill }}</td>
 
-        </tr>
-        </tbody>
-      </table>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table border="1" class="new-table">
+          <thead>
+            <td>Action_Date</td>
+            <td>Slug</td>
+            <td>Amount</td>
+            <td>Remarks</td>
+          </thead>
+          <tbody>
+            <tr v-for="salary in salaryData" :key="salary.id">
+              <td>{{ salary.action_date }}</td>
+              <td>{{ salary.slug }}</td>
+              <td>{{ salary.amount }}</td>
+              <td>{{ salary.remarks }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
 
-
   </div>
-
 </template>
 
 <script>
@@ -117,18 +135,19 @@ export default {
       dataShow: false,
       month: '',
       year: '',
-      partner_id : this.$route.params.id,
-      partners:[],
+      partner_id: this.$route.params.id,
+      partners: [],
+      salaryData: [],
 
       showModal: false,
       selectedItem: null,
 
       options: {
-        pagination: {nav: 'fixed'},
+        pagination: { nav: 'fixed' },
         filterByColumn: true,
         dateColumns: ['age'],
         toMomentFormat: 'YYYY-MM-DD',
-        sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
+        sortIcon: { base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort' },
 
       }
 
@@ -154,20 +173,20 @@ export default {
   methods: {
     getPartners() {
       axios.get(`${ADMIN_URL}/in-house-partners`)
-          .then(response => {
-            this.partners = response.data.data;
-            console.log(this.partners);
-          })
-          .catch(error => {
+        .then(response => {
+          this.partners = response.data.data;
+          console.log(this.partners);
+        })
+        .catch(error => {
 
-          });
+        });
     },
-    openModal(value,date,key) {
+    openModal(value, date, key) {
       this.$modal.show("modal-order_type");
       // this.closeModal(value,date,key);
-      this.partner_id= value.id;
-      this.leave_date= date;
-      this.key=key;
+      this.partner_id = value.id;
+      this.leave_date = date;
+      this.key = key;
 
 
     },
@@ -188,24 +207,26 @@ export default {
       let formData = {
         month: this.month,
         year: this.year,
-        partner_id:this.partner_id
+        partner_id: this.partner_id
 
       }
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
       axios.post(`${ADMIN_URL}/sp-wallet-monthly`, formData)
-          .then(response => {
-            this.activeLoader = false;
-            this.items = response.data.data;
-            console.log(this.items);
+        .then(response => {
+          this.activeLoader = false;
+          this.items = response.data.data;
+          this.salaryData = response.data.salary_data;
+
+          console.log(this.items);
 
 
-            return this.$router.push('/sp-wallet-monthly/'+this.partner_id);
+          return this.$router.push('/sp-wallet-monthly/' + this.partner_id);
 
-          })
-          .catch(error => {
+        })
+        .catch(error => {
 
-          });
+        });
     },
 
 
@@ -217,12 +238,22 @@ export default {
 <style scoped lang="scss">
 .my-table {
   background-color: white;
+
   td {
     padding: 10px;
     text-align: center;
   }
 }
 
+.new-table {
+  background-color: white;
+
+  td {
+    padding: 10px;
+    text-align: center;
+  }
+
+}
 
 .show-btn {
   padding: 10px;
@@ -246,6 +277,7 @@ export default {
   font-size: 20px;
   color: #FF3572;
 }
+
 ::v-deep .modal-content {
   display: inline-block;
   padding: 1rem;
@@ -253,11 +285,13 @@ export default {
   border-radius: 0.25rem;
   background: #fff;
 }
+
 .modal__title {
   font-size: 1.5rem;
   font-weight: 700;
 }
-.modal-button{
+
+.modal-button {
   background: #FF3572;
   color: #ffffff;
   font-weight: 700;
@@ -276,6 +310,7 @@ select {
   border-radius: 4px;
   font-size: 14px;
 }
+
 input {
   width: 100%;
   padding: 5px;
@@ -283,10 +318,11 @@ input {
   border-radius: 4px;
   font-size: 14px;
 }
+
 .cross-button {
   margin-left: 500px;
-  color:white;
-  margin-top:-25px;
+  color: white;
+  margin-top: -25px;
   cursor: pointer;
   font-size: 25px;
   border-radius: 50%;
@@ -297,7 +333,4 @@ input {
   justify-content: center;
   align-items: center;
   background-color: #FF3572;
-}
-
-
-</style>
+}</style>

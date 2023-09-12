@@ -10,6 +10,11 @@ const navitems = {
       icon: 'icon-speedometer',
     },
     {
+      name: 'Statistics',
+      url: '/statistics',
+      icon: 'icon-speedometer',
+    },
+    {
       title: true,
       name: 'Access Control',
       permission_name: permissionsList.manage_roles,

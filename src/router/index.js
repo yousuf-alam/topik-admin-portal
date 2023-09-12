@@ -171,6 +171,7 @@ import CreatePayment from "@/views/Partners/CreatePayment.vue";
 import EditPayment from "@/views/Partners/EditPayment.vue";
 import UnsettledOrders from "@/views/Orders/Unsettle/UnsettledOrders.vue";
 import FilterPartnerLeave from "@/views/PartnerLeave/FilterPartnerLeave.vue";
+import Statistics from "@/views/Statistics.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -192,6 +193,11 @@ const router = new Router({
           path: "dashboard",
           name: "Dashboard",
           component: Dashboard
+        },
+        {
+          path: "statistics",
+          name: "Statistics",
+          component: Statistics
         },
         {
           path: "roles",

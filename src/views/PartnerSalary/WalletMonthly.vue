@@ -88,17 +88,23 @@
       <div>
         <table border="1" class="new-table">
           <thead>
-            <td>Action_Date</td>
-            <td>Slug</td>
+
+            <td>Type</td>
             <td>Amount</td>
             <td>Remarks</td>
+            <td>Action_Date</td>
+            <td>Created At</td>
+            <td>Created By</td>
           </thead>
           <tbody>
             <tr v-for="salary in salaryData" :key="salary.id">
-              <td>{{ salary.action_date }}</td>
+
               <td>{{ salary.slug }}</td>
               <td>{{ salary.amount }}</td>
               <td>{{ salary.remarks }}</td>
+              <td>{{ salary.action_date }}</td>
+              <td>{{ salary.created_at }}</td>
+              <td>{{ salary.created_by }}</td>
             </tr>
           </tbody>
         </table>

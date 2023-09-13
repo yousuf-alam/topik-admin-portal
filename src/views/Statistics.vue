@@ -5,84 +5,133 @@
       <h4><i class="fa fa-user mr-2 mb-2"></i>User Statistics (Top Expended User)</h4>
       <p>name-order-price</p>
       <b-card-group deck>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="THIS MONTH"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in userThisMonth">
-                <i class="fa fa-user-circle mr-2"></i>&nbsp;
-                <b></b>
-                {{ item.name }} - {{ item.total_orders }} - {{ formatPrice(item.total_price) }}
-                <hr>
-              </li>
+
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            THIS MONTH
+            <div class="sub-header" style="font-size: small;">{{ this_month }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="userThisMonth.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in userThisMonth">
+                  <div class="item-name">
+                    <i class="fa fa-user-circle mr-2"></i>&nbsp;
+                    <b></b>
+                    {{ item.name }} - {{ item.total_orders }} - {{ formatPrice(item.total_price) }}
+                  </div>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
+
+
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            LAST MONTH
+            <div class="sub-header" style="font-size: small;">{{ last_month }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="userLastMonth.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in userLastMonth">
+                  <div class="item-name">
+                    <i class="fa fa-user-circle mr-2"></i>&nbsp;
+                    <b></b>
+                    {{ item.name }} - {{ item.total_orders }} - {{ formatPrice(item.total_price) }}
+                  </div>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
 
 
 
 
 
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="LAST MONTH"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in userLastMonth">
-                <i class="fa fa-user-circle mr-2"></i>&nbsp;
-                <b></b>
-                {{ item.name }} - {{ item.total_orders }} - {{ formatPrice(item.total_price) }}
-                <hr>
-              </li>
+
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            THIS QUARTER
+            <div class="sub-header" style="font-size: small;">{{ currentQuarterName }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="userThisQuarter.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in userThisQuarter">
+                  <div class="item-name">
+                    <i class="fa fa-user-circle mr-2"></i>&nbsp;
+                    <b></b>
+                    {{ item.name }} - {{ item.total_orders }} - {{ formatPrice(item.total_price) }}
+                  </div>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
 
 
 
 
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="THIS QUARTER"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in userThisQuarter">
-                <i class="fa fa-user-circle mr-2"></i>&nbsp;
-                <b></b>
-                {{ item.name }} - {{ item.total_orders }} - {{ formatPrice(item.total_price) }}
-                <hr>
-              </li>
 
 
 
 
 
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="LAST QUARTER"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in userLastQuarter">
-                <i class="fa fa-user-circle mr-2"></i>&nbsp;
-                <b></b>
-                {{ item.name }} - {{ item.total_orders }} - {{ formatPrice(item.total_price) }}
 
-                <hr>
-              </li>
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            LAST QUARTER
+            <div class="sub-header" style="font-size: small;">{{ previousQuarterName }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="userLastQuarter.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in userLastQuarter">
+                  <div class="item-name">
+                    <i class="fa fa-user-circle mr-2"></i>&nbsp;
+                    <b></b>
+                    {{ item.name }} - {{ item.total_orders }} - {{ formatPrice(item.total_price) }}
+                  </div>
 
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
-
-
-
-            </span>
-          </b-card-text>
-        </b-card>
 
 
 
@@ -92,268 +141,395 @@
     <div class="pt-3">
       <h4><i class="fa fa-user mr-2 mb-2"></i>Partner Statistics (Top Performer)</h4>
       <b-card-group deck>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="THIS MONTH"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in highPartnerThisMonth">
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            THIS MONTH
+            <div class="sub-header" style="font-size: small;">{{ this_month }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="highPartnerThisMonth.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in highPartnerThisMonth">
 
-                <b></b>
-                <p style="color: #4dbd74">Name:{{ item.name }}</p>
-                <p>Total Leave:{{ item.total_leaves }}</p>
-                <p>Total Order:{{ item.total_orders }}</p>
-                <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                <p>Order Value:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
-
-
-
-
-
-
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="LAST MONTH"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in highPartnerLastMonth">
-
-                <b></b>
-                <p style="color: #4dbd74">Name:{{ item.name }}</p>
-                <p>Total Leave:{{ item.total_leaves }}</p>
-                <p>Total Order:{{ item.total_orders }}</p>
-                <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                <p>Order Value:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
+                  <b></b>
+                  <p style="color: #4dbd74">Name:{{ item.name }}</p>
+                  <p>Total Leave:{{ item.total_leaves }}</p>
+                  <p>Total Order:{{ item.total_orders }}</p>
+                  <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
+                  <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
 
 
 
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            LAST MONTH
+            <div class="sub-header" style="font-size: small;">{{ last_month }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="highPartnerLastMonth.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in highPartnerLastMonth">
 
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="THIS QUARTER"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in highPartnerThisQuarter">
-
-                <b></b>
-                <p style="color: #4dbd74">Name:{{ item.name }}</p>
-                <p>Total Leave:{{ item.total_leaves }}</p>
-                <p>Total Order:{{ item.total_orders }}</p>
-                <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                <p>Order Value:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
+                  <b></b>
+                  <p style="color: #4dbd74">Name:{{ item.name }}</p>
+                  <p>Total Leave:{{ item.total_leaves }}</p>
+                  <p>Total Order:{{ item.total_orders }}</p>
+                  <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
+                  <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
 
 
 
 
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="LAST QUARTER"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in highPartnerLastQuarter">
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            THIS QUARTER
+            <div class="sub-header" style="font-size: small;">{{ currentQuarterName }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="highPartnerThisQuarter.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in highPartnerThisQuarter">
 
-                <b></b>
-                <p style="color: #4dbd74">Name:{{ item.name }}</p>
-                <p>Total Leave:{{ item.total_leaves }}</p>
-                <p>Total Order:{{ item.total_orders }}</p>
-                <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                <p>Order Value:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
+                  <b></b>
+                  <p style="color: #4dbd74">Name:{{ item.name }}</p>
+                  <p>Total Leave:{{ item.total_leaves }}</p>
+                  <p>Total Order:{{ item.total_orders }}</p>
+                  <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
+                  <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
 
 
 
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            LAST QUARTER
+            <div class="sub-header" style="font-size: small;">{{ previousQuarterName }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="highPartnerLastQuarter.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in highPartnerLastQuarter">
 
-            </span>
-          </b-card-text>
-        </b-card>
+                  <b></b>
+                  <p style="color: #4dbd74">Name:{{ item.name }}</p>
+                  <p>Total Leave:{{ item.total_leaves }}</p>
+                  <p>Total Order:{{ item.total_orders }}</p>
+                  <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
+                  <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
       </b-card-group>
     </div>
+
+
+
+
     <div class="pt-3">
       <h4><i class="fa fa-user mr-2 mb-2"></i>Partner Statistics (Low Performer)</h4>
       <b-card-group deck>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="THIS MONTH"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in lowPartnerThisMonth">
 
-                <b></b>
-                <p style="color: red">Name:{{ item.name }}</p>
-                <p>Total Leave:{{ item.total_leaves }}</p>
-                <p>Total Order:{{ item.total_orders }}</p>
-                <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                <p>Order Value:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            THIS MONTH
+            <div class="sub-header" style="font-size: small;">{{ this_month }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="lowPartnerThisMonth.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in lowPartnerThisMonth">
 
-
-
-
-
-
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="LAST MONTH"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in lowPartnerLastMonth">
-
-                <b></b>
-                <p style="color: red">Name:{{ item.name }}</p>
-                <p>Total Leave:{{ item.total_leaves }}</p>
-                <p>Total Order:{{ item.total_orders }}</p>
-                <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                <p>Order Value:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
+                  <b></b>
+                  <p style="color: red">Name:{{ item.name }}</p>
+                  <p>Total Leave:{{ item.total_leaves }}</p>
+                  <p>Total Order:{{ item.total_orders }}</p>
+                  <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
+                  <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
 
 
 
 
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="THIS QUARTER"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in lowPartnerThisQuarter">
 
-                <b></b>
-                <p style="color: red">Name:{{ item.name }}</p>
-                <p>Total Leave:{{ item.total_leaves }}</p>
-                <p>Total Order:{{ item.total_orders }}</p>
-                <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                <p>Order Value:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            LAST MONTH
+            <div class="sub-header" style="font-size: small;">{{ last_month }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="lowPartnerLastMonth.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in lowPartnerLastMonth">
 
-
-
-
-
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="LAST QUARTER"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in lowPartnerLastQuarter">
-
-                <b></b>
-                <p style="color: red">Name:{{ item.name }}</p>
-                <p>Total Leave:{{ item.total_leaves }}</p>
-                <p>Total Order:{{ item.total_orders }}</p>
-                <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                <p>Order Value:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
+                  <b></b>
+                  <p style="color: red">Name:{{ item.name }}</p>
+                  <p>Total Leave:{{ item.total_leaves }}</p>
+                  <p>Total Order:{{ item.total_orders }}</p>
+                  <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
+                  <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
 
 
 
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            THIS QUARTER
+            <div class="sub-header" style="font-size: small;">{{ currentQuarterName }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="lowPartnerThisQuarter.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in lowPartnerThisQuarter">
 
-            </span>
-          </b-card-text>
-        </b-card>
+                  <b></b>
+                  <p style="color: red">Name:{{ item.name }}</p>
+                  <p>Total Leave:{{ item.total_leaves }}</p>
+                  <p>Total Order:{{ item.total_orders }}</p>
+                  <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
+                  <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
+
+
+
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            LAST QUARTER
+            <div class="sub-header" style="font-size: small;">{{ previousQuarterName }}</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="lowPartnerLastQuarter.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in lowPartnerLastQuarter">
+
+                  <b></b>
+                  <p style="color: red">Name:{{ item.name }}</p>
+                  <p>Total Leave:{{ item.total_leaves }}</p>
+                  <p>Total Order:{{ item.total_orders }}</p>
+                  <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
+                  <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
+
+
       </b-card-group>
     </div>
+
+
 
     <div class="pt-3">
       <h4><i class="fa fa-user mr-2 mb-2"></i>Line Item Statistics</h4>
       <b-card-group deck>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="First Quarter"
-          header-bg-variant="dark" header-text-variant="white" align="center">
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            First Quarter
+            <div class="sub-header" style="font-size: small;">Jan-Mar</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="lineItemQ1.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in lineItemQ1">
+                  <p style="display: grid; grid-template-columns: 5rem 1fr;">
+                    <span>Name: </span><span style="text-align:start;">{{ item.name }}</span>
+                  </p>
+                  <p style="display: grid; grid-template-columns: 5rem 1fr; ">
+                    <span>Price: </span><span style="text-align:start;">{{ formatPrice(item.total_price) }}</span>
+                  </p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
 
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in lineItemQ1">
-                <p>Name:{{ item.name }}</p>
-                <p>Price:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
+
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            Second Quarter
+            <div class="sub-header" style="font-size: small;">Apr-Jun</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="lineItemQ2.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in lineItemQ2">
+                  <p style="display: grid; grid-template-columns: 5rem 1fr;">
+                    <span>Name: </span><span style="text-align:start;">{{ item.name }}</span>
+                  </p>
+                  <p style="display: grid; grid-template-columns: 5rem 1fr;">
+                    <span>Price: </span><span style="text-align:start;"> {{ formatPrice(item.total_price) }}</span>
+                  </p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
 
 
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="Second Quarter"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
 
-              <li v-for="(item, index) in lineItemQ2">
-                <p>Name:{{ item.name }}</p>
-                <p>Price:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            Third Quarter
+            <div class="sub-header" style="font-size: small;">Jul-Sep</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="lineItemQ3.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in lineItemQ3">
+                  <p style="display: grid; grid-template-columns: 5rem 1fr;">
+                    <span>Name: </span><span style="text-align:start;">{{ item.name }}</span>
+                  </p>
+                  <p style="display: grid; grid-template-columns: 5rem 1fr;">
+                    <span>Price: </span><span style="text-align:start;">{{ formatPrice(item.total_price) }}</span>
+                  </p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="Third Quarter"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
 
-            <span class="text-justify" style="list-style: none;">
-              <li v-for="(item, index) in lineItemQ3">
 
-                <p>Name:{{ item.name }}</p>
-                <p>Price:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
 
-            </span>
-          </b-card-text>
-        </b-card>
-        <b-card style="font-size: 16px; font-weight: bold" border-variant="none" header="Fourth Quarter"
-          header-bg-variant="dark" header-text-variant="white" align="center">
-          <b-card-title class="h3 font-weight-bold mb-4"></b-card-title>
-          <b-card-text class="center-div">
-            <span class="text-justify" style="list-style: none;">
-
-              <li v-for="(item, index) in lineItemQ4">
-
-                <p>Name:{{ item.name }}</p>
-                <p>Price:{{ formatPrice(item.total_price) }}</p>
-                <hr>
-              </li>
-
-            </span>
-          </b-card-text>
-        </b-card>
+        <div class="card" style="font-size: 16px; font-weight: bold" border-variant="none" align="center">
+          <div class="card-header" style="background-color: #2f353a; color: white;">
+            Fourth Quarter
+            <div class="sub-header" style="font-size: small;">Oct-Dec</div>
+          </div>
+          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
+            <card-text class="card-body">
+              <template v-if="lineItemQ4.length === 0">
+                <div style="text-align: center; margin-top: 20px;">
+                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                  <p>No data found</p>
+                </div>
+              </template>
+              <template v-else>
+                <li v-for="(item, index) in lineItemQ4">
+                  <p style="display: grid; grid-template-columns: 5rem 1fr;">
+                    <span>Name: </span><span style="text-align:start;">{{ item.name }}</span>
+                  </p>
+                  <p style="display: grid; grid-template-columns: 5rem 1fr;">
+                    <span>Price: </span><span style="text-align:start;">{{ formatPrice(item.total_price) }}</span>
+                  </p>
+                  <hr>
+                </li>
+              </template>
+            </card-text>
+          </div>
+        </div>
 
       </b-card-group>
     </div>
@@ -390,6 +566,10 @@ export default {
       highPerformerPartner: [],
       lowPerformerPartner: [],
       all_data_fetched_successfully: true,
+      this_month: '',
+      last_month: '',
+      currentQuarterName: '',
+      previousQuarterName: '',
     }
   },
   created() {
@@ -421,6 +601,11 @@ export default {
           this.lowPartnerLastMonth = this.lowPerformerPartner.last_month
           this.lowPartnerThisQuarter = this.lowPerformerPartner.this_quarter
           this.lowPartnerLastQuarter = this.lowPerformerPartner.previous_quarter
+          this.this_month = response.data.this_month
+          this.last_month = response.data.last_month
+          this.currentQuarterName = response.data.currentQuarterName
+          this.previousQuarterName = response.data.previousQuarterName
+
           // console.log("hello line item",this.lineItemStat);
           this.all_data_fetched_successfully = true;
           // console.log('finance ======  =========>> ', response.data.finance);
@@ -449,5 +634,13 @@ export default {
 <style scoped>
 li {
   font-size: 14px;
+}
+
+
+
+.item-name {
+  display: flex;
+  align-items: center;
+  /* Vertically center items */
 }
 </style>

@@ -542,6 +542,7 @@
 import axios from 'axios';
 import Loader from "@/views/Loader.vue";
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+import  img_no from "@/../public/img/nodata.png";
 export default {
 
   name: 'dashboard',
@@ -575,7 +576,7 @@ export default {
       last_month: '',
       currentQuarterName: '',
       previousQuarterName: '',
-      imagePath:require('/public/img/nodata.png'),
+      imagePath:img_no,
     }
   },
   created() {

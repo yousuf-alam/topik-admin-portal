@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Loader :loader="activeLoader"/>
 
     <div class="pt-3">
       <h4><i class="fa fa-user mr-2 mb-2"></i>User Statistics (Top Expended User)</h4>
@@ -11,11 +12,11 @@
             THIS MONTH
             <div class="sub-header" style="font-size: small;">{{ this_month }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="userThisMonth.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -39,11 +40,11 @@
             LAST MONTH
             <div class="sub-header" style="font-size: small;">{{ last_month }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="userLastMonth.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -72,11 +73,11 @@
             THIS QUARTER
             <div class="sub-header" style="font-size: small;">{{ currentQuarterName }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="userThisQuarter.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -109,11 +110,11 @@
             LAST QUARTER
             <div class="sub-header" style="font-size: small;">{{ previousQuarterName }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="userLastQuarter.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -146,11 +147,11 @@
             THIS MONTH
             <div class="sub-header" style="font-size: small;">{{ this_month }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="highPartnerThisMonth.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -178,11 +179,11 @@
             LAST MONTH
             <div class="sub-header" style="font-size: small;">{{ last_month }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="highPartnerLastMonth.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -211,11 +212,11 @@
             THIS QUARTER
             <div class="sub-header" style="font-size: small;">{{ currentQuarterName }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="highPartnerThisQuarter.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -243,11 +244,11 @@
             LAST QUARTER
             <div class="sub-header" style="font-size: small;">{{ previousQuarterName }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="highPartnerLastQuarter.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -281,11 +282,11 @@
             THIS MONTH
             <div class="sub-header" style="font-size: small;">{{ this_month }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="lowPartnerThisMonth.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -315,11 +316,11 @@
             LAST MONTH
             <div class="sub-header" style="font-size: small;">{{ last_month }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="lowPartnerLastMonth.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -347,11 +348,11 @@
             THIS QUARTER
             <div class="sub-header" style="font-size: small;">{{ currentQuarterName }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="lowPartnerThisQuarter.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -378,11 +379,11 @@
             LAST QUARTER
             <div class="sub-header" style="font-size: small;">{{ previousQuarterName }}</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="lowPartnerLastQuarter.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
@@ -416,18 +417,18 @@
             First Quarter
             <div class="sub-header" style="font-size: small;">Jan-Mar</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="lineItemQ1.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
               <template v-else>
                 <li v-for="(item, index) in lineItemQ1">
                   <p style="display: grid; grid-template-columns: 5rem 1fr;">
-                    <span>Name: </span><span style="text-align:start;">{{ item.name }}</span>
+                    <span>Line Item: </span><span style="text-align:start;">{{ item.name }}</span>
                   </p>
                   <p style="display: grid; grid-template-columns: 5rem 1fr; ">
                     <span>Price: </span><span style="text-align:start;">{{ formatPrice(item.total_price) }}</span>
@@ -447,18 +448,18 @@
             Second Quarter
             <div class="sub-header" style="font-size: small;">Apr-Jun</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="lineItemQ2.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
               <template v-else>
                 <li v-for="(item, index) in lineItemQ2">
                   <p style="display: grid; grid-template-columns: 5rem 1fr;">
-                    <span>Name: </span><span style="text-align:start;">{{ item.name }}</span>
+                    <span>Line Item: </span><span style="text-align:start;">{{ item.name }}</span>
                   </p>
                   <p style="display: grid; grid-template-columns: 5rem 1fr;">
                     <span>Price: </span><span style="text-align:start;"> {{ formatPrice(item.total_price) }}</span>
@@ -478,18 +479,18 @@
             Third Quarter
             <div class="sub-header" style="font-size: small;">Jul-Sep</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="lineItemQ3.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
               <template v-else>
                 <li v-for="(item, index) in lineItemQ3">
                   <p style="display: grid; grid-template-columns: 5rem 1fr;">
-                    <span>Name: </span><span style="text-align:start;">{{ item.name }}</span>
+                    <span>Line Item: </span><span style="text-align:start;">{{ item.name }}</span>
                   </p>
                   <p style="display: grid; grid-template-columns: 5rem 1fr;">
                     <span>Price: </span><span style="text-align:start;">{{ formatPrice(item.total_price) }}</span>
@@ -509,18 +510,18 @@
             Fourth Quarter
             <div class="sub-header" style="font-size: small;">Oct-Dec</div>
           </div>
-          <div class="text-justify" style="list-style: none; padding: 0 1rem;">
-            <card-text class="card-body">
+          <div class="text-justify" style="list-style: none; padding: 0 1rem; flex-grow: 1;">
+            <card-text class="card-body" style="display: block; height: 100%;" >
               <template v-if="lineItemQ4.length === 0">
-                <div style="text-align: center; margin-top: 20px;">
-                  <i class="fas fa-exclamation-circle fa-3x" style="color: #ccc;"></i>
+                <div style="text-align: center; height: 100%; display: grid; place-content: center;">
+                  <i><img :src="imagePath" alt="no data" style="width: 50%; height: auto;"/></i>
                   <p>No data found</p>
                 </div>
               </template>
               <template v-else>
                 <li v-for="(item, index) in lineItemQ4">
                   <p style="display: grid; grid-template-columns: 5rem 1fr;">
-                    <span>Name: </span><span style="text-align:start;">{{ item.name }}</span>
+                    <span>Line Item: </span><span style="text-align:start;">{{ item.name }}</span>
                   </p>
                   <p style="display: grid; grid-template-columns: 5rem 1fr;">
                     <span>Price: </span><span style="text-align:start;">{{ formatPrice(item.total_price) }}</span>
@@ -539,12 +540,15 @@
 
 <script>
 import axios from 'axios';
+import Loader from "@/views/Loader.vue";
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
 
   name: 'dashboard',
+  components: {Loader},
   data() {
     return {
+      activeLoader: false,
 
       userStat: [],
       userThisMonth: [],
@@ -571,6 +575,7 @@ export default {
       last_month: '',
       currentQuarterName: '',
       previousQuarterName: '',
+      imagePath:require('/src/assets/images/nodata.png'),
     }
   },
   created() {
@@ -579,8 +584,10 @@ export default {
   },
   methods: {
     fetchData() {
+      this.activeLoader = true;
       axios.get(`${ADMIN_URL}/statistics`)
         .then(response => {
+          this.activeLoader = false;
           // console.log('rsponse',response.data.userStat);
           this.userStat = response.data.userStat;
           this.lineItemStat = response.data.linItemStat;
@@ -617,15 +624,16 @@ export default {
     },
 
     formatPrice(price) {
-      const formattedPrice = parseFloat(price);
-      return parseFloat(formattedPrice).toLocaleString();
+      // const formattedPrice = parseFloat(price);
+      // return parseFloat(formattedPrice).toLocaleString();
+      const number = parseFloat(price);
+      if (isNaN(number)) return "0"; // Handle invalid input
+
+      const formattedPrice = number.toFixed(2).replace(/(\d)(?=(\d{2})+\d\.)/g, '$1,');
+
+      return formattedPrice;
     }
-    //   const number = parseFloat(price);
-    // if (isNaN(number)) return "0"; // Handle invalid input
 
-    // const formattedPrice = number.toFixed(2).replace(/(\d)(?=(\d{2})+\d\.)/g, '$1,');
-
-    // return formattedPrice;
   }
 }
 </script>

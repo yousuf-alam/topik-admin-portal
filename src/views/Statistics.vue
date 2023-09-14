@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Loader :loader="activeLoader"/>
 
     <div class="pt-3">
       <h4><i class="fa fa-user mr-2 mb-2"></i>User Statistics (Top Expended User)</h4>
@@ -538,12 +539,15 @@
 
 <script>
 import axios from 'axios';
+import Loader from "@/views/Loader.vue";
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
 
   name: 'dashboard',
+  components: {Loader},
   data() {
     return {
+      activeLoader: false,
 
       userStat: [],
       userThisMonth: [],
@@ -579,8 +583,10 @@ export default {
   },
   methods: {
     fetchData() {
+      this.activeLoader = true;
       axios.get(`${ADMIN_URL}/statistics`)
         .then(response => {
+          this.activeLoader = false;
           // console.log('rsponse',response.data.userStat);
           this.userStat = response.data.userStat;
           this.lineItemStat = response.data.linItemStat;
@@ -617,15 +623,16 @@ export default {
     },
 
     formatPrice(price) {
-      const formattedPrice = parseFloat(price);
-      return parseFloat(formattedPrice).toLocaleString();
+      // const formattedPrice = parseFloat(price);
+      // return parseFloat(formattedPrice).toLocaleString();
+      const number = parseFloat(price);
+      if (isNaN(number)) return "0"; // Handle invalid input
+
+      const formattedPrice = number.toFixed(2).replace(/(\d)(?=(\d{2})+\d\.)/g, '$1,');
+
+      return formattedPrice;
     }
-    //   const number = parseFloat(price);
-    // if (isNaN(number)) return "0"; // Handle invalid input
 
-    // const formattedPrice = number.toFixed(2).replace(/(\d)(?=(\d{2})+\d\.)/g, '$1,');
-
-    // return formattedPrice;
   }
 }
 </script>

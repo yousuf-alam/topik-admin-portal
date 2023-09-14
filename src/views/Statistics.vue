@@ -575,7 +575,7 @@ export default {
       last_month: '',
       currentQuarterName: '',
       previousQuarterName: '',
-      imagePath:require('/src/assets/images/nodata.png'),
+      imagePath:require('/public/img/nodata.png'),
     }
   },
   created() {

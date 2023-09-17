@@ -165,10 +165,10 @@
     
                       <b></b>
                       <p style="color: #4dbd74">Name:{{ item.name }}</p>
-                      <p>Total Leave:{{ item.total_leaves }}</p>
-                      <p>Total Order:{{ item.total_orders }}</p>
-                      <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                      <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                      <p>Total Leave: {{ item.total_leaves }}</p>
+                      <p>Total Order: {{ item.total_orders }}</p>
+                      <p>Cancel Order: {{ item.total_cancelled_orders }}</p>
+                      <p>Order Value: {{ formatPrice(item.total_price) }}</p>
                       <hr>
                     </li>
                   </template>
@@ -197,10 +197,10 @@
     
                       <b></b>
                       <p style="color: #4dbd74">Name:{{ item.name }}</p>
-                      <p>Total Leave:{{ item.total_leaves }}</p>
-                      <p>Total Order:{{ item.total_orders }}</p>
-                      <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                      <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                      <p>Total Leave: {{ item.total_leaves }}</p>
+                      <p>Total Order: {{ item.total_orders }}</p>
+                      <p>Cancel Order: {{ item.total_cancelled_orders }}</p>
+                      <p>Order Value: {{ formatPrice(item.total_price) }}</p>
                       <hr>
                     </li>
                   </template>
@@ -230,10 +230,10 @@
     
                       <b></b>
                       <p style="color: #4dbd74">Name:{{ item.name }}</p>
-                      <p>Total Leave:{{ item.total_leaves }}</p>
-                      <p>Total Order:{{ item.total_orders }}</p>
-                      <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                      <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                      <p>Total Leave: {{ item.total_leaves }}</p>
+                      <p>Total Order: {{ item.total_orders }}</p>
+                      <p>Cancel Order: {{ item.total_cancelled_orders }}</p>
+                      <p>Order Value: {{ formatPrice(item.total_price) }}</p>
                       <hr>
                     </li>
                   </template>
@@ -261,10 +261,10 @@
     
                       <b></b>
                       <p style="color: #4dbd74">Name:{{ item.name }}</p>
-                      <p>Total Leave:{{ item.total_leaves }}</p>
-                      <p>Total Order:{{ item.total_orders }}</p>
-                      <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                      <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                      <p>Total Leave: {{ item.total_leaves }}</p>
+                      <p>Total Order: {{ item.total_orders }}</p>
+                      <p>Cancel Order: {{ item.total_cancelled_orders }}</p>
+                      <p>Order Value: {{ formatPrice(item.total_price) }}</p>
                       <hr>
                     </li>
                   </template>
@@ -299,10 +299,10 @@
     
                       <b></b>
                       <p style="color: red">Name:{{ item.name }}</p>
-                      <p>Total Leave:{{ item.total_leaves }}</p>
-                      <p>Total Order:{{ item.total_orders }}</p>
-                      <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                      <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                      <p>Total Leave: {{ item.total_leaves }}</p>
+                      <p>Total Order: {{ item.total_orders }}</p>
+                      <p>Cancel Order: {{ item.total_cancelled_orders }}</p>
+                      <p>Order Value: {{ formatPrice(item.total_price) }}</p>
                       <hr>
                     </li>
                   </template>
@@ -333,10 +333,10 @@
     
                       <b></b>
                       <p style="color: red">Name:{{ item.name }}</p>
-                      <p>Total Leave:{{ item.total_leaves }}</p>
-                      <p>Total Order:{{ item.total_orders }}</p>
-                      <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                      <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                      <p>Total Leave: {{ item.total_leaves }}</p>
+                      <p>Total Order: {{ item.total_orders }}</p>
+                      <p>Cancel Order: {{ item.total_cancelled_orders }}</p>
+                      <p>Order Value: {{ formatPrice(item.total_price) }}</p>
                       <hr>
                     </li>
                   </template>
@@ -365,10 +365,10 @@
     
                       <b></b>
                       <p style="color: red">Name:{{ item.name }}</p>
-                      <p>Total Leave:{{ item.total_leaves }}</p>
-                      <p>Total Order:{{ item.total_orders }}</p>
-                      <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                      <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                      <p>Total Leave: {{ item.total_leaves }}</p>
+                      <p>Total Order: {{ item.total_orders }}</p>
+                      <p>Cancel Order: {{ item.total_cancelled_orders }}</p>
+                      <p>Order Value: {{ formatPrice(item.total_price) }}</p>
                       <hr>
                     </li>
                   </template>
@@ -394,10 +394,10 @@
     
                       <b></b>
                       <p style="color: red">Name:{{ item.name }}</p>
-                      <p>Total Leave:{{ item.total_leaves }}</p>
-                      <p>Total Order:{{ item.total_orders }}</p>
-                      <p>Cancel Order:{{ item.total_cancelled_orders }}</p>
-                      <p>Order Value:{{ formatPrice(item.total_price) }}</p>
+                      <p>Total Leave: {{ item.total_leaves }}</p>
+                      <p>Total Order: {{ item.total_orders }}</p>
+                      <p>Cancel Order: {{ item.total_cancelled_orders }}</p>
+                      <p>Order Value: {{ formatPrice(item.total_price) }}</p>
                       <hr>
                     </li>
                   </template>

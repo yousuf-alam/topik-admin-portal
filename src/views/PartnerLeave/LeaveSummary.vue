@@ -10,6 +10,7 @@
       <table class="th-st my-table" border="1">
         <thead>
           <tr>
+            <th>Joining Date</th>
             <th>Partner Name</th>       
             <th>Sick/Casual Leave</th>
             <th>Unpaid Leave</th>
@@ -19,6 +20,8 @@
         </thead>
         <tbody>
           <tr v-for="partner in leaveSummary" :key="partner.partner_name">
+ 
+            <td>{{partner.joining_date}}</td>
             <td>{{ partner.partner_name }}</td>
             <td>{{ partner.sick_or_casual_leave_count }}</td>
             <td>{{ partner.unpaid_leave_count }}</td>

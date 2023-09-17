@@ -238,7 +238,7 @@ const navitems = {
       permission_name: permissionsList.partnerwallet
     },
    {
-      name: 'PartnerPayments',
+      name: 'Partner Payments',
       url: '/partner-payment',
       icon: 'fa fa-reorder',
      permission_name: permissionsList.partnerwallet

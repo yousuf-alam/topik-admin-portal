@@ -14,13 +14,13 @@
                   <div class="rightside" v-if="partner.balance >0">
                     <img src="/img/wallet-pink.png" width="30%"
                          alt="wallet-icon">
-                    <div class="badge badge-success money">৳ {{partner.balance }}</div>
+                    <div class="badge badge-success money">৳ {{formatPrice(partner.balance )}}</div>
                     <h1 class="text-success font-weight-bold">Credit</h1>
                   </div>
                   <div class="rightside" v-else >
                     <img src="/img/wallet-pink.png" width="30%"
                        alt="wallet-icon">
-                  <div class="badge badge-danger money">৳ {{partner.balance }}</div>
+                  <div class="badge badge-danger money">৳ {{formatPrice(partner.balance) }}</div>
                   <h1 class="text-danger font-weight-bold">Debit</h1>
                 </div>
                 </div>
@@ -112,6 +112,14 @@
               .catch(e=>{
                 console.log("error occurs",e);
               });
+          },
+          formatPrice(price) {
+            const number = parseFloat(price);
+            if (isNaN(number)) return "0";
+
+            const formattedPrice = number.toFixed(2).replace(/(\d)(?=(\d{2})+\d\.)/g, '$1,');
+
+            return formattedPrice;
           },
 
           recharge() {

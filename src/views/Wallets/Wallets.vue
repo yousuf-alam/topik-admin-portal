@@ -41,7 +41,7 @@
     },
     created(){
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${ADMIN_URL}/all-partners`)
+      axios.get(`${ADMIN_URL}/all-partners-wallets`)
         .then(response =>{
           this.partners = response.data;
         })

@@ -89,8 +89,8 @@ export default {
     },
     created() {
         this.listenPrivateChannel();
-        this.countAllNoti();
-        this.countUnreadNoti();
+        // this.countAllNoti();
+        // this.countUnreadNoti();
 
     },
     computed: {
@@ -183,7 +183,7 @@ export default {
                 }else{
                     desktopNotiRedirectURL = `${origin}/orders/details/${order_id}`;
                 }
-                
+
                 let audio = new Audio('/message_tone.mp3');
                 audio.play();
             }

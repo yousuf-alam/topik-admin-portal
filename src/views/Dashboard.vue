@@ -1,7 +1,7 @@
 <template>
   <div class="animated fadeIn">
     <Loader :loader="activeLoader"/>
-    <div v-if="all_data_fetched_successfully">
+    <div>
       <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i>ORDER STATUS</h4>
       <b-row class="smallCardContainer ">
         <b-col sm="12" md="6" xl="4">
@@ -221,9 +221,9 @@
         </b-card-group>
       </div>
     </div>
-    <div v-else>
-      Loading...
-    </div>
+<!--    <div v-else>-->
+<!--      Loading...-->
+<!--    </div>-->
 
   </div>
 </template>
@@ -278,7 +278,9 @@
             }
         },
         created(){
+          console.log("created at calling");
             this.fetchData();
+
 
         },
         methods: {
@@ -286,6 +288,7 @@
               this.activeLoader = true;
                 axios.get(`${ADMIN_URL}/dashboard`)
                     .then(response => {
+                      console.log("response is coming");
                       this.activeLoader = false;
                         this.order = response.data.order;
                         this.finance = response.data.finance;

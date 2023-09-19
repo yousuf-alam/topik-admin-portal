@@ -87,19 +87,24 @@
         <td>Sp Name</td>
         <td>No of Order</td>
         <td>Order Value</td>
-        <td>Basic Salary</td>
-        <td>TA</td>
-        <td>Extra Product</td>
-        <td>Reward of Month</td>
         <td>Bkash Payment</td>
         <td>Ssl Commerze</td>
         <td>Cash/Bkash-Sp</td>
         <td>Gap Amount</td>
+        <td>Basic Salary</td>
+        <td>TA</td>
+
+        <td>Reward of Month</td>
+
+        <td>Extra Product Bill</td>
+        <td>Extra Amount</td>
         <td>Deduction</td>
-        <td>Bonus Amount</td>
         <td>Sub Total</td>
         <td>Commission</td>
         <td>Total</td>
+        <td>Mobile Recharge</td>
+        <td>Zoho Product Amount</td>
+        <td>Gross Total</td>
         <td>Percentage</td>
 
         </thead>
@@ -108,21 +113,26 @@
           <router-link :to="{ name: 'WalletMonthly', params: { id: item.id }}">
             <td>{{item.name}}</td>
           </router-link>
-          <td>{{item.total_orders}}</td>
-          <td>{{item.total_bill}}</td>
-          <td>{{item.basic_salary}}</td>
-          <td>{{item.ta}}</td>
-          <td @click="openModal(item.id,'extra')" style="cursor: pointer;background: #00badd">{{item.extra_product}}</td>
-          <td>{{item.reward}}</td>
-          <td>{{item.bkash}}</td>
-          <td>{{item.ssl}}</td>
-          <td>{{item.cash}}</td>
-          <td>{{item.gap_amount}}</td>
-          <td @click="openModal(item.id,'deduction')" style="cursor: pointer;background: #00badd">{{item.deduction}}</td>
-          <td @click="openModal(item.id,'bonus')" style="cursor: pointer;background: #00badd">{{item.bonus_amount}}</td>
-          <td>{{item.sub_total}}</td>
-          <td>{{item.commission}}</td>
-          <td>{{item.total}}</td>
+          <td>{{formatPrice(item.total_orders)}}</td>
+          <td>{{formatPrice(item.total_bill)}}</td>
+          <td>{{formatPrice(item.bkash)}}</td>
+          <td>{{formatPrice(item.ssl)}}</td>
+          <td>{{formatPrice(item.cash)}}</td>
+          <td>{{formatPrice(item.gap_amount)}}</td>
+          <td>{{formatPrice(item.basic_salary)}}</td>
+          <td>{{formatPrice(item.ta)}}</td>
+          <td>{{formatPrice(item.reward)}}</td>
+
+          <td @click="openModal(item.id,'extra')" style="cursor: pointer;background: #00badd">{{formatPrice(item.extra_product)}}</td>
+
+          <td @click="openModal(item.id,'bonus')" style="cursor: pointer;background: #00badd">{{formatPrice(item.bonus_amount)}}</td>
+          <td @click="openModal(item.id,'deduction')" style="cursor: pointer;background: #00badd">{{formatPrice(item.deduction)}}</td>
+          <td>{{formatPrice(item.sub_total)}}</td>
+          <td>{{formatPrice(item.commission)}}</td>
+          <td>{{ formatPrice(item.total)}}</td>
+          <td  @click="openModal(item.id,'mobile-recharge')" style="cursor: pointer;background: #00badd">{{ formatPrice(item.mobile_recharge)}}</td>
+          <td  @click="openModal(item.id,'zoho-product-amount')" style="cursor: pointer;background: #00badd">{{ formatPrice(item.zoho_product_amount)}}</td>
+          <td>{{ formatPrice(item.gross_total)}}</td>
           <td>{{item.percentage}}%</td>
         </tr>
         </tbody>
@@ -205,6 +215,14 @@ export default {
 
 
 
+    },
+    formatPrice(price) {
+      const number = parseFloat(price);
+      if (isNaN(number)) return "0";
+
+      const formattedPrice = number.toFixed(2).replace(/(\d)(?=(\d{2})+\d\.)/g, '$1,');
+
+      return formattedPrice;
     },
     submitLeave() {
       this.updateApi();

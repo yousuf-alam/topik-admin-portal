@@ -134,6 +134,7 @@
           <td  @click="openModal(item.id,'zoho-product-amount')" style="cursor: pointer;background: #00badd">{{ formatPrice(item.zoho_product_amount)}}</td>
           <td>{{ formatPrice(item.gross_total)}}</td>
           <td>{{item.percentage}}%</td>
+
         </tr>
         </tbody>
       </table>

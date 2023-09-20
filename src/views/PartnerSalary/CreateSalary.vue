@@ -217,14 +217,17 @@ export default {
 
 
     },
-    formatPrice(price) {
-      const number = parseFloat(price);
-      if (isNaN(number)) return "0";
+     formatPrice(price) {
+  const number = parseFloat(price);
+  if (isNaN(number)) return "0";
 
-      const formattedPrice = number.toFixed(2).replace(/(\d)(?=(\d{2})+\d\.)/g, '$1,');
+  // Round the number to the nearest hundred
+  const roundedNumber = Math.round(number / 100) * 100;
 
-      return formattedPrice;
-    },
+  const formattedPrice = roundedNumber.toFixed(0).replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+
+  return formattedPrice;
+},
     submitLeave() {
       this.updateApi();
       this.$modal.hide("modal-order_type");

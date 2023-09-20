@@ -90,19 +90,25 @@
           <td>Sp Name</td>
           <td>No of Order</td>
           <td>Order Value</td>
-          <td>Basic Salary</td>
-          <td>TA</td>
-          <td>Extra Product</td>
-          <td>Reward of Month</td>
           <td>Method Bkash</td>
           <td>Method SSL</td>
           <td>(Cash/207/208)Sp</td>
           <td>Gap Amount</td>
+          <td>Basic Salary</td>
+          <td>TA</td>
+
+          <td>Reward of Month</td>
+
+          <td>Extra Product Bill</td>
+
+          <td>Extra Amount</td>
           <td>Deduction</td>
-          <td>Bonus Amount</td>
           <td>Sub Total</td>
           <td>Commission</td>
           <td>Total</td>
+          <td>Mobile Recharge</td>
+          <td>Zoho Product Amount</td>
+          <td>Gross Total</td>
           <td>Percentage</td>
 
         </thead>
@@ -111,22 +117,27 @@
              <router-link :to="{ name: 'WalletMonthly', params: { id: item.id }}">
               <td>{{item.name}}</td>
             </router-link>
-            <td>{{item.total_orders}}</td>
-            <td>{{item.total_bill}}</td>
-            <td>{{item.basic_salary}}</td>
-            <td>{{item.ta}}</td>
-            <td>{{item.extra_product}}</td>
-            <td>{{item.reward}}</td>
-            <td>{{item.bkash}}</td>
-            <td>{{item.ssl}}</td>
-            <td>{{item.cash}}</td>
-            <td>{{item.gap_amount}}</td>
-            <td>{{item.deduction}}</td>
-            <td>{{item.bonus_amount}}</td>
-            <td>{{item.sub_total}}</td>
-            <td>{{item.commission}}</td>
-            <td>{{item.total}}</td>
-            <td>{{item.percentage}}%</td>
+            <td>{{formatPrice(item.total_orders)}}</td>
+            <td>{{formatPrice(item.total_bill)}}</td>
+             <td>{{formatPrice(item.bkash)}}</td>
+             <td>{{formatPrice(item.ssl)}}</td>
+             <td>{{formatPrice(item.cash)}}</td>
+             <td>{{formatPrice(item.gap_amount)}}</td>
+            <td>{{formatPrice(item.basic_salary)}}</td>
+            <td>{{formatPrice(item.ta)}}</td>
+            <td>{{formatPrice(item.reward)}}</td>
+
+             <td>{{formatPrice(item.extra_product)}}</td>
+
+            <td>{{formatPrice(item.bonus_amount)}}</td>
+             <td>{{formatPrice(item.deduction)}}</td>
+            <td>{{formatPrice(item.sub_total)}}</td>
+            <td>{{ formatPrice(item.commission)}}</td>
+            <td>{{ formatPrice(item.total)}}</td>
+            <td>{{ formatPrice(item.mobile_recharge)}}</td>
+            <td>{{ formatPrice(item.zoho_product_amount)}}</td>
+            <td>{{ formatPrice(item.gross_total)}}</td>
+            <td> {{ item.percentage}}%</td>
            </tr>
         </tbody>
       </table>
@@ -205,6 +216,14 @@ export default {
       this.key=key;
 
 
+    },
+    formatPrice(price) {
+      const number = parseFloat(price);
+      if (isNaN(number)) return "0";
+
+      const formattedPrice = number.toFixed(2).replace(/(\d)(?=(\d{2})+\d\.)/g, '$1,');
+
+      return formattedPrice;
     },
     submitLeave() {
       this.updateApi();

@@ -111,8 +111,8 @@ export default {
         }
     },
     created() {
-        this.countAllNoti();
-        this.fetchNotifications();
+        // this.countAllNoti();
+        // this.fetchNotifications();
         this.listenPrivateChannel();
     },
     methods: {
@@ -140,30 +140,30 @@ export default {
             this.pageNumber = parm - 1; // As api start from "pageNumber 0"
             this.fetchNotifications();
         },
-        countAllNoti() {
-            const BASE_URL = process.env.VUE_APP_ADMIN_URL;
-            axios.get(`${BASE_URL}/count-all-noti`)
-                .then(res => {
-                    this.allNotiCounter = res.data;
-                    this.totalPageCount = Math.ceil(this.allNotiCounter / this.perPageItem);
-                }).catch(error => {
-
-                });
-        },
-        fetchNotifications() {
-            const parmObj = {
-                perPageItem: this.perPageItem,
-                pageNumber: this.pageNumber
-            };
-            this.$store.dispatch('noti/fetchNotifications', parmObj)
-            .then(newNoti => {
-                this.notifications = newNoti;
-                console.log('new Noti ============ ', newNoti);
-            }).catch(error => {
-
-            })
-
-        },
+        // countAllNoti() {
+        //     const BASE_URL = process.env.VUE_APP_ADMIN_URL;
+        //     axios.get(`${BASE_URL}/count-all-noti`)
+        //         .then(res => {
+        //             this.allNotiCounter = res.data;
+        //             this.totalPageCount = Math.ceil(this.allNotiCounter / this.perPageItem);
+        //         }).catch(error => {
+        //
+        //         });
+        // },
+        // fetchNotifications() {
+        //     const parmObj = {
+        //         perPageItem: this.perPageItem,
+        //         pageNumber: this.pageNumber
+        //     };
+        //     this.$store.dispatch('noti/fetchNotifications', parmObj)
+        //     .then(newNoti => {
+        //         this.notifications = newNoti;
+        //         console.log('new Noti ============ ', newNoti);
+        //     }).catch(error => {
+        //
+        //     })
+        //
+        // },
         singleNotiAction(notiObj) {
             if (notiObj.read_at === null) {
               this.notiMarkAsRead(notiObj);

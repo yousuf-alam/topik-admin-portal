@@ -6,11 +6,11 @@
                 <b-badge pill variant="danger" >
                     {{unreadNotiCounter}}
                 </b-badge>
-                <!-- 
+                <!--
                     <b-nav-item class="d-md-down">
                         <i class="icon-bell"></i>
                         <b-badge pill variant="danger">5</b-badge>
-                    </b-nav-item>             
+                    </b-nav-item>
                 -->
             </div>
 
@@ -22,11 +22,11 @@
                     <strong>Your Notifications</strong>
                 </b-dropdown-header>
 
-                <div> 
+                <div>
                     <div class="item-container" @scroll="infiniteScroll">
                         <!-- <div>Test Noti Panel.</div> -->
-                        <div class="item-card" 
-                        :class="noti.read_at === null ? 'notReadYet': ''" 
+                        <div class="item-card"
+                        :class="noti.read_at === null ? 'notReadYet': ''"
                         v-for="(noti, index) in notifications" :key="index"
                         @click="singleNotiAction(noti)"
                         >
@@ -41,7 +41,7 @@
                         <div v-if="showLoading" class="loader">
                             <p>Loading...</p>
                         </div>
-                    </div> 
+                    </div>
                 </div>
 
                 <div class="text-center mt-1">
@@ -81,13 +81,13 @@ export default {
     },
     created() {
         this.listenPrivateChannel();
-        this.countAllNoti();
-        this.countUnreadNoti();
-        
+        // this.countAllNoti();
+        // this.countUnreadNoti();
+
     },
     filters: {
         moment: (date) => moment(date).format('MMMM Do YYYY, h:mm:ss a')
-    }, 
+    },
     methods: {
         listenPrivateChannel() {
             /*
@@ -101,8 +101,8 @@ export default {
                     });
             */
             const user = this.$store.getters['auth/authUser'];
-            const userId = user.id; 
-            // This works fine. 
+            const userId = user.id;
+            // This works fine.
             window.Echo.private('App.User.' + userId)
                 .notification((notification) => {
                     this.unreadNotiCounter++;
@@ -110,14 +110,14 @@ export default {
                     this.pageNumber = 0;
                     this.fetchNotiAfterPusherListen();
                     /*
-                        // this.notifications.push(notification.order); 
+                        // this.notifications.push(notification.order);
                         Ai line ta likhle error khabe, karon, axios diye je notification
                         gulo ami niye aschi, Segulor moddhe aro onke key (not_id, created_at) ache.
                         Kintu aikhane sudhu order object. Tai notifications array te push korle vue
                         template a jeye error khabe.
                     */
                 });
-            
+
         },
         countAllNoti() {
             const ADMIN_URL = this.$gbvar.ADMIN_URL;
@@ -126,7 +126,7 @@ export default {
                     this.allNotiCounter = res.data;
                 }).catch(error => {
 
-                }); 
+                });
         },
         countUnreadNoti() {
             const ADMIN_URL = this.$gbvar.ADMIN_URL;
@@ -136,7 +136,7 @@ export default {
                 }).catch(error => {
 
                 });
-            
+
         },
         handleClick() {
             if (this.notiBtnClicked === 0) {
@@ -154,7 +154,7 @@ export default {
                         return {...item, ...{data: JSON.parse(item.data)}};
                     });
                     this.pageNumber++;
-                    this.mergeNewNotiToExistingNotificationsArray(newNoti);                    
+                    this.mergeNewNotiToExistingNotificationsArray(newNoti);
                 }).catch(error => {
                     //console.log('TestNoti.vue Error === ', error.response);
                 })
@@ -168,7 +168,7 @@ export default {
                     });
                     this.pageNumber++;
                     this.mergeNewNotiToExistingNotificationsArray(newNoti);
-                    
+
                 }).catch(error => {
                     //console.log('TestNoti.vue Error === ', error.response);
                 })
@@ -176,10 +176,10 @@ export default {
         mergeNewNotiToExistingNotificationsArray(newNoti) {
             const notificationsObj = _.keyBy(this.notifications, 'id');
             const newNotiObj = _.keyBy(newNoti, 'id');
-            
+
             let mergedNotiObj = Object.assign({}, notificationsObj);
             mergedNotiObj = Object.assign(mergedNotiObj, newNotiObj);
-            
+
             const mergedNotiArray = [];
             for (let key in mergedNotiObj) {
                 if (mergedNotiObj.hasOwnProperty(key)) {
@@ -198,7 +198,7 @@ export default {
             });
         },
         infiniteScroll(event) {
-            if ((event.target.scrollTop + event.target.offsetHeight ) >= 
+            if ((event.target.scrollTop + event.target.offsetHeight ) >=
                 event.target.scrollHeight) {
                 this.fetchNotifications();
             }
@@ -243,7 +243,7 @@ export default {
         margin-left: 5px;
         margin-right: 5px;
         height: auto;
-    
+
     }
     .item-card {
         display: flex;
@@ -303,7 +303,7 @@ export default {
         100% {
             transform: translateX(70%);
         }
-    } 
+    }
 
 
     .notReadYet {

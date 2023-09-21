@@ -7,7 +7,7 @@
                 <br>
                 <div class="item-container" v-if="showNotiPanel" @scroll="infiniteScroll">
                     <!-- <div>Test Noti Panel.</div> -->
-                    <div class="item-card" :class="noti.read_at === null ? 'notReadYet': ''" 
+                    <div class="item-card" :class="noti.read_at === null ? 'notReadYet': ''"
                     v-for="(noti, index) in notifications" :key="index">
                         <div class="thumbnail"></div>
                         <div class="detail">
@@ -51,15 +51,15 @@ export default {
         }
     },
     created() {
-        
+
         this.listenPrivateChannel();
-        this.countAllNoti();
-        this.countUnreadNoti();
-        
+        // this.countAllNoti();
+        // this.countUnreadNoti();
+
     },
     filters: {
         moment: (date) => moment(date).format('MMMM Do YYYY, h:mm:ss a')
-    }, 
+    },
     methods: {
 
         listenPrivateChannel() {
@@ -74,35 +74,35 @@ export default {
                     });
             */
             const user = this.$store.getters['auth/authUser'];
-            const userId = user.id; 
-            // This works fine. 
+            const userId = user.id;
+            // This works fine.
             window.Echo.private('App.User.' + userId)
                 .notification((notification) => {
                     // console.log(notification.type);
                     this.unreadNotiCounter++;
                     this.notifications.push(notification.order);
                 });
-            
-        },
-        countAllNoti() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/count-all-noti`)
-                .then(res => {
-                    this.allNotiCounter = res.data;
-                }).catch(error => {
 
-                }); 
         },
-        countUnreadNoti() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/count-unread-noti`)
-                .then(res => {
-                    this.unreadNotiCounter = res.data;
-                }).catch(error => {
-
-                });
-            
-        },
+        // countAllNoti() {
+        //     const ADMIN_URL = this.$gbvar.ADMIN_URL;
+        //     axios.get(`${ADMIN_URL}/api/count-all-noti`)
+        //         .then(res => {
+        //             this.allNotiCounter = res.data;
+        //         }).catch(error => {
+        //
+        //         });
+        // },
+        // countUnreadNoti() {
+        //     const ADMIN_URL = this.$gbvar.ADMIN_URL;
+        //     axios.get(`${ADMIN_URL}/api/count-unread-noti`)
+        //         .then(res => {
+        //             this.unreadNotiCounter = res.data;
+        //         }).catch(error => {
+        //
+        //         });
+        //
+        // },
         handleClick() {
             //console.log('inside handle click...');
             //console.log('handleClick, total notifications === ', this.notifications);
@@ -113,34 +113,34 @@ export default {
             }
 
         },
-        fetchNotifications() {
-            const ADMIN_URL = this.$gbvar.ADMIN_URL;
-            axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
-                .then(res => {
-                    const newNoti = _.map(res.data.notifications, item => {
-                        return {...item, ...{data: JSON.parse(item.data)}};
-                    });
-                    this.showNotiPanel = true;
-                    this.pageNumber++;
-                    this.notifications = [...this.notifications, ...newNoti];
-                    if (this.notifications.length === this.allNotiCounter) {
-                        this.showLoading = false;
-                    }
-                    console.log(
-                        'this.pageNumber === ', this.pageNumber,
-                        'this.notifications === ', this.notifications,
-                        'this.notifications.length === ', this.notifications.length,
-                        'this.countAllNoti === ', this.allNotiCounter );
-                }).catch(error => {
-                    //console.log('TestNoti.vue Error === ', error.response);
-                })
-        },
-        infiniteScroll(event) {
-            if ((event.target.scrollTop + event.target.offsetHeight ) >= 
-                event.target.scrollHeight) {
-                this.fetchNotifications();
-            }
-        }
+        // fetchNotifications() {
+        //     const ADMIN_URL = this.$gbvar.ADMIN_URL;
+        //     axios.get(`${ADMIN_URL}/api/notifications/${this.perPageItem}/${this.pageNumber}`)
+        //         .then(res => {
+        //             const newNoti = _.map(res.data.notifications, item => {
+        //                 return {...item, ...{data: JSON.parse(item.data)}};
+        //             });
+        //             this.showNotiPanel = true;
+        //             this.pageNumber++;
+        //             this.notifications = [...this.notifications, ...newNoti];
+        //             if (this.notifications.length === this.allNotiCounter) {
+        //                 this.showLoading = false;
+        //             }
+        //             console.log(
+        //                 'this.pageNumber === ', this.pageNumber,
+        //                 'this.notifications === ', this.notifications,
+        //                 'this.notifications.length === ', this.notifications.length,
+        //                 'this.countAllNoti === ', this.allNotiCounter );
+        //         }).catch(error => {
+        //             //console.log('TestNoti.vue Error === ', error.response);
+        //         })
+        // },
+        // infiniteScroll(event) {
+        //     if ((event.target.scrollTop + event.target.offsetHeight ) >=
+        //         event.target.scrollHeight) {
+        //         this.fetchNotifications();
+        //     }
+        // }
     }
 
 }
@@ -149,9 +149,9 @@ export default {
 <style scoped>
 .noti-button {
   color: white;
-  border-radius: 50%; 
+  border-radius: 50%;
   background: red;
-  padding: 10px; 
+  padding: 10px;
   width: 30px;
   height: 30px;
   display: flex;
@@ -169,7 +169,7 @@ export default {
 .item-card {
   width: 100%;
   height: auto;
-  
+
 }
 .item-card {
   display: flex;
@@ -229,7 +229,7 @@ export default {
   100% {
     transform: translateX(70%);
   }
-} 
+}
 
 
 .notReadYet {

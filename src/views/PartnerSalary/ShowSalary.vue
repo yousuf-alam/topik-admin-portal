@@ -117,7 +117,7 @@
              <router-link :to="{ name: 'WalletMonthly', params: { id: item.id }}">
               <td>{{item.name}}</td>
             </router-link>
-            <td>{{formatPrice(item.total_orders)}}</td>
+            <td>{{item.total_orders}}</td>
             <td>{{formatPrice(item.total_bill)}}</td>
              <td>{{formatPrice(item.bkash)}}</td>
              <td>{{formatPrice(item.ssl)}}</td>

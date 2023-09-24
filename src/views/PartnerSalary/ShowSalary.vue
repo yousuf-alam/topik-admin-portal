@@ -117,7 +117,7 @@
              <router-link :to="{ name: 'WalletMonthly', params: { id: item.id }}">
               <td>{{item.name}}</td>
             </router-link>
-            <td>{{formatPrice(item.total_orders)}}</td>
+            <td>{{item.total_orders}}</td>
             <td>{{formatPrice(item.total_bill)}}</td>
              <td>{{formatPrice(item.bkash)}}</td>
              <td>{{formatPrice(item.ssl)}}</td>
@@ -218,15 +218,18 @@ export default {
 
     },
     formatPrice(price) {
-      const number = parseFloat(price);
-      if (isNaN(number)) return "0";
+//       const number = parseFloat(price);
+//       if (isNaN(number)) return "0";
+//
+// // Round the number to the nearest hundred
+//       const roundedNumber = Math.round(Math.abs(number) / 100) * 100;
+//
+// // Format the rounded number
+//       const formattedPrice = roundedNumber.toFixed(0).replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+//
+//       return formattedPrice;
+      return new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(price);
 
-      // Round the number to the nearest hundred
-      const roundedNumber = Math.round(number / 100) * 100;
-
-      const formattedPrice = roundedNumber.toFixed(0).replace(/(\d)(?=(\d{3})+$)/g, '$1,');
-
-      return formattedPrice;
     },
     submitLeave() {
       this.updateApi();

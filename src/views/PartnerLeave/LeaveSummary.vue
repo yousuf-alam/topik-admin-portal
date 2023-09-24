@@ -7,6 +7,9 @@
       </select>
     </div>
     <div class="table-content">
+      
+   
+      <div v-if="leaveSummary.length > 0"> 
       <table class="th-st my-table" border="1">
         <thead>
           <tr>
@@ -18,7 +21,9 @@
             <th>Leave Remained</th>
           </tr>
         </thead>
-        <tbody>
+     
+         <tbody>
+         
           <tr v-for="partner in leaveSummary" :key="partner.partner_name">
  
             <td>{{partner.joining_date}}</td>
@@ -28,8 +33,20 @@
             <td>{{ partner.leave_consumed }}</td>
             <td>{{ partner.leave_remained }}</td>
           </tr>
+           
+        
+
         </tbody>
+  
+      
       </table>
+    </div>
+      <div v-else >
+        <p class="no-data-message">No data found for this Year</p>
+       </div>
+       
+    
+  
     </div>
   </div>
 </template>
@@ -48,15 +65,16 @@ export default {
   },
   methods: {
     loadLeaveSummary() {
+  
       axios.post(`${ADMIN_URL}/partner-leave-summary?year=${this.selectedYear}`).then((response) => {
         this.leaveSummary = response.data.data;
-      });
+       });
     },
     fetchAvailableYears() {
       
       const currentYear = new Date().getFullYear();
       const years = [];
-      for (let year = 2018; year <= 2025; year++) {
+      for (let year = 2023; year <= 2028; year++) {
         years.push(year);
       }
       this.availableYears = years;
@@ -150,7 +168,14 @@ label{
   pointer-events: none;
 }
 
- 
+.no-data-message {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 200px;
+  font-weight: bold;
+  font-size: large;
+}
 
 </style>
   

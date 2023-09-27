@@ -136,6 +136,23 @@
                 <b-form-radio v-model="order.bKash_status" value="Pending">Pending</b-form-radio>
               </b-form-group>
             </b-col>
+
+          <b-form-group label="Black list">
+            <select class="form-control" v-model="order.is_blacklisted">
+              <option value="0">NO</option>
+              <option value="1">YES</option>
+            </select>
+          </b-form-group>
+          <b-form-group label="Black list Reason" v-if="order.is_blacklisted==1">
+            <select class="form-control" v-model="order.blacklist_reason" >
+              <option value="safety_issue">Safety Issue</option>
+              <option value="location_issue">Location Issue</option>
+              <option value="bad_behave">Bad Behave</option>
+              <option value="call_receiving_problem">Call Receiving Problem</option>
+              <option value="other">Other</option>
+
+            </select>
+          </b-form-group>
 <!--          </b-row>-->
 
           <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
@@ -504,6 +521,8 @@
         formData.append('total_service_charge', this.order.total_service_charge);
         formData.append('total_discount', this.order.total_discount);
         formData.append('discount_adv_pay', this.order.discount_adv_pay);
+        formData.append('is_blacklisted', this.order.is_blacklisted);
+        formData.append('blacklist_reason', this.order.blacklist_reason);
         formData.append('total_bill', this.order.total_bill);
         formData.append('payment_method', this.order.payment_method);
         formData.append('review', JSON.stringify(this.order.review));

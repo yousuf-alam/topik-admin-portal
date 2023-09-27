@@ -51,6 +51,14 @@
             <li><h6><span class="font-weight-bold">  Payment Method : </span>
               <span>{{order.payment_method}}</span></h6></li>
 
+            <li><h6><span class="font-weight-bold">  Is_BlackList : </span>
+              <span :style="{ color: order.is_blacklisted === 1 ? 'red' : 'green' }">
+                       {{ order.is_blacklisted === 1 ? "Yes" : "NO" }}
+                 </span></h6></li>
+
+            <li v-if="order.is_blacklisted===1"><h6><span class="font-weight-bold">  Black List Reason : </span>
+              <span>{{order.blacklist_reason}}</span></h6></li>
+
           </ul>
           <br>
 

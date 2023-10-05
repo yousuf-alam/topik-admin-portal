@@ -92,8 +92,8 @@
                 <button @click="copyText" class="copy-icon" style="border: none;background: white">
                   <i class="fa fa-copy"></i>
                 </button>
-                <p class="content ml-2 " v-if="order.payment_method==='ssl'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To avail a 10% discount on your advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}</p>
-                <p class="content ml-2" v-if="order.payment_method==='bKash'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To avail a 10% discount on your advance payment, kindly pay through this link: https://romoni.com.bd/bKash/order/{{order.crypt_order_id}}</p>
+                <p class="content ml-2 " v-if="order.payment_method==='ssl'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To avail a 5% discount on your advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}</p>
+                <p class="content ml-2" v-if="order.payment_method==='bKash'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To avail a 5% discount on your advance payment, kindly pay through this link: https://romoni.com.bd/bKash/order/{{order.crypt_order_id}}</p>
               </div>
             </b-form-group>
           </ul>

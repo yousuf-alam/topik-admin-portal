@@ -474,9 +474,9 @@
         {
           if(this.order.discount_adv_pay===0) {
 
-            this.order.discount_adv_pay = (this.order.total_service_charge * 0.1);
+            this.order.discount_adv_pay = (this.order.total_service_charge * 0.05);
             this.order.total_discount = this.order.discount_adv_pay;
-            this.order.total_bill = (this.order.total_service_charge * 0.9);
+            this.order.total_bill = (this.order.total_service_charge * 0.95);
           }
 
 

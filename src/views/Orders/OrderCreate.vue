@@ -366,7 +366,7 @@ export default {
     invoiceFormatter() {
       // const { selected_partner, customer, promo_discount, services, schedule } = this;
 
-      const discount_adv_pay = (this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * 0.1) : 0;
+      const discount_adv_pay = (this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * 0.05) : 0;
       const promo_discount = this.promo_discount ? this.promo_discount : 0;
       const discount = promo_discount + discount_adv_pay;
       const total_bill = this.selected_partner.price - discount;

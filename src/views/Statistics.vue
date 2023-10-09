@@ -3,11 +3,11 @@
     <Loader :loader="activeLoader"/>
 
     <div class="pt-3">
-      <h4><i class="fa fa-user mr-2 mb-2"></i>User Statistics (Top Expended User)</h4>
+      <h4><i class="fa fa-user mr-2 mb-2"></i>User Statistics (Top  User)</h4>
       <p>name-order-price</p>
       <b-card-group deck>
 
-    
+
          <div class="card" border-variant="none" align="center">
           <div class="card-header">
             THIS MONTH
@@ -34,10 +34,10 @@
               </card-text>
           </div>
         </div>
-        
 
 
-      
+
+
         <div class="card" border-variant="none" align="center">
           <div class="card-header">
             LAST MONTH
@@ -139,7 +139,7 @@
 
 
 
-       
+
 
 
       </b-card-group>
@@ -162,7 +162,7 @@
                   </template>
                   <template v-else>
                     <li v-for="(item, index) in highPartnerThisMonth">
-    
+
                       <b></b>
                       <p style="color: #4dbd74">Name:{{ item.name }}</p>
                       <p>Total Leave: {{ item.total_leaves }}</p>
@@ -194,7 +194,7 @@
                   </template>
                   <template v-else>
                     <li v-for="(item, index) in highPartnerLastMonth">
-    
+
                       <b></b>
                       <p style="color: #4dbd74">Name:{{ item.name }}</p>
                       <p>Total Leave: {{ item.total_leaves }}</p>
@@ -227,7 +227,7 @@
                   </template>
                   <template v-else>
                     <li v-for="(item, index) in highPartnerThisQuarter">
-    
+
                       <b></b>
                       <p style="color: #4dbd74">Name:{{ item.name }}</p>
                       <p>Total Leave: {{ item.total_leaves }}</p>
@@ -258,7 +258,7 @@
                   </template>
                   <template v-else>
                     <li v-for="(item, index) in highPartnerLastQuarter">
-    
+
                       <b></b>
                       <p style="color: #4dbd74">Name:{{ item.name }}</p>
                       <p>Total Leave: {{ item.total_leaves }}</p>
@@ -296,7 +296,7 @@
                   </template>
                   <template v-else>
                     <li v-for="(item, index) in lowPartnerThisMonth">
-    
+
                       <b></b>
                       <p style="color: red">Name:{{ item.name }}</p>
                       <p>Total Leave: {{ item.total_leaves }}</p>
@@ -330,7 +330,7 @@
                   </template>
                   <template v-else>
                     <li v-for="(item, index) in lowPartnerLastMonth">
-    
+
                       <b></b>
                       <p style="color: red">Name:{{ item.name }}</p>
                       <p>Total Leave: {{ item.total_leaves }}</p>
@@ -362,7 +362,7 @@
                   </template>
                   <template v-else>
                     <li v-for="(item, index) in lowPartnerThisQuarter">
-    
+
                       <b></b>
                       <p style="color: red">Name:{{ item.name }}</p>
                       <p>Total Leave: {{ item.total_leaves }}</p>
@@ -391,7 +391,7 @@
                   </template>
                   <template v-else>
                     <li v-for="(item, index) in lowPartnerLastQuarter">
-    
+
                       <b></b>
                       <p style="color: red">Name:{{ item.name }}</p>
                       <p>Total Leave: {{ item.total_leaves }}</p>
@@ -411,8 +411,8 @@
     <div class="pt-3">
         <h4><i class="fa fa-user mr-2 mb-2"></i>Line Item Statistics</h4>
          <b-card-group deck>
-    
-      
+
+
       <div class="card" border-variant="none" align="center">
         <div class="card-header">
             First Quarter
@@ -439,8 +439,8 @@
                 </template>
             </card-text>
         </div>
-      </div> 
- 
+      </div>
+
 
 
 
@@ -470,7 +470,7 @@
                     </template>
                 </card-text>
             </div>
-          </div> 
+          </div>
 
 
 
@@ -501,7 +501,7 @@
                     </template>
                 </card-text>
             </div>
-          </div> 
+          </div>
 
 
 
@@ -627,7 +627,7 @@ export default {
 
     formatPrice(price) {
       const number = parseFloat(price);
-      if (isNaN(number)) return "0"; 
+      if (isNaN(number)) return "0";
 
       const formattedPrice = number.toFixed(2).replace(/(\d)(?=(\d{2})+\d\.)/g, '$1,');
 

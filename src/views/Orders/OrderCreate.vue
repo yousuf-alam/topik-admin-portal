@@ -233,7 +233,8 @@ export default {
       custom_measurement: "",
       selected_partner: null,
       invoice: [],
-      promo_discount:""
+      promo_discount:"",
+      discountPercent:0
     };
   },
 
@@ -366,7 +367,25 @@ export default {
     invoiceFormatter() {
       // const { selected_partner, customer, promo_discount, services, schedule } = this;
 
-      const discount_adv_pay = (this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * 0.05) : 0;
+      if(this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl')
+      {
+
+        axios.post(`${ADMIN_URL}/payment-method-info`, {
+          payment_method: this.customer.payment_method // Changed property name to match the expected key on the server
+        })
+          .then(response => {
+            if(response.data.data) {
+              this.discountPercent = response.data.data.percent_discount/100;
+            }
+
+
+          })
+          .catch(e => {
+            console.log("error occurs", e);
+          });
+      }
+
+      const discount_adv_pay = (this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * this.discountPercent) : 0;
       const promo_discount = this.promo_discount ? this.promo_discount : 0;
       const discount = promo_discount + discount_adv_pay;
       const total_bill = this.selected_partner.price - discount;

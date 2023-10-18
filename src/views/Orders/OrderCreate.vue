@@ -360,13 +360,12 @@ export default {
     },
     partnerAdd(partner) {
       this.selected_partner = partner;
+      this.getDiscountPercentage();
 
-      this.invoice = this.invoiceFormatter();
+
       console.log("len", this.invoice.length);
     },
-    invoiceFormatter() {
-      // const { selected_partner, customer, promo_discount, services, schedule } = this;
-
+    getDiscountPercentage(){
       if(this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl')
       {
 
@@ -376,6 +375,7 @@ export default {
           .then(response => {
             if(response.data.data) {
               this.discountPercent = response.data.data.percent_discount/100;
+              this.invoice = this.invoiceFormatter();
             }
 
 
@@ -384,6 +384,13 @@ export default {
             console.log("error occurs", e);
           });
       }
+      this.invoice = this.invoiceFormatter();
+
+    },
+    invoiceFormatter() {
+      // const { selected_partner, customer, promo_discount, services, schedule } = this;
+
+
 
       const discount_adv_pay = (this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl') ? (this.selected_partner.price * this.discountPercent) : 0;
       const promo_discount = this.promo_discount ? this.promo_discount : 0;

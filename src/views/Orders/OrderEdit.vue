@@ -112,7 +112,7 @@
 <!--                <b-form-radio v-model="order.payment_method" value="ssl">SSl</b-form-radio>-->
 <!--              </b-form-group>-->
               <b-form-group label="Payment Method">
-              <select class="form-control" v-model="order.payment_method" @change="changePayment">
+              <select class="form-control" v-model="order.payment_method" @change="getPaymentMethod">
                 <option value="bKash">bKash</option>
                 <option value="ssl">ssl</option>
                 <option value="cash">Cash on delivery</option>
@@ -136,6 +136,13 @@
                 <b-form-radio v-model="order.bKash_status" value="Pending">Pending</b-form-radio>
               </b-form-group>
             </b-col>
+
+          <b-col>
+            <b-form-group label="Payment Status?"  >
+              <b-form-radio v-model="order.payment_status" value="Paid" >Paid</b-form-radio>
+              <b-form-radio v-model="order.payment_status" value="Pending">Pending</b-form-radio>
+            </b-form-group>
+          </b-col>
 
           <b-form-group label="Black list">
             <select class="form-control" v-model="order.is_blacklisted">
@@ -341,7 +348,9 @@
         new_rating: '',
         new_review: '',
         flag_shipping_address_details: '',
-        order_fetched_successfully: false
+        order_fetched_successfully: false,
+        discountPercent:'',
+        payablePercent:'',
 
       };
     },
@@ -349,6 +358,8 @@
       this.fetchOrder();
       this.getPartners();
       this.getLocation();
+      // this.getPaymentMethod();
+
     },
     computed: {
       getType() {
@@ -422,6 +433,26 @@
           });
 
       },
+      getPaymentMethod() {
+        // console.log("payment method is calling");
+        axios.post(`${ADMIN_URL}/payment-method-info`, {
+          payment_method: this.order.payment_method // Changed property name to match the expected key on the server
+        })
+          .then(response => {
+            if(response.data.data) {
+              this.discountPercent = response.data.data.percent_discount/100;
+              this.payablePercent= 1- this.discountPercent;
+            }
+
+            console.log('hello discount', this.payablePercent);
+
+            this.changePayment();
+          })
+          .catch(e => {
+            console.log("error occurs", e);
+          });
+      },
+
       getLocation()
       {
         axios.get(`${ADMIN_URL}/locations-by-city`, {
@@ -469,15 +500,17 @@
       changePayment()
       {
         // console.log(this.order.payment_method);
-        // console.log(order.payment_method);
+        console.log("payment method changing",this.discountPercent , this.payablePercent);
         if(this.order.payment_method==='bKash' || this.order.payment_method==='ssl')
         {
-          if(this.order.discount_adv_pay===0) {
+          // if(this.order.discount_adv_pay===0) {
 
-            this.order.discount_adv_pay = (this.order.total_service_charge * 0.05);
+            console.log("payment discount is changing");
+
+            this.order.discount_adv_pay = (this.order.total_service_charge * this.discountPercent);
             this.order.total_discount = this.order.discount_adv_pay;
-            this.order.total_bill = (this.order.total_service_charge * 0.95);
-          }
+            this.order.total_bill = (this.order.total_service_charge * this.payablePercent);
+          // }
 
 
         }
@@ -525,6 +558,7 @@
         formData.append('blacklist_reason', this.order.blacklist_reason);
         formData.append('total_bill', this.order.total_bill);
         formData.append('payment_method', this.order.payment_method);
+        formData.append('payment_status', this.order.payment_status);
         formData.append('review', JSON.stringify(this.order.review));
         formData.append('new_rating', this.new_rating);
         formData.append('new_review', this.new_review);

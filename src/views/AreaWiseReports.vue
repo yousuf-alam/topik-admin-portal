@@ -26,11 +26,12 @@
 
               <template slot="Actions" slot-scope="{ row }">
                 <div>
-                  <router-link :to="'/your-route/' + row.id">
+                  <router-link :to="'/areawisereportdetails/' + row.id" :query="{ dateRange: date_range, areaName: row.areaName }">
                     <button class="btn btn-primary">View Details</button>
                   </router-link>
                 </div>
               </template>
+          
             </v-client-table>
           </div>
 

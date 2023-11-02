@@ -1101,18 +1101,14 @@ const router = new Router({
           }
         },
         {
-          path: "areawisereportdetails/:id",
+          path: "areawisereportdetails/:from/:to/:areaName",
           name: "Area Wise Report Details",
           component: AreaWiseReportDetails,
           meta: {
             permission_name: permissionsList.reports
           },
 
-          props: route => ({
-            id: route.params.id,
-            dateRange: route.params.dateRange,
-            areaName: route.params.areaName
-          })
+           props:true
         },
         {
           path: "reports/details",

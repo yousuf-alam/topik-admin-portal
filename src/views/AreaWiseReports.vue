@@ -26,12 +26,14 @@
 
               <template slot="Actions" slot-scope="{ row }">
                 <div>
-                  <router-link :to="'/areawisereportdetails/' + row.id" :query="{ dateRange: date_range, areaName: row.areaName }">
+                  <router-link
+                    :to="{ name: 'Area Wise Report Details', params: { from: date_range.start, to: date_range.end, areaName: row.AreaName } }">
                     <button class="btn btn-primary">View Details</button>
                   </router-link>
+
                 </div>
               </template>
-          
+
             </v-client-table>
           </div>
 
@@ -97,6 +99,13 @@ export default {
     },
     closeModal() {
       this.$modal.hide("date-picker-modal");
+    },
+    viewDetails(row) {
+      const { from, to, areaName } = this.date_range;
+      this.$router.push({
+        name: 'AreaWiseReportDetails',
+        params: { from, to, areaName },
+      });
     },
 
 

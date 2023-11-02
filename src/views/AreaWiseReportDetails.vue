@@ -1,84 +1,105 @@
 <template>
     <div class="animated fadeIn">
-        <b-card >
+        <b-card>
             <b-row class="p-2 border-bottom" style="margin-left:25px;">
                 <h4>Cancel Reason Stat.</h4>
             </b-row>
-            <b-row class="p-5 h-100">
-                <div class="card" >
-                    <v-client-table :data="cancelReasonData" :columns="CancelReasonTableColumn" :options="options">
+
+            <b-row class="p-1 h-100">
+
+
+                <div style="margin-left: 45px;">
+                    <div class="table-container">
+                        <table v-if="cancelReasonStatistics.length > 0">
+                            <thead class="table-header">
+                                <tr>
+                                    <th>Cancel Reason</th>
+                                    <th>Total</th>
+                                    <th>Cancel Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in cancelReasonStatistics" :key="item.reason">
+                                    <td>{{ item.reason }}</td>
+                                    <td>{{ item.count }}</td>
+                                    <td>{{ item.percentage }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p v-else>No data available.</p>
+                    </div>
+                </div>
+                
+            </b-row>
+            <div class="m-3 p-3">
+                <b-row class="p-2 border-bottom">
+                    <h4>Details AreaWise Reports</h4>
+                </b-row>
+
+                <b-row class="p-4 h-100">
+                    <b-col style="margin-right: 10px;">
+                        <label>Date Range</label>
+                        <div class="date-box-container">
+                            <p>{{ date_range.start }} : {{ date_range.end }}</p>
+                        </div>
+                    </b-col>
+
+                    <b-col>
+                        <label>Area</label>
+                        <b-form-select v-model="AreaDropdownValue">
+                            <b-form-select-option v-for="option in areaOptions" :key="option.value" :value="option.value">
+                                {{ option.label }}
+                            </b-form-select-option>
+                        </b-form-select>
+                    </b-col>
+
+
+
+
+
+
+
+                    <b-col>
+                        <label>Partners</label>
+                        <b-form-select v-model="PartnerDropdownValue">
+                            <b-form-select-option v-for="option in partnerOptions" :key="option.value"
+                                :value="option.value">
+                                {{ option.label }}
+                            </b-form-select-option>
+                        </b-form-select>
+                    </b-col>
+
+                    <b-col>
+                        <label>Cancel Reason</label>
+                        <b-form-select v-model="CancelReasonDropdownValue">
+                            <b-form-select-option v-for="option in cancelReasonOptions" :key="option.value"
+                                :value="option.value">
+                                {{ option.label }}
+                            </b-form-select-option>
+                        </b-form-select>
+                    </b-col>
+
+                    <b-col>
+                        <b-btn class="center-div btn-block btn-primary" @click="showDetailsReport"
+                            style="margin-top: 28px;">Show</b-btn>
+                    </b-col>
+                </b-row>
+
+
+
+
+                <div class="card">
+                    <v-client-table :data="areaWiseReport" :columns="areaWiseColumn" :options="options">
 
                         <template slot="Actions" slot-scope="{ row }">
-                             
+
                         </template>
 
                     </v-client-table>
                 </div>
-            </b-row>
-                 <div class="m-3 p-3">
-                    <b-row class="p-2 border-bottom">
-                        <h4>Details AreaWise Reports</h4>
-                    </b-row>
 
-                    <b-row class="p-5 h-100">
-                         <b-col>
-                            <label>Area</label>
-                            <b-form-select v-model="AreaDropdownValue">
-                                 <b-form-select-option v-for="option in areaOptions" :key="option.value"
-                                    :value="option.value">
-                                    {{ option.label }}
-                                </b-form-select-option>
-                            </b-form-select>
-                        </b-col>
+            </div>
 
-                        <b-col>
-                            <label>Date Range</label>
-                            <div class="date-box">
-                                <p>{{ date_range.start }} : {{ date_range.end }}</p>
-                            </div>
-                        </b-col>
-                        
-
-                         <b-col>
-                            <label>Partners</label>
-                            <b-form-select v-model="PartnerDropdownValue">
-                                 <b-form-select-option v-for="option in partnerOptions" :key="option.value"
-                                    :value="option.value">
-                                    {{ option.label }}
-                                </b-form-select-option>
-                            </b-form-select>
-                        </b-col>
-
-                         <b-col>
-                            <label>Cancel Reason</label>
-                            <b-form-select v-model="CancelReasonDropdownValue">
-                                 <b-form-select-option v-for="option in cancelReasonOptions" :key="option.value"
-                                    :value="option.value">
-                                    {{ option.label }}
-                                </b-form-select-option>
-                            </b-form-select>
-                        </b-col>
-
-                         <b-col>
-                            <b-btn class="center-div btn-block btn-primary" @click="showReport">Show</b-btn>
-                        </b-col>
-                    </b-row>
-
-
-
-
-                    <div class="card">
-                        <v-client-table :data="areaWiseReport" :columns="areaWiseColumn" :options="options">
-
-                            <template slot="Actions" slot-scope="{ row }">
-                                 
-                            </template>
-
-                        </v-client-table>
-                    </div>
-
-                </div>
-            
         </b-card>
     </div>
 </template>
@@ -99,11 +120,11 @@ export default {
             AreaDropdownValue: "",
             PartnerDropdownValue: "",
             CancelReasonDropdownValue: "",
-            date_range: {
-        // start: this.$route.params.dateRange.start,  
-        // end: this.$route.params.dateRange.end,      
-      },
-      
+             date_range: {
+                // start: this.$route.params.dateRange.start,  
+                // end: this.$route.params.dateRange.end,      
+            },
+
             areaOptions: [
                 { label: "All", value: "All" },
                 { label: "Dhaka", value: "Dhaka" },
@@ -189,7 +210,6 @@ export default {
                 { label: "Bayezid Bostami", value: "Bayezid Bostami" },
                 { label: "Bow Bazar", value: "Bow Bazar" },
                 { label: "CDA", value: "CDA" },
-                { label: "Chawkbazar", value: "Chawkbazar" },
                 { label: "Chandgaon", value: "Chandgaon" },
                 { label: "Chittagong Cantonment", value: "Chittagong Cantonment" },
                 { label: "Chittagong Polytechnic Institute", value: "Chittagong Polytechnic Institute" },
@@ -242,7 +262,6 @@ export default {
                 { label: "Hajaribag", value: "Hajaribag" },
                 { label: "Jafrabad", value: "Jafrabad" },
                 { label: "Ring road", value: "Ring road" },
-                { label: "Katabon", value: "Katabon" },
                 { label: "Fokirapool", value: "Fokirapool" },
                 { label: "Bangshal", value: "Bangshal" },
                 { label: "Nazimuddin Road", value: "Nazimuddin Road" },
@@ -284,29 +303,28 @@ export default {
                 { label: "All", value: "All" },
                 { label: "Inhouse", value: "Inhouse" },
                 { label: "Freelancer", value: "Freelancer" },
-                { label: "Romoni_Parven", value: "RomoniParven" },
-                { label: "Romoni_Roksana", value: "RomoniRoksana" },
-                { label: "Romoni_Ruma", value: "RomoniRuma" },
-                { label: "Romoni_Borsha", value: "RomoniBorsha" },
-                { label: "Romoni_Sonia Akter", value: "RomoniSoniaAkter" },
-                { label: "Romoni_Brishty", value: "RomoniBrishty" },
-                { label: "Romoni_Selina", value: "RomoniSelina" },
-                { label: "Romoni_Sharmin", value: "RomoniSharmin" },
-                { label: "Romoni_Lucky", value: "RomoniLucky" },
-                { label: "Romoni_Lolona", value: "RomoniLolona" },
-                { label: "Romoni_Shammi", value: "RomoniShammi" },
-                { label: "Romoni_Sonia Ukil", value: "RomoniSoniaUkil" },
-                { label: "Romoni_Munia", value: "RomoniMunia" },
-                { label: "Romoni_Nipa", value: "RomoniNipa" },
-                { label: "Romoni_Anonna", value: "RomoniAnonna" },
-                { label: "Romoni_Mishu", value: "RomoniMishu" },
-                { label: "Romoni_Shiuli", value: "RomoniShiuli" },
-                { label: "Romoni_Lima", value: "RomoniLima" },
+                { label: "Romoni_Parven", value: "Romoni_Parven" },
+                { label: "Romoni_Roksana", value: "Romoni_Roksana" },
+                { label: "Romoni_Ruma", value: "Romoni_Ruma" },
+                { label: "Romoni_Borsha", value: "Romoni_Borsha" },
+                { label: "Romoni_Sonia Akter", value: "Romoni_Sonia Akter" },
+                { label: "Romoni_Brishty", value: "Romoni_Brishty" },
+                { label: "Romoni_Selina", value: "Romoni_Selina" },
+                { label: "Romoni_Sharmin", value: "Romoni_Sharmin" },
+                { label: "Romoni_Lucky", value: "Romoni_Lucky" },
+                { label: "Romoni_Lolona", value: "Romoni_Lolona" },
+                { label: "Romoni_Shammi", value: "Romoni_Shammi" },
+                { label: "Romoni_Sonia Ukil", value: "Romoni_Sonia Ukil" },
+                { label: "Romoni_Munia", value: "Romoni_Munia" },
+                { label: "Romoni_Nipa", value: "Romoni_Nipa" },
+                { label: "Romoni_Anonna", value: "Romoni_Anonna" },
+                { label: "Romoni_Mishu", value: "Romoni_Mishu" },
+                { label: "Romoni_Shiuli", value: "Romoni_Shiuli" },
+                { label: "Romoni_Lima", value: "Romoni_Lima" },
                 { label: "FR_Sporshi", value: "FR_Sporshi" },
                 { label: "FR_Arika", value: "FR_Arika" },
                 { label: "FR_Happy", value: "FR_Happy" },
                 { label: "FR_Shahana", value: "FR_Shahana" },
-                { label: "FR_Ira", value: "FR_Ira" },
                 { label: "FR_Mun", value: "FR_Mun" },
                 { label: "FR_Adite", value: "FR_Adite" },
                 { label: "FR_Tasmeah", value: "FR_Tasmeah" },
@@ -314,25 +332,23 @@ export default {
                 { label: "FR_Rotna", value: "FR_Rotna" },
                 { label: "FR_Female", value: "FR_Female" },
                 { label: "FR_Jannat", value: "FR_Jannat" },
-                { label: "FR_Shahana", value: "FR_Shahana" },
 
 
 
             ],
             cancelReasonOptions: [
                 { label: "All", value: "All" },
-                { label: "Cus Unreachable", value: "CusUnreachable" },
-                { label: "Cus Denied", value: "CusDenied" },
-                { label: "SP Unreachable", value: "SPUnreachable" },
-                { label: "SP Denied", value: "SPDenied" },
-                { label: "SP Unavailable", value: "SPUnavailable" },
-                { label: "OPS Unavailable", value: "OPSUnreachable" },
-                { label: "SP Time Management Issue", value: "SPTimeManagementIssue" },
-                { label: "Location Prob", value: "LocationProb" },
+                { label: "Cus Unreachable", value: "Cus Unreachable" },
+                { label: "Cus Denied", value: "Cus Denied" },
+                { label: "SP Unreachable", value: "SP Unreachable" },
+                { label: "SP Denied", value: "SP Denied" },
+                { label: "SP Unavailable", value: "SP Unavailable" },
+                { label: "OPS Unreachable", value: "OPS Unreachable" },
+                { label: "SP Time Management Issue", value: "SP Time Management Issue" },
+                { label: "Location Prob", value: "Location Prob" },
             ],
             areaWiseReport: [],
-            cancelReasonData:[],
-
+            cancelState : [],
 
 
             areaWiseColumn: [
@@ -348,7 +364,7 @@ export default {
             CancelReasonTableColumn: [
                 "CancelReason",
                 "Total",
-                "Percentage"
+                "CancelPercentage"
             ],
 
             options: {
@@ -361,12 +377,28 @@ export default {
                     down: "fa fa-sort-down",
                     is: "fa fa-sort"
                 }
-            }
+            },
+
+           
         };
     },
+   computed: {
+    cancelReasonStatistics() {
+        return this.cancelReasonStats();
+    }
+   },
     created() {
+        this.from = this.$route.params.from;
+        this.to = this.$route.params.to;
+        this.areaName = this.$route.params.areaName;
+        this.date_range.start = this.from;
+        this.date_range.end = this.to;
+        this.AreaDropdownValue = this.areaName;
 
+        this.showDetailsReport();
     },
+
+
     methods: {
         getDateModal(report) {
             this.$modal.show("date-picker-modal");
@@ -377,20 +409,33 @@ export default {
 
 
 
-        showReport() {
-
-            if (!this.date_range.start || !this.date_range.end) {
-                this.$swal("Error", "Please select a date range.", "error");
-                return;
+        showDetailsReport() {
+            this.cancelState = []; // Clear the cancelState array
+            let location_request;
+            if (this.AreaDropdownValue) {
+                location_request = this.AreaDropdownValue;
+            } else {
+                location_request = this.areaName;
             }
             axios
-                .post(`${ADMIN_URL}/area-wise-report`, {
-                    from: this.date_range.start,
-                    to: this.date_range.end
+                .post(`${ADMIN_URL}/area-wise-filtered-report`, {
+                    from: this.from,
+                    to: this.to,
+                    location_request: location_request,
+                    partner_request: this.PartnerDropdownValue,
+                    cancel_reason_request: this.CancelReasonDropdownValue
+
                 })
                 .then((response) => {
-                    this.reportShow = true;
                     this.areaWiseReport = response.data.data;
+ 
+                    response.data.data.map((data) => {
+                        this.cancelState.push(data.CancellationReason);
+                    });
+                  //  console.log(this.cancelState.length);
+
+                    const stats = this.cancelReasonStats();
+
 
                 })
 
@@ -401,75 +446,140 @@ export default {
         },
 
 
-        exportReport() {
-            this.exporting = true;
-            if (!this.date_range.start || !this.date_range.end) {
-                this.$swal("Error", "Please select a date range.", "error");
-                this.exporting = false;
-                return;
-            }
-            axios({
-                method: "post",
-                url: `${ADMIN_URL}/export-area-wise-report`,
-                responseType: "blob",
-                data: {
-                    date_range: this.date_range,
-                    from: this.date_range.start,
-                    to: this.date_range.end,
-
-                }
-            })
-                .then(response => {
-                    console.log(response.data);
-                    this.exporting = false;
-                    const url = window.URL.createObjectURL(new Blob([response.data]));
-                    const link = document.createElement("a");
-                    link.href = url;
-                    link.setAttribute(
-                        "download",
-                        moment(this.date_range.start).format("YYYY-MM-DD") +
-                        "~" +
-                        moment(this.date_range.end).format("YYYY-MM-DD") +
-                        ".xlsx"
-                    );
-                    document.body.appendChild(link);
-                    link.click();
-                    this.$swal("Report Exported Successfully", "", "success");
-                    this.closeModal();
-                })
-                .catch(e => {
-                    this.exporting = false;
-                    console.log("error occurs", e);
-                    this.$swal("Error", "Something Went Wrong", "error");
-                });
+        cancelReasonStats() {
+    if (this.cancelState.length === 0) {
+         return [];
+    }
+    //console.log(this.cancelState);
+     const cancelReasonCounts = {};
+    this.cancelState.forEach((reason) => {
+        if (reason in cancelReasonCounts) {
+            cancelReasonCounts[reason]++;
+        } else {
+            cancelReasonCounts[reason] = 1;
         }
+    });
+
+    const totalCancelReasons = this.cancelState.length;
+   
+
+    const stats = Object.keys(cancelReasonCounts).map((reason) => {
+        const count = cancelReasonCounts[reason];
+        const percentage = ((count / totalCancelReasons) * 100).toFixed(2);  
+        return {
+            reason,
+            count,
+            percentage,
+        };
+    });
+
+   // console.log(stats);
+    return stats;
+}
+
+
+
+
     }
 };
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
-.modal-dialog {
-    max-width: 100%;
-    margin: 0;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100vh;
-    display: flex;
+table {
+    margin: 0 auto;
 }
 
-.test-modal .modal-dialog {
-    max-width: 100%;
-    margin: 0;
+table {
+    color: #333;
+    background: white;
+    border: 1px solid grey;
+    font-size: 12pt;
+    border-collapse: collapse;
+}
+
+table thead th,
+table tfoot th {
+    color: #777;
+    background: rgba(0, 0, 0, .1);
+}
+
+table caption {
+    padding: .5em;
+}
+
+table th,
+table td {
+    padding: .5em;
+    border: 1px solid lightgrey;
+}
+
+[data-table-theme*=zebra] tbody tr:nth-of-type(odd) {
+    background: rgba(0, 0, 0, .05);
+}
+
+[data-table-theme*=zebra][data-table-theme*=dark] tbody tr:nth-of-type(odd) {
+    background: rgba(255, 255, 255, .05);
+}
+
+[data-table-theme*=dark] {
+    color: #ddd;
+    background: #333;
+    font-size: 12pt;
+    border-collapse: collapse;
+}
+
+[data-table-theme*=dark] thead th,
+[data-table-theme*=dark] tfoot th {
+    color: #aaa;
+    background: rgba(0255, 255, 255, .15);
+}
+
+[data-table-theme*=dark] caption {
+    padding: .5em;
+}
+
+[data-table-theme*=dark] th,
+[data-table-theme*=dark] td {
+    padding: .5em;
+    border: 1px solid grey;
+}
+
+.table-container {
+    max-height: 250px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+}
+
+.table-header {
+    position: sticky;
     top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100vh;
-    display: flex;
-    position: fixed;
-    z-index: 100000;
+    background-color: #fff;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+    /* You can adjust the width as needed */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.date-box-container {
+    margin-left: -6px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 3px;
+    max-width: 1000px;
+    max-height: 35px;
+
 }
 </style>
+
     

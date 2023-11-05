@@ -9,8 +9,8 @@
 
 
                 <div style="margin-left: 45px;">
-                    <div class="table-container">
-                        <table v-if="cancelReasonStatistics.length > 0">
+                    <div>
+                        <table>
                             <thead class="table-header">
                                 <tr>
                                     <th>Cancel Reason</th>
@@ -24,9 +24,12 @@
                                     <td>{{ item.count }}</td>
                                     <td>{{ item.percentage }}</td>
                                 </tr>
+                                <tr v-if="cancelReasonStatistics.length === 0">
+                                    <td colspan="3" style="text-align: center;">No data available.</td>
+                                  </tr>
                             </tbody>
                         </table>
-                        <p v-else>No data available.</p>
+                        
                     </div>
                 </div>
                 
@@ -544,11 +547,7 @@ table td {
     border: 1px solid grey;
 }
 
-.table-container {
-    max-height: 250px;
-    overflow-y: scroll;
-    border: 1px solid #ccc;
-}
+ 
 
 .table-header {
     position: sticky;
@@ -556,19 +555,6 @@ table td {
     background-color: #fff;
 }
 
-.table-container::-webkit-scrollbar {
-    width: 8px;
-    /* You can adjust the width as needed */
-}
-
-.table-container::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 4px;
-}
-
-.table-container::-webkit-scrollbar-track {
-    background: transparent;
-}
 
 .date-box-container {
     margin-left: -6px;

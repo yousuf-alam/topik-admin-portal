@@ -8,7 +8,7 @@
             <b-row class="p-1 h-100">
 
 
-                <div style="margin-left: 45px;">
+                <div style="margin-left: 45px; overflow-x:auto; max-height: 150px;">
                     <div>
                         <table>
                             <thead class="table-header">
@@ -124,8 +124,7 @@ export default {
             PartnerDropdownValue: "",
             CancelReasonDropdownValue: "",
              date_range: {
-                // start: this.$route.params.dateRange.start,  
-                // end: this.$route.params.dateRange.end,      
+                 
             },
 
             areaOptions: [
@@ -413,7 +412,7 @@ export default {
 
 
         showDetailsReport() {
-            this.cancelState = []; // Clear the cancelState array
+            this.cancelState = [];  
             let location_request;
             if (this.AreaDropdownValue) {
                 location_request = this.AreaDropdownValue;
@@ -435,8 +434,7 @@ export default {
                     response.data.data.map((data) => {
                         this.cancelState.push(data.CancellationReason);
                     });
-                  //  console.log(this.cancelState.length);
-
+ 
                     const stats = this.cancelReasonStats();
 
 
@@ -453,8 +451,7 @@ export default {
     if (this.cancelState.length === 0) {
          return [];
     }
-    //console.log(this.cancelState);
-     const cancelReasonCounts = {};
+      const cancelReasonCounts = {};
     this.cancelState.forEach((reason) => {
         if (reason in cancelReasonCounts) {
             cancelReasonCounts[reason]++;
@@ -476,8 +473,7 @@ export default {
         };
     });
 
-   // console.log(stats);
-    return stats;
+     return stats;
 }
 
 

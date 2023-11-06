@@ -93,6 +93,8 @@ const B2CSectionCreate = () => import("../views/B2CSections/B2CSectionCreate");
 
 const Reports = () => import("../views/Reports");
 const OldReports = () => import("../views/OldReports");
+const AreaWiseReports = () => import("../views/AreaWiseReports");
+const AreaWiseReportDetails = () => import("../views/AreaWiseReportDetails");
 const DetailsReport = () => import("../views/DetailsReport");
 const CustomerReport = () => import("../views/CustomerReport");
 const Otps = () => import("../views/Otps");
@@ -1089,6 +1091,24 @@ const router = new Router({
           meta: {
             permission_name: permissionsList.reports
           }
+        },
+        {
+          path: "areawisereports",
+          name: "Area Wise Reports",
+          component: AreaWiseReports,
+          meta: {
+            permission_name: permissionsList.reports
+          }
+        },
+        {
+          path: "areawisereportdetails/:from/:to/:areaName",
+          name: "Area Wise Report Details",
+          component: AreaWiseReportDetails,
+          meta: {
+            permission_name: permissionsList.reports
+          },
+
+           props:true
         },
         {
           path: "reports/details",

@@ -336,6 +336,12 @@ const navitems = {
       permission_name: [...permissionsList.reports, ...permissionsList.thirdparty]
     },
     {
+      name: 'Area Wise Reports',
+      url: '/areawisereports',
+      icon: 'fa fa-file-word-o',
+      permission_name: [...permissionsList.reports, ...permissionsList.thirdparty]
+    },
+    {
       name:'Sp Wise Order Count',
       url:'/order-number-sp',
       icon:'fa fa-file-word-o',

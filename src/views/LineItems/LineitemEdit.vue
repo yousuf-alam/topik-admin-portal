@@ -469,7 +469,9 @@
       },
 
       setLineItemImage(file_name, file) {
-        if (file_name == "thubmnail") {
+        console.log('file_name', file_name)
+        if (file_name == "thumbnail") {
+          console.log('ddddf')
           this.lineitem.thumbnail = file;
         } else if (file_name == "banner_web") {
           this.lineitem.banner_web = file;
@@ -484,6 +486,7 @@
 
       onThumbnailChange(e) {
         this.previewImage(e, 'thumbnail', 'url_thumbnail');
+
       },
       onBwebChange(e) {
         this.previewImage(e, 'banner_web', 'url_banner_web');
@@ -600,7 +603,7 @@
           });
       },
       onSubmit() {
-        console.log('hey action');
+        console.log('hey action', this.lineitem.thumbnail);
         let currentObj = this;
         const config = {
           headers: {'content-type': 'multipart/form-data'}
@@ -645,7 +648,7 @@
             if(response.data.success===true)
             {
               // alert(response.data.message);
-              window.location.reload();
+              // window.location.reload();
             }
             else
             {

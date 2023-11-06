@@ -2,7 +2,7 @@
   <div class=" " style="overflow-x:scroll">
     <Loader :loader="activeLoader"/>
 
-    <div class="d-flex gap-20 mb-5  mt-8">
+    <div class="d-flex gap-20 mb-2  mt-2">
 
 
       <div class="">
@@ -42,7 +42,7 @@
 
     </div>
 
-    <div class="d-flex gap-10  mt-8 mb-6">
+    <div class="d-flex gap-10  mt-2 mb-6">
       <div v-for="value in values" :key="values.dates" class="d-flex flex-column">
         <div class="mt-3 mb-3 date-box">
           <h4>{{ value.date }}:</h4>
@@ -63,28 +63,7 @@
             <tr v-for="item in value.items" :key="item.name" >
 
               <td :class="{'off-cell':item.offDay===true}">{{ item.name }}</td>
-<!--              <td :class="{'paste-cell':item.first.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.first===false,'sky-cell':item.first===true}">-->
-<!--                <div class="location-name">{{ item.first.name }}</div>-->
-<!--                <div class="service-name"> {{ item.first.service_name }}</div>-->
-<!--                <div class="total-bill"> {{ item.first.total_bill }}</div>-->
-<!--              </td>-->
-<!--              <td :class="{'paste-cell':item.second.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.second===false,'sky-cell':item.second===true}">-->
-<!--                <div class="location-name">{{ item.second.name }}</div>-->
-<!--                <div class="service-name"> {{ item.second.service_name }}</div>-->
-<!--                <div class="total-bill"> {{ item.second.total_bill }}</div>-->
-<!--              </td>-->
-<!--              <td :class="{'paste-cell':item.third.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.third===false,'sky-cell':item.third==true}">-->
-<!--                <div class="location-name">{{ item.third.name }}</div>-->
-<!--                <div class="service-name"> {{ item.third.service_name }}</div>-->
-<!--                <div class="total-bill"> {{ item.third.total_bill }}</div>-->
-<!--              </td>-->
-<!--              <td :class="{'paste-cell':item.forth.city==='Chittagong','off-cell':item.offDay===true,'black-cell':item.forth===false,'sky-cell':item.forth==true}">-->
-<!--                <div :class="{'paste-cell':item.first.city==='Chittagong'}" class="location-name">-->
-<!--                  {{ item.forth.name }}-->
-<!--                </div>-->
-<!--                <div class="service-name"> {{ item.forth.service_name }}</div>-->
-<!--                <div class="total-bill"> {{ item.forth.total_bill }}</div>-->
-<!--              </td>-->
+
 
               <td :class="{'paste-cell':item.fifth.city==='Chittagong','tr-cell':item.fifth===2 || item.fifth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.fifth===false,'sky-cell':item.fifth==true}">
                 <div  class="location-name">
@@ -236,7 +215,7 @@ export default {
 }
 .table-container {
   /* Set a fixed height for the table container to enable scrolling */
-  height: 300px; /* Adjust the height as per your requirements */
+  height: 500px; /* Adjust the height as per your requirements */
   overflow-y: auto;
   margin-left: 30px;
 }

@@ -424,21 +424,17 @@
         this.currentTime = currentTimeFormatted;
       },
       calculateTimeDifference() {
-        const currentDate = new Date();
-        const targetTime = new Date();
+
         let stringTime = this.scheduledTime;
+        let timeString = stringTime.split('-')[0]; // Extract time part before the dash
 
-        let formatTime = parseInt(stringTime.slice(0, 2));
-        if(formatTime<7)
-        {
-          formatTime=formatTime+12;
-        }
-        targetTime.setHours(formatTime, 0, 0, 0);
+        let format = moment(timeString, 'hh.mmA');
+        let time1 = moment(format);
+        let time2 = moment();
+        this.timeDifference = time1.diff(time2, 'minutes');
 
+        console.log("Time difference in minutes:", this.timeDifference);
 
-        const difference = targetTime - currentDate;
-        this.timeDifference = Math.round(difference / (1000 * 60))
-        // console.log("dime difee",this.timeDifference)
       },
 
       fetchOrder() {

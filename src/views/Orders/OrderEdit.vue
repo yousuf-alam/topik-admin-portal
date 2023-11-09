@@ -426,19 +426,19 @@
       calculateTimeDifference() {
         const currentDate = new Date();
         const targetTime = new Date();
-        let text = this.scheduledTime;
+        let stringTime = this.scheduledTime;
 
-        let xy = parseInt(text.slice(0, 2));
-        if(xy<7)
+        let formatTime = parseInt(stringTime.slice(0, 2));
+        if(formatTime<7)
         {
-          xy=xy+12;
+          formatTime=formatTime+12;
         }
-        targetTime.setHours(xy, 0, 0, 0);
+        targetTime.setHours(formatTime, 0, 0, 0);
 
 
         const difference = targetTime - currentDate;
         this.timeDifference = Math.round(difference / (1000 * 60))
-        console.log("dime difee",this.timeDifference)
+        // console.log("dime difee",this.timeDifference)
       },
 
       fetchOrder() {
@@ -550,31 +550,26 @@
         this.getTodaysDate();
         this.calculateTimeDifference();
 
-        console.log("scheduled time",this.order.scheduled_time);
-        // this.calculateTimeDifference()
+
 
         if(this.order.scheduled_date == this.todayDate)
         {
          if (this.timeDifference<240)
            return 0;
         }
-        // console.log(this.order.payment_method);
-        console.log("payment method changing",this.discountPercent , this.payablePercent,this.todayDate,this.currentTime,this.timeDiffInMinutes);
+
         if(this.order.payment_method==='bKash' || this.order.payment_method==='ssl')
         {
-          // if(this.order.discount_adv_pay===0) {
 
-            console.log("payment discount is changing");
 
-            this.order.discount_adv_pay = (this.order.total_service_charge * this.discountPercent);
+            this.order.discount_adv_pay = (this.order.total_service_charge * this.discountPercent).toFixed(2);
             this.order.total_discount = this.order.discount_adv_pay;
-            this.order.total_bill = (this.order.total_service_charge * this.payablePercent);
-          // }
-
+            this.order.total_bill = (this.order.total_service_charge * this.payablePercent).toFixed(2);
 
         }
         else {
-          this.order.total_discount = this.order.total_discount-this.order.discount_adv_pay;
+
+          this.order.total_discount = (this.order.total_discount-this.order.discount_adv_pay).toFixed(2);
           this.order.discount_adv_pay= 0;
           this.order.total_bill= this.order.total_service_charge - this.order.total_discount;
         }

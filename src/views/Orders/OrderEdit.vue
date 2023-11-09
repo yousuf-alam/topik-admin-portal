@@ -351,6 +351,11 @@
         order_fetched_successfully: false,
         discountPercent:'',
         payablePercent:'',
+        todayDate:'',
+        convertedTime:'',
+        currentTime:'',
+        timeDifference:0,
+        scheduledTime: '03.00PM-09.00P.M',
 
       };
     },
@@ -358,9 +363,14 @@
       this.fetchOrder();
       this.getPartners();
       this.getLocation();
+
+
+
       // this.getPaymentMethod();
 
+
     },
+
     computed: {
       getType() {
         if (this.order.service_id === 1) {
@@ -379,6 +389,7 @@
       EventBus.$on('design:add'     , this.designAdd.bind(this));
       EventBus.$on('cart:add'       , this.servicesAdd.bind(this));
       EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
+      this.calculateTimeDifference();
     },
     watch: {
 
@@ -397,6 +408,39 @@
         if(this.measurement_type==='own')
           this.measurement_type = data.custom_measurement;
       },
+      getTodaysDate() {
+
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        this.todayDate = `${year}-${month}-${day}`;
+        console.log('today date',this.todayDate);
+      },
+      getCurrentTime() {
+        const current = new Date();
+        const currentTime = current.getHours() + ':' + ('0' + current.getMinutes()).slice(-2);
+        const currentTimeFormatted = currentTime + ' ' + (current.getHours() >= 12 ? 'P.M.' : 'A.M.');
+        this.currentTime = currentTimeFormatted;
+      },
+      calculateTimeDifference() {
+        const currentDate = new Date();
+        const targetTime = new Date();
+        let text = this.scheduledTime;
+
+        let xy = parseInt(text.slice(0, 2));
+        if(xy<7)
+        {
+          xy=xy+12;
+        }
+        targetTime.setHours(xy, 0, 0, 0);
+
+
+        const difference = targetTime - currentDate;
+        this.timeDifference = Math.round(difference / (1000 * 60))
+        console.log("dime difee",this.timeDifference)
+      },
+
       fetchOrder() {
         this.order_id = window.location.pathname.split("/").pop();
         axios.get(`${ADMIN_URL}/order`, {
@@ -414,7 +458,11 @@
           {
             this.order.scheduled_date = 'Regular Delivery'
           }
+
+          this.scheduledTime=this.order.scheduled_time
+         console.log("order scheduled time",this.scheduledTime);
           this.order_fetched_successfully = true;
+
 
         }).catch(e => {
           console.log("error occurs",e);
@@ -499,8 +547,19 @@
       },
       changePayment()
       {
+        this.getTodaysDate();
+        this.calculateTimeDifference();
+
+        console.log("scheduled time",this.order.scheduled_time);
+        // this.calculateTimeDifference()
+
+        if(this.order.scheduled_date == this.todayDate)
+        {
+         if (this.timeDifference<240)
+           return 0;
+        }
         // console.log(this.order.payment_method);
-        console.log("payment method changing",this.discountPercent , this.payablePercent);
+        console.log("payment method changing",this.discountPercent , this.payablePercent,this.todayDate,this.currentTime,this.timeDiffInMinutes);
         if(this.order.payment_method==='bKash' || this.order.payment_method==='ssl')
         {
           // if(this.order.discount_adv_pay===0) {

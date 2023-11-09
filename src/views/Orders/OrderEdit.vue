@@ -317,6 +317,8 @@
   import Design from './OrderCreate/Design'
   import Accessories from './OrderCreate/Accessories'
   import Datepicker from 'vuejs-datepicker';
+  import moment from "moment";
+
 
   const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 

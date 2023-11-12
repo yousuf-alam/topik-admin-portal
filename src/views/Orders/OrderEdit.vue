@@ -317,6 +317,8 @@
   import Design from './OrderCreate/Design'
   import Accessories from './OrderCreate/Accessories'
   import Datepicker from 'vuejs-datepicker';
+  import moment from "moment";
+
 
   const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
@@ -351,6 +353,11 @@
         order_fetched_successfully: false,
         discountPercent:'',
         payablePercent:'',
+        todayDate:'',
+        convertedTime:'',
+        currentTime:'',
+        timeDifference:0,
+        scheduledTime: '03.00PM-09.00P.M',
 
       };
     },
@@ -358,9 +365,14 @@
       this.fetchOrder();
       this.getPartners();
       this.getLocation();
+
+
+
       // this.getPaymentMethod();
 
+
     },
+
     computed: {
       getType() {
         if (this.order.service_id === 1) {
@@ -379,6 +391,7 @@
       EventBus.$on('design:add'     , this.designAdd.bind(this));
       EventBus.$on('cart:add'       , this.servicesAdd.bind(this));
       EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
+      this.calculateTimeDifference();
     },
     watch: {
 
@@ -397,6 +410,35 @@
         if(this.measurement_type==='own')
           this.measurement_type = data.custom_measurement;
       },
+      getTodaysDate() {
+
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        this.todayDate = `${year}-${month}-${day}`;
+        console.log('today date',this.todayDate);
+      },
+      getCurrentTime() {
+        const current = new Date();
+        const currentTime = current.getHours() + ':' + ('0' + current.getMinutes()).slice(-2);
+        const currentTimeFormatted = currentTime + ' ' + (current.getHours() >= 12 ? 'P.M.' : 'A.M.');
+        this.currentTime = currentTimeFormatted;
+      },
+      calculateTimeDifference() {
+
+        let stringTime = this.scheduledTime;
+        let timeString = stringTime.split('-')[0]; // Extract time part before the dash
+
+        let format = moment(timeString, 'hh.mmA');
+        let time1 = moment(format);
+        let time2 = moment();
+        this.timeDifference = time1.diff(time2, 'minutes');
+
+        console.log("Time difference in minutes:", this.timeDifference);
+
+      },
+
       fetchOrder() {
         this.order_id = window.location.pathname.split("/").pop();
         axios.get(`${ADMIN_URL}/order`, {
@@ -414,7 +456,11 @@
           {
             this.order.scheduled_date = 'Regular Delivery'
           }
+
+          this.scheduledTime=this.order.scheduled_time
+         console.log("order scheduled time",this.scheduledTime);
           this.order_fetched_successfully = true;
+
 
         }).catch(e => {
           console.log("error occurs",e);
@@ -499,23 +545,29 @@
       },
       changePayment()
       {
-        // console.log(this.order.payment_method);
-        console.log("payment method changing",this.discountPercent , this.payablePercent);
+        this.getTodaysDate();
+        this.calculateTimeDifference();
+
+
+
+        if(this.order.scheduled_date == this.todayDate)
+        {
+         if (this.timeDifference<240)
+           return 0;
+        }
+
         if(this.order.payment_method==='bKash' || this.order.payment_method==='ssl')
         {
-          // if(this.order.discount_adv_pay===0) {
 
-            console.log("payment discount is changing");
 
-            this.order.discount_adv_pay = (this.order.total_service_charge * this.discountPercent);
+            this.order.discount_adv_pay = (this.order.total_service_charge * this.discountPercent).toFixed(2);
             this.order.total_discount = this.order.discount_adv_pay;
-            this.order.total_bill = (this.order.total_service_charge * this.payablePercent);
-          // }
-
+            this.order.total_bill = (this.order.total_service_charge * this.payablePercent).toFixed(2);
 
         }
         else {
-          this.order.total_discount = this.order.total_discount-this.order.discount_adv_pay;
+
+          this.order.total_discount = (this.order.total_discount-this.order.discount_adv_pay).toFixed(2);
           this.order.discount_adv_pay= 0;
           this.order.total_bill= this.order.total_service_charge - this.order.total_discount;
         }

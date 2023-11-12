@@ -66,7 +66,14 @@
                     </div>
                 </div>
             </b-tab>
+          <b-tab title="New Transaction History" active>
+            <b-card>
+              <v-client-table :data="freelance_wallet" :columns="newColumns" :options="options"></v-client-table>
+            </b-card>
+          </b-tab>
         </b-tabs>
+
+
     </div>
 </template>
 
@@ -79,9 +86,11 @@
             return {
               partner: [],
               wallet_history: [],
+              freelance_wallet:[],
               amount: '',
               disburse_amount: '',
                 columns: ['created_at', 'id', 'description','debit','credit','balance'],
+                newColumns: ['created_at', 'id', 'message','debit','credit','balance'],
                 options: {
                     pagination: {nav: 'fixed'},
                     filterByColumn: true,
@@ -95,6 +104,7 @@
         },
       created(){
           this.fetchData();
+          this.freelanceSalaryData();
 
       },
         methods: {
@@ -107,6 +117,20 @@
               }).then(response =>{
               this.partner = response.data;
               this.wallet_history = this.partner.wallet_history;
+              console.log(response.data);
+            })
+              .catch(e=>{
+                console.log("error occurs",e);
+              });
+          },
+          freelanceSalaryData(){
+            this.id = window.location.pathname.split("/").pop();
+            axios.post(`${ADMIN_URL}/partners/freelance-salary`,
+              {
+                id: this.id
+              }).then(response =>{
+              this.freelance_wallet = response.data.data;
+              // this.freelance_wallet = this.partner.wallet_history;
               console.log(response.data);
             })
               .catch(e=>{

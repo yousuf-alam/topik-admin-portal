@@ -80,7 +80,7 @@ export default {
   },
   methods:{
     getPartners() {
-      axios.get(`${ADMIN_URL}/in-house-partners`)
+      axios.get(`${ADMIN_URL}/all-active-partners`)
           .then(response => {
             this.partners = response.data.data;
             console.log(this.partners);

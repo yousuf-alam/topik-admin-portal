@@ -132,6 +132,12 @@ const navitems = {
       permission_name: permissionsList.admin
     },
     {
+      name: 'Reward User',
+      url: '/reward-user',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
       title: true,
       name: 'Service',
       class: '',

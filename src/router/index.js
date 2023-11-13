@@ -174,6 +174,7 @@ import EditPayment from "@/views/Partners/EditPayment.vue";
 import UnsettledOrders from "@/views/Orders/Unsettle/UnsettledOrders.vue";
 import FilterPartnerLeave from "@/views/PartnerLeave/FilterPartnerLeave.vue";
 import Statistics from "@/views/Statistics.vue";
+import RewardUser from "@/views/RewardUser/RewardUser.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -723,6 +724,14 @@ const router = new Router({
           path: "/reward-faq",
           name: "FaqRewardShow",
           component: FaqRewardShow,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/reward-user",
+          name: "RewardUser",
+          component: RewardUser,
           meta: {
             permission_name: "lineitem create"
           }

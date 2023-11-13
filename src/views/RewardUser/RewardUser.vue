@@ -46,6 +46,7 @@ export default {
         'id', 'user_id', 'image', 'slug','action'
       ],
       redeem_id:'',
+      BASE_URL: BASE_URL,
       src_image : 'images/social/',
       options: {
         pagination: {nav: 'fixed'},

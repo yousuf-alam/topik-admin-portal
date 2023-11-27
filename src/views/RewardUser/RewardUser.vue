@@ -18,6 +18,16 @@
                 <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;" v-show="props.row.image">
               </div>
             </template>
+
+            <template slot="image_path" slot-scope="props">
+              <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                <i class="fa fa-copy"></i>
+              </button>
+              <span class="content">{{props.row.image_path}}</span>
+            </template>
+
+
+
             <template slot="action" slot-scope="props">
               <div>
 
@@ -43,7 +53,7 @@ export default {
     return {
       rewards : [],
       columns: [
-        'id', 'user_id', 'image', 'slug','action'
+        'id', 'user_name', 'image','image_path', 'slug','action'
       ],
       redeem_id:'',
       BASE_URL: BASE_URL,
@@ -93,6 +103,25 @@ export default {
           console.log("error occurs",e);
         });
 
+    },
+    copyText() {
+      // Get the text content of the div
+      const textToCopy = this.$el.querySelector('.content').textContent;
+
+      // Create a temporary input element
+      const tempInput = document.createElement('textarea');
+      tempInput.style.position = 'absolute';
+      tempInput.style.left = '-9999px';
+      tempInput.value = textToCopy;
+      document.body.appendChild(tempInput);
+
+      // Select and copy the text
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      // Provide some visual feedback (optional)
+      alert('Text copied to clipboard!');
     },
 
   },

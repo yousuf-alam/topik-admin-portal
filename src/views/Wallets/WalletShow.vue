@@ -32,7 +32,7 @@
                     <v-client-table :data="wallet_history" :columns="columns" :options="options"></v-client-table>
                 </b-card>
             </b-tab>
-          <b-tab title="Recharge Wallet">
+            <b-tab title="Recharge Wallet">
             <div class="row w-100">
               <div class="col-lg-4 mx-auto">
                 <div class="auth-form-light text-left p-5">
@@ -66,11 +66,11 @@
                     </div>
                 </div>
             </b-tab>
-          <b-tab title="New Transaction History" active>
-            <b-card>
-              <v-client-table :data="freelance_wallet" :columns="newColumns" :options="options"></v-client-table>
-            </b-card>
-          </b-tab>
+<!--             <b-tab title="New Transaction History" active>-->
+<!--            <b-card>-->
+<!--              <v-client-table :data="freelance_wallet" :columns="newColumns" :options="options"></v-client-table>-->
+<!--            </b-card>-->
+<!--          </b-tab>-->
         </b-tabs>
 
 

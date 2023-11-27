@@ -175,6 +175,8 @@ import UnsettledOrders from "@/views/Orders/Unsettle/UnsettledOrders.vue";
 import FilterPartnerLeave from "@/views/PartnerLeave/FilterPartnerLeave.vue";
 import Statistics from "@/views/Statistics.vue";
 import RewardUser from "@/views/RewardUser/RewardUser.vue";
+import PaymentMethods from "@/views/PaymentMethod/PaymentMethods.vue";
+import EditPaymentMethod from "@/views/PaymentMethod/EditPaymentMethod.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -773,6 +775,22 @@ const router = new Router({
           path: "/edit-status/:id",
           name: "EditStatus",
           component: EditStatus,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/payment-method",
+          name: "PaymentMethods",
+          component: PaymentMethods,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-payment-method/:id",
+          name: "EditPaymentMethod",
+          component: EditPaymentMethod,
           meta: {
             permission_name: "lineitem create"
           }

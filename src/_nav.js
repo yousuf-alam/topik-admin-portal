@@ -310,6 +310,12 @@ const navitems = {
       icon: 'fa fa-file-image-o',
       permission_name: permissionsList.topbanner
     },
+    {
+      name: 'Payment Method',
+      url: '/payment-method',
+      icon: 'fa fa-file-image-o',
+      permission_name: permissionsList.topbanner
+    },
 
 
 

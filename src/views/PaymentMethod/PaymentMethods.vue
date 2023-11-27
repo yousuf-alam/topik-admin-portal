@@ -20,7 +20,7 @@
 
             <template slot="thumbnail" slot-scope="props">
               <div class="center-div">
-                <img :src="props.row.thumbnail" style="width: 160px;height: 90px;" v-show="props.row.image">
+                <img :src="`${props.row.thumbnail}`" style="width: 160px;height: 90px;">
               </div>
             </template>
             <template slot="action" slot-scope="props">

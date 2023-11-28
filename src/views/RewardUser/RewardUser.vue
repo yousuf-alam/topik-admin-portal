@@ -15,7 +15,7 @@
 
             <template slot="image" slot-scope="props">
               <div class="center-div">
-                <img :src="`${BASE_URL}/${src_image}${props.row.image}`" style="width: 160px;height: 90px;" v-show="props.row.image">
+                <img :src="`${props.row.image_path}`" style="width: 160px;height: 90px;">
               </div>
             </template>
 
@@ -88,8 +88,30 @@ export default {
   },
   methods: {
     approveReward(id) {
+
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You can\'t revert your action',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes approve it!',
+        cancelButtonText: 'No, Keep it!',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        if(result.value) {
+          this.confirmApprove(id);
+        } else {
+          //this.$swal('Cancelled', 'Your file is still intact', 'info')
+        }
+      });
       console.log("hello id",id);
 
+
+
+    },
+
+    confirmApprove(id) {
       axios.post(`${ADMIN_URL}/social-media/approve-reward`,{
         id : id
       })
@@ -102,7 +124,6 @@ export default {
         .catch(e => {
           console.log("error occurs",e);
         });
-
     },
     copyText() {
       // Get the text content of the div

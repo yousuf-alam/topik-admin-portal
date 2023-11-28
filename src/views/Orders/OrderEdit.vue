@@ -130,12 +130,12 @@
                <p class="content ml-2" v-if="order.payment_method==='bKash'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To avail a 5% discount on your advance payment, kindly pay through this link: https://romoni.com.bd/bKash/order/{{order.crypt_order_id}}</p>
              </div>
            </b-form-group>
-            <b-col>
-              <b-form-group label="Payment Status?" v-show="order.payment_method==='bKash' && order.status==='completed'">
-                <b-form-radio v-model="order.bKash_status" value="Paid">Paid</b-form-radio>
-                <b-form-radio v-model="order.bKash_status" value="Pending">Pending</b-form-radio>
-              </b-form-group>
-            </b-col>
+<!--            <b-col>-->
+<!--              <b-form-group label="Payment Status?" v-show="order.payment_method==='bKash' && order.status==='completed'">-->
+<!--                <b-form-radio v-model="order.bKash_status" value="Paid">Paid</b-form-radio>-->
+<!--                <b-form-radio v-model="order.bKash_status" value="Pending">Pending</b-form-radio>-->
+<!--              </b-form-group>-->
+<!--            </b-col>-->
 
           <b-col>
             <b-form-group label="Payment Status?"  >

@@ -161,7 +161,7 @@ export default {
         id : id
       })
         .then(response => {
-          this.$swal('Approve Reward', '', 'success');
+          this.$swal('Delete Reward', '', 'success');
           setTimeout(()=>{
             window.location.href='/reward-user';
           },1000);

@@ -23,7 +23,9 @@
               <button @click="copyText" class="copy-icon" style="border: none;background: white">
                 <i class="fa fa-copy"></i>
               </button>
-              <span class="content">{{props.row.image_path}}</span>
+
+              <a class="content" :href="props.row.image_path">{{props.row.image_path}}</a>
+
             </template>
 
 

@@ -43,6 +43,10 @@ export default {
       reward_point:'',
       redeem_id:'',
       name:'',
+      sub_title:'',
+      step:'',
+      link:'',
+      msg:'',
       isDisabled: true,
     }
   },
@@ -62,6 +66,10 @@ export default {
             this.sub_items = this.redeems.sub_items;
             this.name = this.redeems.name;
             this.reward_point=this.redeems.reward_point;
+            this.sub_title=this.redeems.sub_title,
+              this.step=this.redeems.step,
+              this.link=this.redeems.link,
+             this.msg=this.redeems.msg,
             console.log('redeem id data',this.redeems);
           })
           .catch(e => {
@@ -74,7 +82,11 @@ export default {
         items:this.items,
         sub_items:this.sub_items,
         reward_point:this.reward_point,
-        name:this.name
+        name:this.name,
+        sub_title:this.sub_title,
+        step:this.step,
+        link:this.link,
+        msg:this.msg,
       }
 
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;

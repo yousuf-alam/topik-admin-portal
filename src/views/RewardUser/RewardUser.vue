@@ -29,10 +29,12 @@
 
 
             <template slot="action" slot-scope="props">
-              <div>
+              <div class=" ">
 
-                <span class="btn btn-success btn-sm m-1 cursor-pointer" data-toggle="tooltip" title="Publish" @click="approveReward(props.row.id)">
+                <span class="btn btn-success   cursor-pointer" data-toggle="tooltip" title="Publish" @click="approveReward(props.row.id)">
                                     <i class="fa fa-check-square"></i></span>
+
+                <span @click="deleteReward(props.row.id)" class="btn btn-danger float-right"><i class="fa fa-trash"></i></span>
               </div>
             </template>
           </v-client-table>
@@ -70,23 +72,27 @@ export default {
     }
   },
   created(){
-    axios.get(`${ADMIN_URL}/social-media/get-data`)
-      .then(response => {
-        console.log('response',response);
-        this.rewards = response.data.data;
-      })
-      .catch(e => {
-        console.log("error occurs", e.response);
-      });
-  },
-  computed: {
-    elementHasPermission(permission_name) {
-      return (permission_name) => {
-        return !!this.$store.getters['auth/hasPermission'](permission_name);
-      }
-    }
+   this.getUnApproveData();
   },
   methods: {
+
+    getUnApproveData(){
+      axios.get(`${ADMIN_URL}/social-media/get-data`)
+        .then(response => {
+          console.log('response',response);
+          this.rewards = response.data.data;
+        })
+        .catch(e => {
+          console.log("error occurs", e.response);
+        });
+    },
+    computed: {
+      elementHasPermission(permission_name) {
+        return (permission_name) => {
+          return !!this.$store.getters['auth/hasPermission'](permission_name);
+        }
+      }
+    },
     approveReward(id) {
 
       this.$swal({
@@ -110,6 +116,29 @@ export default {
 
 
     },
+    deleteReward(id) {
+
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You can\'t revert your action',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes delete it!',
+        cancelButtonText: 'No, Keep it!',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        if(result.value) {
+          this.confirmDelete(id);
+        } else {
+          //this.$swal('Cancelled', 'Your file is still intact', 'info')
+        }
+      });
+      console.log("hello id",id);
+
+
+
+    },
 
     confirmApprove(id) {
       axios.post(`${ADMIN_URL}/social-media/approve-reward`,{
@@ -118,7 +147,21 @@ export default {
         .then(response => {
           this.$swal('Approve Reward', '', 'success');
           setTimeout(()=>{
-            location.reload();
+            window.location.href='/reward-user';
+          },1000);
+        })
+        .catch(e => {
+          console.log("error occurs",e);
+        });
+    },
+    confirmDelete(id) {
+      axios.post(`${ADMIN_URL}/social-media/delete-data`,{
+        id : id
+      })
+        .then(response => {
+          this.$swal('Approve Reward', '', 'success');
+          setTimeout(()=>{
+            window.location.href='/reward-user';
           },1000);
         })
         .catch(e => {

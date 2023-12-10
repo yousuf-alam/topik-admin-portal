@@ -26,6 +26,9 @@
        <router-link :to="{ name: 'LeaveSummary'}" >
         <button class="show-btn">Leave Summary</button>
       </router-link>
+       <router-link :to="{ name: 'LeaveApproval'}" >
+         <button class="show-btn">Applications</button>
+       </router-link>
      </div>
    </div>
 

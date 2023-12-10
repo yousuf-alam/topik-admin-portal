@@ -177,6 +177,10 @@ import Statistics from "@/views/Statistics.vue";
 import RewardUser from "@/views/RewardUser/RewardUser.vue";
 import PaymentMethods from "@/views/PaymentMethod/PaymentMethods.vue";
 import EditPaymentMethod from "@/views/PaymentMethod/EditPaymentMethod.vue";
+import LeaveApproval from "@/views/PartnerLeave/LeaveApproval.vue";
+import NoticeEdit from "@/views/PartnerNotice/NoticeEdit.vue";
+import NoticeCreate from "@/views/PartnerNotice/NoticeCreate.vue";
+import NoticeShow from "@/views/PartnerNotice/NoticeShow.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -779,6 +783,31 @@ const router = new Router({
             permission_name: "lineitem create"
           }
         },
+
+        {
+          path: "/partner-notice",
+          name: "NoticeShow",
+          component: NoticeShow,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/create-partner-notice",
+          name: "NoticeCreate",
+          component: NoticeCreate,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
+          path: "/edit-partner-notice/:id",
+          name: "NoticeEdit",
+          component: NoticeEdit,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
         {
           path: "/payment-method",
           name: "PaymentMethods",
@@ -994,6 +1023,14 @@ const router = new Router({
           path: "/leave-summery",
           name: "LeaveSummary",
           component: LeaveSummary,
+          meta: {
+            permission_name: permissionsList.partnerLeaves
+          }
+        },
+        {
+          path: "/leave-approval",
+          name: "LeaveApproval",
+          component: LeaveApproval,
           meta: {
             permission_name: permissionsList.partnerLeaves
           }

@@ -1,17 +1,13 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">Reward user</span></h4>
-      <div class="">
-        <h1 class="my-auto tableName">
+      <h4><i class="fa fa-bars"></i><span class="ml-1">Leave Application</span></h4>
 
-        </h1>
-      </div>
     </div>
     <b-row>
       <b-col>
         <b-card>
-          <v-client-table :data="rewards" :columns="columns" :options="options">
+          <v-client-table :data="applications" :columns="columns" :options="options">
 
             <template slot="image" slot-scope="props">
               <div class="center-div">
@@ -51,13 +47,13 @@ import axios from 'axios';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 const BASE_URL  = process.env.VUE_APP_BASE_URL;
 export default {
-  name: "RewardUser",
+  name: "LeaveApproval",
 
   data() {
     return {
-      rewards : [],
+      applications : [],
       columns: [
-        'id', 'user_name', 'image','image_path', 'slug','action'
+        'id', 'name', 'leave_date','remarks', 'is_casual_or_sick_leave','is_unpaid_leave','action'
       ],
       redeem_id:'',
       BASE_URL: BASE_URL,
@@ -74,15 +70,15 @@ export default {
     }
   },
   created(){
-   this.getUnApproveData();
+    this.getUnApproveData();
   },
   methods: {
 
     getUnApproveData(){
-      axios.get(`${ADMIN_URL}/social-media/get-data`)
+      axios.get(`${ADMIN_URL}/leave-approval-data`)
         .then(response => {
           console.log('response',response);
-          this.rewards = response.data.data;
+          this.applications = response.data.data;
         })
         .catch(e => {
           console.log("error occurs", e.response);
@@ -143,13 +139,13 @@ export default {
     },
 
     confirmApprove(id) {
-      axios.post(`${ADMIN_URL}/social-media/approve-reward`,{
+      axios.post(`${ADMIN_URL}/approve-leave-in-house`,{
         id : id
       })
         .then(response => {
-          this.$swal('Approve Reward', '', 'success');
+          this.$swal('Approved Leave', '', 'success');
           setTimeout(()=>{
-            window.location.href='/reward-user';
+            window.location.href='/leave-approval';
           },1000);
         })
         .catch(e => {
@@ -157,13 +153,13 @@ export default {
         });
     },
     confirmDelete(id) {
-      axios.post(`${ADMIN_URL}/social-media/delete-data`,{
+      axios.post(`${ADMIN_URL}/leave-declined-in-house`,{
         id : id
       })
         .then(response => {
-          this.$swal('Delete Reward', '', 'success');
+          this.$swal('Delete Leave', '', 'success');
           setTimeout(()=>{
-            window.location.href='/reward-user';
+            window.location.href='/leave-approval';
           },1000);
         })
         .catch(e => {

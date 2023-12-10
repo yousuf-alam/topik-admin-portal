@@ -66,11 +66,11 @@
                     </div>
                 </div>
             </b-tab>
-<!--             <b-tab title="New Transaction History" active>-->
-<!--            <b-card>-->
-<!--              <v-client-table :data="freelance_wallet" :columns="newColumns" :options="options"></v-client-table>-->
-<!--            </b-card>-->
-<!--          </b-tab>-->
+             <b-tab title="New Transaction History" active>
+            <b-card>
+              <v-client-table :data="freelance_wallet" :columns="newColumns" :options="options"></v-client-table>
+            </b-card>
+          </b-tab>
         </b-tabs>
 
 

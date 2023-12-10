@@ -87,15 +87,15 @@ export default {
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
       axios.post(`${ADMIN_URL}/redeem/create-redeem`, formData)
-          .then(response => {
-            console.log('Success', response);
+        .then(response => {
+          console.log('Success', response);
 
-            return this.$router.push('/redeem');
+          return this.$router.push('/redeem');
 
-          })
-          .catch(error => {
+        })
+        .catch(error => {
 
-          });
+        });
     }
   }
 }

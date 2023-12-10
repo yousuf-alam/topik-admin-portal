@@ -59,22 +59,22 @@ export default {
   methods:{
     getOld(){
       axios.get(`${ADMIN_URL}/redeem/redeem-item/${this.redeem_id}`)
-          .then(response => {
+        .then(response => {
 
-            this.redeems = response.data.data;
-            this.items = this.redeems.items;
-            this.sub_items = this.redeems.sub_items;
-            this.name = this.redeems.name;
-            this.reward_point=this.redeems.reward_point;
-            this.sub_title=this.redeems.sub_title,
-              this.step=this.redeems.step,
-              this.link=this.redeems.link,
-             this.msg=this.redeems.msg,
+          this.redeems = response.data.data;
+          this.items = this.redeems.items;
+          this.sub_items = this.redeems.sub_items;
+          this.name = this.redeems.name;
+          this.reward_point=this.redeems.reward_point;
+          this.sub_title=this.redeems.sub_title,
+            this.step=this.redeems.step,
+            this.link=this.redeems.link,
+            this.msg=this.redeems.msg,
             console.log('redeem id data',this.redeems);
-          })
-          .catch(e => {
-            console.log("error occurs", e.response);
-          });
+        })
+        .catch(e => {
+          console.log("error occurs", e.response);
+        });
     },
     onSubmit() {
 
@@ -92,15 +92,15 @@ export default {
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
       axios.put(`${ADMIN_URL}/redeem/update-redeem/${this.redeem_id}`, formData)
-          .then(response => {
-            console.log('Success', response);
+        .then(response => {
+          console.log('Success', response);
 
-            return this.$router.push('/redeem');
+          return this.$router.push('/redeem');
 
-          })
-          .catch(error => {
+        })
+        .catch(error => {
 
-          });
+        });
     }
   }
 }

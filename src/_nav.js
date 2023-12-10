@@ -262,6 +262,12 @@ const navitems = {
       permission_name: permissionsList.partnerSalary
     },
     {
+      name: 'Partner Notice',
+      url: '/partner-notice',
+      icon: 'fa fa-reorder',
+      permission_name: permissionsList.partnerSalary
+    },
+    {
       title: true,
       name: 'Marketing',
       permission_name: [

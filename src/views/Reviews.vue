@@ -4,6 +4,17 @@
     <div v-if="data_loaded_successfully">
       <div class="cardheading">
         <h4><i class="fa fa-thumbs-up"></i><span class="ml-1">Reviews</span></h4>
+        <div class="d-flex justify-content-between gap-5">
+          <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 130px">
+            <option value="this_month">This month</option>
+            <option value="last_month">Last month</option>
+            <option value="last_three_month">Last three month</option>
+            <option value="last_six_month">Last six month</option>
+            <option value="this_year">This year</option>
+            <option value="last_year">Previous year</option>
+
+          </select>
+        </div>
       </div>
       <b-row>
         <b-col>
@@ -47,6 +58,7 @@
                 data_loaded_successfully: false,
                 columns: ['order_id', 'partner', 'rating','comment','created_at' ,'action'],
                 tableData: [],
+                key:'this_month',
                 options: {
                     pagination: {nav: 'fixed'},
                     filterByColumn: true,
@@ -60,10 +72,13 @@
             this.getReviews();
         },
         methods: {
+          handleOptionChange() {
+            this.getReviews();
+          },
             getReviews() {
-                axios.get(`${ADMIN_URL}/reviews`)
-                    .then(res => {
-                        this.tableData = res.data;
+                axios.post(`${ADMIN_URL}/reviews`,{key:this.key})
+                    .then(response => {
+                        this.tableData = response.data.data;
                         this.data_loaded_successfully = true;
                     }).catch(error => {
                     // console.log('Errorrrrrrrrrrrrrrr ', error.response);

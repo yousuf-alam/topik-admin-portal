@@ -9,7 +9,17 @@
 
             </h1>
           </div>
-          <div class="">
+
+            <div class="d-flex justify-content-between gap-5">
+              <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 130px">
+                <option value="this_month">This month</option>
+                <option value="last_month">Last month</option>
+                <option value="last_three_month">Last three month</option>
+                <option value="last_six_month">Last six month</option>
+                <option value="this_year">This year</option>
+                <option value="last_year">Previous year</option>
+
+              </select>
             <router-link :to="{ name: 'ComplainCreate'}">
               <button class="btn btn-success">Report New Complain</button>
             </router-link>
@@ -62,6 +72,7 @@ export default {
     data() {
         return {
             data_loaded_successfully: false,
+            key:'last_year',
             columns: ['order_id', 'partner', 'description','status','created_at' ,'action'],
             tableData: [],
                 options: {
@@ -77,10 +88,14 @@ export default {
         this.getAllComplains();
     },
     methods: {
+      handleOptionChange() {
+        console.log("key",this.key)
+        this.getAllComplains();
+      },
         getAllComplains() {
-            axios.get(`${ADMIN_URL}/order-complains`)
-                .then(res => {
-                    this.tableData = res.data;
+            axios.post(`${ADMIN_URL}/order-complains`,{key:this.key})
+                .then(response => {
+                    this.tableData = response.data.data;
                     this.data_loaded_successfully = true;
                 }).catch(error => {
                     // console.log('Errorrrrrrrrrrrrrrr ', error.response);

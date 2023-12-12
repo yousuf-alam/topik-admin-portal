@@ -7,13 +7,23 @@
 
         </h1>
       </div>
-      <div class="">
+      <div class="d-flex justify-content-between gap-5">
+        <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 180px;background: #4dbd74;color: white">
+          <option value="this_month">This month</option>
+          <option value="last_month">Last month</option>
+          <option value="last_three_month">Last three month</option>
+          <option value="last_six_month">Last six month</option>
+          <option value="this_year">This year</option>
+          <option value="last_year">Previous year</option>
+
+        </select>
         <router-link :to="{ name: 'NotificationCreate'}">
           <button class="btn btn-success">
             Create New Notification
           </button>
         </router-link>
       </div>
+
     </div>
     <b-row>
       <b-col>
@@ -53,6 +63,7 @@
         columns: ['title','image', 'target_group', 'status', 'action'],
         notifications : [],
         BASE_URL: BASE_URL,
+        key:'this_year',
         src_image : 'images/push_notifications/',
         options: {
           pagination: {nav: 'fixed'},
@@ -65,15 +76,24 @@
       }
     },
     created() {
-      axios.get(`${Admin_URL}/push-notifications`)
-        .then(response => {
-          this.notifications = response.data;
-        })
-        .catch(e => {
-          console.log("error occurs",e);
-        });
+      this.getAlNotification()
     },
     methods: {
+      handleOptionChange() {
+        console.log("key",this.key)
+        this.getAlNotification();
+      },
+      getAlNotification()
+      {
+        axios.post(`${Admin_URL}/push-notifications`,{'key':this.key})
+          .then(response => {
+            this.notifications = response.data.data;
+          })
+          .catch(e => {
+            console.log("error occurs",e);
+          });
+
+      },
 
       publish(id) {
 

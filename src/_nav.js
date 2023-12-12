@@ -82,61 +82,7 @@ const navitems = {
     //   icon: 'fa fa-gift',
     //   permission_name: permissionsList.complain
     // },
-    {
-      title: true,
-      name: 'Order Settings',
-      permission_name: [...permissionsList.order, ...permissionsList.complain],
-      class: '',
-      wrapper: {
-        element: '',
-        attributes: {}
-      }
-    },
 
-
-    {
-      name: 'Min Order Amount',
-      url: '/minimum-order-amount',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'Min Order Time',
-      url: '/minimum-order-time',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'First Order Discount',
-      url: '/first-order-discount',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-
-    {
-      name: 'RewardFaq',
-      url: '/reward-faq',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'RewardStatus',
-      url: '/reward-status',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'Redeem Settings',
-      url: '/redeem',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
-    {
-      name: 'Reward User',
-      url: '/reward-user',
-      icon: 'fa fa-file-word-o',
-      permission_name: permissionsList.admin
-    },
     {
       title: true,
       name: 'Service',
@@ -402,6 +348,61 @@ const navitems = {
       url: '/otps',
       icon: 'fa fa-phone',
       permission_name: permissionsList.otps
+    },
+    {
+      title: true,
+      name: 'Order Settings',
+      permission_name: [...permissionsList.order, ...permissionsList.complain],
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+
+
+    {
+      name: 'Min Order Amount',
+      url: '/minimum-order-amount',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'Min Order Time',
+      url: '/minimum-order-time',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'First Order Discount',
+      url: '/first-order-discount',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+
+    {
+      name: 'RewardFaq',
+      url: '/reward-faq',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'RewardStatus',
+      url: '/reward-status',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'Redeem Settings',
+      url: '/redeem',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'Reward User',
+      url: '/reward-user',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
     },
     // {
     //   title: true,

@@ -27,12 +27,13 @@
 
 
             <template slot="action" slot-scope="props">
-              <div class=" ">
+              <div class="d-flex gap-2">
 
-                <span class="btn btn-success   cursor-pointer" data-toggle="tooltip" title="Publish" @click="approveReward(props.row.id)">
+                <span class="btn btn-success   cursor-pointer mr-1" data-toggle="tooltip" title="Publish" @click="approveLeave(props.row.id)">
                                     <i class="fa fa-check-square"></i></span>
-
-                <span @click="deleteReward(props.row.id)" class="btn btn-danger float-right"><i class="fa fa-trash"></i></span>
+                <span class="btn btn-danger   cursor-pointer mr-1" data-toggle="tooltip" title="Publish" @click="declineLeave(props.row.id)">
+                                    <i class="fa fa-times-circle"></i></span>
+                <span @click="deleteLeave(props.row.id)" class="btn btn-danger float-right"><i class="fa fa-trash"></i></span>
               </div>
             </template>
           </v-client-table>
@@ -91,7 +92,7 @@ export default {
         }
       }
     },
-    approveReward(id) {
+    approveLeave(id) {
 
       this.$swal({
         title: 'Are you sure?',
@@ -114,7 +115,30 @@ export default {
 
 
     },
-    deleteReward(id) {
+    declineLeave(id) {
+
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You can\'t revert your action',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes decline it!',
+        cancelButtonText: 'No, Keep it!',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        if(result.value) {
+          this.confirmDecline(id);
+        } else {
+          //this.$swal('Cancelled', 'Your file is still intact', 'info')
+        }
+      });
+      console.log("hello id",id);
+
+
+
+    },
+    deleteLeave(id) {
 
       this.$swal({
         title: 'Are you sure?',
@@ -152,8 +176,22 @@ export default {
           console.log("error occurs",e);
         });
     },
+    confirmDecline(id) {
+      axios.post(`${ADMIN_URL}/decline-leave-in-house`,{
+        id : id
+      })
+        .then(response => {
+          this.$swal('Approved Leave', '', 'success');
+          setTimeout(()=>{
+            window.location.href='/leave-approval';
+          },1000);
+        })
+        .catch(e => {
+          console.log("error occurs",e);
+        });
+    },
     confirmDelete(id) {
-      axios.post(`${ADMIN_URL}/leave-declined-in-house`,{
+      axios.post(`${ADMIN_URL}/delete-leave-in-house`,{
         id : id
       })
         .then(response => {

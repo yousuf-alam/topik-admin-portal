@@ -11,7 +11,7 @@
           </div>
 
             <div class="d-flex justify-content-between gap-5">
-              <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 130px">
+              <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 180px;background: #4dbd74;color: white">
                 <option value="this_month">This month</option>
                 <option value="last_month">Last month</option>
                 <option value="last_three_month">Last three month</option>

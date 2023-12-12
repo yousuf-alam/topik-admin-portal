@@ -13,7 +13,7 @@
         </select>
 
 
-        <router-link :to="{ name: 'CreateRedeem'}" >
+        <router-link :to="{ name: 'NoticeCreate'}" >
           <button class="btn btn-success">Create New Notice</button>
         </router-link>
       </div>

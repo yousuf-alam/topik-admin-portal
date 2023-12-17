@@ -2,6 +2,17 @@
   <div class="animated fadeIn">
     <div class="cardheading">
       <h4><i class="fa fa-bars"></i><span class="ml-1">Leave Application</span></h4>
+      <div class="d-flex justify-content-between gap-5">
+        <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 180px;background: #4dbd74;color: white">
+          <option value="this_month">This month</option>
+          <option value="last_month">Last month</option>
+          <option value="last_three_month">Last three month</option>
+          <option value="last_six_month">Last six month</option>
+          <option value="this_year">This year</option>
+          <option value="last_year">Previous year</option>
+
+        </select>
+      </div>
 
     </div>
     <b-row>
@@ -57,6 +68,7 @@ export default {
         'id', 'name', 'leave_date','remarks', 'is_casual_or_sick_leave','is_unpaid_leave','action'
       ],
       redeem_id:'',
+      key:'this_month',
       BASE_URL: BASE_URL,
       src_image : 'images/social/',
       options: {
@@ -74,9 +86,13 @@ export default {
     this.getUnApproveData();
   },
   methods: {
+    handleOptionChange() {
+      console.log("key",this.key)
+      this.getUnApproveData();
+    },
 
     getUnApproveData(){
-      axios.get(`${ADMIN_URL}/leave-approval-data`)
+      axios.post(`${ADMIN_URL}/leave-approval-data`,{'key':this.key})
         .then(response => {
           console.log('response',response);
           this.applications = response.data.data;

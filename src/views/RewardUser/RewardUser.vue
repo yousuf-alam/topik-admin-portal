@@ -4,6 +4,17 @@
       <h4><i class="fa fa-bars"></i><span class="ml-1">Reward user</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
+          <div class="d-flex justify-content-between gap-5">
+            <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 180px;background: #4dbd74;color: white">
+              <option value="this_month">This month</option>
+              <option value="last_month">Last month</option>
+              <option value="last_three_month">Last three month</option>
+              <option value="last_six_month">Last six month</option>
+              <option value="this_year">This year</option>
+              <option value="last_year">Previous year</option>
+
+            </select>
+          </div>
 
         </h1>
       </div>
@@ -56,6 +67,7 @@ export default {
   data() {
     return {
       rewards : [],
+      key:'this_month',
       columns: [
         'id', 'user_name', 'image','image_path', 'slug','action'
       ],
@@ -77,9 +89,13 @@ export default {
    this.getUnApproveData();
   },
   methods: {
+    handleOptionChange() {
+      console.log("key",this.key)
+      this.getUnApproveData();
+    },
 
     getUnApproveData(){
-      axios.get(`${ADMIN_URL}/social-media/get-data`)
+      axios.post(`${ADMIN_URL}/social-media/get-data`,{'key':this.key})
         .then(response => {
           console.log('response',response);
           this.rewards = response.data.data;

@@ -181,6 +181,7 @@ import LeaveApproval from "@/views/PartnerLeave/LeaveApproval.vue";
 import NoticeEdit from "@/views/PartnerNotice/NoticeEdit.vue";
 import NoticeCreate from "@/views/PartnerNotice/NoticeCreate.vue";
 import NoticeShow from "@/views/PartnerNotice/NoticeShow.vue";
+import AllPaymentData from "@/views/Partners/AllPaymentData.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -933,6 +934,14 @@ const router = new Router({
           path: "Partner-payment",
           name: "PartnerPayments",
           component: PartnerPayments,
+          meta: {
+            permission_name: "partner read"
+          }
+        },
+        {
+          path: "all-payment-data",
+          name: "AllPaymentData",
+          component: AllPaymentData,
           meta: {
             permission_name: "partner read"
           }

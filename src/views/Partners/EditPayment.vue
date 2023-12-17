@@ -12,7 +12,7 @@
             <input class="form-control" type="text" v-model="amount">
           </div>
           <div class="form-group">
-            <label>Payment To</label>
+            <label>Payment to</label>
             <input class="form-control" type="text" v-model="payment_to"  >
           </div>
           <div  class="form-group">

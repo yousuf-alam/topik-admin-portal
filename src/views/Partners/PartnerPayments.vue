@@ -1,11 +1,38 @@
 <template>
   <div class="animated fadeIn">
+    <div class="cardheading">
+      <h4><i class="fa fa-bars"></i><span class="ml-1">Partner Payment</span></h4>
+
+      <div class="">
+
+      </div>
+      <div class="d-flex  gap-5">
+        <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 180px;background: #4dbd74;color: white">
+          <option value="this_month">This month</option>
+          <option value="last_month">Last month</option>
+          <option value="last_three_month">Last three month</option>
+          <option value="last_six_month">Last six month</option>
+          <option value="this_year">This year</option>
+          <option value="last_year">Previous year</option>
+
+        </select>
+      <div class="d-flex gap-2">
+        <router-link :to="{ name: 'CreatePayment'}">
+          <button class="btn btn-success">
+            Create New Payment
+          </button>
+        </router-link>
+        <router-link :to="{ name: 'AllPaymentData'}">
+          <button class="btn btn-success ml-2">
+            See All
+          </button>
+        </router-link>
+      </div>
+      </div>
+
+    </div>
     <b-row>
       <b-col>
-        <h4><i class="fa fa-user"></i><span class="ml-1">Payment Approve</span></h4>
-        <router-link :to="{ name: 'CreatePayment'}" >
-          <button class="btn btn-success">Create  Payment</button>
-        </router-link>
         <b-card>
           <v-client-table :data="partners" :columns="columns" :options="options">
             <!--<template slot="logo" slot-scope="props">
@@ -66,6 +93,7 @@ export default {
       BASE_URL: BASE_URL,
       PARTNER_FRONTEND_DOMAIN: PARTNER_FRONTEND_DOMAIN, /* TO_EDIT_THIS_PLACE */
       partners : [],
+      key:'this_month',
       columns: ['id', 'partner_name', 'method','tid', 'amount' ,'status', 'payment_to', 'recieved_date', 'action'],
       options: {
         pagination: {nav: 'fixed'},
@@ -83,8 +111,12 @@ export default {
     this.fetchData();
   },
   methods: {
+    handleOptionChange() {
+      console.log("key",this.key)
+      this.fetchData();
+    },
     fetchData() {
-      axios.get(`${ADMIN_URL}/payment/approve-data`)
+      axios.post(`${ADMIN_URL}/payment/approve-data`,{'key':this.key})
           .then(response => {
             // console.log('approve-data', response);
             this.partners = response.data.data;
@@ -94,14 +126,36 @@ export default {
             //console.log("error occurs");
           });
     },
-    approveId(approve_details_id){
-      console.log('id', approve_details_id);
-      axios.post(`${ADMIN_URL}/payment/approve`, {id: approve_details_id})
-          .then(() =>{
+    approveId(id){
 
-            this.fetchData();
-          })
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You can\'t revert your action',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes approve it!',
+        cancelButtonText: 'No, Keep it!',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        if(result.value) {
+          this.confirmApprove(id);
+        } else {
+          //this.$swal('Cancelled', 'Your file is still intact', 'info')
+        }
+      });
+      // console.log("hello id",id);
 
+
+    },
+    confirmApprove(id)
+    {
+
+      axios.post(`${ADMIN_URL}/payment/approve`, {id: id})
+        .then(() =>{
+
+          this.fetchData();
+        })
     },
     declineId(approve_details_id){
       console.log('id', approve_details_id);

@@ -182,6 +182,7 @@ import NoticeEdit from "@/views/PartnerNotice/NoticeEdit.vue";
 import NoticeCreate from "@/views/PartnerNotice/NoticeCreate.vue";
 import NoticeShow from "@/views/PartnerNotice/NoticeShow.vue";
 import AllPaymentData from "@/views/Partners/AllPaymentData.vue";
+import SalaryDisbursement from "@/views/PartnerSalary/SalaryDisbursement.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -1048,6 +1049,14 @@ const router = new Router({
           path: "/partner-salary",
           name: "ShowSalary",
           component: ShowSalary,
+          meta: {
+            permission_name: permissionsList.partnerSalary
+          }
+        },
+        {
+          path: "/salary-disbursement",
+          name: "SalaryDisbursement",
+          component: SalaryDisbursement,
           meta: {
             permission_name: permissionsList.partnerSalary
           }

@@ -45,6 +45,15 @@
     <b-row>
       <div class="salary-table">
         <div>
+            <div class="payment-row">
+              <div class="salary-data"> <BCheckbox @change="toggleCheckbox(salary)" /> Select All</div>
+              <div class="salary-data"> Partner Id</div>
+              <div class="salary-data"> Name</div>
+              <div class="salary-data">Basic Salary</div>
+              <div class="salary-data">Total Salary</div>
+              <div class="salary-data">Now Pay</div>
+              <div class="salary-data">Status</div>
+            </div>
            <div v-for="salary in salaries" :key="salary.id" class="payment-row shadow-md">
              <div class="salary-data"> <BCheckbox @change="toggleCheckbox(salary)" /></div>
              <div class="salary-data"> {{salary.partner_id}}</div>

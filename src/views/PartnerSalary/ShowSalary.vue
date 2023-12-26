@@ -46,6 +46,11 @@
         </router-link>
       </div>
       <button class="show-btn"  @click="exportSalary">Export as .xlsx</button>
+      <div class="">
+        <router-link :to="{ name: 'SalaryDisbursement'}"   v-if="elementHasPermission('salary disbursement')">
+          <button class="show-btn">Salary Disburse</button>
+        </router-link>
+      </div>
 
       <!--      <div>-->
       <!--        <button @click="openModal">Show modal</button>-->

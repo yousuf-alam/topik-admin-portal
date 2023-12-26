@@ -1058,7 +1058,7 @@ const router = new Router({
           name: "SalaryDisbursement",
           component: SalaryDisbursement,
           meta: {
-            permission_name: permissionsList.partnerSalary
+            permission_name: permissionsList.salaryDisbursement
           }
         },
         {

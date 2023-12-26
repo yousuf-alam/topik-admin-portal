@@ -107,6 +107,9 @@ export default {
     spRoutes:[
        "sp route"
     ],
+    salaryDisbursement:[
+       "salary disbursement"
+    ],
     spOrderCount:[
         "sp order count"
     ],

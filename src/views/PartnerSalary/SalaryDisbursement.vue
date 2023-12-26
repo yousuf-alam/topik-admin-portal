@@ -1,7 +1,7 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">Reward user</span></h4>
+      <h4><i class="fa fa-bars"></i><span class="ml-1">Salary Disbursement</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
           <div class="d-flex justify-content-between gap-5">
@@ -39,14 +39,21 @@
         </h1>
       </div>
     </div>
-    <div>
-      <p>Selected IDs and Payable Amounts: {{ selectedData }}</p>
-    </div>
+<!--    <div>-->
+<!--      <div>-->
+<!--        <p v-if="selectedData.length === 0">No data selected.</p>-->
+<!--        <ul v-else>-->
+<!--          <li v-for="data in selectedData" :key="data.id">-->
+<!--            ID: {{ data.partner_id }}, Payable Amount: {{ data.payable_amount }},Paid Amount: {{ data.paid_amount }},-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
     <b-row>
       <div class="salary-table">
         <div>
             <div class="payment-row">
-              <div class="salary-data"> <BCheckbox @change="toggleCheckbox(salary)" /> Select All</div>
+              <div class="salary-data"> <BCheckbox v-model="selectAll" @change="toggleSelectAll" />  All</div>
               <div class="salary-data"> Partner Id</div>
               <div class="salary-data"> Name</div>
               <div class="salary-data">Basic Salary</div>
@@ -55,7 +62,7 @@
               <div class="salary-data">Status</div>
             </div>
            <div v-for="salary in salaries" :key="salary.id" class="payment-row shadow-md">
-             <div class="salary-data"> <BCheckbox @change="toggleCheckbox(salary)" /></div>
+             <div class="salary-data"> <BCheckbox v-model="salary.selected" @change="toggleCheckbox(salary)" /></div>
              <div class="salary-data"> {{salary.partner_id}}</div>
              <div class="salary-data"> {{salary.name}}</div>
              <div class="salary-data">{{salary.basic_salary}}</div>
@@ -63,6 +70,7 @@
              <div class="salary-data"><input v-model="salary.paid_amount" /></div>
              <div class="salary-data">
                <div class="payment-btn-paid  " v-if="salary.salary_disbursement==='Paid'"> Paid</div>
+               <div class="payment-btn-paid  " v-if="salary.salary_disbursement==='Paid'" @click="downloadInvoice(salary)"> Invoice</div>
                <div class="payment-btn  " v-else @click="pay" >Disburse</div>
 
              </div>
@@ -90,6 +98,7 @@ export default {
       salaries : [],
       key:'this_month',
       selectedData: [],
+      selectAll: false,
       columns: [
         'id', 'partner_id', 'name','basic_salary', 'salary_disbursement','action'
       ],
@@ -112,6 +121,13 @@ export default {
   created(){
     this.getSalaryDisburseData();
   },
+  computed:{
+    elementHasPermission(permission_name) {
+      return (permission_name) => {
+        return !!this.$store.getters['auth/hasPermission'](permission_name);
+      }
+    },
+  },
 
   mounted() {
     const currentDate = new Date();
@@ -126,13 +142,27 @@ export default {
       this.getUnApproveData();
     },
 
+    toggleSelectAll() {
+      this.salaries.forEach(salary => {
+        salary.selected = this.selectAll;
+      });
+      this.updateSelectedData();
+    },
+
+    updateSelectedData() {
+      this.selectedData = this.salaries
+        .filter(salary => salary.selected)
+        .map(salary => ({
+          id: salary.id,
+          partner_id: salary.partner_id,
+          payable_amount: salary.payable_amount,
+          paid_amount: salary.paid_amount
+        }));
+    },
+
     toggleCheckbox(salary) {
-      // Check if the salary is already in the array, if yes, remove it, if not, add it
-      const index = this.selectedData.findIndex(item => item.id === salary.id);
-      if (index !== -1) {
-        this.selectedData.splice(index, 1);
-      } else {
-        this.selectedData.push({ id: salary.id, payable_amount: salary.payable_amount,paid_amount: salary.paid_amount });
+      if (salary.salary_disbursement !== 'Paid') {
+        this.updateSelectedData();
       }
     },
     pay() {
@@ -172,13 +202,7 @@ export default {
           console.log("error occurs", e.response);
         });
     },
-    computed: {
-      elementHasPermission(permission_name) {
-        return (permission_name) => {
-          return !!this.$store.getters['auth/hasPermission'](permission_name);
-        }
-      }
-    },
+
     approveDisburseModal() {
 
       this.$swal({
@@ -219,6 +243,44 @@ export default {
           console.log("error occurs",e);
         });
     },
+    downloadInvoice(salary) {
+
+      axios({
+        method: 'post',
+        url: `${ADMIN_URL}/download-salary-invoice`,
+        responseType: 'arraybuffer',
+        data:salary
+      })
+        .then(response => {
+          // Check if the response is a valid PDF
+          if (response.headers['content-type'] === 'application/pdf') {
+            // Create a Blob from the PDF data
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+
+            // Create a link element to trigger the download
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'invoice.pdf';
+
+            // Append the link to the document and trigger a click event
+            document.body.appendChild(link);
+            link.click();
+
+            // Remove the link from the document
+            document.body.removeChild(link);
+
+            this.$swal('Successfully downloaded', '', 'success');
+          } else {
+            console.error('Invalid content type. Expected application/pdf.');
+            this.$swal('Error downloading invoice', 'Invalid content type', 'error');
+          }
+        })
+        .catch(error => {
+          console.error('Error occurs', error);
+          this.$swal('Error downloading invoice', 'An error occurred', 'error');
+        });
+    },
+
 
 
 
@@ -236,7 +298,7 @@ export default {
   font-size: 14px;
   padding: 5px;
   height: 30px;
-  margin-left: 100px;
+  //margin-left: 100px;
  cursor: pointer;
 
 }
@@ -249,7 +311,7 @@ export default {
   font-size: 14px;
   padding: 5px;
   height: 30px;
-  margin-left: 100px;
+  //margin-left: 100px;
   cursor: pointer;
 
 
@@ -266,21 +328,23 @@ table {
 }
 
 .payment-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 5rem repeat(6, 1fr);
   align-items: center;
   margin-bottom: 10px;
-  gap: 20px;
+  gap: 0.25rem;
   height: 45px;
   background: white;
+  width: 100%;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   //overflow: hidden;
 
   .salary-data {
-    width: 100px;
     display: flex;
     justify-content: flex-start; /* align horizontally to the left */
-    align-items: flex-start;
+    align-items: center;
+    gap: 0.5rem;
     padding-left: 10px;
   }
 }

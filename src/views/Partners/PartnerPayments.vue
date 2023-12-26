@@ -63,6 +63,7 @@
                     <i class="fa fa-edit"></i>
                   </span>
                 </router-link>
+                <button @click="deletePayments(props.row.id)" class="btn btn-danger float-right"><i class="fa fa-trash"></i></button>
 
 
               </div>
@@ -165,6 +166,45 @@ export default {
             this.fetchData();
           })
 
+    },
+
+    deletePayments(id) {
+
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You can\'t revert your action',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes delete it!',
+        cancelButtonText: 'No, Keep it!',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        if(result.value) {
+          this.confirmDelete(id);
+        } else {
+          //this.$swal('Cancelled', 'Your file is still intact', 'info')
+        }
+      });
+      console.log("hello id",id);
+
+
+
+    },
+    confirmDelete(id) {
+      console.log(id);
+      axios.post(`${ADMIN_URL}/partner-payment/delete-payment`,{
+        id : id
+      })
+        .then(response => {
+          this.$swal('Delete Payment', '', 'success');
+          setTimeout(()=>{
+            window.location.href='/partner-payment';
+          },1000);
+        })
+        .catch(e => {
+          console.log("error occurs",e);
+        });
     },
     generateCypherText(value) {
       const stringValue = typeof value === 'string' ? value : JSON.stringify(value);

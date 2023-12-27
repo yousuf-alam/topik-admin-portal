@@ -62,7 +62,12 @@
               <div class="salary-data">Status</div>
             </div>
            <div v-for="salary in salaries" :key="salary.id" class="payment-row shadow-md">
-             <div class="salary-data"> <BCheckbox v-model="salary.selected" @change="toggleCheckbox(salary)" /></div>
+             <div class="salary-data">
+
+               <span class="date-btn " v-if="salary.salary_disbursement==='Paid'"> {{ salary.disbursement_date }}</span>
+               <BCheckbox v-else v-model="salary.selected" @change="toggleCheckbox(salary)" />
+
+             </div>
              <div class="salary-data"> {{salary.partner_id}}</div>
              <div class="salary-data"> {{salary.name}}</div>
              <div class="salary-data">{{salary.basic_salary}}</div>
@@ -71,6 +76,7 @@
              <div class="salary-data">
                <div class="payment-btn-paid  " v-if="salary.salary_disbursement==='Paid'"> Paid</div>
                <div class="payment-btn-paid  " v-if="salary.salary_disbursement==='Paid'" @click="downloadInvoice(salary)"> Invoice</div>
+
                <div class="payment-btn  " v-else @click="pay" >Disburse</div>
 
              </div>
@@ -314,11 +320,24 @@ export default {
   //margin-left: 100px;
   cursor: pointer;
 
+}
 
-
+.date-btn{
+  background:#930e3b;
+  color: white;
+  border: 1px solid #930e3b;
+  border-radius: 8px;
+  font-size: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  height: 30px;
+  //margin-left: 100px;
+  cursor: pointer;
 }
 .salary-table {
-  width: 90%;
+  width: 96%;
   margin: 0 auto;
 }
 
@@ -335,7 +354,7 @@ table {
   gap: 0.25rem;
   height: 45px;
   background: white;
-  width: 100%;
+  //width: 100%;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   //overflow: hidden;

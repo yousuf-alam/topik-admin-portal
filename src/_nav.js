@@ -196,19 +196,19 @@ const navitems = {
      permission_name: permissionsList.partnerwallet
     },
     {
-      name: 'Partner Leaves',
+      name: 'In-House Leaves',
       url: '/filter-leave',
       icon: 'fa fa-reorder',
       permission_name: permissionsList.partnerLeaves
     },
     {
-      name: 'Partner Salary',
+      name: 'In-House Salary',
       url: '/partner-salary',
       icon: 'fa fa-reorder',
       permission_name: permissionsList.partnerSalary
     },
     {
-      name: 'Partner Notice',
+      name: 'In-House Notice',
       url: '/partner-notice',
       icon: 'fa fa-reorder',
       permission_name: permissionsList.partnerSalary

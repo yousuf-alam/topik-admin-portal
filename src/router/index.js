@@ -183,6 +183,8 @@ import NoticeCreate from "@/views/PartnerNotice/NoticeCreate.vue";
 import NoticeShow from "@/views/PartnerNotice/NoticeShow.vue";
 import AllPaymentData from "@/views/Partners/AllPaymentData.vue";
 import SalaryDisbursement from "@/views/PartnerSalary/SalaryDisbursement.vue";
+import EditLeaveApplication from "@/views/PartnerLeave/EditLeaveApplication.vue";
+import LeaveApplication from "@/views/PartnerLeave/LeaveApplication.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -819,9 +821,26 @@ const router = new Router({
           }
         },
         {
+          path: "/all-leave-application",
+          name: "LeaveApplication",
+          component: LeaveApplication,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        {
           path: "/edit-payment-method/:id",
           name: "EditPaymentMethod",
           component: EditPaymentMethod,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+
+        {
+          path: "/edit-leave-application/:id",
+          name: "EditLeaveApplication",
+          component: EditLeaveApplication,
           meta: {
             permission_name: "lineitem create"
           }

@@ -7,11 +7,7 @@
 
         </h1>
       </div>
-      <div class="">
-        <router-link :to="{ name: 'CreateRedeem'}" >
-          <button class="btn btn-success">Create New Redeem</button>
-        </router-link>
-      </div>
+
     </div>
     <b-row>
       <b-col>

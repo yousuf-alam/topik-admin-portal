@@ -3,12 +3,15 @@
     <div class="cardheading">
       <h4><i class="fa fa-bars"></i><span class="ml-1">Leave Application</span></h4>
       <div class="d-flex justify-content-between gap-5">
+        <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 180px;background: #4dbd74;color: white">
+          <option value="this_month">This month</option>
+          <option value="last_month">Last month</option>
+          <option value="last_three_month">Last three month</option>
+          <option value="last_six_month">Last six month</option>
+          <option value="this_year">This year</option>
+          <option value="last_year">Previous year</option>
 
-        <router-link :to="{ name: 'LeaveApplication'}">
-          <button class="btn btn-success">
-            See all
-          </button>
-        </router-link>
+        </select>
       </div>
 
     </div>
@@ -17,19 +20,20 @@
         <b-card>
           <v-client-table :data="applications" :columns="columns" :options="options">
 
+
             <template slot="action" slot-scope="props">
               <div class="d-flex gap-2">
 
-                <span class="btn btn-success   cursor-pointer mr-1" data-toggle="tooltip" title="Publish" @click="approveLeave(props.row.id)">
-                                    <i class="fa fa-check-square"></i></span>
-                <span class="btn btn-danger   cursor-pointer mr-1" data-toggle="tooltip" title="Publish" @click="declineLeave(props.row.id)">
-                                    <i class="fa fa-times-circle"></i></span>
+<!--                <span class="btn btn-success   cursor-pointer mr-1" data-toggle="tooltip" title="Publish" @click="approveLeave(props.row.id)">-->
+<!--                                    <i class="fa fa-check-square"></i></span>-->
+<!--                <span class="btn btn-danger   cursor-pointer mr-1" data-toggle="tooltip" title="Publish" @click="declineLeave(props.row.id)">-->
+<!--                                    <i class="fa fa-times-circle"></i></span>-->
                 <router-link :to="{ name: 'EditLeaveApplication', params: { id: props.row.id }}">
                 <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
                     <i class="fa fa-edit"></i>
                   </span>
                 </router-link>
-                <span @click="deleteLeave(props.row.id)" class="btn btn-danger float-right"><i class="fa fa-trash"></i></span>
+<!--                <span @click="deleteLeave(props.row.id)" class="btn btn-danger float-right"><i class="fa fa-trash"></i></span>-->
               </div>
             </template>
           </v-client-table>
@@ -44,7 +48,7 @@ import axios from 'axios';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 const BASE_URL  = process.env.VUE_APP_BASE_URL;
 export default {
-  name: "LeaveApproval",
+  name: "LeaveApplication",
 
   data() {
     return {
@@ -77,7 +81,7 @@ export default {
     },
 
     getUnApproveData(){
-      axios.post(`${ADMIN_URL}/leave-approval-data`,{'key':this.key})
+      axios.post(`${ADMIN_URL}/all-leave-application`,{'key':this.key})
         .then(response => {
           console.log('response',response);
           this.applications = response.data.data;

@@ -603,6 +603,29 @@
           });
       },
       onSubmit() {
+
+        this.$swal({
+          title: 'Are you sure?',
+          text: 'You can\'t revert your action',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes update it!',
+          cancelButtonText: 'No, Keep it!',
+          showCloseButton: true,
+          showLoaderOnConfirm: true
+        }).then((result) => {
+          if(result.value) {
+            this.confirmUpdate();
+          } else {
+            //this.$swal('Cancelled', 'Your file is still intact', 'info')
+          }
+        });
+        console.log("hello id",id);
+
+
+
+      },
+      confirmUpdate() {
         console.log('hey action', this.lineitem.thumbnail);
         let currentObj = this;
         const config = {
@@ -642,24 +665,17 @@
 
 
         axios.post(`${Admin_URL}/line-items/update`, formData, config)
-          .then(function (response) {
-            // console.log('Lineitem Update Successful === ', response.data);
-            currentObj.success = response.data.success;
-            if(response.data.success===true)
-            {
-              // alert(response.data.message);
-              // window.location.reload();
-            }
-            else
-            {
-              alert("Something wrong happened");
-            }
-          })
-          .catch(function (error) {
-            currentObj.output = error;
-             console.log('Errorrrrr === ', error.response);
 
-          });
+            // console.log('Lineitem Update Successful === ', response.data);
+          .then(response => {
+              this.$swal('Update LineItem', '', 'success');
+              setTimeout(()=>{
+                window.location.href='/line-items';
+              },1000);
+            })
+              .catch(e => {
+                console.log("error occurs",e);
+              });
       }
     }
   }

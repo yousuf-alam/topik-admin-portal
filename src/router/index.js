@@ -185,6 +185,7 @@ import AllPaymentData from "@/views/Partners/AllPaymentData.vue";
 import SalaryDisbursement from "@/views/PartnerSalary/SalaryDisbursement.vue";
 import EditLeaveApplication from "@/views/PartnerLeave/EditLeaveApplication.vue";
 import LeaveApplication from "@/views/PartnerLeave/LeaveApplication.vue";
+import LineItemRevenueReport from "@/views/LineItemRevenueReport.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -1197,6 +1198,14 @@ const router = new Router({
           path: "areawisereports",
           name: "Area Wise Reports",
           component: AreaWiseReports,
+          meta: {
+            permission_name: permissionsList.reports
+          }
+        },
+        {
+          path: "line-items-revenue-reports",
+          name: "LineItemRevenueReport",
+          component: LineItemRevenueReport,
           meta: {
             permission_name: permissionsList.reports
           }

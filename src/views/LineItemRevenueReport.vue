@@ -12,16 +12,8 @@
       </b-row>
       <b-row>
         <b-col lg="4" sm="12" v-for="r in reports">
-          <div v-if="r === 'SP Report' && getUserPermission('daily reports')">
-            <!-- <b-btn
-              variant="outline-dark"
-              class="w-75 h-75 m-2"
-              @click="getDateModal(r)"
-            >
-              {{ r }}
-            </b-btn> -->
-          </div>
-          <div v-else>
+
+          <div>
             <b-btn
               variant="outline-dark"
               class="w-75 h-75 m-2"

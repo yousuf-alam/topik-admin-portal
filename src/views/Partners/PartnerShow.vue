@@ -35,6 +35,22 @@
                           </div>
                         </div>
                       </b-row>
+
+                      <b-row>
+                        <div class="form-group">
+                          <label>Status</label>
+                          <select class="form-control" v-model="partner.day_off" >
+                            <option value="sunday">Sunday</option>
+                            <option value="monday">Monday</option>
+                            <option value="tuesday">Tuesday</option>
+                            <option value="wednesday">Wednesday</option>
+                            <option value="thursday">Thursday</option>
+                            <option value="friday">Friday</option>
+                            <option value="saturday">Saturday</option>
+                          </select>
+                        </div>
+
+                      </b-row>
                       <b-row>
                         <button @click="changeStatus" class="btn btn-primary" data-dismiss="modal" type="button">Submit</button>
                       </b-row>
@@ -346,7 +362,8 @@
             axios.post(`${ADMIN_URL}/partners/change-status`,
               {
                 id: this.partner.id,
-                status: this.partner.status
+                status: this.partner.status,
+                day_off: this.partner.day_off
               }).then(response =>{
             })
               .catch(e=>{

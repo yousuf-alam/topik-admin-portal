@@ -186,6 +186,12 @@ import SalaryDisbursement from "@/views/PartnerSalary/SalaryDisbursement.vue";
 import EditLeaveApplication from "@/views/PartnerLeave/EditLeaveApplication.vue";
 import LeaveApplication from "@/views/PartnerLeave/LeaveApplication.vue";
 import LineItemRevenueReport from "@/views/LineItemRevenueReport.vue";
+import ScheduleNotification from "@/views/ScheduleNotification/ScheduleNotification.vue";
+import EditContent from "@/views/ScheduleNotification/EditContent.vue";
+import CreateContent from "@/views/ScheduleNotification/CreateContent.vue";
+import showContent from "@/views/ScheduleNotification/ShowContent.vue";
+import ShowContent from "@/views/ScheduleNotification/ShowContent.vue";
+import CreateScheduleNotification from "@/views/ScheduleNotification/CreateScheduleNotification.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -1149,6 +1155,48 @@ const router = new Router({
           path: "/complains/create",
           name: "ComplainCreate",
           component: ComplainCreate,
+          meta: {
+            permission_name: "complain create"
+          }
+        },
+
+        //schedule notification
+        {
+          path: "schedule-notification",
+          name: "ScheduleNotification",
+          component: ScheduleNotification,
+          meta: {
+            permission_name: permissionsList.complain
+          }
+        },
+        {
+          path: "schedule-content",
+          name: "ShowContent",
+          component: ShowContent,
+          meta: {
+            permission_name: permissionsList.complain
+          }
+        },
+        {
+          path: "/schedule/edit/:id",
+          name: "EditContent",
+          component: EditContent,
+          meta: {
+            permission_name: "complain read"
+          }
+        },
+        {
+          path: "/schedule-content/create",
+          name: "CreateContent",
+          component: CreateContent,
+          meta: {
+            permission_name: "complain create"
+          }
+        },
+        {
+          path: "/schedule-notification/create",
+          name: "CreateScheduleNotification",
+          component: CreateScheduleNotification,
           meta: {
             permission_name: "complain create"
           }

@@ -239,6 +239,12 @@ const navitems = {
       permission_name: permissionsList.notification
     },
     {
+      name: 'Schedule Notification',
+      url: '/schedule-notification',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.notification
+    },
+    {
       name: 'Feed',
       url: '/feed-show',
       icon: 'fa fa-file-word-o',

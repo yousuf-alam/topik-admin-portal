@@ -1,7 +1,7 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">Feed</span></h4>
+      <h4><i class="fa fa-bars"></i><span class="ml-1">Future Notification</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
 

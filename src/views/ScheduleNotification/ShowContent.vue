@@ -47,7 +47,7 @@ export default {
     return {
       BASE_URL: BASE_URL,
       contents : [],
-      src_image : 'images/contentss/',
+      src_image : 'images/schedule_notification/',
       columns: ['image', 'title', 'name', 'body', 'status', 'created_at', 'action'],
       options: {
         pagination: {nav: 'fixed'},

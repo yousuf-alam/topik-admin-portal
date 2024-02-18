@@ -54,7 +54,7 @@ export default {
     return {
       applications : [],
       columns: [
-        'id', 'name', 'from_date','to_date', 'type','remarks','action'
+        'id', 'name', 'from_date','to_date', 'type','remarks','created_at','action'
       ],
       redeem_id:'',
       key:'this_month',

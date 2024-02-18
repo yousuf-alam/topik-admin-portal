@@ -26,7 +26,7 @@
               <div>
                 <router-link :to="{ name: 'contents / Edit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
                                     <i class="fa fa-edit"></i></span></router-link>
-                <span @click="deletecontents(props.row.id)" class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
+                <span @click="deleteNotifications(props.row.id)" class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
               </div>
             </template>
           </v-client-table>
@@ -40,6 +40,7 @@
 <script>
 import axios from 'axios';
 const BASE_URL  = process.env.VUE_APP_BASE_URL;
+const Admin_URL = process.env.VUE_APP_ADMIN_URL;
 const ROOT_URL = process.env.VUE_APP_ROOT_URL;
 export default {
   name: 'contentss',
@@ -72,22 +73,42 @@ export default {
       });
   },
   methods: {
-    deletecontents($id){
-      let url = `${ROOT_URL}/api/v2.0/admin/contentss/delete`;
+    deleteNotifications(id){
 
-      axios.post(`${ROOT_URL}/api/v2.0/admin/contentss/delete`,{
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You can\'t revert your action',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes delete it!',
+        cancelButtonText: 'No, Keep it!',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        if(result.value) {
+          this.confirmDelete(id);
+        } else {
+          //this.$swal('Cancelled', 'Your file is still intact', 'info')
+        }
+      });
+      console.log("hello id",id);
+    },
+    confirmDelete($id) {
+
+      console.log('dhuksi');
+
+
+      axios.post(`${Admin_URL}/schedule-notification-data/delete-content`, {
         id: $id
       })
         .then(response => {
-          if( response.data.status == 'Successfully deleted'){
-            this.$swal('Success', response.data.status, 'success');
-            this.$router.go(this.$router.currentRoute);
-          }else{
-            this.$swal('Error', response.data, 'error');
-          }
+          this.$swal('Delete Notification', '', 'success');
+          setTimeout(()=>{
+            window.location.href='/schedule-notification';
+          },1000);
         })
-        .catch(e=>{
-          this.$swal('Error', e.message, 'error');
+        .catch(e => {
+          console.log("error occurs",e);
         });
     }
   },

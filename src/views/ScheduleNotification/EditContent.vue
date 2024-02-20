@@ -113,14 +113,14 @@ export default {
 
 
 
-      axios.post(`${ADMIN_URL}/contents/edit`,formData,config)
+      axios.post(`${ADMIN_URL}/schedule-notification-data/update-content`,formData,config)
         .then(response => {
           //console.log('Success', response);
           currentObj.success = response.data.success;
           if(response.data.success===true)
           {
             this.$swal('Success',response.data.message,'success');
-            this.$router.push({name: 'contents'});
+            this.$router.push({name: 'ShowContent'});
           }
           else
           {

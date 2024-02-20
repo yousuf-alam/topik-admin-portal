@@ -60,15 +60,17 @@ export default {
 
     this.content.id= window.location.pathname.split("/").pop();
 
-    axios.post(`${ADMIN_URL}/contents/show`,
+    console.log(this.content.id);
+
+    axios.post(`${ADMIN_URL}/schedule-notification-data/content-item`,
       {
         id: this.content.id
       }).then(response => {
       console.log('Response data ===== ', response.data);
-      this.content = response.data;
+      this.content = response.data.data;
       this.image_url = BASE_URL + this.src_image + response.data.image;
 
-      this.getSubcategories();
+
     })
       .catch(e=>{
         console.log("error occurs",e);

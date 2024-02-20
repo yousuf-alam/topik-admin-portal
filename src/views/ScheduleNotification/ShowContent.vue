@@ -24,7 +24,7 @@
             </template>
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'contents / Edit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
+                <router-link :to="{ name: 'EditContent', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
                                     <i class="fa fa-edit"></i></span></router-link>
                 <span @click="deleteNotifications(props.row.id)" class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete"> <i class="fa fa-trash"></i></span>
               </div>
@@ -43,7 +43,7 @@ const BASE_URL  = process.env.VUE_APP_BASE_URL;
 const Admin_URL = process.env.VUE_APP_ADMIN_URL;
 const ROOT_URL = process.env.VUE_APP_ROOT_URL;
 export default {
-  name: 'contentss',
+  name: 'ShowContent',
   data() {
     return {
       BASE_URL: BASE_URL,

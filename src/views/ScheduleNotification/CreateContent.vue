@@ -54,9 +54,11 @@ export default {
   },
   methods:{
     onImageChange(e) {
+      console.log("image paisi");
       this.image = e.target.files[0];
     },
     onSubmit(e) {
+      console.log(this.image);
       e.preventDefault();
       let currentObj = this;
       const config = {
@@ -66,14 +68,12 @@ export default {
         }
       };
 
-      let formData = {
-        name:this.name,
-        title:this.title,
-        body:this.body,
-        image:this.image,
-        status:this.status,
-
-      }
+      let formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('title', this.title);
+      formData.append('body', this.body);
+      formData.append('image', this.image);
+      formData.append('status', this.status);
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
       axios.post(`${ADMIN_URL}/schedule-notification-data/create-content`, formData)

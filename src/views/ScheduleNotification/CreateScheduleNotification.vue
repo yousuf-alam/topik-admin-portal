@@ -16,7 +16,7 @@
           </div>
 
           <div  class="form-group">
-            <label>Receive date</label>
+            <label>Notification Date</label>
             <VueCtkDateTimePicker
               :overlay="true"
               :range="true"

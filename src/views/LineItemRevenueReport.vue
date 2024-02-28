@@ -136,6 +136,7 @@ export default {
 
 
     showReport() {
+      console.log(this.date_range.start)
 
       if (!this.date_range.start || !this.date_range.end) {
         this.$swal("Error", "Please select a date range.", "error");
@@ -143,8 +144,8 @@ export default {
       }
       axios
         .post(`${ADMIN_URL}/line-item-sub-category-revenue`, {
-          startDate: this.date_range.startDate,
-          endDate: this.date_range.endDate,
+          startDate: this.date_range.start,
+          endDate: this.date_range.end,
           dateType:this.dateType
         })
         .then((response) => {
@@ -172,8 +173,8 @@ export default {
         url: `${ADMIN_URL}/export-line-item-revenue`,
         responseType: "blob",
         data: {
-          startDate: this.date_range.startDate,
-          endDate: this.date_range.endDate,
+          startDate: this.date_range.start,
+          endDate: this.date_range.end,
           dateType:this.dateType
 
         }

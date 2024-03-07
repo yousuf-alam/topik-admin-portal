@@ -16,17 +16,17 @@
           </div>
 
           <div  class="form-group">
-            <label>Notification Date</label>
+            <label>Notification date</label>
             <VueCtkDateTimePicker
               :overlay="true"
-              :range="true"
+              :range="false"
               :no-label="true"
               label="Select"
               id="RangeDatePicker"
               format="YYYY-MM-DD"
               formatted="ll"
               color="#7D4E77"
-              v-model="date_range"
+              v-model="notification_date"
             />
           </div>
 
@@ -48,6 +48,7 @@ export default {
     return {
       notification_id:'',
       time:'',
+      notification_date:'',
       date_range: {
         startDate: null,
         endDate: null
@@ -76,8 +77,8 @@ export default {
       // console.log('date range', this.date_range.start)
       let formData = {
         notification_id:this.notification_id,
-        startDate: this.date_range.start,
-        endDate: this.date_range.end,
+        startDate: this.notification_date,
+        endDate: this.notification_date,
         time:this.time,
       }
 

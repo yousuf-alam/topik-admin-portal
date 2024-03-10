@@ -33,6 +33,12 @@
                           <div class="radio">
                             <label><input type="radio" v-model="partner.status" value="rejected"> Rejected </label>
                           </div>
+                          <div class="radio">
+                            <label><input type="radio" v-model="partner.status" value="resigned"> Resigned </label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" v-model="partner.status" value="terminated"> Terminated </label>
+                          </div>
                         </div>
                       </b-row>
 

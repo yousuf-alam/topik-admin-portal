@@ -160,6 +160,7 @@ export default {
 
 
     onImageChange(e) {
+      this.complain.image = e.target.files[0];
       // this.image_updated = true
       // const file = e[0];
       // if (file === undefined) {

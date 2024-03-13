@@ -16,14 +16,80 @@
                 <b-card>
 
                         <h4 class="card-title">Complain Tags</h4>
-                        <ul style="list-style: none;" v-for="comp_id in orderComplain.complain_id" :key="comp_id">
-                            <li>
-                                <p style="font-size: 16px">
-                                    <span class="badge badge-warning" v-html="showThisComplain(comp_id)">
-                                        <!-- {{showThisComplain(comp_id)}} -->
-                                    </span>
-                                </p>
-                            </li>
+                        <ul style="list-style: none;" >
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Complain Channel : </span>
+                              <span> {{complain.channel}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Complain Type: </span>
+                              <span> {{complain.type}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Complain Date : </span>
+                              <span> {{complain.complain_date}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Assign  to : </span>
+                              <span> {{complain.assigned_to}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Assign  by : </span>
+                              <span> {{complain.assigned_by}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Priority: </span>
+                              <span> {{complain.priority}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Deduction: </span>
+                              <span> {{complain.deduction}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Solve Type: </span>
+                              <span> {{complain.solve_type}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Solve Description: </span>
+                              <span> {{complain.solve_description}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Complementary Order Date: </span>
+                              <span> {{complain.complementary_order_date}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Complementary Order Id: </span>
+                              <span> {{complain.complementary_order_id}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Complementary Partner Id: </span>
+                              <span> {{complain.complementary_partner_name}} </span>
+                            </h6>
+                          </li>
+
                         </ul>
                   <b-form-checkbox class="font-weight-bold" v-show="orderComplain.status==='unresolved'" @change="resolveComplain">
                     Complain Resolved?
@@ -43,9 +109,9 @@
                             <h6>
                                 <span class="font-weight-bold">  Order ID : </span>
                                 <span>
-                                   <router-link :to="{ name: 'OrderShow', params: { id: orderComplain.order_id }}">
+                                   <router-link :to="{ name: 'OrderShow', params: { id: complain.order_id }}">
                                         <span class="p-2" data-toggle="tooltip" title="See Order Details"    >
-                                            {{orderComplain.order_id}}
+                                            {{complain.order_id}}
                                         </span>
                                     </router-link>
                                 </span>
@@ -54,18 +120,40 @@
                         <li>
                             <h6>
                                 <span class="font-weight-bold">  SP Name : </span>
-                                <span> {{spName}} </span>
+                                <span> {{complain.partner_name}} </span>
                             </h6>
                         </li>
                         <li><h6>
-                                <span class="font-weight-bold">  SP Contact : </span>
-                                <span> {{spContact}}</span>
+                                <span class="font-weight-bold">  Customer Name : </span>
+                                <span> {{complain.customer_name}}</span>
                             </h6>
                         </li>
                       <li><h6>
+                        <span class="font-weight-bold">  Shipping Phone : </span>
+                        <span> {{complain.shipping_phone}}</span>
+                      </h6>
+                      </li>
+                      <li><h6>
+                        <span class="font-weight-bold">  Shipping Address : </span>
+                        <span> {{this.complain.shipping_address.address_details}}</span>
+                      </h6>
+                      </li>
+                      <li><h6>
+                        <span class="font-weight-bold">  Complain Details : </span>
+                        <span> {{complain.description}}</span>
+                      </h6>
+                      </li>
+                      <li><h6>
                         <span class="font-weight-bold">  Status : </span>
-                        <span class="badge badge-danger" v-if="orderComplain.status==='unresolved'">{{ orderComplain.status }}</span>
-                        <span class="badge badge-success" v-else>{{ orderComplain.status }}</span>
+                        <span class="badge badge-danger">{{ complain.status }}</span>
+
+                      </h6>
+                      </li>
+
+                      <li v-if="complain.image"><h6>
+                        <span class="font-weight-bold">  image : </span>
+                        <img :src="complain.image" alt="" width="250" height="250">
+
                       </h6>
                       </li>
 
@@ -84,11 +172,12 @@ export default {
     name: "OrderShow",
     data() {
         return {
-            complains: [],
+            complain: [],
             orderComplain: '',
             partner: '',
             spName: '',
-            spContact: ''
+            spContact: '',
+             shipping_address:''
 
         }
     },
@@ -121,31 +210,27 @@ export default {
         }
     },
     created() {
-        this.fetchComplians();
-        this.fetchSingleOrderComplain();
+
+        this.fetchSingleComplain();
     },
     methods: {
-        fetchComplians() {
-            // console.log('fetch ---- complians ---- ', ADMIN_URL);
-            axios.get(`${ADMIN_URL}/complains`)
-                .then(response => {
-                    // console.log('fetchComplains === === ', response);
-                    this.complains = response.data;
-                }).catch(error => {
-                    // console.log('Error response :: ', error.response);
-                })
-        },
-        fetchSingleOrderComplain() {
-            const order_complain_PK = this.$route.params.id;
-            axios.get(`${ADMIN_URL}/order-complain/${order_complain_PK}`)
-                .then(response => {
-                    this.orderComplain = response.data;
-                    this.orderComplain.complain_id = JSON.parse(response.data.complain_id);
-                    // console.log('fetchSingleOrderComplain, Responseeeeeeeeeee ', response);
-                    this.fetchOrder(this.orderComplain.order_id);
-                }).catch(error => {
-                    // console.log('fetchSingleOrderComplain, error === ', error.response);
-                })
+
+        fetchSingleComplain() {
+          this.complain_id = window.location.pathname.split("/").pop();
+          axios.get(`${ADMIN_URL}/user-complain-by-id`, {
+            params: {
+              id: this.complain_id
+            }
+          }).then(response => {
+
+            this.complain = response.data.data;
+            this.shipping_address = this.complain.shipping_address;
+            console.log('this.complain',this.shipping_address.address_details);
+
+
+          }).catch(e => {
+            console.log("error occurs",e);
+          });
         },
         fetchOrder(order_id) {
             // console.log('order_id === ', order_id);

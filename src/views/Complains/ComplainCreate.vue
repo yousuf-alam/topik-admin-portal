@@ -1,94 +1,170 @@
 <template>
-    <b-card class="m-4">
-        <h5 class="mb-4">Report Complain</h5>
-      <b-form-group label="Order ID">
-        <b-form-input
-          v-model="order_id"
-          type="number"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group label="Select Reasons(s)">
-        <MultiSelect
-          v-model="selected_reasons"
-          placeholder="Search or add a tag"
-          label="name"
-          track-by="id"
-          :options="reasons"
-          :multiple="true">
+  <b-card class="m-4">
+    <b-tabs card pills>
+      <b-tab active title="Basic Info">
+        <b-card-text>
 
-        </MultiSelect>
-      </b-form-group>
-        <b-form-group label="Description">
-          <b-form-textarea
-            id="textarea"
-            v-model="description"
-            placeholder="Write something..."
-            rows="3"
-            max-rows="6"
-          ></b-form-textarea>
-        </b-form-group>
-        <b-button type="submit" @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Report Complain</b-button>
-    </b-card>
+          <div class="form-group">
+            <label>Channel Name</label>
+            <select v-model="channel" class="form-control">
+              <option value="facebook">Facebook</option>
+              <option value="messenger">Messenger</option>
+              <option value="instagram">Instagram</option>
+              <option value="play-store">Play Store</option>
+              <option value="app-store">Play Store</option>
+              <option value="instagram">Instagram</option>
+              <option value="cs-call">CS Call</option>
+              <option value="mobile-app">Mobile App</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Complain Type</label>
+            <select v-model="type" class="form-control">
+              <option value="order">Order</option>
+              <option value="technical">Technical</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+          <div class="form-group" v-if="this.type==='order'">
+            <label>Order ID</label>
+            <input class="form-control" type="text" v-model="order_id" >
+          </div>
+          <div class="form-group">
+            <label>Problem in short</label>
+            <textarea class="form-control" rows="3" v-model="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Attachment</label><br>
+            <input type="file" class="form-control" v-on:change="onImageChange">
+          </div>
+
+
+          <div  class="form-group">
+            <label>Complain Date</label>
+            <VueCtkDateTimePicker
+              :overlay="true"
+              :range="false"
+              :no-label="true"
+              label="Select"
+              id="RangeDatePicker"
+              format="YYYY-MM-DD"
+              formatted="ll"
+              color="#7D4E77"
+              v-model="complain_date"
+            />
+          </div>
+          <div class="form-group">
+            <label>Assign To</label>
+            <select v-model="assigned_to" class="form-control">
+              <option value="ealham">Ealham</option>
+              <option value="farah">Farah</option>
+              <option value="nusrat">Nusrat</option>
+              <option value="tech-team">Tech Team</option>
+              <option value="cs-team">CS Team</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Priority</label>
+            <select v-model="priority" class="form-control">
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+
+            </select>
+          </div>
+
+
+          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Payment
+          </b-button>
+        </b-card-text>
+      </b-tab>
+    </b-tabs>
+  </b-card>
 </template>
 
 <script>
-    import axios from 'axios';
-    import MultiSelect from 'vue-multiselect';
-    const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-    export default {
-        name: "ComplainCreate",
-        components: {
-            MultiSelect
-        },
-        data() {
-            return {
-                reasons: [],
-                selected_reasons: [],
-                order_id: '',
-                description: ''
-            }
-        },
-        created() {
-            axios.get(`${ADMIN_URL}/complains`)
-                .then(response => {
-                    this.reasons = response.data;
-                })
-                .catch(e => {
-                    //console.log("error occurs");
-                });
-        },
-        methods: {
-            onSubmit() {
+import axios from "axios";
+const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+export default {
+  name: "ComplainCreate",
+  data(){
+    return {
+      order_id:'',
+      payment_method:'',
+      amount:'',
+      payment_to:'',
+      remarks:'',
+      complain_date:'',
+      type:'',
+      channel:'',
+      description:'',
+      assigned_to:'',
+      image:'',
+      priority:'',
+      partners:[]
 
-                let formData = new FormData();
 
-                formData.append('order_id', this.order_id);
-                formData.append('comment', this.description);
-                formData.append('complain_ids', JSON.stringify(this.selected_reasons));
 
-                axios.post(`${ADMIN_URL}/report-complain`,formData)
-                    .then(response => {
-                        console.log(response.data);
-                        if(response.data.success===true)
-                        {
-                            this.$swal('Success',response.data.message,'success');
-                            window.location.href='/complains';
-                        }
-                        else
-                        {
-                            this.$swal('Error', response.data.message,'error');
-                        }
-                    })
-                    .catch(error => {
-                        console.log('Error  ... ', error.response.data);
-                        console.log(error)
-                        this.$swal('Error', 'Something went wrong','error');
-                    });
-            }
-        }
     }
+  },
+  mounted() {
+    // this.getPartners();
+  },
+  methods:{
+
+    onImageChange(e) {
+      console.log("image paisi");
+      this.image = e.target.files[0];
+    },
+    getPartners() {
+      axios.get(`${ADMIN_URL}/all-active-partners`)
+        .then(response => {
+          this.partners = response.data.data;
+          // console.log(this.partners);
+        })
+        .catch(error => {
+
+        });
+    },
+    onSubmit(e) {
+      console.log(this.image);
+      e.preventDefault();
+      let currentObj = this;
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+          'Accept' : 'application/json',
+        }
+      };
+
+      let formData = new FormData();
+      formData.append('order_id', this.order_id);
+      formData.append('type', this.type);
+      formData.append('assigned_to', this.assigned_to);
+      formData.append('image', this.image);
+      formData.append('description', this.description);
+      formData.append('complain_date', this.complain_date);
+      formData.append('channel', this.channel);
+      formData.append('priority', this.priority);
+
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
+      axios.post(`${ADMIN_URL}/create-user-complains`, formData)
+        .then(response => {
+          // console.log('Success', response);
+
+          return this.$router.push('/complains');
+
+        })
+        .catch(error => {
+
+        });
+    }
+  }
+}
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
 <style scoped>
 
 </style>

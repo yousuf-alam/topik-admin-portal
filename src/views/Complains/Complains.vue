@@ -1,9 +1,9 @@
 <template>
     <div class="animated fadeIn">
 
-    <div v-if="data_loaded_successfully">
+    <div>
         <div class="cardheading">
-          <h4><i class="fa fa-thumbs-down"></i><span class="ml-1">Complains</span></h4>
+          <h4><i class="fa fa-thumbs-down"></i><span class="ml-1">Complaints</span></h4>
           <div class="">
             <h1 class="my-auto tableName">
 
@@ -21,7 +21,7 @@
 
               </select>
             <router-link :to="{ name: 'ComplainCreate'}">
-              <button class="btn btn-success">Report New Complain</button>
+              <button class="btn btn-success">Report New Complaint</button>
             </router-link>
           </div>
         </div>
@@ -44,12 +44,14 @@
                     <span class="badge badge-success" v-else>{{ props.row.status }}</span>
                   </template>
                     <template slot="action" slot-scope="props">
-                        <div>
+                        <div class="d-flex gap-2">
                             <router-link :to="{ name: 'ComplainShow', params: { id: props.row.id }}">
                                 <span class="btn btn-primary btn-sm m-1" data-toggle="tooltip" title="Show" :href="props.row.show">
                                     <i class="fa fa-search"></i>
                                 </span>
                             </router-link>
+                          <router-link :to="{ name: 'ComplainEdit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
+                                    <i class="fa fa-edit"></i></span></router-link>
                         </div>
                     </template>
                 </v-client-table>
@@ -57,9 +59,7 @@
             </b-col>
         </b-row>
     </div>
-    <div v-else class="customcard">
-        Loading...
-    </div>
+
     </div>
 </template>
 
@@ -72,8 +72,8 @@ export default {
     data() {
         return {
             data_loaded_successfully: false,
-            key:'last_year',
-            columns: ['order_id', 'partner', 'description','status','created_at' ,'action'],
+            key:'this_month',
+            columns: ['id', 'channel', 'type','partner_name','priority','assigned_to','complain_date','status','created_at' ,'action'],
             tableData: [],
                 options: {
                     pagination: {nav: 'fixed'},
@@ -93,7 +93,7 @@ export default {
         this.getAllComplains();
       },
         getAllComplains() {
-            axios.post(`${ADMIN_URL}/order-complains`,{key:this.key})
+            axios.post(`${ADMIN_URL}/user-complains`,{key:this.key})
                 .then(response => {
                     this.tableData = response.data.data;
                     this.data_loaded_successfully = true;

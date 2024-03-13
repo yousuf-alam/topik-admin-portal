@@ -192,6 +192,7 @@ import CreateContent from "@/views/ScheduleNotification/CreateContent.vue";
 import showContent from "@/views/ScheduleNotification/ShowContent.vue";
 import ShowContent from "@/views/ScheduleNotification/ShowContent.vue";
 import CreateScheduleNotification from "@/views/ScheduleNotification/CreateScheduleNotification.vue";
+import ComplainEdit from "@/views/Complains/ComplainEdit.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -1147,6 +1148,14 @@ const router = new Router({
           path: "/complains/show/:id",
           name: "ComplainShow",
           component: ComplainShow,
+          meta: {
+            permission_name: "complain read"
+          }
+        },
+        {
+          path: "/complains/edit/:id",
+          name: "ComplainEdit",
+          component: ComplainEdit,
           meta: {
             permission_name: "complain read"
           }

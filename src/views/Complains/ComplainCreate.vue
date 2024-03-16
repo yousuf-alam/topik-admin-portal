@@ -11,7 +11,7 @@
               <option value="messenger">Messenger</option>
               <option value="instagram">Instagram</option>
               <option value="play-store">Play Store</option>
-              <option value="app-store">Play Store</option>
+              <option value="app-store">App Store</option>
               <option value="instagram">Instagram</option>
               <option value="cs-call">CS Call</option>
               <option value="mobile-app">Mobile App</option>
@@ -56,9 +56,9 @@
           <div class="form-group">
             <label>Assign To</label>
             <select v-model="assigned_to" class="form-control">
-              <option value="ealham">Ealham</option>
-              <option value="farah">Farah</option>
-              <option value="nusrat">Nusrat</option>
+              <option value="ealham_apu">Ealham Apu</option>
+              <option value="farah_apu">Farah Apu</option>
+              <option value="nusrat_apu">Nusrat Apu</option>
               <option value="tech-team">Tech Team</option>
               <option value="cs-team">CS Team</option>
             </select>
@@ -75,7 +75,7 @@
           </div>
 
 
-          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Payment
+          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Complaint
           </b-button>
         </b-card-text>
       </b-tab>

@@ -84,6 +84,8 @@
             <li><h6><span class="font-weight-bold">Advance Payment Discount : </span>{{order.discount_adv_pay}}</h6></li>
             <li><h6><span class="font-weight-bold">Promo Discount : </span>{{order.total_discount - order.discount_adv_pay}}</h6></li>
             <li><h6><span class="font-weight-bold">  Total Bill : </span>{{order.total_bill}} </h6></li>
+            <li><h6><span class="font-weight-bold">  Total Paid : </span>{{order.total_paid}} </h6></li>
+            <li><h6><span class="font-weight-bold">  Total Due : </span>{{order.total_due}} </h6></li>
             <li  :class="{ 'paid-show' : order.payment_status == 'Paid'} "><h6><span class="font-weight-bold" >  Payment Status : </span>{{order.payment_status}} </h6></li>
 
 

@@ -85,7 +85,7 @@
           <input class="form-control"  v-model="complain.deduction">
         </b-form-group>
 
-        <b-form-group label="Solve Date">
+        <b-form-group label="Solution Date">
 
           <VueCtkDateTimePicker
             :overlay="true"

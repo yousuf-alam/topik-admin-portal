@@ -1137,7 +1137,7 @@ const router = new Router({
           }
         },
         {
-          path: "complains",
+          path: "complaints",
           name: "Complains",
           component: Complains,
           meta: {
@@ -1145,7 +1145,7 @@ const router = new Router({
           }
         },
         {
-          path: "/complains/show/:id",
+          path: "/complaint/show/:id",
           name: "ComplainShow",
           component: ComplainShow,
           meta: {
@@ -1153,7 +1153,7 @@ const router = new Router({
           }
         },
         {
-          path: "/complains/edit/:id",
+          path: "/complaint/edit/:id",
           name: "ComplainEdit",
           component: ComplainEdit,
           meta: {

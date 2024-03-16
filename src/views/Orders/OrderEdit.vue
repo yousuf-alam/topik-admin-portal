@@ -140,6 +140,7 @@
           <b-col>
             <b-form-group label="Payment Status?"  >
               <b-form-radio v-model="order.payment_status" value="Paid" >Paid</b-form-radio>
+              <b-form-radio v-model="order.payment_status" value="Partial" >Partial</b-form-radio>
               <b-form-radio v-model="order.payment_status" value="Pending">Pending</b-form-radio>
             </b-form-group>
           </b-col>
@@ -178,6 +179,12 @@
           </b-form-group>
           <b-form-group label="Total Bill">
             <input type="text" class="form-control" v-model="order.total_bill">
+          </b-form-group>
+          <b-form-group label="Total Paid">
+            <input type="text" class="form-control" v-model="order.total_paid" :disabled="true">
+          </b-form-group>
+          <b-form-group label="Total Due">
+            <input type="text" class="form-control" v-model="order.total_due" :disabled="true">
           </b-form-group>
           <b-form-group v-show="order.coupon_id!==null" label="Applied Promo">
             <span class="text-success">{{order.coupon_code}}</span>

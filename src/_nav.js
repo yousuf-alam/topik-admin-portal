@@ -66,7 +66,7 @@ const navitems = {
     // },
     {
       name: 'Complaints',
-      url: '/complains',
+      url: '/complaints',
       icon: 'fa fa-thumbs-down',
       permission_name: permissionsList.complain
     },

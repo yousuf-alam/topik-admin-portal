@@ -16,29 +16,22 @@
     <b-row>
       <b-col>
         <b-card>
-          <v-client-table :data="redeems" :columns="columns" :options="options">
-<!--            <template slot="action" slot-scope="props">-->
-<!--              <div>-->
-<!--                <router-link :to="{ name: 'EditRedeem', params: { id: props.row.id }}"-->
-<!--                >-->
-<!--                  <span-->
-<!--                      class="btn btn-warning btn-sm m-1"-->
-<!--                      data-toggle="tooltip" title="Edit"-->
-<!--                      :href="props.row.id">-->
-<!--                    <i class="fa fa-edit"></i>-->
-<!--                  </span>-->
-<!--                </router-link>-->
-<!--                <span-->
-<!--                    class="btn btn-danger btn-sm m-1"-->
-<!--                    data-toggle="tooltip"-->
-<!--                    title="Delete Redeem"-->
-<!--                    :href="props.row.id"-->
-<!--                    @click="handleDelete(props.row.id)"-->
-<!--                >-->
-<!--                    <i class="fa fa-trash"></i>-->
-<!--                </span>-->
-<!--              </div>-->
-<!--            </template>-->
+          <v-client-table :data="orders" :columns="columns" :options="options">
+            <template slot="action" slot-scope="props">
+              <div>
+
+
+                <router-link :to="{ name: 'OrderEdit', params: { id: props.row.id }}">
+                                         <span
+                                           class="btn btn-warning btn-sm m-1"
+                                           data-toggle="tooltip" title="Edit"
+                                           :href="props.row.id">
+                    <i class="fa fa-edit"></i>
+                  </span>
+                </router-link>
+
+              </div>
+            </template>
           </v-client-table>
         </b-card>
       </b-col>
@@ -54,19 +47,18 @@ export default {
 
   data() {
     return {
-      redeems : [],
+      orders : [],
       columns: [
         'created_at',
         'id',
-        'service_type' ,
         'platform',
-        'placed_by',
         'status',
+        'payment_method',
+        'payment_status',
         'scheduled_date',
         'scheduled_time',
         'shipping_name',
         'total_bill',
-        'payment_method',
         'shipping_phone',
         'shipping_address',
         'action'
@@ -87,7 +79,7 @@ export default {
     axios.get(`${ADMIN_URL}/orders/un-settled`)
         .then(response => {
           console.log('response',response);
-          this.redeems = response.data.data;
+          this.orders = response.data.data;
         })
         .catch(e => {
           console.log("error occurs", e.response);

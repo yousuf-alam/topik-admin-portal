@@ -58,6 +58,12 @@ const navitems = {
       icon: 'fa fa-cart-plus',
       permission_name: permissionsList.order
     },
+    {
+      name: 'Refund Orders',
+      url: '/refund-orders',
+      icon: 'fa fa-cart-plus',
+      permission_name: permissionsList.order
+    },
     // {
     //   name: 'Appointments',
     //   url: '/appointments',

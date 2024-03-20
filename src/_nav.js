@@ -281,6 +281,12 @@ const navitems = {
       permission_name: permissionsList.topbanner
     },
 
+    {
+      name: 'Advance Payment Schedule',
+      url: '/advance-payment-schedule',
+      icon: 'fa fa-file-image-o',
+      permission_name: permissionsList.topbanner
+    },
 
 
     // {
@@ -388,6 +394,12 @@ const navitems = {
     {
       name: 'Min Order Time',
       url: '/minimum-order-time',
+      icon: 'fa fa-file-word-o',
+      permission_name: permissionsList.admin
+    },
+    {
+      name: 'Min Payment Time',
+      url: '/minimum-payment-time',
       icon: 'fa fa-file-word-o',
       permission_name: permissionsList.admin
     },

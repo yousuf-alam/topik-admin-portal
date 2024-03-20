@@ -158,6 +158,8 @@ import EditDiscount from "@/views/FirstOrderDiscount/EditDiscount.vue";
 import EditMinimumTime from "@/views/MinimumTimeOrder/EditMinimumTime.vue";
 import CreateMinimumTime from "@/views/MinimumTimeOrder/CreateMinimumTime.vue";
 import ShowMinimumTime from "@/views/MinimumTimeOrder/ShowMinimumTime.vue";
+import ShowMinimumPaymentTime from "@/views/MinimumTimePayment/ShowMinimumPaymentTime.vue";
+import EditMinimumPaymentTime from "@/views/MinimumTimePayment/EditMinimumPaymentTime.vue";
 import OrderNumberSp from "@/views/OrderNumberSp.vue";
 import RouteSpDaily from "@/views/RouteSpDaily.vue";
 import ShowPartnerLeave from "@/views/PartnerLeave/ShowPartnerLeave.vue";
@@ -177,6 +179,8 @@ import Statistics from "@/views/Statistics.vue";
 import RewardUser from "@/views/RewardUser/RewardUser.vue";
 import PaymentMethods from "@/views/PaymentMethod/PaymentMethods.vue";
 import EditPaymentMethod from "@/views/PaymentMethod/EditPaymentMethod.vue";
+import AdvancePaymentSchedule from "@/views/AdvancePayment/AdvancePaymentScheduleList.vue";
+import EditAdvancePaymentSchedule from "@/views/AdvancePayment/EditAdvancePaymentSchedule.vue"
 import LeaveApproval from "@/views/PartnerLeave/LeaveApproval.vue";
 import NoticeEdit from "@/views/PartnerNotice/NoticeEdit.vue";
 import NoticeCreate from "@/views/PartnerNotice/NoticeCreate.vue";
@@ -837,6 +841,46 @@ const router = new Router({
             permission_name: "lineitem create"
           }
         },
+
+
+        {
+          path: "/advance-payment-schedule",
+          name: "AdvancePaymentSchedule",
+          component: AdvancePaymentSchedule,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+
+        {
+          path: "/edit-advance-payment-schedule/:id",
+          name: "EditAdvancePaymentSchedule",
+          component: EditAdvancePaymentSchedule,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+        // minimum-payment-time
+
+        {
+          path: "/minimum-payment-time",
+          name: "ShowMinimumPaymentTime",
+          component: ShowMinimumPaymentTime,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+
+        {
+          path: "/edit-minimum-payment-time/:id",
+          name: "EditMinimumPaymentTime",
+          component: EditMinimumPaymentTime,
+          meta: {
+            permission_name: "lineitem create"
+          }
+        },
+
+
         {
           path: "/edit-payment-method/:id",
           name: "EditPaymentMethod",

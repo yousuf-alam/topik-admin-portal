@@ -126,13 +126,15 @@
 
                <div class="d-flex flex-column" v-if="order.payment_method==='ssl'">
 
-                 <div>
+                 <div v-if="order.total_paid==0">
+                   <label for="">Partial Payment</label>
                    <button @click="copyText" class="copy-icon" style="border: none;background: white">
                      <i class="fa fa-copy"></i>
                    </button>
                    <p class="content ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
                  </div>
                  <div>
+                   <label for="">Full/Due Payment</label>
                    <button @click="copyText" class="copy-icon" style="border: none;background: white">
                      <i class="fa fa-copy"></i>
                    </button>
@@ -144,7 +146,8 @@
                </div>
                 <div class="d-flex flex-column" v-if="order.payment_method==='bKash'">
 
-                  <div>
+                  <div v-if="order.total_paid==0">
+                    <label for="">Partial Payment</label>
                     <button @click="copyText" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
@@ -152,6 +155,7 @@
 
                   </div>
                   <div>
+                    <label for="">Full / Due Payment</label>
                     <button @click="copyText" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>

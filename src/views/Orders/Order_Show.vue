@@ -90,40 +90,44 @@
 
 
             <b-form-group label="Payment Link">
-              <div class="payment-box d-flex " v-if="order.payment_status ==='Pending' && (order.payment_method==='bKash' || order.payment_method==='ssl')">
-                <div class="d-flex flex-column">
+              <div class="payment-box d-flex " >
 
-                  <div>
+                <div class="d-flex flex-column" v-if="order.payment_method==='ssl'">
+
+                  <div v-if="order.total_paid==0">
+                    <label for="">Partial Payment</label>
                     <button @click="copyText" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content ml-2 " v-if="order.payment_method==='ssl'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_bill*0.75}}</p>
+                    <p class="content ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
                   </div>
-
                   <div>
+                    <label for="">Full/Due Payment</label>
                     <button @click="copyText" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content ml-2 " v-if="order.payment_method==='ssl'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
+                    <p class="content ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
 
                   </div>
 
 
                 </div>
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column" v-if="order.payment_method==='bKash'">
 
-                  <div>
+                  <div v-if="order.total_paid==0">
+                    <label for="">Partial Payment</label>
                     <button @click="copyText" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content ml-2" v-if="order.payment_method==='bKash'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_bill*0.75}}</p>
+                    <p class="content ml-2" >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
 
                   </div>
                   <div>
+                    <label for="">Full / Due Payment</label>
                     <button @click="copyText" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content ml-2" v-if="order.payment_method==='bKash'">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
+                    <p class="content ml-2">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
                   </div>
 
 

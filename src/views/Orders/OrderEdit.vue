@@ -222,6 +222,16 @@
           <b-form-group label="Total Due">
             <input type="text" class="form-control" v-model="order.total_due" :disabled="true">
           </b-form-group>
+          <b-form-group label="Refund Status" v-if="order.is_refund">
+            <select class="form-control" v-model="order.refund_status">
+              <option value="requested">Requested</option>
+              <option value="accepted">Accepted</option>
+              <option value="processing">Processing</option>
+              <option value="refunded">Refunded</option>
+
+            </select>
+          </b-form-group>
+
           <b-form-group v-show="order.coupon_id!==null" label="Applied Promo">
             <span class="text-success">{{order.coupon_code}}</span>
           </b-form-group>
@@ -656,6 +666,7 @@
         formData.append('payment_status', this.order.payment_status);
         formData.append('review', JSON.stringify(this.order.review));
         formData.append('new_rating', this.new_rating);
+        formData.append('refund_status', this.order.refund_status);
         formData.append('new_review', this.new_review);
         if(this.order.bKash_status)
         {

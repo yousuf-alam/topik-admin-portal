@@ -19,15 +19,16 @@
           <v-client-table :data="refunds" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
-<!--                <router-link :to="{ name: 'EditMinimumAmount', params: { id: props.row.id }}"-->
-<!--                >-->
-<!--                  <span-->
-<!--                    class="btn btn-warning btn-sm m-1"-->
-<!--                    data-toggle="tooltip" title="Edit"-->
-<!--                    :href="props.row.id">-->
-<!--                    <i class="fa fa-edit"></i>-->
-<!--                  </span>-->
-<!--                </router-link>-->
+
+
+                <router-link :to="{ name: 'OrderEdit', params: { id: props.row.id }}">
+                                         <span
+                                           class="btn btn-warning btn-sm m-1"
+                                           data-toggle="tooltip" title="Edit"
+                                           :href="props.row.id">
+                    <i class="fa fa-edit"></i>
+                  </span>
+                </router-link>
 
               </div>
             </template>
@@ -48,7 +49,7 @@ export default {
     return {
       refunds : [],
       columns: [
-        'id', 'total_paid', 'payment_status', 'status','cancel_hour_count', 'total_paid','expected_refund_amount'
+        'id', 'total_paid', 'payment_status', 'status','cancel_hour_count', 'refund_status','expected_refund_amount','action'
       ],
       redeem_id:'',
       options: {

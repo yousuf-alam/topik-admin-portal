@@ -17,6 +17,12 @@
       <b-col>
         <b-card>
           <v-client-table :data="refunds" :columns="columns" :options="options">
+            <template slot="refund_status" slot-scope="props">
+              <div :style="{ color: props.row.refund_status.toLowerCase() === 'refunded' ? 'green' : 'black' }">
+                {{ props.row.refund_status }}
+              </div>
+            </template>
+
             <template slot="action" slot-scope="props">
               <div>
 

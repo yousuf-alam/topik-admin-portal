@@ -226,6 +226,7 @@
             <select class="form-control" v-model="order.refund_status">
               <option value="requested">Requested</option>
               <option value="accepted">Accepted</option>
+              <option value="rejected">Rejected</option>
               <option value="processing">Processing</option>
               <option value="refunded">Refunded</option>
 

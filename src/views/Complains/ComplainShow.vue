@@ -31,8 +31,14 @@
                           </li>
                           <li>
                             <h6>
-                              <span class="font-weight-bold">  Complain Date : </span>
-                              <span> {{complain.complain_date}} </span>
+                              <span class="font-weight-bold">  Complain Issue Date : </span>
+                              <span> {{complain.complain_issue_date}} </span>
+                            </h6>
+                          </li>
+                          <li>
+                            <h6>
+                              <span class="font-weight-bold">  Complain Entry Date : </span>
+                              <span> {{complain.complain_entry_date}} </span>
                             </h6>
                           </li>
                           <li>

@@ -40,7 +40,7 @@
 
 
           <div  class="form-group">
-            <label>Complain Date</label>
+            <label>Complain Issue Date</label>
             <VueCtkDateTimePicker
               :overlay="true"
               :range="false"
@@ -50,7 +50,22 @@
               format="YYYY-MM-DD"
               formatted="ll"
               color="#7D4E77"
-              v-model="complain_date"
+              v-model="complain_issue_date"
+            />
+          </div>
+
+          <div  class="form-group">
+            <label>Complain Entry Date</label>
+            <VueCtkDateTimePicker
+              :overlay="true"
+              :range="false"
+              :no-label="true"
+              label="Select"
+              id="RangeDatePicker"
+              format="YYYY-MM-DD"
+              formatted="ll"
+              color="#7D4E77"
+              v-model="complain_entry_date"
             />
           </div>
           <div class="form-group">
@@ -95,7 +110,8 @@ export default {
       amount:'',
       payment_to:'',
       remarks:'',
-      complain_date:'',
+      complain_issue_date:'',
+      complain_entry_date: '',
       type:'',
       channel:'',
       description:'',
@@ -144,7 +160,8 @@ export default {
       formData.append('assigned_to', this.assigned_to);
       formData.append('image', this.image);
       formData.append('description', this.description);
-      formData.append('complain_date', this.complain_date);
+      formData.append('complain_issue_date', this.complain_issue_date);
+      formData.append('complain_entry_date', this.complain_entry_date);
       formData.append('channel', this.channel);
       formData.append('priority', this.priority);
 
@@ -154,7 +171,7 @@ export default {
         .then(response => {
           // console.log('Success', response);
 
-          return this.$router.push('/complains');
+          return this.$router.push('/complaints');
 
         })
         .catch(error => {

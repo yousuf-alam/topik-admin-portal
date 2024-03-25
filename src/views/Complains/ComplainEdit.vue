@@ -31,8 +31,8 @@
 
           <input class="form-control"  v-model="complain.order_id">
         </b-form-group>
-        <b-form-group label="Complain Date">
-          <input class="form-control"  v-model="complain.complain_date">
+        <b-form-group label="Complain Issue Date">
+          <input class="form-control"  v-model="complain.complain_issue_date">
         </b-form-group>
         <div>
 
@@ -184,7 +184,7 @@ export default {
       formData.append('channel', this.complain.channel);
       formData.append('type', this.complain.type);
       formData.append('order_id', this.complain.order_id);
-      formData.append('complain_date', this.complain.complain_date);
+      formData.append('complain_issue_date', this.complain.complain_issue_date);
       formData.append('description', this.complain.description);
       formData.append('image', this.complain.image);
       formData.append('status', this.complain.status);

@@ -73,7 +73,7 @@ export default {
         return {
             data_loaded_successfully: false,
             key:'this_month',
-            columns: ['id', 'channel', 'type','partner_name','priority','assigned_to','complain_date','status','created_at' ,'action'],
+            columns: ['id', 'channel', 'type','partner_name','priority','assigned_to','complain_entry_date','status','created_at' ,'action'],
             tableData: [],
                 options: {
                     pagination: {nav: 'fixed'},

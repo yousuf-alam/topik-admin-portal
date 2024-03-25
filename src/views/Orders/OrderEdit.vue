@@ -216,6 +216,11 @@
           <b-form-group label="Total Bill">
             <input type="text" class="form-control" v-model="order.total_bill">
           </b-form-group>
+          <b-form-group label="Insert Payment">
+            <input type="text" class="form-control" v-model="add_payment">
+            <button class="btn btn-dark mt-3" @click="addPayment"> Add Payment</button>
+
+          </b-form-group>
           <b-form-group label="Total Paid">
             <input type="text" class="form-control" v-model="order.total_paid" :disabled="true">
           </b-form-group>
@@ -397,6 +402,7 @@
         order_id: '',
         partners: [],
         locations: [],
+        add_payment:'',
         city: 'Dhaka',
         type: '',
         date_type: '',
@@ -625,6 +631,31 @@
           this.order.discount_adv_pay= 0;
           this.order.total_bill= this.order.total_service_charge - this.order.total_discount;
         }
+
+      },
+      addPayment(e)
+      {
+        let formData = new FormData();
+        formData.append('id', this.order.id);
+        formData.append('amount', this.add_payment);
+        axios.post(`${ADMIN_URL}/order-payment/insert-bill`, formData)
+          .then(response => {
+
+            this.add_payment='';
+
+
+            this.$swal('Payment Inserted', '', 'success');
+            this.fetchOrder();
+
+
+            // }
+
+          })
+          .catch(error => {
+            // console.log('Error  ... ', error.response);
+            currentObj.output = error;
+            // console.log(error);
+          });
 
       },
 

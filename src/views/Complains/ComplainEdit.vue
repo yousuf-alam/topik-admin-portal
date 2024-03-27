@@ -2,9 +2,9 @@
   <b-row>
     <b-col class="mb-5" sm="6" md="6">
       <b-card class="h-100 p-4 m-4">
-        <h5 class="mb-4">Complaint  Details</h5>
+        <h5 class="mb-4">Complaint Details</h5>
         <b-form-group>
-          <label >complain ID : {{complain.id}}</label>
+          <label>Complain ID : {{ complain.id }}</label>
         </b-form-group>
         <b-form-group label="Complain Channel">
 
@@ -27,23 +27,23 @@
           </select>
 
         </b-form-group>
-        <b-form-group label="Order Id"  v-if="this.complain.type==='order'">
+        <b-form-group label="Order Id" v-if="this.complain.type === 'order'">
 
-          <input class="form-control"  v-model="complain.order_id">
+          <input class="form-control" v-model="complain.order_id">
         </b-form-group>
         <b-form-group label="Complain Issue Date">
-          <input class="form-control"  v-model="complain.complain_issue_date">
+          <input class="form-control" v-model="complain.complain_issue_date">
         </b-form-group>
         <div>
 
           <b-form-group class="" label="Priority">
-            <input class="form-control"  v-model="complain.priority">
+            <input class="form-control" v-model="complain.priority">
           </b-form-group>
         </div>
 
 
-        <b-form-group label="Complain Description" >
-          <textarea class="form-control"  v-model="complain.description" />
+        <b-form-group label="Complain Description">
+          <textarea class="form-control" v-model="complain.description" />
         </b-form-group>
         <b-form-group label="Assigned to" class="mt-2">
           <select v-model="complain.assigned_to" class="form-control">
@@ -60,8 +60,7 @@
           <input type="file" class="form-control" v-on:change="onImageChange">
         </b-form-group>
 
-        <button class="btn btn-dark mt-3"
-                @click="updateComplaint"> Update</button>
+        <button class="btn btn-dark mt-3" @click="updateComplaint"> Update</button>
 
       </b-card>
     </b-col>
@@ -75,29 +74,50 @@
             <option value="apology">Apology</option>
           </select>
         </b-form-group>
-        <b-form-group label="Solution Description">
-          <textarea class="form-control"  v-model="complain.solve_description" />
+
+        <b-form-group label="Complementary Service Type" v-if="this.complain.solve_type === 'complementary-service'">
+          <select class='form-control' v-model="complain.complementary_service_type">
+            <option value="basic-cleansing">Basic Cleansing</option>
+            <option value="spa-manicure-pedicure">Spa Manicure Pedicure</option>
+            <option value="heir-protien">Heir Protien</option>
+            <option value="other">Others</option>
+          </select>
         </b-form-group>
-        <b-form-group label="Complementary order ID" v-if="this.complain.type!=='technical'">
-          <input class="form-control"  v-model="complain.complementary_order_id" />
+
+
+        <b-form-group label="Line Items" v-if="this.complain.complementary_service_type === 'other'">
+          <select class="form-control" v-model="complain.complementary_line_item">
+            <option v-for="(item, index) in this.complain.activeLineItems" :value="item.name" :key="index">
+              {{ item.name }}
+            </option>
+          </select>
         </b-form-group>
-        <b-form-group label="Deduction" class="mt-2" v-if="this.complain.type!=='technical'">
-          <input class="form-control"  v-model="complain.deduction">
+
+
+
+        <b-form-group label="Complementary Service SP" v-if="this.complain.solve_type === 'complementary-service'">
+          <select class="form-control" v-model="complain.complementary_service_sp">
+            <option v-for="(sp, index) in this.complain.inHouseSp" :value="sp.name" :key="index">
+              {{ sp.name }}
+            </option>
+          </select>
+        </b-form-group>
+
+
+        <b-form-group label="Comment">
+          <textarea class="form-control" v-model="complain.solve_description" />
+        </b-form-group>
+        <!-- <b-form-group label="Complementary order ID" v-if="this.complain.type !== 'technical'">
+          <input class="form-control" v-model="complain.complementary_order_id" />
+        </b-form-group> -->
+        <b-form-group label="Deduction" class="mt-2" v-if="this.complain.type !== 'technical'">
+          <input class="form-control" v-model="complain.deduction">
         </b-form-group>
 
         <b-form-group label="Solution Date">
 
-          <VueCtkDateTimePicker
-            :overlay="true"
-            :range="false"
-            :no-label="true"
-            label="Select"
-            id="RangeDatePicker"
-            format="YYYY-MM-DD"
-            formatted="ll"
-            color="#7D4E77"
-            v-model="complain.solve_date"
-          />
+          <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true" label="Select" id="RangeDatePicker"
+            format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain.solve_date" />
         </b-form-group>
 
         <b-form-group label="Complain Status">
@@ -119,20 +139,20 @@
 <script>
 import axios from 'axios';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-const BASE_URL  = process.env.VUE_APP_BASE_URL;
+const BASE_URL = process.env.VUE_APP_BASE_URL;
 export default {
   name: "ComplainEdit",
 
   data() {
     return {
       complain: [],
-      src_image : '/images/user_complain/',
+      src_image: '/images/user_complain/',
       image_url: '',
       image_updated: false,
       name: '',
       title: '',
       image: '',
-      status:'',
+      status: '',
       complain_id: '',
 
     }
@@ -144,15 +164,15 @@ export default {
       params: {
         id: this.complain_id
       }
-      }).then(response => {
+    }).then(response => {
       console.log('Response data ===== ', response.data);
       this.complain = response.data.data;
       this.image_url = BASE_URL + this.src_image + response.data.image;
 
 
     })
-      .catch(e=>{
-        console.log("error occurs",e);
+      .catch(e => {
+        console.log("error occurs", e);
       });
 
   },
@@ -175,7 +195,7 @@ export default {
       e.preventDefault();
       let currentObj = this;
       const config = {
-        headers: {'content-type': 'multipart/form-data'}
+        headers: { 'content-type': 'multipart/form-data' }
       };
 
 
@@ -190,12 +210,14 @@ export default {
       formData.append('status', this.complain.status);
       formData.append('priority', this.complain.priority);
       formData.append('assigned_to', this.complain.assigned_to);
-      formData.append('deduction',  this.complain.deduction);
+      formData.append('deduction', this.complain.deduction);
       formData.append('solve_type', this.complain.solve_type);
+      formData.append('complementary_service_type', this.complain.complementary_service_type);
+      formData.append('complementary_service_sp', this.complain.complementary_service_sp);
+      formData.append('complementary_line_item', this.complain.complementary_line_item);
       formData.append('solve_date', this.complain.solve_date);
-      formData.append('complementary_order_date', this.complain.complementary_order_date);
-      formData.append('complementary_order_id', this.complain.complementary_order_id);
-      formData.append('comments', this.complain.comments);
+      // formData.append('complementary_order_date', this.complain.complementary_order_date);
+      // formData.append('comments', this.complain.comments);
 
 
       axios.post(`${ADMIN_URL}/update-user-complaint`, formData, config)
@@ -203,12 +225,11 @@ export default {
           //console.log('Success', response);
           currentObj.success = response.data.success;
           //console.log(response.data);
-          if(response.data.success === true)
-          {
+          if (response.data.success === true) {
             this.$swal('complain Details Updated', '', 'success');
-            setTimeout(()=>{
+            setTimeout(() => {
               location.reload();
-            },1000);
+            }, 1000);
           }
 
         })
@@ -227,7 +248,7 @@ export default {
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
-          'Accept' : 'application/json',
+          'Accept': 'application/json',
         }
       }
 
@@ -237,24 +258,21 @@ export default {
       formData.append('title', this.content.title);
       formData.append('body', this.content.body);
       formData.append('status', this.content.status);
-      if(this.image_updated)
-      {
+      if (this.image_updated) {
         formData.append('image', this.content.image);
       }
 
 
 
-      axios.post(`${ADMIN_URL}/schedule-notification-data/update-content`,formData,config)
+      axios.post(`${ADMIN_URL}/schedule-notification-data/update-content`, formData, config)
         .then(response => {
           //console.log('Success', response);
           currentObj.success = response.data.success;
-          if(response.data.success===true)
-          {
-            this.$swal('Success',response.data.message,'success');
-            this.$router.push({name: 'ShowContent'});
+          if (response.data.success === true) {
+            this.$swal('Success', response.data.message, 'success');
+            this.$router.push({ name: 'ShowContent' });
           }
-          else
-          {
+          else {
             this.$swal('Error', 'Something went wrong', 'error');
           }
 
@@ -269,6 +287,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

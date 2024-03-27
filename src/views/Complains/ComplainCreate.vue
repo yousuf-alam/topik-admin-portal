@@ -25,9 +25,9 @@
               <option value="others">Others</option>
             </select>
           </div>
-          <div class="form-group" v-if="this.type==='order'">
+          <div class="form-group" v-if="this.type === 'order'">
             <label>Order ID</label>
-            <input class="form-control" type="text" v-model="order_id" >
+            <input class="form-control" type="text" v-model="order_id">
           </div>
           <div class="form-group">
             <label>Problem in short</label>
@@ -39,34 +39,16 @@
           </div>
 
 
-          <div  class="form-group">
-            <label>Complain Issue Date</label>
-            <VueCtkDateTimePicker
-              :overlay="true"
-              :range="false"
-              :no-label="true"
-              label="Select"
-              id="RangeDatePicker"
-              format="YYYY-MM-DD"
-              formatted="ll"
-              color="#7D4E77"
-              v-model="complain_issue_date"
-            />
+          <div class="form-group">
+            <label>Complain Issue Date(From User)</label>
+            <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true" label="Select" id="RangeDatePicker"
+              format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain_issue_date" />
           </div>
 
-          <div  class="form-group">
-            <label>Complain Entry Date</label>
-            <VueCtkDateTimePicker
-              :overlay="true"
-              :range="false"
-              :no-label="true"
-              label="Select"
-              id="RangeDatePicker"
-              format="YYYY-MM-DD"
-              formatted="ll"
-              color="#7D4E77"
-              v-model="complain_entry_date"
-            />
+          <div class="form-group">
+            <label>Complain Entry Date(By Admin)</label>
+            <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true" label="Select" id="RangeDatePicker"
+              format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain_entry_date" />
           </div>
           <div class="form-group">
             <label>Assign To</label>
@@ -82,9 +64,9 @@
           <div class="form-group">
             <label>Priority</label>
             <select v-model="priority" class="form-control">
-              <option value="high">High</option>
-              <option value="medium">Medium</option>
-              <option value="low">Low</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
 
             </select>
           </div>
@@ -103,22 +85,22 @@ import axios from "axios";
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
   name: "ComplainCreate",
-  data(){
+  data() {
     return {
-      order_id:'',
-      payment_method:'',
-      amount:'',
-      payment_to:'',
-      remarks:'',
-      complain_issue_date:'',
+      order_id: '',
+      payment_method: '',
+      amount: '',
+      payment_to: '',
+      remarks: '',
+      complain_issue_date: '',
       complain_entry_date: '',
-      type:'',
-      channel:'',
-      description:'',
-      assigned_to:'',
-      image:'',
-      priority:'',
-      partners:[]
+      type: '',
+      channel: '',
+      description: '',
+      assigned_to: '',
+      image: '',
+      priority: '',
+      partners: []
 
 
 
@@ -127,7 +109,7 @@ export default {
   mounted() {
     // this.getPartners();
   },
-  methods:{
+  methods: {
 
     onImageChange(e) {
       console.log("image paisi");
@@ -150,7 +132,7 @@ export default {
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
-          'Accept' : 'application/json',
+          'Accept': 'application/json',
         }
       };
 
@@ -182,6 +164,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

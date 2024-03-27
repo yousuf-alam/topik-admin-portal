@@ -128,17 +128,17 @@
 
                  <div v-if="order.total_paid==0">
                    <label for="">Partial Payment</label>
-                   <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                   <button @click="copyTextPartial" class="copy-icon" style="border: none;background: white">
                      <i class="fa fa-copy"></i>
                    </button>
-                   <p class="content ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
+                   <p class="content-partial ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
                  </div>
                  <div>
                    <label for="">Full/Due Payment</label>
-                   <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                   <button @click="copyTextDue" class="copy-icon" style="border: none;background: white">
                      <i class="fa fa-copy"></i>
                    </button>
-                   <p class="content ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
+                   <p class="content-due ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
 
                  </div>
 
@@ -148,18 +148,18 @@
 
                   <div v-if="order.total_paid==0">
                     <label for="">Partial Payment</label>
-                    <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                    <button @click="copyTextPartial" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content ml-2" >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
+                    <p class="content-partial ml-2" >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
 
                   </div>
                   <div>
                     <label for="">Full / Due Payment</label>
-                    <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                    <button @click="copyTextDue" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content ml-2">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
+                    <p class="content-due ml-2">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
                   </div>
 
 
@@ -584,9 +584,28 @@
 
         this.order.scheduled_date =  [year, month, day].join('-');
       },
-      copyText() {
+      copyTextPartial() {
         // Get the text content of the div
-        const textToCopy = this.$el.querySelector('.content').textContent;
+        const textToCopy = this.$el.querySelector('.content-partial').textContent;
+
+        // Create a temporary input element
+        const tempInput = document.createElement('textarea');
+        tempInput.style.position = 'absolute';
+        tempInput.style.left = '-9999px';
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+
+        // Select and copy the text
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        // Provide some visual feedback (optional)
+        alert('Text copied to clipboard!');
+      },
+      copyTextDue() {
+        // Get the text content of the div
+        const textToCopy = this.$el.querySelector('.content-due').textContent;
 
         // Create a temporary input element
         const tempInput = document.createElement('textarea');

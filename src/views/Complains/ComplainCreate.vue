@@ -12,7 +12,6 @@
               <option value="instagram">Instagram</option>
               <option value="play-store">Play Store</option>
               <option value="app-store">App Store</option>
-              <option value="instagram">Instagram</option>
               <option value="cs-call">CS Call</option>
               <option value="mobile-app">Mobile App</option>
             </select>
@@ -33,9 +32,17 @@
             <label>Problem in short</label>
             <textarea class="form-control" rows="3" v-model="description"></textarea>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label>Attachment</label><br>
-            <input type="file" class="form-control" v-on:change="onImageChange">
+            <input type="file" class="form-control" multiple ">
+          </div> -->
+          <div class="form-group">
+            <label>Attachment</label>
+            <div v-for="(image, index) in images" :key="index">
+              <input type="file" @change="getFileValue(index, $event.target)" class="mt-2 form-control">
+            </div>
+            <b-button variant="primary" @click="addImage" class="mt-2">Add image uploader</b-button>
+
           </div>
 
 
@@ -99,6 +106,12 @@ export default {
       description: '',
       assigned_to: '',
       image: '',
+      images: [{
+        image: "",
+        ext: null,
+        name: null
+
+      }],
       priority: '',
       partners: []
 
@@ -111,10 +124,26 @@ export default {
   },
   methods: {
 
-    onImageChange(e) {
-      console.log("image paisi");
-      this.image = e.target.files[0];
+    getFileValue(index, target) {
+
+      let file = target.files[0]
+      // console.log(file
+      let ext = file.type.replace('image/', '')
+      let name = file.name
+      this.images[index].ext = ext;
+      this.images[index].name = name;
+      const reader = new FileReader();
+      reader.onload = (res) => {
+        this.images[index].image = res.target.result;
+      };
+      reader.onerror = (err) => console.log(err);
+      reader.readAsDataURL(file);
     },
+
+    addImage() {
+      this.images.push({ image: "" });
+    },
+
     getPartners() {
       axios.get(`${ADMIN_URL}/all-active-partners`)
         .then(response => {
@@ -140,7 +169,7 @@ export default {
       formData.append('order_id', this.order_id);
       formData.append('type', this.type);
       formData.append('assigned_to', this.assigned_to);
-      formData.append('image', this.image);
+      formData.append('images', JSON.stringify(this.images));
       formData.append('description', this.description);
       formData.append('complain_issue_date', this.complain_issue_date);
       formData.append('complain_entry_date', this.complain_entry_date);

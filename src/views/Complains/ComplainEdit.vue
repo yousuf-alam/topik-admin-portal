@@ -107,10 +107,10 @@
         <b-form-group label="Comment">
           <textarea class="form-control" v-model="complain.solve_description" />
         </b-form-group>
-        <!-- <b-form-group label="Complementary order ID" v-if="this.complain.type !== 'technical'">
+        <b-form-group hidden label="Complementary order ID" v-if="this.complain.type !== 'technical'">
           <input class="form-control" v-model="complain.complementary_order_id" />
-        </b-form-group> -->
-        <b-form-group label="Deduction" class="mt-2" v-if="this.complain.type !== 'technical'">
+        </b-form-group>
+        <b-form-group label="Deduction" class="mt-2" v-if="this.complain.type === 'order'">
           <input class="form-control" v-model="complain.deduction">
         </b-form-group>
 
@@ -203,7 +203,10 @@ export default {
       formData.append('id', this.complain.id);
       formData.append('channel', this.complain.channel);
       formData.append('type', this.complain.type);
-      formData.append('order_id', this.complain.order_id);
+      if (this.complain.order_id) {
+        formData.append('order_id', this.complain.order_id);
+      }
+
       formData.append('complain_issue_date', this.complain.complain_issue_date);
       formData.append('description', this.complain.description);
       formData.append('image', this.complain.image);
@@ -216,6 +219,7 @@ export default {
       formData.append('complementary_service_sp', this.complain.complementary_service_sp);
       formData.append('complementary_line_item', this.complain.complementary_line_item);
       formData.append('solve_date', this.complain.solve_date);
+      // formData.append('complementary_order_id', this.complain.complementary_order_id);
       // formData.append('complementary_order_date', this.complain.complementary_order_date);
       // formData.append('comments', this.complain.comments);
 

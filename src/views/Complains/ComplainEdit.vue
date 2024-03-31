@@ -1,8 +1,8 @@
 <template>
   <b-row>
-    <b-col class="mb-5" sm="6" md="6">
+    <b-col class="mb-5" sm="6" md="4">
       <b-card class="h-100 p-4 m-4">
-        <h5 class="mb-4">Complaint Details</h5>
+        <h5 class="mb-4">Complaint Details - CS</h5>
         <b-form-group>
           <label>Complain ID : {{ complain.id }}</label>
         </b-form-group>
@@ -56,17 +56,22 @@
         </b-form-group>
         <b-form-group label="Complaint Attachment">
           <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label><br>
-          <img :src="complain.image" style="width: 200px; height: 150px;" />
-          <input type="file" class="form-control" v-on:change="onImageChange">
+          <div v-if="complain.images && complain.images.length > 0">
+            <div v-for="(image, index) in complain.images" :key="index">
+              <img :src="image" style="width: 200px; height: 150px;" />
+              <input type="file" class="form-control" v-on:change="onImageChange($event, index)">
+            </div>
+          </div>
         </b-form-group>
+
 
         <button class="btn btn-dark mt-3" @click="updateComplaint"> Update</button>
 
       </b-card>
     </b-col>
-    <b-col class="mb-5" sm="6" md="6">
+    <b-col class="mb-5" sm="6" md="4">
       <b-card class="h-100 m-4 p-4">
-        <h5 class="mb-4">Solution Details</h5>
+        <h5 class="mb-4">Solution Details - OPS</h5>
         <b-form-group label="Solve Type">
           <select class='form-control' v-model="complain.solve_type">
             <option value="complementary-service">Complementary Service</option>
@@ -79,7 +84,7 @@
           <select class='form-control' v-model="complain.complementary_service_type">
             <option value="basic-cleansing">Basic Cleansing</option>
             <option value="spa-manicure-pedicure">Spa Manicure Pedicure</option>
-            <option value="heir-protien">Heir Protien</option>
+            <option value="heir-protien">Hair Protein</option>
             <option value="other">Others</option>
           </select>
         </b-form-group>
@@ -107,18 +112,14 @@
         <b-form-group label="Comment">
           <textarea class="form-control" v-model="complain.solve_description" />
         </b-form-group>
-        <b-form-group hidden label="Complementary order ID" v-if="this.complain.type !== 'technical'">
-          <input class="form-control" v-model="complain.complementary_order_id" />
-        </b-form-group>
+
+
+
         <b-form-group label="Deduction" class="mt-2" v-if="this.complain.type === 'order'">
           <input class="form-control" v-model="complain.deduction">
         </b-form-group>
 
-        <b-form-group label="Solution Date">
 
-          <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true" label="Select" id="RangeDatePicker"
-            format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain.solve_date" />
-        </b-form-group>
 
         <b-form-group label="Complain Status">
           <select class='form-control' v-model="complain.status">
@@ -130,6 +131,59 @@
 
         <button class="btn btn-dark mt-3" @click="updateComplaint"> Update</button>
       </b-card>
+
+    </b-col>
+    <b-col class="mb-5" sm="6" md="4"
+      v-if="(this.complain.status === 'opened' || this.complain.status === 'resolved') && this.complain.type === 'order'">
+
+      <b-card class="h-100 m-4 p-4">
+
+        <h5 class="mb-4">CS Section</h5>
+
+        <b-form-group label="Solution Date" v-if="this.complain.solve_type === 'complementary-service'">
+
+          <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true" label="Select" id="RangeDatePicker"
+            format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain.solve_date" />
+        </b-form-group>
+
+        <b-form-group label="30% Avail Date" v-if="this.complain.solve_type === '30-discount'">
+
+          <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true" label="Select" id="RangeDatePicker"
+            format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain.solve_date" />
+        </b-form-group>
+
+        <b-form-group label="SP Selected">
+          <select class="form-control" v-model="complain.complementary_service_sp">
+            <option v-for="(sp, index) in this.complain.inHouseSp" :value="sp.name" :key="index">
+              {{ sp.name }}
+            </option>
+          </select>
+        </b-form-group>
+
+
+        <b-form-group label="Cs Remarks">
+          <textarea class="form-control" v-model="complain.comments" />
+        </b-form-group>
+
+
+        <b-form-group label="Complementary order ID" v-if="this.complain.solve_type === 'complementary-service'">
+          <input class="form-control" v-model="complain.complementary_order_id" />
+        </b-form-group>
+
+
+        <b-form-group label="30% Avail Order ID" v-if="this.complain.solve_type === '30-discount'">
+          <input class="form-control" v-model="complain.complementary_order_id" />
+        </b-form-group>
+
+
+
+        <button class="btn btn-dark mt-3" @click="updateCsPart">
+          Update</button>
+
+
+
+      </b-card>
+
     </b-col>
   </b-row>
 
@@ -154,6 +208,7 @@ export default {
       image: '',
       status: '',
       complain_id: '',
+      images: []
 
     }
   },
@@ -179,23 +234,25 @@ export default {
   methods: {
 
 
-    onImageChange(e) {
-      this.complain.image = e.target.files[0];
-      // this.image_updated = true
-      // const file = e[0];
-      // if (file === undefined) {
-      //   return;
-      // }
-      // this.content.image = file;
-      // this.image_url = URL.createObjectURL(file);
+    onImageChange(event, index) {
+      const file = event.target.files[0];
+      if (!file) return;
 
+      // Create a URL for the image and update the URL in the images array
+      const imageUrl = URL.createObjectURL(file);
+      // Update the URL and file for the selected image index
+      this.$set(this.complain.images, index, { url: imageUrl, file: file });
     },
+
+
     updateComplaint(e) {
       console.log("dhuksi");
       e.preventDefault();
       let currentObj = this;
       const config = {
-        headers: { 'content-type': 'multipart/form-data' }
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
       };
 
 
@@ -209,16 +266,19 @@ export default {
 
       formData.append('complain_issue_date', this.complain.complain_issue_date);
       formData.append('description', this.complain.description);
-      formData.append('image', this.complain.image);
+      this.complain.images.forEach((image, index) => {
+        formData.append(`images[${index}]`, image.file);
+      });
       formData.append('status', this.complain.status);
       formData.append('priority', this.complain.priority);
       formData.append('assigned_to', this.complain.assigned_to);
       formData.append('deduction', this.complain.deduction);
       formData.append('solve_type', this.complain.solve_type);
+      formData.append('solve_description', this.complain.solve_description);
       formData.append('complementary_service_type', this.complain.complementary_service_type);
       formData.append('complementary_service_sp', this.complain.complementary_service_sp);
       formData.append('complementary_line_item', this.complain.complementary_line_item);
-      formData.append('solve_date', this.complain.solve_date);
+      // formData.append('solve_date', this.complain.solve_date);
       // formData.append('complementary_order_id', this.complain.complementary_order_id);
       // formData.append('complementary_order_date', this.complain.complementary_order_date);
       // formData.append('comments', this.complain.comments);
@@ -246,6 +306,47 @@ export default {
 
 
     },
+
+    updateCsPart(e) {
+      e.preventDefault();
+      let currentObj = this;
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+
+
+      let formData = new FormData();
+      formData.append('id', this.complain.id);
+      formData.append('solve_date', this.complain.solve_date);
+      formData.append('complementary_service_sp', this.complain.complementary_service_sp);
+      formData.append('comments', this.complain.comments);
+      formData.append('complementary_order_id', this.complain.complementary_order_id);
+      formData.append('status', 'resolved');
+
+
+      axios.post(`${ADMIN_URL}/update-cs-section`, formData, config)
+        .then(response => {
+          //console.log('Success', response);
+          currentObj.success = response.data.success;
+          //console.log(response.data);
+          if (response.data.success === true) {
+            this.$swal('Complain Cs Part Updated', '', 'success');
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+          }
+
+        })
+        .catch(error => {
+          // console.log('Error  ... ', error.response);
+          currentObj.output = error;
+          // console.log(error);
+        });
+
+    },
+
     onSubmit(e) {
       e.preventDefault();
       let currentObj = this;
@@ -274,9 +375,10 @@ export default {
           currentObj.success = response.data.success;
           if (response.data.success === true) {
             this.$swal('Success', response.data.message, 'success');
-            this.$router.push({ name: 'ShowContent' });
-          }
-          else {
+            this.$router.push({
+              name: 'ShowContent'
+            });
+          } else {
             this.$swal('Error', 'Something went wrong', 'error');
           }
 

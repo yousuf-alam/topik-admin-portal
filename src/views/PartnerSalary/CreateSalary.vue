@@ -89,6 +89,7 @@
         <td>Order Value</td>
         <td>Bkash Payment</td>
         <td>Ssl Commerze</td>
+        <td>Method Cash</td>
         <td>Cash/Bkash-Sp</td>
         <td>Gap Amount</td>
         <td>Basic Salary</td>
@@ -117,6 +118,7 @@
           <td>{{formatPrice(item.total_bill)}}</td>
           <td>{{formatPrice(item.bkash)}}</td>
           <td>{{formatPrice(item.ssl)}}</td>
+          <td>{{formatPrice(item.method_cash)}}</td>
           <td>{{formatPrice(item.cash)}}</td>
           <td>{{formatPrice(item.gap_amount)}}</td>
           <td>{{formatPrice(item.basic_salary)}}</td>

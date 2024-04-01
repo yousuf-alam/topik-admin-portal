@@ -66,32 +66,47 @@
 
 
               <td :class="{'paste-cell':item.fifth.city==='Chittagong','tr-cell':item.fifth===2 || item.fifth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.fifth===false,'sky-cell':item.fifth==true}">
+                <router-link :to="{ name: 'OrderEdit', params: { id: item.eighth.order_id }}">
                 <div  class="location-name">
                   {{ item.fifth.name }}
                 </div>
                 <div class="service-name"> {{ item.fifth.service_name }}</div>
                 <div class="total-bill"> {{ item.fifth.total_bill }}</div>
+                <div class="payment-status"> {{ item.fifth.payment_status }}</div>
+                  <div :class="{'red-bold-cell':item.fifth.payment_status === 'Pending'}"> {{ item.fifth.payment_status }}</div>
+                </router-link>
               </td>
               <td :class="{'paste-cell':item.sixth.city==='Chittagong','tr-cell':item.sixth===2 || item.sixth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.sixth===false,'sky-cell':item.sixth==true}">
+                <router-link :to="{ name: 'OrderEdit', params: { id: item.eighth.order_id }}">
                 <div  class="location-name">
                   {{ item.sixth.name }}
                 </div>
                 <div class="service-name"> {{ item.sixth.service_name }}</div>
                 <div class="total-bill"> {{ item.sixth.total_bill }}</div>
+                <div class="payment-status"> {{ item.sixth.payment_status }}</div>
+                  <div :class="{'red-bold-cell':item.sixth.payment_status === 'Pending'}"> {{ item.sixth.payment_status }}</div>
+                </router-link>
               </td>
               <td :class="{'paste-cell':item.seventh.city==='Chittagong','tr-cell':item.seventh===2 || item.seventh===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.seventh===false,'sky-cell':item.seventh==true}">
+                <router-link :to="{ name: 'OrderEdit', params: { id: item.eighth.order_id }}">
                 <div  class="location-name">
                   {{ item.seventh.name }}
                 </div>
                 <div class="service-name"> {{ item.seventh.service_name }}</div>
                 <div class="total-bill"> {{ item.seventh.total_bill }}</div>
+                  <div :class="{'red-bold-cell':item.seventh.payment_status === 'Pending'}"> {{ item.seventh.payment_status }}</div>
+                </router-link>
               </td>
               <td :class="{'paste-cell':item.eighth.city==='Chittagong','tr-cell':item.eighth===2 || item.eighth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.eighth===false,'sky-cell':item.eighth==true}">
+                <router-link :to="{ name: 'OrderEdit', params: { id: item.eighth.order_id }}">
                 <div  class="location-name">
                   {{ item.eighth.name }}
                 </div>
                 <div class="service-name"> {{ item.eighth.service_name }}</div>
                 <div class="total-bill"> {{ item.eighth.total_bill }}</div>
+
+                  <div :class="{'red-bold-cell':item.eighth.payment_status === 'Pending'}"> {{ item.eighth.payment_status }}</div>
+                </router-link>
               </td>
             </tr>
 
@@ -271,6 +286,11 @@ export default {
         font-weight: 700;
         color: #C10417;
       }
+      .red-bold-cell {
+        color: red;
+        font-weight: bold;
+      }
+
 
       &.black-cell {
         background-color: #000000;
@@ -307,6 +327,10 @@ export default {
         min-width: 190px;
         min-height: 100px !important;
 
+      }
+      &.red-bold-cell {
+        color: red;
+        font-weight: 700;
       }
 
 

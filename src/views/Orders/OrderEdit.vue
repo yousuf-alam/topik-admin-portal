@@ -104,6 +104,23 @@
           <b-form-group label="Delivery Address">
             <input type="text" class="form-control" v-model="order.shipping_address.address_details">
           </b-form-group>
+
+          <b-form-group label="Black list">
+            <select class="form-control" v-model="order.is_blacklisted">
+              <option value="0">NO</option>
+              <option value="1">YES</option>
+            </select>
+          </b-form-group>
+          <b-form-group label="Black list Reason" v-if="order.is_blacklisted==1">
+            <select class="form-control" v-model="order.blacklist_reason" >
+              <option value="safety_issue">Safety Issue</option>
+              <option value="location_issue">Location Issue</option>
+              <option value="bad_behave">Bad Behave</option>
+              <option value="call_receiving_problem">Call Receiving Problem</option>
+              <option value="other">Other</option>
+
+            </select>
+          </b-form-group>
 <!--          <b-row>-->
 <!--            <b-col>-->
 <!--              <b-form-group label="Payment Method" @change="changePayment">-->
@@ -181,22 +198,20 @@
             </b-form-group>
           </b-col>
 
-          <b-form-group label="Black list">
-            <select class="form-control" v-model="order.is_blacklisted">
-              <option value="0">NO</option>
-              <option value="1">YES</option>
-            </select>
-          </b-form-group>
-          <b-form-group label="Black list Reason" v-if="order.is_blacklisted==1">
-            <select class="form-control" v-model="order.blacklist_reason" >
-              <option value="safety_issue">Safety Issue</option>
-              <option value="location_issue">Location Issue</option>
-              <option value="bad_behave">Bad Behave</option>
-              <option value="call_receiving_problem">Call Receiving Problem</option>
-              <option value="other">Other</option>
+          <b-col>
+             <div v-for="item in order.order_payments" :key="item.id">
+                 <span>{{item.payment_method}}-{{item.amount}}-{{item.created_at}}</span>
 
-            </select>
-          </b-form-group>
+             </div>
+
+            <div v-for="item in order.bkash_payment" :key="item.id">
+              <span>{{item.bkash_no}}-{{item.trans_id}}</span>
+
+            </div>
+
+          </b-col>
+
+
 <!--          </b-row>-->
 
           <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>

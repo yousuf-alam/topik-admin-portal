@@ -72,7 +72,7 @@
                 </div>
                 <div class="service-name"> {{ item.fifth.service_name }}</div>
                 <div class="total-bill"> {{ item.fifth.total_bill }}</div>
-                <div class="payment-status"> {{ item.fifth.payment_status }}</div>
+
                   <div :class="{'red-bold-cell':item.fifth.payment_status === 'Pending'}"> {{ item.fifth.payment_status }}</div>
                 </router-link>
               </td>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="service-name"> {{ item.sixth.service_name }}</div>
                 <div class="total-bill"> {{ item.sixth.total_bill }}</div>
-                <div class="payment-status"> {{ item.sixth.payment_status }}</div>
+
                   <div :class="{'red-bold-cell':item.sixth.payment_status === 'Pending'}"> {{ item.sixth.payment_status }}</div>
                 </router-link>
               </td>

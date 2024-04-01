@@ -66,7 +66,7 @@
 
 
               <td :class="{'paste-cell':item.fifth.city==='Chittagong','tr-cell':item.fifth===2 || item.fifth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.fifth===false,'sky-cell':item.fifth==true}">
-                <router-link :to="{ name: 'OrderEdit', params: { id: item.eighth.order_id }}">
+                <router-link :to="{ name: 'OrderEdit', params: { id: item.fifth.order_id }}">
                 <div  class="location-name">
                   {{ item.fifth.name }}
                 </div>
@@ -77,7 +77,7 @@
                 </router-link>
               </td>
               <td :class="{'paste-cell':item.sixth.city==='Chittagong','tr-cell':item.sixth===2 || item.sixth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.sixth===false,'sky-cell':item.sixth==true}">
-                <router-link :to="{ name: 'OrderEdit', params: { id: item.eighth.order_id }}">
+                <router-link :to="{ name: 'OrderEdit', params: { id: item.sixth.order_id }}">
                 <div  class="location-name">
                   {{ item.sixth.name }}
                 </div>
@@ -88,7 +88,7 @@
                 </router-link>
               </td>
               <td :class="{'paste-cell':item.seventh.city==='Chittagong','tr-cell':item.seventh===2 || item.seventh===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.seventh===false,'sky-cell':item.seventh==true}">
-                <router-link :to="{ name: 'OrderEdit', params: { id: item.eighth.order_id }}">
+                <router-link :to="{ name: 'OrderEdit', params: { id: item.seventh.order_id }}">
                 <div  class="location-name">
                   {{ item.seventh.name }}
                 </div>

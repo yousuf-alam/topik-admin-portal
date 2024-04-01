@@ -73,7 +73,7 @@
                 <div class="service-name"> {{ item.fifth.service_name }}</div>
                 <div class="total-bill"> {{ item.fifth.total_bill }}</div>
 
-                  <div :class="{'red-bold-cell':item.fifth.payment_status === 'Pending','other-payment': item.eighth.payment_status !== 'Pending'}"> {{ item.fifth.payment_status }}</div>
+                  <div :class="{'red-bold-cell':item.fifth.payment_status === 'Pending','other-payment': item.fifth.payment_status !== 'Pending'}"> {{ item.fifth.payment_status }}</div>
                 </router-link>
               </td>
               <td :class="{'paste-cell':item.sixth.city==='Chittagong','tr-cell':item.sixth===2 || item.sixth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.sixth===false,'sky-cell':item.sixth==true}">
@@ -84,7 +84,7 @@
                 <div class="service-name"> {{ item.sixth.service_name }}</div>
                 <div class="total-bill"> {{ item.sixth.total_bill }}</div>
 
-                  <div :class="{'red-bold-cell':item.sixth.payment_status === 'Pending','other-payment': item.eighth.payment_status !== 'Pending'}"> {{ item.sixth.payment_status }}</div>
+                  <div :class="{'red-bold-cell':item.sixth.payment_status === 'Pending','other-payment': item.sixth.payment_status !== 'Pending'}"> {{ item.sixth.payment_status }}</div>
                 </router-link>
               </td>
               <td :class="{'paste-cell':item.seventh.city==='Chittagong','tr-cell':item.seventh===2 || item.seventh===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.seventh===false,'sky-cell':item.seventh==true}">
@@ -94,7 +94,7 @@
                 </div>
                 <div class="service-name"> {{ item.seventh.service_name }}</div>
                 <div class="total-bill"> {{ item.seventh.total_bill }}</div>
-                  <div :class="{'red-bold-cell':item.seventh.payment_status === 'Pending','other-payment': item.eighth.payment_status !== 'Pending'}"> {{ item.seventh.payment_status }}</div>
+                  <div :class="{'red-bold-cell':item.seventh.payment_status === 'Pending','other-payment': item.seventh.payment_status !== 'Pending'}"> {{ item.seventh.payment_status }}</div>
                 </router-link>
               </td>
               <td :class="{'paste-cell':item.eighth.city==='Chittagong','tr-cell':item.eighth===2 || item.eighth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.eighth===false,'sky-cell':item.eighth==true}">

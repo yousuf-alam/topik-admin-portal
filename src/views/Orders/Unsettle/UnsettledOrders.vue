@@ -60,7 +60,8 @@ export default {
         'shipping_name',
         'total_bill',
         'shipping_phone',
-        'shipping_address',
+        'cancel_at',
+        'remaining_time',
         'action'
       ],
       redeem_id:'',

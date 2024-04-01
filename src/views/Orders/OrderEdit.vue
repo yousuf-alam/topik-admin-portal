@@ -128,17 +128,17 @@
 
                  <div v-if="order.total_paid==0">
                    <label for="">Partial Payment</label>
-                   <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                   <button @click="copyTextPartial" class="copy-icon" style="border: none;background: white">
                      <i class="fa fa-copy"></i>
                    </button>
-                   <p class="content ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
+                   <p class="content-partial ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
                  </div>
                  <div>
                    <label for="">Full/Due Payment</label>
-                   <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                   <button @click="copyTextDue" class="copy-icon" style="border: none;background: white">
                      <i class="fa fa-copy"></i>
                    </button>
-                   <p class="content ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
+                   <p class="content-due ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
 
                  </div>
 
@@ -148,18 +148,18 @@
 
                   <div v-if="order.total_paid==0">
                     <label for="">Partial Payment</label>
-                    <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                    <button @click="copyTextPartial" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content ml-2" >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
+                    <p class="content-partial ml-2" >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
 
                   </div>
                   <div>
                     <label for="">Full / Due Payment</label>
-                    <button @click="copyText" class="copy-icon" style="border: none;background: white">
+                    <button @click="copyTextDue" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content ml-2">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
+                    <p class="content-due ml-2">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
                   </div>
 
 
@@ -215,6 +215,11 @@
           </b-form-group>
           <b-form-group label="Total Bill">
             <input type="text" class="form-control" v-model="order.total_bill">
+          </b-form-group>
+          <b-form-group label="Insert Payment">
+            <input type="text" class="form-control" v-model="add_payment">
+            <button class="btn btn-dark mt-3" @click="addPayment"> Add Payment</button>
+
           </b-form-group>
           <b-form-group label="Total Paid">
             <input type="text" class="form-control" v-model="order.total_paid" :disabled="true">
@@ -397,6 +402,7 @@
         order_id: '',
         partners: [],
         locations: [],
+        add_payment:'',
         city: 'Dhaka',
         type: '',
         date_type: '',
@@ -578,9 +584,28 @@
 
         this.order.scheduled_date =  [year, month, day].join('-');
       },
-      copyText() {
+      copyTextPartial() {
         // Get the text content of the div
-        const textToCopy = this.$el.querySelector('.content').textContent;
+        const textToCopy = this.$el.querySelector('.content-partial').textContent;
+
+        // Create a temporary input element
+        const tempInput = document.createElement('textarea');
+        tempInput.style.position = 'absolute';
+        tempInput.style.left = '-9999px';
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+
+        // Select and copy the text
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        // Provide some visual feedback (optional)
+        alert('Text copied to clipboard!');
+      },
+      copyTextDue() {
+        // Get the text content of the div
+        const textToCopy = this.$el.querySelector('.content-due').textContent;
 
         // Create a temporary input element
         const tempInput = document.createElement('textarea');
@@ -625,6 +650,31 @@
           this.order.discount_adv_pay= 0;
           this.order.total_bill= this.order.total_service_charge - this.order.total_discount;
         }
+
+      },
+      addPayment(e)
+      {
+        let formData = new FormData();
+        formData.append('id', this.order.id);
+        formData.append('amount', this.add_payment);
+        axios.post(`${ADMIN_URL}/order-payment/insert-bill`, formData)
+          .then(response => {
+
+            this.add_payment='';
+
+
+            this.$swal('Payment Inserted', '', 'success');
+            this.fetchOrder();
+
+
+            // }
+
+          })
+          .catch(error => {
+            // console.log('Error  ... ', error.response);
+            currentObj.output = error;
+            // console.log(error);
+          });
 
       },
 

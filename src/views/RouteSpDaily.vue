@@ -105,7 +105,7 @@
                 <div class="service-name"> {{ item.eighth.service_name }}</div>
                 <div class="total-bill"> {{ item.eighth.total_bill }}</div>
 
-                  <div :class="{'red-bold-cell':item.eighth.payment_status === 'Pending'}"> {{ item.eighth.payment_status }}</div>
+                  <div :class="{'red-bold-cell':item.eighth.payment_status === 'Pending','other-payment': item.eighth.payment_status !== 'Pending'}"> {{ item.eighth.payment_status }}</div>
                 </router-link>
               </td>
             </tr>
@@ -289,6 +289,9 @@ export default {
       .red-bold-cell {
         color: red;
         font-weight: bold;
+      }
+      .other-payment {
+        color: green;
       }
 
 

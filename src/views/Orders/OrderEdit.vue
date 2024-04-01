@@ -82,7 +82,7 @@
         </b-card>
       </b-col>
       <b-col class="mb-5" sm="6" md="6">
-        <b-card class="h-100 m-4 p-4">
+        <b-card class="h-50 m-4 p-4">
           <h5 class="mb-4">Delivery Details</h5>
           <b-form-group label="Delivery Name">
             <input type="text" class="form-control" v-model="order.shipping_name">
@@ -121,13 +121,11 @@
 
             </select>
           </b-form-group>
-<!--          <b-row>-->
-<!--            <b-col>-->
-<!--              <b-form-group label="Payment Method" @change="changePayment">-->
-<!--                <b-form-radio v-model="order.payment_method" value="cash">Cash On Delivery</b-form-radio>-->
-<!--                <b-form-radio v-model="order.payment_method" value="bKash">bKash</b-form-radio>-->
-<!--                <b-form-radio v-model="order.payment_method" value="ssl">SSl</b-form-radio>-->
-<!--              </b-form-group>-->
+        </b-card>
+
+          <b-card class="h-70 m-4 p-4">
+            <h5 class="mb-4">Payment Details</h5>
+
               <b-form-group label="Payment Method">
               <select class="form-control" v-model="order.payment_method" @change="getPaymentMethod">
                 <option value="bKash">bKash</option>
@@ -136,7 +134,6 @@
 
               </select>
               </b-form-group>
-<!--            </b-col>-->
 
            <b-form-group label="Payment Link">
              <div class="payment-box d-flex " >
@@ -183,12 +180,6 @@
                 </div>
              </div>
            </b-form-group>
-<!--            <b-col>-->
-<!--              <b-form-group label="Payment Status?" v-show="order.payment_method==='bKash' && order.status==='completed'">-->
-<!--                <b-form-radio v-model="order.bKash_status" value="Paid">Paid</b-form-radio>-->
-<!--                <b-form-radio v-model="order.bKash_status" value="Pending">Pending</b-form-radio>-->
-<!--              </b-form-group>-->
-<!--            </b-col>-->
 
           <b-col>
             <b-form-group label="Payment Status?"  >
@@ -199,15 +190,33 @@
           </b-col>
 
           <b-col>
-             <div v-for="item in order.order_payments" :key="item.id">
-                 <span>{{item.payment_method}}-{{item.amount}}-{{item.created_at}}</span>
+            <div class="table-responsive" v-if="order.payment_status!=='Pending'">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Amount</th>
+                  <th>Trans Id</th>
+                  <th>Date</th>
 
-             </div>
 
-            <div v-for="item in order.bkash_payment" :key="item.id">
-              <span>{{item.bkash_no}}-{{item.trans_id}}</span>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in order.order_payments" :key="item.id">
+                  <td> {{item.payment_method}}</td>
+                  <td> {{item.amount}}</td>
+                  <td v-if="item.payment_method !=='bKash' && item.payment_method !=='ssl'"> </td>
+                  <td v-if="item.payment_method ==='bKash'"> {{item.bkash_payment}}</td>
+                  <td v-if="item.payment_method ==='ssl'"> {{item.ssl_payment}}</td>
+                  <td>{{item.created_at}}</td>
 
+                </tr>
+                </tbody>
+              </table>
             </div>
+
+
 
           </b-col>
 
@@ -218,7 +227,7 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row class="">
       <b-col class="mb-5" sm="6" md="6">
         <b-card class="h-100 p-4 m-4">
           <h5 class="mb-4">Billing Details</h5>

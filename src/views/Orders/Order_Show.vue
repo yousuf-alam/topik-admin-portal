@@ -99,14 +99,14 @@
                     <button @click="copyTextPartial" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content-partial ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.xyz/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
+                    <p class="content-partial ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
                   </div>
                   <div>
                     <label for="">Full/Due Payment</label>
                     <button @click="copyTextDue" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content-due ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.xyz/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
+                    <p class="content-due ml-2 " >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/sslcommerz/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
 
                   </div>
 
@@ -119,7 +119,7 @@
                     <button @click="copyTextPartial" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content-partial ml-2" >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.xyz/bkash/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
+                    <p class="content-partial ml-2" >Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_bill*0.25}}</p>
 
                   </div>
                   <div>
@@ -127,7 +127,7 @@
                     <button @click="copyTextDue" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
                     </button>
-                    <p class="content-due ml-2">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.xyz/bkash/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
+                    <p class="content-due ml-2">Thank you for ordering ({{order.crypt_order_id}}) from Romoni. To confirm your order make advance payment, kindly pay through this link: https://romoni.com.bd/bkash/order/{{order.crypt_order_id}}/{{order.total_due}}</p>
                   </div>
 
 

@@ -275,6 +275,36 @@
           </b-card>
         </b-col>
       </b-row>
+      <b-row v-if="getUserPermission('admin')">
+        <b-col>
+          <b-card title="Payment Log History">
+            <table class="table table-striped table-bordered" style="display: block;overflow-x: auto;">
+              <thead>
+              <tr>
+                <th>Description</th>
+                <th>Old Data</th>
+                <th>New Data</th>
+                <th>User</th>
+                <th>Updated At</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="(item, idx) in order.payment_log" :key="idx">
+                <!--                <td><span class="font-weight-bold">{{item.name}}</span><br>-->
+                <!--                  <span v-for="(answer, index) in JSON.parse(item.questions)" :key="index">-->
+                <!--                * {{answer.ans}}<br>-->
+                <!--              </span></td>-->
+                <td>{{item.description}}</td>
+                <td>{{item.old}}</td>
+                <td>{{item.new}}</td>
+                <td>{{item.causer_id}}</td>
+                <td>{{item.updated_at}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </b-card>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>

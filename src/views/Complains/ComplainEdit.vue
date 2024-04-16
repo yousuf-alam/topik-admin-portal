@@ -266,9 +266,14 @@ export default {
 
       formData.append('complain_issue_date', this.complain.complain_issue_date);
       formData.append('description', this.complain.description);
-      this.complain.images.forEach((image, index) => {
-        formData.append(`images[${index}]`, image.file);
-      });
+      // this.complain.images.forEach((image, index) => {
+      //   formData.append(`images[${index}]`, image.file);
+      // });
+      if (this.complain.images && this.complain.images.length > 0) {
+        this.complain.images.forEach((image, index) => {
+          formData.append(`images[${index}]`, image.file);
+        });
+      }
       formData.append('status', this.complain.status);
       formData.append('priority', this.complain.priority);
       formData.append('assigned_to', this.complain.assigned_to);

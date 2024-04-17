@@ -32,10 +32,7 @@
             <label>Problem in short</label>
             <textarea class="form-control" rows="3" v-model="description"></textarea>
           </div>
-          <!-- <div class="form-group">
-            <label>Attachment</label><br>
-            <input type="file" class="form-control" multiple ">
-          </div> -->
+
           <div class="form-group">
             <label>Attachment</label>
             <div v-for="(image, index) in images" :key="index">
@@ -130,11 +127,15 @@ export default {
       // console.log(file
       let ext = file.type.replace('image/', '')
       let name = file.name
-      this.images[index].ext = ext;
-      this.images[index].name = name;
+      // this.images[index].ext = ext;
+      // this.images[index].name = name;
       const reader = new FileReader();
       reader.onload = (res) => {
-        this.images[index].image = res.target.result;
+        // this.images[index].image = res.target.result;
+
+        this.images[index] = file;
+
+
       };
       reader.onerror = (err) => console.log(err);
       reader.readAsDataURL(file);
@@ -169,7 +170,13 @@ export default {
       formData.append('order_id', this.order_id);
       formData.append('type', this.type);
       formData.append('assigned_to', this.assigned_to);
-      formData.append('images', JSON.stringify(this.images));
+      // formData.append('images', JSON.stringify(this.images));
+      if (this.images.length > 0) {
+
+        this.images.forEach((image, index) => {
+          formData.append(`images[${index}]`, image);
+        });
+      }
       formData.append('description', this.description);
       formData.append('complain_issue_date', this.complain_issue_date);
       formData.append('complain_entry_date', this.complain_entry_date);

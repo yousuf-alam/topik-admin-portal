@@ -98,7 +98,7 @@
           <td>Method Bkash</td>
           <td>Method SSL</td>
           <td>Method Cash</td>
-          <td>(Cash/207/208)Sp</td>
+          <td>Cash Received</td>
           <td>Gap Amount</td>
           <td>Basic Salary</td>
           <td>TA</td>

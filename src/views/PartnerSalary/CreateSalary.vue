@@ -90,7 +90,7 @@
         <td>Bkash Payment</td>
         <td>Ssl Commerze</td>
         <td>Method Cash</td>
-        <td>Cash/Bkash-Sp</td>
+        <td> Cash Received</td>
         <td>Gap Amount</td>
         <td>Basic Salary</td>
         <td>TA</td>

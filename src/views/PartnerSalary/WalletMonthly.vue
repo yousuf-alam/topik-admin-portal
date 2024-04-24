@@ -67,25 +67,33 @@
       <div>
         <table border="1" class="my-table">
           <thead>
+
+            <td>Id</td>
             <td>Scheduled Date</td>
             <td>Scheduled_time</td>
-            <td>Payment Method</td>
             <td>Total Bill</td>
+            <td>Cash Paid</td>
+            <td>Bkash Paid</td>
+            <td>SSL Paid</td>
 
 
           </thead>
           <tbody>
             <tr v-for="item in items" :key="item.id">
+
+              <td>{{ item.id }}</td>
               <td>{{ item.scheduled_date }}</td>
               <td>{{ item.scheduled_time }}</td>
-              <td>{{ item.payment_method }}</td>
               <td>{{ item.total_bill }}</td>
+              <td>{{ item.cash_paid }}</td>
+              <td>{{ item.bkash_paid }}</td>
+              <td>{{ item.ssl_paid }}</td>
 
             </tr>
           </tbody>
         </table>
       </div>
-      <div>
+      <div class="ml-5">
         <table border="1" class="new-table">
           <thead>
 

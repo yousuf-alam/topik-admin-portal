@@ -5,7 +5,9 @@
       <div class="cardheading">
         <h4><i class="fa fa-thumbs-up"></i><span class="ml-1">Reviews</span></h4>
         <div class="d-flex justify-content-between gap-5">
-          <select v-model="key" class="form-control mr-2" @change="handleOptionChange" style="width: 180px;background: #4dbd74;color: white">
+
+          <div @click="exportReviews" class="form-control" style="background: #4dbd74;color: white;  cursor: pointer; ">Export Review</div>
+          <select v-model="key" class="form-control mr-2 ml-2" @change="handleOptionChange" style="width: 180px;background: #4dbd74;color: white">
             <option value="this_month">This month</option>
             <option value="last_month">Last month</option>
             <option value="last_three_month">Last three month</option>
@@ -14,6 +16,8 @@
             <option value="last_year">Previous year</option>
 
           </select>
+
+
         </div>
       </div>
       <b-row>
@@ -56,7 +60,7 @@
         data() {
             return {
                 data_loaded_successfully: false,
-                columns: ['order_id', 'partner', 'rating','comment','created_at' ,'action'],
+                columns: ['order_id', 'shipping_phone','partner', 'rating','comment','created_at' ,'action'],
                 tableData: [],
                 key:'this_month',
                 options: {
@@ -83,7 +87,47 @@
                     }).catch(error => {
                     // console.log('Errorrrrrrrrrrrrrrr ', error.response);
                 })
-            }
+            },
+          closeModal() {
+            this.$modal.hide("modal-order_type");
+            window.location.reload();
+          },
+          exportReviews() {
+            this.exporting = true;
+            axios({
+              method: "post",
+              url: `${ADMIN_URL}/export-reviews`,
+              responseType: "blob",
+              data: {
+                key: this.key,
+
+
+              }
+            })
+              .then(response => {
+                console.log(response.data);
+                this.exporting = false;
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement("a");
+                link.href = url;
+                link.setAttribute(
+                  "download",
+                  'User_Review' +
+                  "_" +
+                  "~" +
+                  ".xlsx"
+                );
+                document.body.appendChild(link);
+                link.click();
+                this.$swal("Reviews Exported Successfully", "", "success");
+                this.closeModal();
+              })
+              .catch(e => {
+                this.exporting = false;
+                console.log("error occurs", e);
+                this.$swal("Error", "Something Went Wrong", "error");
+              });
+          }
         }
 
     }

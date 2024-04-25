@@ -173,6 +173,9 @@ export default {
     this.month = currentDate.getMonth() + 1;
     this.year = currentDate.getFullYear();
     this.onSubmit();
+    setInterval(() => {
+      this.onSubmit();
+    }, 30 * 60 * 1000);
   },
   methods: {
 

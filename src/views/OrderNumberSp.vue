@@ -48,6 +48,8 @@
 
                <button @click="onSubmit"  class="show-btn"> Show Data
                </button>
+     <button @click="exportOrderCount"  class="show-btn"> Export
+     </button>
 
      </div>
 
@@ -94,14 +96,6 @@
        </div>
        <div class="table-body-data">
          <div class="left-bar">
-<!--           <div class="left-header header-fixed-part">-->
-<!--             <div class="head-item">-->
-<!--               Date-->
-<!--             </div>-->
-<!--             <div class="head-item">-->
-<!--               Day of Week-->
-<!--             </div>-->
-<!--           </div>-->
            <div class="left-body">
              <div class="left-body-item" v-for="(dateItem, index) in dates" :key="(index) + '-' + dateItem" :class="{ 'divide' : dateItem.line_break == true, 'colorfull' : (index+1) % 8 == 0 || (index+1) == dates.length }">
                <div class="left-body-item-data" :class="{ 'collapsable' : dateItem.day_of_week == 'collapsed' }">
@@ -117,17 +111,11 @@
           <table border="1" class="th-st">
          <thead >
          <tr class="header-fixed-part">
-<!--           <th class="sticky-col">Date</th>-->
-<!--           <th class="sticky-col">Day of Week</th>-->
-<!--           <th v-for="columnItem in columns">{{columnItem.name}}</th>-->
-<!--           <th>Total</th>-->
-<!--           <th>Fr</th>-->
          </tr>
          </thead>
          <tbody>
          <tr v-for="(dateItem, index) in dates" :key="(index) + '-' + dateItem" :class="{ 'divide' : dateItem.line_break == true, 'colorfull' : (index+1) % 8 == 0 || (index+1) == dates.length }">
-<!--           <td style="white-space: nowrap" class="sticky-col">{{ dateItem.date }}</td>-->
-<!--           <td class="sticky-col">{{dateItem.day_of_week}}</td>-->
+
            <td> {{ dateItem.in_house_order_served }}</td>
            <td>{{dateItem.fr_order_served}}</td>
            <td> {{ dateItem.total_order }}</td>
@@ -207,26 +195,6 @@ export default {
 
 
   },
-  // created(){
-  //   axios.get(`${ADMIN_URL}/order-number-sp`)
-  //       .then(response => {
-  //         // response.data.data.map((item) => {
-  //         //   this.columns.push(item.name);
-  //         // });
-  //         // this.columns.push('Total','Fr');
-  //         this.dates = response.data.value;
-  //         this.columns=response.data.data;
-  //         this.isExtraEnable = response.data.isExtraEnable;
-  //
-  //         // this.results = response.data.results;
-  //         // this.romoni_roksana = this.results.Romoni_Roksana;
-  //
-  //         // console.log('RESULTS',this.romoni_roksana);
-  //       })
-  //       .catch(e => {
-  //         console.log("error occurs", e.response);
-  //       });
-  // },
   computed: {
     elementHasPermission(permission_name) {
       return (permission_name) => {
@@ -264,41 +232,48 @@ export default {
 
           });
     },
-    // showCount(partnerItem, result, date) {
-    //   let count = 0;
-    //
-    //   let valueItem = result.value;
-    //   if (valueItem.length > 0) {
-    //     if (result.date == date) {
-    //         for (let i = 0; i < valueItem.length; i++) {
-    //           let item = valueItem[i];
-    //           if (item.id == partnerItem.id) {
-    //             count = item.admin_count;
-    //             break;
-    //           }
-    //         }
-    //         return count;
-    //     }
-    //   }
-    //   else
-    //   {
-    //     return 0;
-    //   }
-    //
-    //   return 0;
-    // },
-    // showTotal(index) {
-    //   let total = index;
-    //   console.log('TOTAL',total);
-    //   // let valueItem = this.dates[index].value;
-    //   // if (valueItem.length > 0) {
-    //   //   for (let i = 0; i < valueItem.length; i++) {
-    //   //     let item = valueItem[i];
-    //   //     total += item.admin_count;
-    //   //   }
-    //   // }
-    //   return total;
-    // }
+    closeModal() {
+      this.$modal.hide("modal-order_type");
+      window.location.reload();
+    },
+    exportOrderCount() {
+      this.exporting = true;
+      axios({
+        method: "post",
+        url: `${ADMIN_URL}/export-order-number-sp`,
+        responseType: "blob",
+        data: {
+          month:this.month,
+          year:this.year,
+
+
+        }
+      })
+        .then(response => {
+          console.log(response.data);
+          this.exporting = false;
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute(
+            "download",
+            'Order_Number_SP' +
+            "_" +
+            "~" +
+            ".xlsx"
+          );
+          document.body.appendChild(link);
+          link.click();
+          this.$swal("Reviews Exported Successfully", "", "success");
+          this.closeModal();
+        })
+        .catch(e => {
+          this.exporting = false;
+          console.log("error occurs", e);
+          this.$swal("Error", "Something Went Wrong", "error");
+        });
+    },
+
     scrollDetection() {
       $(".table-wrapper").on("scroll", function(e) {
         let scrollLeft = $(".table-wrapper").scrollLeft();

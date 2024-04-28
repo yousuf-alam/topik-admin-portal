@@ -6,40 +6,42 @@
 
           <div class="form-group">
             <label> Type</label>
-            <input class="form-control" type="text" v-model="type" :disabled="isDisabled" >
+            <input class="form-control" type="text" v-model="type" :disabled="isDisabled">
           </div>
           <div class="form-group">
             <label>Title</label>
 
-            <input class="form-control" type="text" v-model="title"  >
+            <input class="form-control" type="text" v-model="title">
           </div>
-          <div  class="form-group" >
+          <div class="form-group">
             <label>Description</label>
-            <input class="form-control" type="text" v-model="description"  >
+            <input class="form-control" type="text" v-model="description">
           </div>
-          <div  class="form-group" v-if="type === 'image'">
-<!--            <label>Upload Image</label>-->
-<!--            <input class="form-control" type="file"   v-on:change="onImageChange">-->
-              <label>Image</label><br>
-              <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label><br>
-              <img :src="single_image" style="width: 200px; height: 150px;">
-              <input type="file" class="form-control" v-on:change="onImageChange">
+          <div class="form-group" v-if="type === 'image'">
+            <!--            <label>Upload Image</label>-->
+            <!--            <input class="form-control" type="file"   v-on:change="onImageChange">-->
+            <label>Image</label><br>
+            <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label><br>
+            <img :src="single_image" style="width: 200px; height: 150px;">
+            <input type="file" class="form-control" v-on:change="onImageChange">
 
           </div>
-          <div  class="form-group" v-if="type ==='video'">
+          <div class="form-group" v-if="type === 'video'">
             <label>URL</label>
-            <input class="form-control" type="text" v-model="url" >
+            <input class="form-control" type="text" v-model="url">
           </div>
-          <div  class="form-group" v-if="type === 'poll'">
+          <div class="form-group" v-if="type === 'poll'">
             <label>Create Pool Option</label>
             <div v-for="(field, index) in fields" :key="index" class="d-flex gap-1">
-              <input  v-model="field.name" @input="updateFieldValue(index, $event.target.value)" class="mt-2  form-control" >
-              <button type="button" @click="removeField" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-remove-des mt-2">X</button>
+              <input v-model="field.name" @input="updateFieldValue(index, $event.target.value)"
+                class="mt-2  form-control">
+              <button type="button" @click="removeField" name="remove" id="'+i+'"
+                class="btn btn-danger btn_remove btn-remove-des mt-2">X</button>
             </div>
             <b-button variant="primary" @click="addField" class="mt-2">Add Poll Option</b-button>
 
           </div>
-          <div  class="form-group">
+          <div class="form-group">
             <label>Select Status</label>
             <select class="form-control" v-model="status">
               <option value="active"> Active</option>
@@ -49,7 +51,7 @@
             </select>
           </div>
 
-          <b-button @click="onSubmit" variant="primary" ><i class="fa fa-dot-circle-o"></i> Edit Feed
+          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Edit Feed
           </b-button>
         </b-card-text>
       </b-tab>
@@ -62,23 +64,23 @@ import axios from 'axios';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
   name: "EditFeed",
-  data(){
+  data() {
     return {
-      feedItems:[],
+      feedItems: [],
 
-      type:'',
-      status:'',
-      title:'',
-      description:'',
-      selectedFile:'',
-      buttonText:'',
-      url:'',
-      image:'',
-      single_image:'',
-      options:[],
+      type: '',
+      status: '',
+      title: '',
+      description: '',
+      selectedFile: '',
+      buttonText: '',
+      url: '',
+      image: '',
+      single_image: '',
+      options: [],
       isDisabled: true,
-      src_image : '/images/feed/',
-      show:true,
+      src_image: '/images/feed/',
+      show: true,
 
       fields: [{ name: "" }]
     }
@@ -89,25 +91,25 @@ export default {
     this.getOld();
 
   },
-  methods:{
-    getOld(){
+  methods: {
+    getOld() {
       axios.get(`${ADMIN_URL}/feed/feed-item/${this.feed_id}`)
-          .then(response => {
+        .then(response => {
 
-            this.feedItems = response.data.data;
-            this.fields= response.data.options;
-            this.title = this.feedItems.title;
-            this.type = this.feedItems.type;
-            this.description = this.feedItems.description;
-            this.url = this.feedItems.url;
-            this.buttonText = this.feedItems.button_text;
-            this.status = this.feedItems.status;
-            this.single_image = this.feedItems.single_image;
-            console.log('this imag e url',this.single_image);
-          })
-          .catch(e => {
-            console.log("error occurs", e.response);
-          });
+          this.feedItems = response.data.data;
+          this.fields = response.data.options;
+          this.title = this.feedItems.title;
+          this.type = this.feedItems.type;
+          this.description = this.feedItems.description;
+          this.url = this.feedItems.url;
+          this.buttonText = this.feedItems.button_text;
+          this.status = this.feedItems.status;
+          this.single_image = this.feedItems.single_image;
+          console.log('this imag e url', this.single_image);
+        })
+        .catch(e => {
+          console.log("error occurs", e.response);
+        });
     },
     updateFieldValue(index, value) {
       this.fields[index].name = value;
@@ -116,7 +118,7 @@ export default {
       this.fields.push({ name: "" });
     },
     removeField() {
-     this.fields.pop({ name: ""});
+      this.fields.pop({ name: "" });
 
     },
 
@@ -134,7 +136,7 @@ export default {
       const config = {
         headers: {
           'content-type': 'multipart/form-data',
-          'Accept' : 'application/json',
+          'Accept': 'application/json',
         }
       };
       let formData = new FormData();
@@ -148,22 +150,22 @@ export default {
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
       axios.post(`${ADMIN_URL}/feed/update-feed/${this.feed_id}`, formData)
-          .then(response => {
-            console.log('Success', response);
+        .then(response => {
+          console.log('Success', response);
 
-            return this.$router.push('/feed-show');
+          return this.$router.push('/feed-show');
 
-          })
-          .catch(error => {
+        })
+        .catch(error => {
 
-          });
+        });
     },
   }
 }
 </script>
 
 <style scoped>
-.btn-remove-des{
+.btn-remove-des {
   height: 35px;
 }
 </style>

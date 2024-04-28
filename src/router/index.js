@@ -64,6 +64,10 @@ const TestLineItemCreate = () =>
 const LineitemEdit = () => import("../views/LineItems/LineitemEdit");
 const LineItemShow = () => import("../views/LineItems/LineItemShow");
 
+const Products = () => import("@/views/Products/Products");
+const ProductCreate = () => import("../views/Products/ProductCreate.vue");
+const ProductEdit = () => import("../views/Products/ProductEdit.vue");
+
 const Partners = () => import("@/views/Partners/Partners");
 const PartnerShow = () => import("../views/Partners/PartnerShow");
 const PartnerPayments = () => import("../views/Partners/PartnerPayments");
@@ -180,7 +184,7 @@ import RewardUser from "@/views/RewardUser/RewardUser.vue";
 import PaymentMethods from "@/views/PaymentMethod/PaymentMethods.vue";
 import EditPaymentMethod from "@/views/PaymentMethod/EditPaymentMethod.vue";
 import AdvancePaymentSchedule from "@/views/AdvancePayment/AdvancePaymentScheduleList.vue";
-import EditAdvancePaymentSchedule from "@/views/AdvancePayment/EditAdvancePaymentSchedule.vue"
+import EditAdvancePaymentSchedule from "@/views/AdvancePayment/EditAdvancePaymentSchedule.vue";
 import LeaveApproval from "@/views/PartnerLeave/LeaveApproval.vue";
 import NoticeEdit from "@/views/PartnerNotice/NoticeEdit.vue";
 import NoticeCreate from "@/views/PartnerNotice/NoticeCreate.vue";
@@ -212,18 +216,18 @@ const router = new Router({
       name: "Home",
       component: DefaultContainer,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
       },
       children: [
         {
           path: "dashboard",
           name: "Dashboard",
-          component: Dashboard
+          component: Dashboard,
         },
         {
           path: "statistics",
           name: "Statistics",
-          component: Statistics
+          component: Statistics,
         },
         {
           path: "roles",
@@ -232,41 +236,41 @@ const router = new Router({
           component: {
             render(c) {
               return c("router-view");
-            }
+            },
           },
           children: [
             {
               path: "",
               component: Role,
               meta: {
-                permission_name: "manage roles"
-              }
+                permission_name: "manage roles",
+              },
             },
             {
               path: "show/:id",
               name: "RoleShow",
               component: RoleShow,
               meta: {
-                permission_name: "manage roles"
-              }
+                permission_name: "manage roles",
+              },
             },
             {
               path: "new",
               name: "Create New Role",
               component: CreateNewRole,
               meta: {
-                permission_name: "manage roles"
-              }
+                permission_name: "manage roles",
+              },
             },
             {
               path: "edit/:id",
               name: "RoleEdit ",
               component: RoleEdit,
               meta: {
-                permission_name: "manage roles"
-              }
-            }
-          ]
+                permission_name: "manage roles",
+              },
+            },
+          ],
         },
         {
           path: "users",
@@ -275,65 +279,65 @@ const router = new Router({
           component: {
             render(c) {
               return c("router-view");
-            }
+            },
           },
           children: [
             {
               path: "",
               component: Users,
               meta: {
-                permission_name: "manage roles"
-              }
+                permission_name: "manage roles",
+              },
             },
             {
               path: "show/:id",
               name: "UserShow",
               component: UserShow,
               meta: {
-                permission_name: "manage roles"
-              }
+                permission_name: "manage roles",
+              },
             },
             {
               path: "new",
               name: "Create New User",
               component: CreateNewUser,
               meta: {
-                permission_name: "manage roles"
-              }
+                permission_name: "manage roles",
+              },
             },
             {
               path: "edit/:id",
               name: "Edit ",
               component: UserEdit,
               meta: {
-                permission_name: "manage roles"
-              }
-            }
-          ]
+                permission_name: "manage roles",
+              },
+            },
+          ],
         },
         {
           path: "orders",
           name: "Orders",
           component: Orders,
           meta: {
-            permission_name: permissionsList.order
-          }
+            permission_name: permissionsList.order,
+          },
         },
         {
           path: "/orders/details/:id",
           name: "OrderShow",
           component: OrderShow,
           meta: {
-            permission_name: "order read"
-          }
+            permission_name: "order read",
+          },
         },
         {
           path: "/orders/edit/:id",
           name: "OrderEdit",
           component: OrderEdit,
           meta: {
-            permission_name: "order read"
-          }
+            permission_name: "order read",
+          },
         },
         {
           path: "/orders/create",
@@ -341,33 +345,35 @@ const router = new Router({
           component: OrderCreate,
           props: true,
           meta: {
-            permission_name: "order create"
-          }
+            permission_name: "order create",
+          },
         },
         {
           path: "/un-settled-orders",
           name: "UnsettledOrders",
           component: UnsettledOrders,
           meta: {
-            permission_name: "order read"
-          }
-
+            permission_name: "order read",
+          },
         },
         {
           path: "third-party-orders",
           name: "ThirdPartyOrders",
           component: ThirdPartyOrders,
           meta: {
-            permission_name: [...permissionsList.thirdparty, ...permissionsList.shohoz]
-          }
+            permission_name: [
+              ...permissionsList.thirdparty,
+              ...permissionsList.shohoz,
+            ],
+          },
         },
         {
           path: "third-party-contents",
           name: "ThirdPartyContents",
           component: ThirdPartyContents,
           meta: {
-            permission_name: permissionsList.order
-          }
+            permission_name: permissionsList.order,
+          },
         },
         {
           path: "/third-party-contents/create",
@@ -375,8 +381,8 @@ const router = new Router({
           component: ThirdPartyContentCreate,
           props: true,
           meta: {
-            permission_name: "order create"
-          }
+            permission_name: "order create",
+          },
         },
         {
           path: "/third-party-contents/edit/:id",
@@ -384,8 +390,8 @@ const router = new Router({
           component: ThirdPartyContentEdit,
           props: true,
           meta: {
-            permission_name: "order create"
-          }
+            permission_name: "order create",
+          },
         },
         // {
         //   path: '/orders/details/:id',
@@ -409,32 +415,32 @@ const router = new Router({
           component: ThirdPartyOrderPlace,
           props: true,
           meta: {
-            permission_name: "order create"
-          }
+            permission_name: "order create",
+          },
         },
         {
           path: "appointments",
           name: "Appointments",
           component: Appointments,
           meta: {
-            permission_name: permissionsList.order
-          }
+            permission_name: permissionsList.order,
+          },
         },
         {
           path: "/appointments/details/:id",
           name: "AppointmentShow",
           component: AppointmentShow,
           meta: {
-            permission_name: "order read"
-          }
+            permission_name: "order read",
+          },
         },
         {
           path: "/appointments/edit/:id",
           name: "AppointmentEdit",
           component: AppointmentEdit,
           meta: {
-            permission_name: "order read"
-          }
+            permission_name: "order read",
+          },
         },
         {
           path: "/appointments/create",
@@ -442,49 +448,49 @@ const router = new Router({
           component: AppointmentCreate,
           props: true,
           meta: {
-            permission_name: "order create"
-          }
+            permission_name: "order create",
+          },
         },
         {
           path: "notifications",
           name: "Notification",
           component: Notifications,
           meta: {
-            permission_name: permissionsList.notification
-          }
+            permission_name: permissionsList.notification,
+          },
         },
         {
           path: "notifications/self",
           name: "SelfAllNotifications",
-          component: SelfAllNotifications
+          component: SelfAllNotifications,
         },
         {
           path: "/notifications/edit/:id",
           name: "NotificationEdit",
           component: NotificationEdit,
           meta: {
-            permission_name: "notification update"
-          }
+            permission_name: "notification update",
+          },
         },
         {
           path: "/notifications/create",
           name: "NotificationCreate",
           component: NotificationCreate,
           meta: {
-            permission_name: "notification create"
-          }
+            permission_name: "notification create",
+          },
         },
         {
           /* ------ ------- This Route Has Been Made for Test Purpose ------- --------*/
           path: "/test/orders",
           name: "TestOrders",
-          component: TestOrders
+          component: TestOrders,
         },
         {
           /* ------ ------- This Route Has Been Made for Test Purpose ------- --------*/
           path: "/test",
           name: "TestComponent",
-          component: TestComponent
+          component: TestComponent,
         },
         {
           path: "promos",
@@ -492,7 +498,7 @@ const router = new Router({
           component: Promos,
           meta: {
             //permission_name: permissionsList.promocode
-          }
+          },
         },
         {
           path: "/promos/edit/:id",
@@ -500,7 +506,7 @@ const router = new Router({
           component: PromoEdit,
           meta: {
             // permission_name: 'promocode update'
-          }
+          },
         },
         {
           path: "/promos/create",
@@ -508,7 +514,7 @@ const router = new Router({
           component: PromoCreate,
           meta: {
             // permission_name: 'promocode create'
-          }
+          },
         },
         {
           path: "/promos/partner-promos",
@@ -516,23 +522,23 @@ const router = new Router({
           component: PartnerPromos,
           meta: {
             // permission_name: 'promocode create'
-          }
+          },
         },
         {
           path: "locations",
           name: "Locations",
           component: Locations,
           meta: {
-            permission_name: permissionsList.location
-          }
+            permission_name: permissionsList.location,
+          },
         },
         {
           path: "locations/create",
           name: "LocationCreate",
           component: LocationCreate,
           meta: {
-            permission_name: permissionsList.location
-          }
+            permission_name: permissionsList.location,
+          },
         },
         {
           path: "/locations/edit/:id",
@@ -540,265 +546,292 @@ const router = new Router({
           component: LocationEdit,
           meta: {
             // permission_name: 'location update'
-          }
+          },
         },
         {
           path: "locations/full-coverage",
           name: "FullLocation",
           component: FullLocation,
           meta: {
-            permission_name: permissionsList.location
-          }
+            permission_name: permissionsList.location,
+          },
         },
         {
           path: "services",
           name: "Services",
           component: Services,
           meta: {
-            permission_name: permissionsList.service
-          }
+            permission_name: permissionsList.service,
+          },
         },
         {
           path: "/services/edit/:id",
           name: "ServiceEdit",
           component: ServiceEdit,
           meta: {
-            permission_name: "service update"
-          }
+            permission_name: "service update",
+          },
         },
         {
           path: "/services/create",
           name: "ServiceCreate",
           component: ServiceCreate,
           meta: {
-            permission_name: "service create"
-          }
+            permission_name: "service create",
+          },
         },
         {
           path: "categories",
           name: "Categories",
           component: Categories,
           meta: {
-            permission_name: permissionsList.category
-          }
+            permission_name: permissionsList.category,
+          },
         },
         {
           path: "/categories/edit/:id",
           name: "CategoryEdit",
           component: CategoryEdit,
           meta: {
-            permission_name: "category update"
-          }
+            permission_name: "category update",
+          },
         },
         {
           path: "/subcategories/edit/:id",
           name: "SubcategoryEdit",
-          component: SubategoryEdit
+          component: SubategoryEdit,
         },
         {
           path: "/categories/create",
           name: "CategoryCreate",
           component: CategoryCreate,
           meta: {
-            permission_name: "category create"
-          }
+            permission_name: "category create",
+          },
         },
         {
           path: "line-items",
           name: "LineItems",
           component: LineItems,
           meta: {
-            permission_name: permissionsList.lineitem
-          }
+            permission_name: permissionsList.lineitem,
+          },
         },
         {
           path: "/line-items/edit/:id",
           name: "LineitemEdit",
           component: LineitemEdit,
           meta: {
-            permission_name: "lineitem update"
-          }
+            permission_name: "lineitem update",
+          },
         },
         {
           path: "/line-items/show/:id",
           name: "LineItemShow",
           component: LineItemShow,
           meta: {
-            permission_name: "lineitem read"
-          }
+            permission_name: "lineitem read",
+          },
         },
         {
           path: "/line-items/create",
           name: "LineItemCreate",
           component: LineItemCreate,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/test-line-items/create",
           name: "TestLineItemCreate",
           component: TestLineItemCreate,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
+
+        {
+          path: "/products",
+          name: "Products",
+          component: Products,
+          meta: {
+            permission_name: permissionsList.service,
+          },
+        },
+        {
+          path: "/products/edit/:id",
+          name: "ProductEdit",
+          component: ProductEdit,
+          // meta: {
+          //   permission_name: "Product update",
+          // },
+        },
+
+        {
+          path: "/products/create",
+          name: "ProductCreate",
+          component: ProductCreate,
+          // meta: {
+          //   permission_name: "product read",
+          // },
+        },
+
         {
           path: "/redeem",
           name: "RedeemShow",
           component: RedeemShow,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/redeem-create",
           name: "CreateRedeem",
           component: CreateRedeem,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-redeem/:id",
           name: "EditRedeem",
           component: EditRedeem,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
 
-          //minimum order amount
+        //minimum order amount
         {
           path: "/minimum-order-amount",
           name: "ShowMinimumAmount",
           component: ShowMinimumAmount,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/min-order-amount-create",
           name: "CreateMinimumAmount",
           component: CreateMinimumAmount,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-min-order-amount/:id",
           name: "EditMinimumAmount",
           component: EditMinimumAmount,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
-          // First Order Discount
+        // First Order Discount
         {
           path: "/first-order-discount",
           name: "showDiscount",
           component: showDiscount,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/first-order-discount-create",
           name: "CreatDiscount",
           component: CreatDiscount,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-first-order-discount/:id",
           name: "EditDiscount",
           component: EditDiscount,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
-          //minimum order time
+        //minimum order time
         {
           path: "/minimum-order-time",
           name: "ShowMinimumTime",
           component: ShowMinimumTime,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/minimum-order-time-create",
           name: "CreateMinimumTime",
           component: CreateMinimumTime,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-minimum-order-time/:id",
           name: "EditMinimumTime",
           component: EditMinimumTime,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/reward-faq",
           name: "FaqRewardShow",
           component: FaqRewardShow,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/reward-user",
           name: "RewardUser",
           component: RewardUser,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/create-reward-faq",
           name: "CreateFaqReward",
           component: CreateFaqReward,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-reward-faq/:id",
           name: "EditRewardFaq",
           component: EditRewardFaq,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
-          //
+        //
         {
           path: "/reward-status",
           name: "StatusShow",
           component: StatusShow,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/create-reward-status",
           name: "CreateStatus",
           component: CreateStatus,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-status/:id",
           name: "EditStatus",
           component: EditStatus,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
 
         {
@@ -806,50 +839,49 @@ const router = new Router({
           name: "NoticeShow",
           component: NoticeShow,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/create-partner-notice",
           name: "NoticeCreate",
           component: NoticeCreate,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-partner-notice/:id",
           name: "NoticeEdit",
           component: NoticeEdit,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/payment-method",
           name: "PaymentMethods",
           component: PaymentMethods,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/all-leave-application",
           name: "LeaveApplication",
           component: LeaveApplication,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
-
 
         {
           path: "/advance-payment-schedule",
           name: "AdvancePaymentSchedule",
           component: AdvancePaymentSchedule,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
 
         {
@@ -857,8 +889,8 @@ const router = new Router({
           name: "EditAdvancePaymentSchedule",
           component: EditAdvancePaymentSchedule,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         // minimum-payment-time
 
@@ -867,8 +899,8 @@ const router = new Router({
           name: "ShowMinimumPaymentTime",
           component: ShowMinimumPaymentTime,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
 
         {
@@ -876,18 +908,17 @@ const router = new Router({
           name: "EditMinimumPaymentTime",
           component: EditMinimumPaymentTime,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
-
 
         {
           path: "/edit-payment-method/:id",
           name: "EditPaymentMethod",
           component: EditPaymentMethod,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
 
         {
@@ -895,283 +926,282 @@ const router = new Router({
           name: "EditLeaveApplication",
           component: EditLeaveApplication,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
-          //
+        //
         {
           path: "/slot-count",
           name: "ShowSlot",
           component: ShowSlot,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/slot-create",
           name: "CreateSlot",
           component: CreateSlot,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/popup-promo",
           name: "ShowPopupPromo",
           component: ShowPopupPromo,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/popup-create",
           name: "CreatePopup",
           component: CreatePopup,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-popup/:id",
           name: "EditPopupPromo",
           component: EditPopupPromo,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/feed-show",
           name: "FeedShow",
           component: FeedShow,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/create-feed",
           name: "CreateFeed",
           component: CreateFeed,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-feed/:id",
           name: "EditFeed",
           component: EditFeed,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/show-future-notification",
           name: "ShowFutureNotification",
           component: ShowFutureNotification,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/create-future-notification",
           name: "CreateFutureNotification",
           component: CreateFutureNotification,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "/edit-future-notification/:id",
           name: "EditFutureNotification",
           component: EditFutureNotification,
           meta: {
-            permission_name: "lineitem create"
-          }
+            permission_name: "lineitem create",
+          },
         },
         {
           path: "partners",
           name: "Partners",
           component: Partners,
           meta: {
-            permission_name: permissionsList.partner
-          }
+            permission_name: permissionsList.partner,
+          },
         },
         {
           path: "/partners/show/:id",
           name: "PartnerShow",
           component: PartnerShow,
           meta: {
-            permission_name: "partner read"
-          }
+            permission_name: "partner read",
+          },
         },
         {
           path: "Partner-payment",
           name: "PartnerPayments",
           component: PartnerPayments,
           meta: {
-            permission_name: "partner read"
-          }
+            permission_name: "partner read",
+          },
         },
         {
           path: "all-payment-data",
           name: "AllPaymentData",
           component: AllPaymentData,
           meta: {
-            permission_name: "partner read"
-          }
+            permission_name: "partner read",
+          },
         },
         {
           path: "create-partner-payment",
           name: "CreatePayment",
           component: CreatePayment,
           meta: {
-            permission_name: "partner read"
-          }
+            permission_name: "partner read",
+          },
         },
         {
           path: "/edit-payment/:id",
           name: "EditPayment",
           component: EditPayment,
           meta: {
-            permission_name: "partner read"
-          }
+            permission_name: "partner read",
+          },
         },
-
 
         {
           path: "resources",
           name: "Resources",
           component: Resources,
           meta: {
-            permission_name: permissionsList.resource
-          }
+            permission_name: permissionsList.resource,
+          },
         },
         {
           path: "/resources/show/:id",
           name: "ResourceShow",
           component: ResourceShow,
           meta: {
-            permission_name: "resource read"
-          }
+            permission_name: "resource read",
+          },
         },
         {
           path: "partner-wallets",
           name: "wallets",
           component: Wallets,
           meta: {
-            permission_name: permissionsList.partnerwallet
-          }
+            permission_name: permissionsList.partnerwallet,
+          },
         },
         {
           path: "/partner-leaves",
           name: "ShowPartnerLeave",
           component: ShowPartnerLeave,
           meta: {
-            permission_name: permissionsList.partnerLeaves
-          }
+            permission_name: permissionsList.partnerLeaves,
+          },
         },
         {
           path: "/show-partner-leave-data",
           name: "CreatePartnerLeave",
           component: CreatePartnerLeave,
           meta: {
-            permission_name: permissionsList.partnerLeaves
-          }
+            permission_name: permissionsList.partnerLeaves,
+          },
         },
         {
           path: "/partner-leaves-log/:id",
           name: "LeaveLog",
           component: LeaveLog,
           meta: {
-            permission_name: permissionsList.partnerLeaves
-          }
+            permission_name: permissionsList.partnerLeaves,
+          },
         },
         {
           path: "/filter-leave",
           name: "FilterPartnerLeave",
           component: FilterPartnerLeave,
           meta: {
-            permission_name: permissionsList.partnerLeaves
-          }
+            permission_name: permissionsList.partnerLeaves,
+          },
         },
         {
           path: "/date-wise-leave-data",
           name: "LeaveCalender",
           component: LeaveCalender,
           meta: {
-            permission_name: permissionsList.partnerLeaves
-          }
+            permission_name: permissionsList.partnerLeaves,
+          },
         },
         {
           path: "/leave-summery",
           name: "LeaveSummary",
           component: LeaveSummary,
           meta: {
-            permission_name: permissionsList.partnerLeaves
-          }
+            permission_name: permissionsList.partnerLeaves,
+          },
         },
         {
           path: "/leave-approval",
           name: "LeaveApproval",
           component: LeaveApproval,
           meta: {
-            permission_name: permissionsList.partnerLeaves
-          }
+            permission_name: permissionsList.partnerLeaves,
+          },
         },
         {
           path: "/partner-salary",
           name: "ShowSalary",
           component: ShowSalary,
           meta: {
-            permission_name: permissionsList.partnerSalary
-          }
+            permission_name: permissionsList.partnerSalary,
+          },
         },
         {
           path: "/salary-disbursement",
           name: "SalaryDisbursement",
           component: SalaryDisbursement,
           meta: {
-            permission_name: permissionsList.salaryDisbursement
-          }
+            permission_name: permissionsList.salaryDisbursement,
+          },
         },
         {
           path: "/partner-salary-create",
           name: "CreateSalary",
           component: CreateSalary,
           meta: {
-            permission_name: permissionsList.partnerSalary
-          }
+            permission_name: permissionsList.partnerSalary,
+          },
         },
         {
           path: "/sp-wallet-monthly/:id",
           name: "WalletMonthly",
           component: WalletMonthly,
           meta: {
-            permission_name: permissionsList.partnerSalary
-          }
+            permission_name: permissionsList.partnerSalary,
+          },
         },
         {
           path: "/wallets/show/:id",
           name: "WalletShow",
           component: WalletShow,
           meta: {
-            permission_name: "partnerwallet read"
-          }
+            permission_name: "partnerwallet read",
+          },
         },
         {
           path: "banners",
           name: "Banners",
           component: Banners,
           meta: {
-            permission_name: permissionsList.topbanner
-          }
+            permission_name: permissionsList.topbanner,
+          },
         },
         {
           path: "/banners/edit/:id",
           name: "Banner / Edit",
           component: BannerEdit,
           meta: {
-            permission_name: permissionsList.topbanner
-          }
+            permission_name: permissionsList.topbanner,
+          },
         },
         {
           path: "/banners/create",
@@ -1179,39 +1209,39 @@ const router = new Router({
           component: BannerCreate,
           meta: {
             //permission_name: 'banner create'
-          }
+          },
         },
         {
           path: "complaints",
           name: "Complains",
           component: Complains,
           meta: {
-            permission_name: permissionsList.complain
-          }
+            permission_name: permissionsList.complain,
+          },
         },
         {
           path: "/complaint/show/:id",
           name: "ComplainShow",
           component: ComplainShow,
           meta: {
-            permission_name: "complain read"
-          }
+            permission_name: "complain read",
+          },
         },
         {
           path: "/complaint/edit/:id",
           name: "ComplainEdit",
           component: ComplainEdit,
           meta: {
-            permission_name: "complain read"
-          }
+            permission_name: "complain read",
+          },
         },
         {
           path: "/complains/create",
           name: "ComplainCreate",
           component: ComplainCreate,
           meta: {
-            permission_name: "complain create"
-          }
+            permission_name: "complain create",
+          },
         },
 
         //schedule notification
@@ -1220,80 +1250,80 @@ const router = new Router({
           name: "ScheduleNotification",
           component: ScheduleNotification,
           meta: {
-            permission_name: permissionsList.complain
-          }
+            permission_name: permissionsList.complain,
+          },
         },
         {
           path: "schedule-content",
           name: "ShowContent",
           component: ShowContent,
           meta: {
-            permission_name: permissionsList.complain
-          }
+            permission_name: permissionsList.complain,
+          },
         },
         {
           path: "refund-orders",
           name: "OrderRefund",
           component: OrderRefund,
           meta: {
-            permission_name: permissionsList.complain
-          }
+            permission_name: permissionsList.complain,
+          },
         },
         {
           path: "/schedule/edit/:id",
           name: "EditContent",
           component: EditContent,
           meta: {
-            permission_name: "complain read"
-          }
+            permission_name: "complain read",
+          },
         },
         {
           path: "/schedule-content/create",
           name: "CreateContent",
           component: CreateContent,
           meta: {
-            permission_name: "complain create"
-          }
+            permission_name: "complain create",
+          },
         },
         {
           path: "/schedule-notification/create",
           name: "CreateScheduleNotification",
           component: CreateScheduleNotification,
           meta: {
-            permission_name: "complain create"
-          }
+            permission_name: "complain create",
+          },
         },
         {
           path: "reviews",
           name: "Reviews",
           component: Reviews,
           meta: {
-            permission_name: permissionsList.complain
-          }
+            permission_name: permissionsList.complain,
+          },
         },
         {
           path: "oldreports",
           name: "Old Reports",
           component: OldReports,
           meta: {
-            permission_name: permissionsList.admin
-          }
+            permission_name: permissionsList.admin,
+          },
         },
         {
           path: "order-number-sp",
           name: "OrderNumberSp",
           component: OrderNumberSp,
           meta: {
-            permission_name: permissionsList.spOrderCount
-          }
+            permission_name: permissionsList.spOrderCount,
+          },
         },
-        {  path: "route-sp-daily",
-           name: "RouteSpDaily",
-           component: RouteSpDaily,
+        {
+          path: "route-sp-daily",
+          name: "RouteSpDaily",
+          component: RouteSpDaily,
           meta: {
-            permission_name: permissionsList.spRoutes
-          }
-
+            permission_name: permissionsList.spRoutes,
+          },
         },
 
         {
@@ -1301,111 +1331,111 @@ const router = new Router({
           name: "Reports",
           component: Reports,
           meta: {
-            permission_name: permissionsList.reports
-          }
+            permission_name: permissionsList.reports,
+          },
         },
         {
           path: "areawisereports",
           name: "Area Wise Reports",
           component: AreaWiseReports,
           meta: {
-            permission_name: permissionsList.reports
-          }
+            permission_name: permissionsList.reports,
+          },
         },
         {
           path: "line-items-revenue-reports",
           name: "LineItemRevenueReport",
           component: LineItemRevenueReport,
           meta: {
-            permission_name: permissionsList.reports
-          }
+            permission_name: permissionsList.reports,
+          },
         },
         {
           path: "areawisereportdetails/:from/:to/:areaName",
           name: "Area Wise Report Details",
           component: AreaWiseReportDetails,
           meta: {
-            permission_name: permissionsList.reports
+            permission_name: permissionsList.reports,
           },
 
-           props:true
+          props: true,
         },
         {
           path: "reports/details",
           name: "DetailsReport",
           component: DetailsReport,
           meta: {
-            permission_name: permissionsList.document
-          }
+            permission_name: permissionsList.document,
+          },
         },
         {
           path: "partner/calender",
           name: "Partner Calender",
           component: PartnerCalender,
           meta: {
-            permission_name: permissionsList.reports
-          }
+            permission_name: permissionsList.reports,
+          },
         },
         {
           path: "reports/customerreport",
           name: "CustomerReport",
           component: CustomerReport,
           meta: {
-            permission_name: permissionsList.reports
-          }
+            permission_name: permissionsList.reports,
+          },
         },
         {
           path: "otps",
           name: "Otps",
           component: Otps,
           meta: {
-            permission_name: permissionsList.otps
-          }
+            permission_name: permissionsList.otps,
+          },
         },
         {
           path: "gp-star-check",
           name: "GpStar",
           component: GpStar,
           meta: {
-            permission_name: permissionsList.document
-          }
+            permission_name: permissionsList.document,
+          },
         },
         {
           path: "eloan",
           name: "Eloan",
           component: Eloan,
           meta: {
-            permission_name: permissionsList.eloan
-          }
+            permission_name: permissionsList.eloan,
+          },
         },
         {
           path: "eloan/show/:id",
           name: "EloanShow",
           component: EloanShow,
           meta: {
-            permission_name: permissionsList.eloan
-          }
+            permission_name: permissionsList.eloan,
+          },
         },
         {
           path: "profile",
           name: "Profile",
-          component: Profile
+          component: Profile,
         },
         {
           path: "b2c-sections",
           name: "B2CSections",
           component: B2CSections,
           meta: {
-            permission_name: permissionsList.topbanner
-          }
+            permission_name: permissionsList.topbanner,
+          },
         },
         {
           path: "/b2c-sections/edit/:id",
           name: "B2CSection / Edit",
           component: B2CSectionEdit,
           meta: {
-            permission_name: permissionsList.topbanner
-          }
+            permission_name: permissionsList.topbanner,
+          },
         },
         {
           path: "/b2c-sections/create",
@@ -1413,7 +1443,7 @@ const router = new Router({
           component: B2CSectionCreate,
           meta: {
             //permission_name: 'banner create'
-          }
+          },
         },
         {
           path: "bot-offers",
@@ -1422,26 +1452,26 @@ const router = new Router({
           component: {
             render(c) {
               return c("router-view");
-            }
+            },
           },
           children: [
             {
               path: "",
-              component: BotOffers
+              component: BotOffers,
             },
             {
               path: "edit/:id",
               name: "Edit Offer",
-              component: BotOfferEdit
+              component: BotOfferEdit,
             },
             {
               path: "create",
               name: "Create",
-              component: BotOfferCreate
-            }
-          ]
-        }
-      ]
+              component: BotOfferCreate,
+            },
+          ],
+        },
+      ],
     },
     { path: "*", component: Page404 },
     {
@@ -1451,32 +1481,32 @@ const router = new Router({
       component: {
         render(c) {
           return c("router-view");
-        }
+        },
       },
       children: [
         {
           path: "404",
           name: "Page404",
-          component: Page404
+          component: Page404,
         },
         {
           path: "500",
           name: "Page500",
-          component: Page500
+          component: Page500,
         },
         {
           path: "login",
           name: "Login",
-          component: Login
+          component: Login,
         },
         {
           path: "register",
           name: "Register",
-          component: Register
-        }
-      ]
-    }
-  ]
+          component: Register,
+        },
+      ],
+    },
+  ],
 });
 
 function checkRoutePermission(to) {
@@ -1491,7 +1521,7 @@ function checkRoutePermission(to) {
 
 router.beforeEach((to, from, next) => {
   // let user_roles = JSON.parse(window.localStorage.getItem("user_roles"));
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (store.getters["auth/isLoggedIn"]) {
       if (checkRoutePermission(to)) {
         next();
@@ -1502,7 +1532,7 @@ router.beforeEach((to, from, next) => {
   } else if (store.getters["auth/isLoggedIn"]) {
     if (
       to.matched.some(
-        record => record.name === "Login" || record.name === "Register"
+        (record) => record.name === "Login" || record.name === "Register"
       )
     ) {
       next("/dashboard");

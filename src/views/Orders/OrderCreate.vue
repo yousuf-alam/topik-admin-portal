@@ -8,18 +8,20 @@
         </b-row>
         <b-row class="p-2">
           <div class="center-div">
-            <button
-              v-for="s in main_services"
-              :key="s.id"
-              @click="createOrder(s)"
-              :class="[s.id % 2 ? 'btn btn-primary m-2' : 'btn btn-romoni-secondary m-2']"
-            >
-              {{ s.name }}
-            </button>
-            <!--<button @click="createOrder('Beauty Appointment')" class="btn btn-primary m-2">Beauty Appointment</button>-->
-            <!-- <button @click="createOrder('Tailor On-Demand')" class="btn btn-romoni-secondary m-2">Tailor On-Demand</button><br>
-              <button @click="createOrder('Medicines and Groceries')" class="btn btn-romoni-secondary m-2">Medicines and Groceries</button>
-              <button @click="createOrder('Medical Consultations')" class="btn btn-primary m-2">Medical Consultations</button>-->
+            <div class="d-flex justify-content-center">
+              <div class="d-flex flex-column align-items-center">
+                <button v-for="(s, index) in main_services.slice(0, 2)" :key="index" @click="createOrder(s)"
+                  :class="[index % 2 === 0 ? 'btn btn-primary m-2' : 'btn btn-romoni-secondary m-2']">
+                  {{ s.name }}
+                </button>
+              </div>
+              <div class="d-flex flex-column align-items-center">
+                <button v-for="(s, index) in main_services.slice(2)" :key="index" @click="createOrder(s)"
+                  :class="[index % 2 === 0 ? 'btn btn-primary m-2' : 'btn btn-romoni-secondary m-2']">
+                  {{ s.name }}
+                </button>
+              </div>
+            </div>
           </div>
         </b-row>
       </div>
@@ -33,10 +35,10 @@
         </button>
       </div>
       <div class="m-3 p-3">
-<!--        <b-row class="p-2">-->
-<!--          <h4>Enter Coupon</h4>-->
-<!--          <br /><br />-->
-<!--        </b-row>-->
+        <!--        <b-row class="p-2">-->
+        <!--          <h4>Enter Coupon</h4>-->
+        <!--          <br /><br />-->
+        <!--        </b-row>-->
         <b-row class="p-2">
           <div class="center-div d-flex">
             <input type="text" id="coupon" v-model="coupon" class="form-control">
@@ -96,10 +98,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <button
-          class="btn btn-primary btn-lg center-div"
-          @click="$modal.show('modal-partner_type')"
-        >
+        <button class="btn btn-primary btn-lg center-div" @click="$modal.show('modal-partner_type')">
           <i class="fa fa-search"></i>
           Search Partners
         </button>
@@ -117,12 +116,13 @@
       </b-col>
     </b-row>
     <b-card class="bg-white text-center">
-<!--      <span style="margin-right: 5px" @click="modalCoupon">-->
-<!--        <label>Apply Coupon</label>-->
-<!--        <i class="fa fa-plus" aria-hidden="true"></i>-->
-<!--      </span>-->
+      <!--      <span style="margin-right: 5px" @click="modalCoupon">-->
+      <!--        <label>Apply Coupon</label>-->
+      <!--        <i class="fa fa-plus" aria-hidden="true"></i>-->
+      <!--      </span>-->
 
-      <button type="button" class="btn btn-outline-secondary" style="margin-right: 5px" @click="modalCoupon">Apply Coupon<i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="btn btn-outline-secondary" style="margin-right: 5px" @click="modalCoupon">Apply
+        Coupon<i class="fa fa-plus" aria-hidden="true"></i></button>
 
 
       <button class="btn btn-romoni-secondary btn-lg" @click="orderPlace">
@@ -143,24 +143,19 @@
                 <option :value="1">Freelance Partner</option>
               </select>
             </div>
-            <div class="form-group" v-if="partner_type==1">
+            <div class="form-group" v-if="partner_type == 1">
               <label class="font-weight-bold">Choose Reason</label>
               <div v-for="r in freelance_reasons" :key="r">
                 <input type="radio" :value="r" v-model="freelance_reason" />
                 <label>{{ r }}</label>
               </div>
               <div>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Other"
-                  v-model="freelance_reason"
-                />
+                <input type="text" class="form-control" placeholder="Other" v-model="freelance_reason" />
               </div>
             </div>
-             <button class="btn btn-primary m-2" @click="fetchPartner">
-                <i class="fa fa-search"></i>Search Partners
-              </button>
+            <button class="btn btn-primary m-2" @click="fetchPartner">
+              <i class="fa fa-search"></i>Search Partners
+            </button>
           </b-col>
         </b-row>
       </div>
@@ -206,6 +201,7 @@ export default {
       location: "",
       var_modal_coupon: false,
       coupon: "",
+      platform: "",
       categories: [],
       partners: [],
       schedule: {
@@ -226,15 +222,20 @@ export default {
       ],
       freelance_reason: "",
       services: [],
-      main_services: [],
+      main_services: [
+        { name: "FB Page" },
+        { name: "FB Inbox" },
+        { name: "IB Call" },
+        { name: "OB Call" },
+      ],
       designs: [],
       accessories: [],
       measurement_type: "",
       custom_measurement: "",
       selected_partner: null,
       invoice: [],
-      promo_discount:"",
-      discountPercent:0
+      promo_discount: "",
+      discountPercent: 0
     };
   },
 
@@ -258,23 +259,37 @@ export default {
       console.log("called");
     },
     createOrder(service) {
-      this.type = service.id;
+      // this.type = service.id;
+      // this.$modal.hide("modal-order_type");
+      // this.$refs.Service.fetchCategories(service.id);
+      if (service.name === "FB Page") {
+        this.platform = "FB Page";
+      } else if (service.name === "FB Inbox") {
+        this.platform = "FB Inbox";
+      } else if (service.name === "IB Call") {
+        this.platform = "IB Call";
+      } else if (service.name === "OB Call") {
+        this.platform = "OB Call";
+      }
+
+      this.type = 1;
       this.$modal.hide("modal-order_type");
-      this.$refs.Service.fetchCategories(service.id);
+      this.$refs.Service.fetchCategories(1);
+
     },
-    getMainServices() {
-      axios
-        .get(`${ADMIN_URL}/services`)
-        .then((response) => {
-          this.main_services = response.data.filter(
-            (x) => x.published_status == "published"
-          );
-          console.log("Services.vue, Response === ", response.data);
-        })
-        .catch((e) => {
-          //console.log("error occurs");
-        });
-    },
+    // getMainServices() {
+    //   axios
+    //     .get(`${ADMIN_URL}/services`)
+    //     .then((response) => {
+    //       this.main_services = response.data.filter(
+    //         (x) => x.published_status == "published"
+    //       );
+    //       console.log("Services.vue, Response === ", response.data);
+    //     })
+    //     .catch((e) => {
+    //       //console.log("error occurs");
+    //     });
+    // },
     customerAdd(customer) {
       this.customer = customer;
     },
@@ -301,16 +316,16 @@ export default {
         this.measurement_type = data.custom_measurement;
     },
 
-    modalCoupon(){
+    modalCoupon() {
       this.$modal.show("modal-coupon");
       this.var_modal_coupon = true;
     },
 
-    closeModalCoupon(){
+    closeModalCoupon() {
       this.$modal.hide("modal-coupon");
     },
 
-    submitCoupon(){
+    submitCoupon() {
       console.log(this.coupon);
       axios
         .post(`${ADMIN_URL}/submit-coupon`, {
@@ -349,7 +364,7 @@ export default {
         .then((response) => {
           if (response.data.success === true) {
             this.partners = response.data.data.filter((x) => x.plan_id === this.partner_type);
-            console.log('partners',this.partners);
+            console.log('partners', this.partners);
           } else {
             this.partners = [];
           }
@@ -365,16 +380,15 @@ export default {
 
       console.log("len", this.invoice.length);
     },
-    getDiscountPercentage(){
-      if(this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl')
-      {
+    getDiscountPercentage() {
+      if (this.customer.payment_method === 'bKash' || this.customer.payment_method === 'ssl') {
 
         axios.post(`${ADMIN_URL}/payment-method-info`, {
           payment_method: this.customer.payment_method // Changed property name to match the expected key on the server
         })
           .then(response => {
-            if(response.data.data) {
-              this.discountPercent = response.data.data.percent_discount/100;
+            if (response.data.data) {
+              this.discountPercent = response.data.data.percent_discount / 100;
               this.invoice = this.invoiceFormatter();
             }
 
@@ -399,7 +413,7 @@ export default {
       const serviceNo = this.services.length;
       const sp = this.selected_partner.name;
 
-     return  {
+      return {
         total_service_charge: this.selected_partner.price,
         discount_adv_pay: discount_adv_pay,
         promo_discount: promo_discount,
@@ -410,7 +424,7 @@ export default {
         schedule: this.schedule
       };
 
-// You can use the 'result' object as needed.
+      // You can use the 'result' object as needed.
 
     },
     orderPlace(e) {
@@ -420,13 +434,14 @@ export default {
         headers: { "content-type": "multipart/form-data" },
       };
 
-      if(this.coupon_id === undefined){
+      if (this.coupon_id === undefined) {
         this.coupon_id = 0;
       }
 
       let formData = new FormData();
       formData.append("service_id", this.type);
-      formData.append("platform", "admin portal");
+      // formData.append("platform", "admin portal");
+      formData.append("platform", this.platform);
       formData.append("partner_id", this.selected_partner.id);
       formData.append("location_id", this.location);
       formData.append("scheduled_time", this.schedule.selected_time);
@@ -448,8 +463,8 @@ export default {
         let file = this.designs[i];
         formData.append("designs[" + i + "][image]", file);
       }
-      if(this.partner_type ==1)
-          formData.append("freelance_reason",this.freelance_reason)
+      if (this.partner_type == 1)
+        formData.append("freelance_reason", this.freelance_reason)
 
       const loader = this.$loading.show({
         loader: "spinner",

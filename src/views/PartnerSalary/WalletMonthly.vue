@@ -64,8 +64,8 @@
     </div>
 
     <div style="display: grid; grid-template-columns:repeat(2, 1fr);">
-      <div>
-        <table border="1" class="my-table">
+      <div class="table-container">
+        <table border="1" class="my-table  th-st">
           <thead>
 
             <td>Id</td>
@@ -257,6 +257,31 @@ export default {
     padding: 10px;
     text-align: center;
   }
+}
+
+.table-container {
+  /* Set a fixed height for the table container to enable scrolling */
+  height: 500px; /* Adjust the height as per your requirements */
+  overflow-y: auto;
+  //margin-left: 30px;
+}
+
+.my-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.my-table th,
+.my-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.my-table thead {
+  /* Set the table header row to be sticky at the top */
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  z-index: 1;
 }
 
 .new-table {

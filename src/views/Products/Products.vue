@@ -81,7 +81,7 @@ export default {
       this.getAllProducts();
     },
     getAllProducts() {
-      axios.get(`${ADMIN_URL}/all-products`, { key: this.key })
+      axios.post(`${ADMIN_URL}/all-products`, { key: this.key })
         .then(response => {
           this.tableData = response.data.data;
           this.data_loaded_successfully = true;

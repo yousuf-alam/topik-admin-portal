@@ -4,7 +4,11 @@
       <h4><i class="fa fa-bars"></i><span class="ml-1">Salary Disbursement</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
+
+
+
           <div class="d-flex justify-content-between gap-5">
+            <span class="see-notes"  @click="openModal()">See Notes</span>
             <div class="cursor-pointer ml-2 disburse-checked" @click="disburseChecked">Disburse checked</div>
 
             <select class="form-control" @change="getSalaryDisburseData" v-model="year" style="width: 180px;background: #4dbd74;color: white">
@@ -39,16 +43,23 @@
         </h1>
       </div>
     </div>
-<!--    <div>-->
-<!--      <div>-->
-<!--        <p v-if="selectedData.length === 0">No data selected.</p>-->
-<!--        <ul v-else>-->
-<!--          <li v-for="data in selectedData" :key="data.id">-->
-<!--            ID: {{ data.partner_id }}, Payable Amount: {{ data.payable_amount }},Paid Amount: {{ data.paid_amount }},-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </div>-->
-<!--    </div>-->
+    <modal name="modal-order_type" height="auto" :adaptive="true"  :clickToClose="false">
+      <div class="m-3 p-3">
+        <b-row class="p-2">
+          <h4>Please see salary notes</h4>
+          <div  class="cross-button" @click="closeModal">X</div>
+
+        </b-row>
+        <b-row class="p-2">
+          <div class="center-div">
+            <label>Notes: </label>
+
+            <span>{{this.notes}}</span>
+
+          </div>
+        </b-row>
+      </div>
+    </modal>
     <b-row>
       <div class="salary-table">
         <div>
@@ -105,6 +116,7 @@ export default {
       key:'this_month',
       selectedData: [],
       selectAll: false,
+      notes: '',
       columns: [
         'id', 'partner_id', 'name','basic_salary', 'salary_disbursement','action'
       ],
@@ -146,6 +158,14 @@ export default {
     handleOptionChange() {
       console.log("key",this.key)
       this.getUnApproveData();
+    },
+    openModal() {
+      this.$modal.show("modal-order_type");
+
+    },
+    closeModal() {
+      this.$modal.hide("modal-order_type");
+      window.location.reload();
     },
 
     toggleSelectAll() {
@@ -203,6 +223,8 @@ export default {
         .then(response => {
           console.log('response',response);
           this.salaries = response.data.data;
+          this.notes = response.data.note;
+          console.log('salaries',this.notes);
         })
         .catch(e => {
           console.log("error occurs", e.response);
@@ -378,6 +400,32 @@ table {
   color: white;
   padding: 5px;
   cursor: pointer;
+}
+.see-notes {
+  border-radius: 8px;
+  background: #930e3b;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 6px;
+  border: 1px solid #930e3b;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+}
+.cross-button {
+  margin-left: 500px;
+  color:white;
+  margin-top:-25px;
+  cursor: pointer;
+  font-size: 25px;
+  border-radius: 50%;
+  padding: 5px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FF3572;
 }
 
 </style>

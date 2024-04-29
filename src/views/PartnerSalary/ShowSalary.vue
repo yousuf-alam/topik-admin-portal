@@ -60,33 +60,38 @@
       <modal name="modal-order_type" height="auto" :adaptive="true"  :clickToClose="false">
         <div class="m-3 p-3">
           <b-row class="p-2">
-            <h4>Please Write Leave Details</h4>
+            <h4>Please Write Salary Notes</h4>
             <div  class="cross-button" @click="closeModal">X</div>
 
           </b-row>
-<!--          <b-row class="p-2">-->
-<!--            <div class="center-div">-->
-<!--              <label>Remarks: </label>-->
+          <b-row class="p-2">
+            <div class="center-div">
+              <label>Notes: </label>
 
-<!--              <input v-model="remarks" type="text" >-->
-<!--              <div>-->
-<!--                <label>Status:</label>-->
-<!--                <select v-model="status">-->
-<!--                  <option value="1">Approved</option>-->
-<!--                  <option value="0">Rejected</option>-->
-<!--                </select>-->
-<!--              </div>-->
-<!--              <button  class="modal-button" @click="submitLeave">-->
-<!--                submit-->
-<!--              </button>-->
+              <input v-model="notes" type="text" >
 
-<!--            </div>-->
-<!--          </b-row>-->
+              <button  class="modal-button" @click="approvedSalaries">
+                submit
+              </button>
+
+            </div>
+          </b-row>
         </div>
       </modal>
 
 
 
+    </div>
+
+    <div class="d-flex gap-5 mb-3">
+        <span  :class="{
+                                'green-cell': this.approveStatus.status == 'pending',
+                                'yellow-cell': this.approveStatus.status == 'approved',
+                                'red-cell': this.approveStatus.status=='disbursed',
+
+                  }">{{ capitalizeFirstLetter(this.approveStatus.status) }}</span>
+        <button class="show-btn" @click="openModal()" v-if="this.approveStatus.status=='pending'">Salary clearance</button>
+        <span v-if="this.approveStatus.status!=='pending'" class="approved-cell">-By {{ this.approveStatus.approved_by }}</span>
     </div>
 
     <div class="table-container">
@@ -180,10 +185,12 @@ export default {
       items: [],
       salaries: [],
       columns: [],
+      approveStatus:[],
       isExtraEnable: false,
       dataShow: false,
       month: '',
       year: '',
+      notes:'',
 
       showModal: false,
       selectedItem: null,
@@ -212,15 +219,14 @@ export default {
     this.month = currentDate.getMonth() + 1;
     this.year = currentDate.getFullYear();
     this.onSubmit();
+    this.salaryStatus();
 
   },
   methods: {
-    openModal(value,date,key) {
+    openModal() {
       this.$modal.show("modal-order_type");
       // this.closeModal(value,date,key);
-      this.partner_id= value.id;
-      this.leave_date= date;
-      this.key=key;
+
 
 
     },
@@ -230,10 +236,34 @@ export default {
 
 
     },
-    submitLeave() {
-      this.updateApi();
+    approvedSalaries() {
+
       this.$modal.hide("modal-order_type");
-      window.location.reload();
+      this.activeLoader = true;
+      // this.dataShow=true;
+
+      let formData = {
+        month: this.month,
+        year: this.year,
+        notes: this.notes
+
+      }
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
+      axios.post(`${ADMIN_URL}/generate-in-house-salary`, formData)
+        .then(response => {
+          this.activeLoader = false;
+          // this.items = response.data.data;
+          // console.log(this.items);
+
+
+          return this.$router.push('/partner-salary');
+
+        })
+        .catch(error => {
+
+        });
+
     },
     closeModal() {
       this.$modal.hide("modal-order_type");
@@ -255,7 +285,7 @@ export default {
           .then(response => {
             this.activeLoader = false;
             this.items = response.data.data;
-            console.log(this.items);
+            // console.log(this.items);
 
 
             return this.$router.push('/partner-salary');
@@ -264,6 +294,34 @@ export default {
           .catch(error => {
 
           });
+    },
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+    salaryStatus() {
+      this.activeLoader = true;
+      // this.dataShow=true;
+
+      let formData = {
+        month: this.month,
+        year: this.year,
+
+      }
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
+      axios.post(`${ADMIN_URL}/salary-status`, formData)
+        .then(response => {
+          this.activeLoader = false;
+          this.approveStatus = response.data.data;
+          console.log(this.approveStatus);
+
+
+          return this.$router.push('/partner-salary');
+
+        })
+        .catch(error => {
+
+        });
     },
 
     exportSalary() {
@@ -415,6 +473,36 @@ input {
   top: 0;
   background-color: #f2f2f2;
   z-index: 1;
+}
+
+.red-cell {
+  background-color: #FF0000;
+  padding: 5px;
+  color: white;
+  font-size: 14px;
+  font-weight: 550;
+}
+.yellow-cell {
+  background-color: #FFD965;
+  padding: 5px;
+  color: white;
+  font-size: 14px;
+  font-weight: 550;
+}
+.green-cell {
+  background-color: #01FF00;
+  padding: 5px;
+  color: white;
+  font-size: 14px;
+  font-weight: 550;
+}
+.approved-cell {
+  background-color: #FF3572;
+  padding: 5px;
+  margin-left: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 550;
 }
 
 

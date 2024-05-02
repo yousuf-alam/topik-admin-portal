@@ -41,7 +41,7 @@
 
       <div class="form-group">
         <label>Price (New Price)</label>
-        <input type="text" name="new_price" class="form-control" v-model="new_price">
+        <input type="text" name="new_price" class="form-control" v-model="new_price" required>
       </div>
 
       <div class="form-group row">

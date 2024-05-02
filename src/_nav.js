@@ -123,12 +123,12 @@ const navitems = {
       permission_name: permissionsList.lineitem,
     },
 
-    {
-      name: "Products",
-      url: "/products",
-      icon: "fa fa-bars",
-      permission_name: permissionsList.service,
-    },
+    // {
+    //   name: "Products",
+    //   url: "/products",
+    //   icon: "fa fa-bars",
+    //   permission_name: permissionsList.service,
+    // },
 
     {
       name: "Slot Counts",

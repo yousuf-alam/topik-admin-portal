@@ -83,14 +83,14 @@
 
     </div>
 
-    <div class="d-flex gap-5 mb-3">
-        <span  :class="{
-                                'green-cell': this.approveStatus.status == 'pending',
+    <div class="d-flex gap-5 mb-3  align-items-center">
+        <div  :class="{
+                                'red-cell': this.approveStatus.status == 'pending',
                                 'yellow-cell': this.approveStatus.status == 'approved',
-                                'red-cell': this.approveStatus.status=='disbursed',
+                                'green-cell': this.approveStatus.status=='disbursed',
 
-                  }">{{ capitalizeFirstLetter(this.approveStatus.status) }}</span>
-        <button class="show-btn" @click="openModal()" v-if="this.approveStatus.status=='pending'">Salary clearance</button>
+                  }">{{ capitalizeFirstLetter(this.approveStatus.status) }}</div>
+        <button class="show-btn-clearance" @click="openModal()" v-if="this.approveStatus.status=='pending'">Salary clearance</button>
         <span v-if="this.approveStatus.status!=='pending'" class="approved-cell">-By {{ this.approveStatus.approved_by }}</span>
     </div>
 
@@ -313,7 +313,7 @@ export default {
         .then(response => {
           this.activeLoader = false;
           this.approveStatus = response.data.data;
-          console.log(this.approveStatus);
+          // console.log(this.approveStatus);
 
 
           return this.$router.push('/partner-salary');
@@ -387,6 +387,17 @@ export default {
   margin-top: 25px;
   width: 150px;
 
+}
+.show-btn-clearance {
+  padding: 5px;
+  background: #FF3572;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 10px;
+  margin-left: 30px;
+  border: 2px solid #ffffff;
+  height: 35px;
+  width: 150px;
 }
 
 .noData {
@@ -481,6 +492,8 @@ input {
   color: white;
   font-size: 14px;
   font-weight: 550;
+  height: 35px;
+  border-radius: 8px;
 }
 .yellow-cell {
   background-color: #FFD965;
@@ -488,6 +501,8 @@ input {
   color: white;
   font-size: 14px;
   font-weight: 550;
+  height: 35px;
+  border-radius: 8px;
 }
 .green-cell {
   background-color: #01FF00;
@@ -495,6 +510,8 @@ input {
   color: white;
   font-size: 14px;
   font-weight: 550;
+  height: 35px;
+  border-radius: 8px;
 }
 .approved-cell {
   background-color: #FF3572;

@@ -287,8 +287,11 @@ export default {
             this.items = response.data.data;
             // console.log(this.items);
 
+            this.salaryStatus();
+
 
             return this.$router.push('/partner-salary');
+
 
           })
           .catch(error => {

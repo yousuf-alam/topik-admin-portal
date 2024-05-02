@@ -202,6 +202,7 @@ import ShowContent from "@/views/ScheduleNotification/ShowContent.vue";
 import CreateScheduleNotification from "@/views/ScheduleNotification/CreateScheduleNotification.vue";
 import ComplainEdit from "@/views/Complains/ComplainEdit.vue";
 import OrderRefund from "@/views/Orders/OrderRefund.vue";
+import FilterSpRoute from "@/views/FilterSpRoute.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -1321,6 +1322,14 @@ const router = new Router({
           path: "route-sp-daily",
           name: "RouteSpDaily",
           component: RouteSpDaily,
+          meta: {
+            permission_name: permissionsList.spRoutes,
+          },
+        },
+        {
+          path: "filter-sp-route",
+          name: "FilterSpRoute",
+          component: FilterSpRoute,
           meta: {
             permission_name: permissionsList.spRoutes,
           },

@@ -47,6 +47,9 @@
       <button @click="onSubmit" class="show-btn"> Show Wallet
       </button>
 
+      <button @click="exportData" class="show-btn"> Export Data
+      </button>
+
       <!--      <div class="">-->
       <!--        <router-link :to="{ name: 'CreatePartnerLeave'}" >-->
       <!--          <button class="show-btn">Add Deduction</button>-->
@@ -240,6 +243,44 @@ export default {
         })
         .catch(error => {
 
+        });
+    },
+
+    exportData() {
+      this.exporting = true;
+      axios({
+        method: "post",
+        url: `${ADMIN_URL}/export-sp-wallet-monthly`,
+        responseType: "blob",
+        data: {
+          month: this.month,
+          year: this.year,
+          partner_id: this.partner_id
+
+        }
+      })
+        .then(response => {
+          console.log(response.data);
+          this.exporting = false;
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute(
+            "download",
+            'Sp_wallet_monthly' +
+            "_" +
+            "~" +
+            ".xlsx"
+          );
+          document.body.appendChild(link);
+          link.click();
+          this.$swal("Sp wallet Exported Successfully", "", "success");
+          this.closeModal();
+        })
+        .catch(e => {
+          this.exporting = false;
+          console.log("error occurs", e);
+          this.$swal("Error", "Something Went Wrong", "error");
         });
     },
 

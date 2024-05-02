@@ -6,44 +6,25 @@
 
 
       <div class="">
-        <label>Month</label>
-        <select class="form-control" v-model="month">
-          <option value="1">January</option>
-          <option value="2">February</option>
-          <option value="3">March</option>
-          <option value="4">April</option>
-          <option value="5">May</option>
-          <option value="6">June</option>
-          <option value="7">July</option>
-          <option value="8">August</option>
-          <option value="9">September</option>
-          <option value="10">October</option>
-          <option value="11">November</option>
-          <option value="12">December</option>
-        </select>
-      </div>
-      <div style="margin-left: 30px">
-        <label>Year</label>
-        <select class="form-control" v-model="year">
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-        </select>
+        <div  class="form-group">
+          <label>Receive date</label>
+          <VueCtkDateTimePicker
+            :overlay="true"
+            :range="false"
+            :no-label="true"
+            label="Select"
+            id="RangeDatePicker"
+            format="YYYY-MM-DD"
+            formatted="ll"
+            color="#7D4E77"
+            v-model="filter_date"
+          />
+        </div>
       </div>
 
 
       <button @click="onSubmit" class="show-btn"> Show Data
       </button>
-
-      <router-link :to="{ name: 'FilterSpRoute'}" >
-        <button class="show-btn">Filter</button>
-      </router-link>
-
 
     </div>
 
@@ -72,43 +53,43 @@
 
               <td :class="{'paste-cell':item.fifth.city==='Chittagong','tr-cell':item.fifth===2 || item.fifth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.fifth===false,'sky-cell':item.fifth==true}">
                 <router-link :to="{ name: 'OrderEdit', params: { id: item.fifth.order_id }}">
-                <div  class="location-name">
-                  {{ item.fifth.name }}
-                </div>
-                <div class="service-name"> {{ item.fifth.service_name }}</div>
-                <div class="total-bill"> {{ item.fifth.total_bill }}</div>
+                  <div  class="location-name">
+                    {{ item.fifth.name }}
+                  </div>
+                  <div class="service-name"> {{ item.fifth.service_name }}</div>
+                  <div class="total-bill"> {{ item.fifth.total_bill }}</div>
 
                   <div :class="{'red-bold-cell':item.fifth.payment_status === 'Pending','other-payment': item.fifth.payment_status !== 'Pending'}"> {{ item.fifth.payment_status }}</div>
                 </router-link>
               </td>
               <td :class="{'paste-cell':item.sixth.city==='Chittagong','tr-cell':item.sixth===2 || item.sixth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.sixth===false,'sky-cell':item.sixth==true}">
                 <router-link :to="{ name: 'OrderEdit', params: { id: item.sixth.order_id }}">
-                <div  class="location-name">
-                  {{ item.sixth.name }}
-                </div>
-                <div class="service-name"> {{ item.sixth.service_name }}</div>
-                <div class="total-bill"> {{ item.sixth.total_bill }}</div>
+                  <div  class="location-name">
+                    {{ item.sixth.name }}
+                  </div>
+                  <div class="service-name"> {{ item.sixth.service_name }}</div>
+                  <div class="total-bill"> {{ item.sixth.total_bill }}</div>
 
                   <div :class="{'red-bold-cell':item.sixth.payment_status === 'Pending','other-payment': item.sixth.payment_status !== 'Pending'}"> {{ item.sixth.payment_status }}</div>
                 </router-link>
               </td>
               <td :class="{'paste-cell':item.seventh.city==='Chittagong','tr-cell':item.seventh===2 || item.seventh===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.seventh===false,'sky-cell':item.seventh==true}">
                 <router-link :to="{ name: 'OrderEdit', params: { id: item.seventh.order_id }}">
-                <div  class="location-name">
-                  {{ item.seventh.name }}
-                </div>
-                <div class="service-name"> {{ item.seventh.service_name }}</div>
-                <div class="total-bill"> {{ item.seventh.total_bill }}</div>
+                  <div  class="location-name">
+                    {{ item.seventh.name }}
+                  </div>
+                  <div class="service-name"> {{ item.seventh.service_name }}</div>
+                  <div class="total-bill"> {{ item.seventh.total_bill }}</div>
                   <div :class="{'red-bold-cell':item.seventh.payment_status === 'Pending','other-payment': item.seventh.payment_status !== 'Pending'}"> {{ item.seventh.payment_status }}</div>
                 </router-link>
               </td>
               <td :class="{'paste-cell':item.eighth.city==='Chittagong','tr-cell':item.eighth===2 || item.eighth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.eighth===false,'sky-cell':item.eighth==true}">
                 <router-link :to="{ name: 'OrderEdit', params: { id: item.eighth.order_id }}">
-                <div  class="location-name">
-                  {{ item.eighth.name }}
-                </div>
-                <div class="service-name"> {{ item.eighth.service_name }}</div>
-                <div class="total-bill"> {{ item.eighth.total_bill }}</div>
+                  <div  class="location-name">
+                    {{ item.eighth.name }}
+                  </div>
+                  <div class="service-name"> {{ item.eighth.service_name }}</div>
+                  <div class="total-bill"> {{ item.eighth.total_bill }}</div>
 
                   <div :class="{'red-bold-cell':item.eighth.payment_status === 'Pending','other-payment': item.eighth.payment_status !== 'Pending'}"> {{ item.eighth.payment_status }}</div>
                 </router-link>
@@ -135,7 +116,7 @@ import moment from "moment";
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
 export default {
-  name: "RouteSpDaily",
+  name: "FilterSpRoute",
   components: {
     Loader,
     TableColumn
@@ -150,6 +131,7 @@ export default {
       isExtraEnable: false,
 
       dataShow: false,
+      filter_date: '',
 
       month: '',
       year: '',
@@ -174,9 +156,15 @@ export default {
     }
   },
   mounted() {
-    const currentDate = new Date();
-    this.month = currentDate.getMonth() + 1;
-    this.year = currentDate.getFullYear();
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(today.getDate()).padStart(2, '0');
+
+    this.filter_date = `${year}-${month}-${day}`;
+
+    console.log("filter date", this.filter_date);
     this.onSubmit();
     setInterval(() => {
       this.onSubmit();
@@ -191,29 +179,30 @@ export default {
       let formData = {
         month: this.month,
         year: this.year,
+        filter_date: this.filter_date,
 
       }
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
-      axios.post(`${ADMIN_URL}/route-sp-daily`, formData)
-          .then(response => {
-            this.activeLoader = false;
+      axios.post(`${ADMIN_URL}/filter-sp-route`, formData)
+        .then(response => {
+          this.activeLoader = false;
 
-            this.columns = response.data.columns;
-            this.values = response.data.value;
-            // console.log("values here",this.values);
-            // this.items=this.values[0].items;
-            for (let i = 0; i < this.values.length; i++) {
-              this.items[i] = this.values[i].items
-            }
-            console.log("item is here", this.items[5]);
+          this.columns = response.data.columns;
+          this.values = response.data.value;
+          // console.log("values here",this.values);
+          // this.items=this.values[0].items;
+          for (let i = 0; i < this.values.length; i++) {
+            this.items[i] = this.values[i].items
+          }
+          console.log("item is here", this.items[5]);
 
-            return this.$router.push('/route-sp-daily');
+          return this.$router.push('/filter-sp-route');
 
-          })
-          .catch(error => {
+        })
+        .catch(error => {
 
-          });
+        });
     },
     formattedDay(date) {
       return moment(date).format('dddd');
@@ -372,7 +361,6 @@ export default {
   margin-top: 20px;
   font-size: 20px;
   font-weight: 700;
-  font-size: 20px;
   color: #FF3572;
 }
 

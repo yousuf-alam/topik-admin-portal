@@ -32,6 +32,18 @@
         <input type="text" name="zoho_code" class="form-control" v-model="zoho_code" required>
       </div>
 
+
+      <div class="form-group">
+        <label>Price (Old Price)</label>
+        <input type="text" name="old_price" class="form-control" v-model="old_price" required>
+      </div>
+
+
+      <div class="form-group">
+        <label>Price (New Price)</label>
+        <input type="text" name="new_price" class="form-control" v-model="new_price">
+      </div>
+
       <div class="form-group row">
         <label class="col-sm-3 col-form-label">Upload Image</label>
         <div class="col-sm-9">
@@ -59,6 +71,8 @@ export default {
       product_name_en: '',
       product_name_bn: '',
       zoho_code: '',
+      old_price: '',
+      new_price: '',
       image: '',
 
     }
@@ -85,6 +99,8 @@ export default {
       formData.append('product_name_en', this.product_name_en);
       formData.append('product_name_bn', this.product_name_bn);
       formData.append('zoho_code', this.zoho_code);
+      formData.append('old_price', this.old_price);
+      formData.append('new_price', this.new_price);
       formData.append('image', this.image);
 
 

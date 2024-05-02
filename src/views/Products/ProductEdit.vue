@@ -30,6 +30,18 @@
             <input class="form-control" type="text" v-model="zoho_code">
           </div>
 
+
+          <div class="form-group">
+            <label>Price (Old Price)</label>
+            <input class="form-control" type="text" v-model="old_price">
+          </div>
+
+
+          <div class="form-group">
+            <label>Price (New Price)</label>
+            <input class="form-control" type="text" v-model="new_price">
+          </div>
+
           <div class="form-group">
             <label>Image</label><br>
             <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label><br>
@@ -59,6 +71,8 @@ export default {
       product_name_en: '',
       product_name_bn: '',
       zoho_code: '',
+      old_price: '',
+      new_price: '',
       image: '',
       isDisabled: true,
       src_image: '/images/product/',
@@ -69,7 +83,6 @@ export default {
   },
   created() {
     this.product_id = this.$route.params.id;
-    // console.log('popup id',this.product_id);
     this.getOld();
 
   },
@@ -84,6 +97,8 @@ export default {
           this.product_name_en = this.productItems.product_name_en;
           this.product_name_bn = this.productItems.product_name_bn;
           this.zoho_code = this.productItems.zoho_code;
+          this.old_price = this.productItems.old_price;
+          this.new_price = this.productItems.new_price;
           this.image = this.productItems.image;
         })
         .catch(e => {
@@ -111,6 +126,8 @@ export default {
       formData.append('product_name_en', this.product_name_en);
       formData.append('product_name_bn', this.product_name_bn);
       formData.append('zoho_code', this.zoho_code);
+      formData.append('old_price', this.old_price);
+      formData.append('new_price', this.new_price);
       formData.append('image', this.image);
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 

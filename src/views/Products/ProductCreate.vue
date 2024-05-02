@@ -34,13 +34,13 @@
 
 
       <div class="form-group">
-        <label>Price (Old Price)</label>
+        <label>Old Price</label>
         <input type="text" name="old_price" class="form-control" v-model="old_price" required>
       </div>
 
 
       <div class="form-group">
-        <label>Price (New Price)</label>
+        <label>New Price</label>
         <input type="text" name="new_price" class="form-control" v-model="new_price" required>
       </div>
 

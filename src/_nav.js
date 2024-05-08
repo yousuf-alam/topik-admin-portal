@@ -131,6 +131,13 @@ const navitems = {
     },
 
     {
+      name: "Product Requests",
+      url: "/product-requests",
+      icon: "fa fa-bars",
+      permission_name: permissionsList.service,
+    },
+
+    {
       name: "Slot Counts",
       url: "/slot-count",
       icon: "fa fa-file-word-o",

@@ -68,6 +68,15 @@ const Products = () => import("@/views/Products/Products");
 const ProductCreate = () => import("../views/Products/ProductCreate.vue");
 const ProductEdit = () => import("../views/Products/ProductEdit.vue");
 
+
+
+
+const ProductRequest = () => import("@/views/ProductRequest/ProductRequests");
+const ProductRequestCreate = () => import("../views/ProductRequest/ProductRequestCreate.vue")
+const ProductRequestEdit = () => import("../views/ProductRequest/ProductRequestEdit.vue");
+const ProductRequestShow = () => import("../views/ProductRequest/ProductRequestShow.vue");
+
+
 const Partners = () => import("@/views/Partners/Partners");
 const PartnerShow = () => import("../views/Partners/PartnerShow");
 const PartnerPayments = () => import("../views/Partners/PartnerPayments");
@@ -674,6 +683,39 @@ const router = new Router({
           component: ProductCreate,
           // meta: {
           //   permission_name: "product read",
+          // },
+        },
+
+        {
+          path: "/product-requests",
+          name: "ProductRequest",
+          component: ProductRequest,
+          // meta: {
+          //   permission_name: permissionsList.service,
+          // },
+        },
+        {
+          path: "/product-requests/create",
+          name: "ProductRequestCreate",
+          component: ProductRequestCreate,
+          // meta: {
+          //   permission_name: permissionsList.service,
+          // },
+        },
+        {
+          path: "/product-requests/edit/:id",
+          name: "ProductRequestEdit",
+          component: ProductRequestEdit,
+          // meta: {
+          //   permission_name: permissionsList.service,
+          // },
+        },
+        {
+          path: "/product-requests/show/:id",
+          name: "ProductRequestShow",
+          component: ProductRequestShow,
+          // meta: {
+          //   permission_name: permissionsList.service,
           // },
         },
 

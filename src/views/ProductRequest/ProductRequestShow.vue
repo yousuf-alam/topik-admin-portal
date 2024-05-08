@@ -1,39 +1,31 @@
 <template>
     <div class="animated fadeIn">
-        <b-row>
-            <b-col>
-                <b-card>
-                    <h3 class="text-center">Product Request Description</h3>
-
-
-                </b-card>
-            </b-col>
-        </b-row>
+      
         <b-row>
             <b-col sm="6" md="6">
                 <b-card>
-                    <h3 class="text-center">Product Request Details</h3><br>
+                    <h4 class="text-center">Product Request Details</h4><br>
                     <ul class="list-unstyled">
                         <li class="mb-3">
-                            <h5><b>Partner Name:</b> {{ productRequest . partner_name }}</h5>
+                            <h6><b>Partner Name:</b> {{ productRequest . partner_name }}</h6>
                         </li>
                         <li class="mb-3">
-                            <h5 ><b>Status:</b> <span class="badge badge-success">{{ productRequest . status }}</span></h5>
+                            <h6 ><b>Status:</b> <span class="badge badge-success">{{ productRequest . status }}</span></h6>
                         </li>
                         <li class="mb-3">
-                            <h5><b>Requisition Date:</b> {{ productRequest . requisition_date }}</h5>
+                            <h6><b>Requisition Date:</b> {{ productRequest . requisition_date }}</h6>
                         </li>
                         <li class="mb-3">
-                            <h5><b>Acquisition Period:</b> {{ productRequest . acquisition_period }}</h5>
+                            <h6><b>Acquisition Period:</b> {{ productRequest . acquisition_period }}</h6>
                         </li>
                         <li class="mb-3">
-                            <h5><b>Total Price:</b> {{ productRequest . total_price }}</h5>
+                            <h6><b>Total Price:</b> {{ productRequest . total_price }}</h6>
                         </li>
                         <li class="mb-3">
-                            <h5><b>Send Date:</b> {{ productRequest . send_date || 'Not sent yet' }}</h5>
+                            <h6><b>Send Date:</b> {{ productRequest . send_date || 'Not sent yet' }}</h6>
                         </li>
                         <li class="mb-3">
-                            <h5><b>Approved By:</b> {{ productRequest . approved_by || 'Not approved yet' }}</h5>
+                            <h6><b>Approved By:</b> {{ productRequest . approved_by || 'Not approved yet' }}</h6>
                         </li>
                     </ul>
                 </b-card>

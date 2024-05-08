@@ -3,13 +3,12 @@
         <b-tabs card pills>
             <b-tab active title="Edit Product Request">
                 <b-card-text>
-                    <form @submit.prevent="onSubmit">
+                    <form @submit="onSubmit" enctype="multipart/form-data">
+
                         <!-- Partner Name -->
                         <div class="form-group">
                             <label>Partner Name</label>
-                            <!-- <select class="form-control" v-model="partner_name">
-                               <option value="">partner_name</option>
-                            </select> -->
+
                             <br>
                             <input class="form-control" type="text" v-model="partner_name" disabled>
                         </div>
@@ -20,6 +19,15 @@
                             <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true"
                                 label="Select" id="RangeDatePicker" format="YYYY-MM-DD" formatted="ll" color="#7D4E77"
                                 v-model="requisition_date" />
+                        </div>
+
+
+                        <!-- Send Date -->
+                        <div class="form-group">
+                            <label>Send Date</label>
+                            <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true"
+                                label="Select" id="RangeDatePicker" format="YYYY-MM-DD" formatted="ll" color="#7D4E77"
+                                v-model="send_date" />
                         </div>
 
                         <!-- Acquisition Period -->
@@ -82,6 +90,7 @@
                 partner_id: '',
                 partner_name: '',
                 requisition_date: '',
+                send_date: '',
                 acquisition_period: '',
                 allProducts: [],
                 selectedProducts: [] ,
@@ -104,6 +113,7 @@
                         const data = response.data.data;
                         this.partner_name = data.partner_name;
                         this.requisition_date = data.requisition_date;
+                        this.send_date = data.send_date;
                         this.acquisition_period = data.acquisition_period;
                         this.status = data.status;
                         this.selectedProducts = data.product_request_transactions.map(item => ({
@@ -130,10 +140,12 @@
                         console.error('Error fetching products:', error);
                     });
             },
-            onSubmit() {
+            onSubmit(event) {
+              event.preventDefault();
                 const formData = new FormData();
                 formData.append('partner_id', this.partner_id);
                 formData.append('requisition_date', this.requisition_date);
+                formData.append('send_date', this.send_date);
                 formData.append('acquisition_period', this.acquisition_period);
                 formData.append('status', this.status);
                 this.selectedProducts.forEach((product, index) => {

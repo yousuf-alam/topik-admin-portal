@@ -1,6 +1,6 @@
 <template>
     <div class="animated fadeIn">
-      
+
         <b-row>
             <b-col sm="6" md="6">
                 <b-card>
@@ -10,7 +10,7 @@
                             <h6><b>Partner Name:</b> {{ productRequest . partner_name }}</h6>
                         </li>
                         <li class="mb-3">
-                            <h6 ><b>Status:</b> <span class="badge badge-success">{{ productRequest . status }}</span></h6>
+                            <h6 ><b>Status:</b> <span :class="statusClass">{{ productRequest . status }}</span></h6>
                         </li>
                         <li class="mb-3">
                             <h6><b>Requisition Date:</b> {{ productRequest . requisition_date }}</h6>
@@ -71,6 +71,18 @@
                 productRequest: null
             }
         },
+
+        computed:{
+
+          statusClass() {
+      return {
+        'badge': true,
+        'badge-success': this.productRequest.status !== 'rejected',
+        'badge-danger': this.productRequest.status === 'rejected'
+      };
+    }
+        },
+
         created() {
             this.fetchProductRequest();
         },

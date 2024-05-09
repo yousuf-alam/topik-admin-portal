@@ -47,6 +47,7 @@
                               <option value="approved">Approved</option>
                               <option value="sent">Sent</option>
                               <option value="received">Received</option>
+                              <option value="rejected">Rejected</option>
                           </select>
                       </div>
 
@@ -140,14 +141,16 @@
                         console.error('Error fetching products:', error);
                     });
             },
-            onSubmit(event) {
-              event.preventDefault();
-                const formData = new FormData();
-                formData.append('partner_id', this.partner_id);
-                formData.append('requisition_date', this.requisition_date);
-                formData.append('send_date', this.send_date);
-                formData.append('acquisition_period', this.acquisition_period);
-                formData.append('status', this.status);
+          onSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('partner_id', this.partner_id);
+            formData.append('requisition_date', this.requisition_date);
+            if (this.send_date) {
+              formData.append('send_date', this.send_date);
+            }
+            formData.append('acquisition_period', this.acquisition_period);
+            formData.append('status', this.status);
                 this.selectedProducts.forEach((product, index) => {
 
                   formData.append(`products[${index}][product_id]`, product.id);

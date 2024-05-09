@@ -44,10 +44,9 @@
 
           <div class="form-group">
             <label>Image</label><br>
-            <label class="text-danger">(Image Size should be (480 X 360) and less than 1 MB)</label><br>
-            <img :src="image" style="width: 200px; height: 150px;">
+             <img :src="image" style="width: 200px; height: 150px;">
             <input type="file" class="form-control" v-on:change="onImageChange">
-
+            <span class="text-danger" v-if="imageSizeError">{{ imageSizeError }}</span>
           </div>
 
           <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Product
@@ -77,6 +76,7 @@ export default {
       isDisabled: true,
       src_image: '/images/product/',
       show: true,
+      imageSizeError:'',
 
       fields: [{ name: "" }]
     }
@@ -107,9 +107,19 @@ export default {
     },
 
 
-    onImageChange(e) {
+
+   onImageChange(e) {
       this.image = e.target.files[0];
+      if (this.image.size > 1048576) {
+        this.imageSizeError = 'Image size should be less than 1 MB';
+        e.target.value = '';
+      }
+      else {
+        this.imageSizeError = '';
+      }
+
     },
+
     onSubmit(e) {
 
 

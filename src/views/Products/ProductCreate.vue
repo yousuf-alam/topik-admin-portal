@@ -48,6 +48,7 @@
         <label class="col-sm-3 col-form-label">Upload Image</label>
         <div class="col-sm-9">
           <input class="form-control" type="file" name="image" v-on:change="onImageChange">
+          <span class="text-danger" v-if="imageSizeError">{{ imageSizeError }}</span>
         </div>
       </div>
 
@@ -74,13 +75,20 @@ export default {
       old_price: '',
       new_price: '',
       image: '',
-
+      imageSizeError:''
     }
   },
   methods: {
 
     onImageChange(e) {
       this.image = e.target.files[0];
+      if (this.image.size > 1048576) {
+        this.imageSizeError = 'Image size should be less than 1 MB';
+        e.target.value = '';
+      }
+      else {
+        this.imageSizeError = '';
+      }
 
     },
     onSubmit(e) {

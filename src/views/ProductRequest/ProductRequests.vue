@@ -6,7 +6,6 @@
         <h1 class="my-auto tableName"></h1>
       </div>
       <div class="">
-        <!-- Assuming permissions are handled similarly -->
         <router-link :to="{ name: 'ProductRequestCreate'}">
           <button class="btn btn-success">Create New Product Request</button>
         </router-link>
@@ -23,11 +22,11 @@
             <div class="form-group">
               <label class="font-weight-bold">Select Date Range:</label>
               <b-row>
-                <b-col>
+                <b-col cols="5">
                   <label>From:</label>
                   <datepicker calendar-class="vdp-datepicker" v-model="date_from" format="yyyy-MM-dd"></datepicker>
                 </b-col>
-                <b-col>
+                <b-col cols="5">
                   <label>To:</label>
                   <datepicker calendar-class="vdp-datepicker" v-model="date_to" format="yyyy-MM-dd"></datepicker>
                 </b-col>
@@ -188,3 +187,8 @@ export default {
 
 }
 </script>
+
+<style scoped>
+
+ 
+</style>

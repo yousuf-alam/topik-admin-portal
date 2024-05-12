@@ -37,7 +37,7 @@
                <label class="font-weight-bold">Select Date Type:</label>
                <select class="form-control" v-model="date_type">
                  <option selected value="requisition_date">Requisition Date</option>
-                 <option value="created_at">Created at</option>
+                 <option value="created_at">Created At</option>
                </select>
              </div>
              <div class="form-group">
@@ -195,6 +195,6 @@ export default {
 .v--modal-overlay >>> .v--modal-box {
 
   overflow: visible !important;
- 
+
 }
 </style>

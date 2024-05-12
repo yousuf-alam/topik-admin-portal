@@ -190,5 +190,11 @@ export default {
 
 <style scoped>
 
+
+
+.v--modal-overlay >>> .v--modal-box {
+
+  overflow: visible !important;
  
+}
 </style>

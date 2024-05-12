@@ -287,8 +287,11 @@ export default {
             this.items = response.data.data;
             // console.log(this.items);
 
+            this.salaryStatus();
+
 
             return this.$router.push('/partner-salary');
+
 
           })
           .catch(error => {
@@ -505,7 +508,7 @@ input {
   border-radius: 8px;
 }
 .green-cell {
-  background-color: #01FF00;
+  background-color: #4DBD74;
   padding: 5px;
   color: white;
   font-size: 14px;

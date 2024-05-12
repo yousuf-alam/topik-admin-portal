@@ -117,6 +117,8 @@ export default {
       selectedData: [],
       selectAll: false,
       notes: '',
+      is_disbursable: false,
+      isDisabled: true,
       columns: [
         'id', 'partner_id', 'name','basic_salary', 'salary_disbursement','action'
       ],
@@ -145,6 +147,21 @@ export default {
         return !!this.$store.getters['auth/hasPermission'](permission_name);
       }
     },
+    toggleSelectAll() {
+      this.salaries.forEach(salary => {
+        salary.selected = this.selectAll;
+
+        console.log('salary selected',salary.selected);
+      });
+
+
+      // Use $nextTick to ensure DOM has been updated
+      this.$nextTick(() => {
+        console.log('dhuksi next tick');
+        this.updateSelectedData();
+      });
+    },
+
   },
 
   mounted() {
@@ -168,12 +185,15 @@ export default {
       window.location.reload();
     },
 
-    toggleSelectAll() {
-      this.salaries.forEach(salary => {
-        salary.selected = this.selectAll;
-      });
-      this.updateSelectedData();
-    },
+    // toggleSelectAll() {
+    //   this.salaries.forEach(salary => {
+    //     salary.selected = this.selectAll;
+    //   });
+    //   this.updateSelectedData();
+    // },
+
+
+
 
     updateSelectedData() {
       this.selectedData = this.salaries
@@ -192,23 +212,29 @@ export default {
       }
     },
     pay() {
-      if (this.selectedData.length === 0) {
+      if (this.is_disbursable === false) {
+        alert('Salary clearance is not done yet');
+      }
+      else if (this.selectedData.length === 0) {
         alert('Please select at least one checkbox before paying.');
       }
-      if (this.selectedData.length >1) {
+      else if (this.selectedData.length >1) {
         alert('Please select disburse checked button');
       }
-      if(this.selectedData.length === 1) {
+      else{
         this.approveDisburseModal()
       }
     },
     disburseChecked() {
-      if (this.selectedData.length === 0) {
+
+      if (this.is_disbursable === false) {
+        alert('Salary clearance is not done yet');
+      } else if (this.selectedData.length === 0) {
         alert('Please select at least one checkbox before paying.');
+      } else {
+        this.approveDisburseModal();
       }
-      if (this.selectedData.length >0) {
-        this.approveDisburseModal()
-      }
+
 
     },
 
@@ -224,6 +250,7 @@ export default {
           console.log('response',response);
           this.salaries = response.data.data;
           this.notes = response.data.note;
+          this.is_disbursable = response.data.is_disbursable;
           console.log('salaries',this.notes);
         })
         .catch(e => {
@@ -259,7 +286,11 @@ export default {
 
 
     confirmDisbursement() {
-      let formData=this.selectedData
+      let formData= {
+        data:this.selectedData,
+        month: this.month,
+        year: this.year,
+      }
       axios.post(`${ADMIN_URL}/disburse-salary-in-house`,formData)
         .then(response => {
           this.$swal('Approve Disbursement', '', 'success');
@@ -392,11 +423,11 @@ table {
 
 .disburse-checked {
   border-radius: 8px;
-  background: #00badd;
+  background: #4DBD74;
   font-size: 16px;
   font-weight: 500;
   margin-right: 6px;
-  border: 1px solid #00badd;
+  border: 1px solid #4DBD74;
   color: white;
   padding: 5px;
   cursor: pointer;

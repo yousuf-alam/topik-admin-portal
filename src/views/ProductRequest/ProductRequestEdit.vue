@@ -164,6 +164,14 @@
                         }
                     })
                     .then(response => {
+
+                      if (response.data.success === true) {
+                        this.$swal('Success', 'Product Request updated successfully.', 'success');
+                      }
+                      else {
+                        this.$swal('Error', 'Something went wrong', 'error');
+                      }
+
                         this.$router.push({
                             name: 'ProductRequest'
                         });

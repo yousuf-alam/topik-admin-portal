@@ -118,11 +118,23 @@ export default {
       axios.post(`${ADMIN_URL}/create-product`, formData, config)
         .then(response => {
           currentObj.success = response.data.success;
+
+          if(response.data.success===true)
+            {
+              this.$swal('Success','Product created successfully.','success');
+            }
+            else
+            {
+              this.$swal('Error', 'Something went wrong', 'error');
+            }
+
+
           this.$router.push({ name: 'Products' })
         })
         .catch(error => {
           // console.log('Error  ... ', error.response);
           currentObj.output = error;
+          
         });
     }
   }

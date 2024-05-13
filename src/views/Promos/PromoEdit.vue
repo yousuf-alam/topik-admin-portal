@@ -204,6 +204,7 @@
             if(response.data.success===true)
             {
               this.$swal('Success',response.data.message,'success');
+              window.location.href='/promos'
             }
             else
             {

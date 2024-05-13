@@ -63,7 +63,7 @@
     <b-row>
       <b-col>
         <b-card>
-          <button  @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
+          <!-- <button  @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button> -->
           <v-client-table :data="productRequests" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div class="d-flex gap-2">

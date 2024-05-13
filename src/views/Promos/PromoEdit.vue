@@ -33,16 +33,20 @@
       </div>
       <div v-if="promo.type==='percentage'" class="form-group">
         <label>Percentage Amount (%)</label>
-        <input type="text"class="form-control" v-model="promo.percentage_amount">
+        <input type="text" class="form-control" v-model="promo.percentage_amount">
       </div>
       <div class="form-group">
         <label v-if="promo.type==='percentage'">Maximum Discount Amount</label>
         <label v-else>Discount Amount</label>
-        <input type="text"class="form-control" v-model="promo.discount_amount">
+        <input type="text" class="form-control" v-model="promo.discount_amount">
       </div>
       <div v-if="promo.type==='download'" class="form-group">
         <label>Discount Per Usage</label>
-        <input type="text"class="form-control" v-model="promo.discount_per_usage">
+        <input type="text" class="form-control" v-model="promo.discount_per_usage">
+      </div>
+      <div v-if="promo.type==='fixed'" class="form-group">
+        <label>User Limit</label>
+        <input type="text" class="form-control" v-model="promo.user_limit">
       </div>
       <div class="form-group">
         <label>Maximum Usage of per User</label>
@@ -106,6 +110,7 @@
         service_id: null,
         category_id: null,
         max_uses_user: '',
+        user_limit:'',
         order_amount: '',
         discount_amount: '',
         percentage_amount: '',
@@ -176,6 +181,7 @@
         formData.append('description', this.promo.description);
         formData.append('status', this.promo.status);
         formData.append('max_uses_user', this.promo.max_uses_user);
+        formData.append('user_limit', this.promo.user_limit);
         formData.append('order_amount', this.promo.order_amount);
         formData.append('discount_amount', this.promo.discount_amount);
         formData.append('percentage_amount', this.promo.percentage_amount);

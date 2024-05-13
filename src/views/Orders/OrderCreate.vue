@@ -331,13 +331,17 @@ export default {
         .post(`${ADMIN_URL}/submit-coupon`, {
           coupon: this.coupon,
           category_id: this.services[0].category_id,
-          price: this.invoice.price,
+          price: this.invoice.total_service_charge,
+          phone:this.customer.phone
         })
         .then((response) => {
           console.log(response.data);
           if (response.data.success === true) {
             this.promo_discount = response.data.discount;
             this.coupon_id = response.data.coupon_id;
+            console.log("promo_discount", this.promo_discount);
+            this.invoice = this.invoiceFormatter();
+
             this.$modal.hide("modal-coupon");
           } else {
             this.$modal.hide("modal-coupon");

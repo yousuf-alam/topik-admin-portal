@@ -2,50 +2,58 @@
   <div class="animated fadeIn">
     <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i> PRODUCT REQUEST STATUS</h4>
       <b-row class="smallCardContainer ">
+
+
         <b-col sm="12" md="6" xl="3">
-          <div class="card smallCard" >
+          <div class="card smallCard small">
             <div class="smallCardBody">
-              <i class="fa fa-unlock bg-danger p-4 font-2xl "></i>
-              <div class=" p-2">
-                <div class="h5 text-danger">2</div>
+              <i class="fa fa-spinner bg-success p-3 font-l"></i>
+              <div class="p-2">
+                <div class="h5 text-success">9</div>
                 <div class="text-muted text-uppercase font-weight-bold font-xs">REQUESTED</div>
               </div>
             </div>
           </div>
         </b-col>
+
+
+
+
         <b-col sm="12" md="6" xl="3">
-          <div class="card smallCard">
+          <div class="card smallCard small">
             <div class="smallCardBody">
-              <i class="fa fa-laptop bg-danger p-4 font-2xl "></i>
-              <div class=" p-2">
-                <div class="h5 text-danger  ">5</div>
+              <i class="fa fa-thumbs-up bg-success p-3 font-l"></i>
+              <div class="p-2">
+                <div class="h5 text-success">9</div>
                 <div class="text-muted text-uppercase font-weight-bold font-xs">APPROVED</div>
               </div>
             </div>
           </div>
         </b-col>
+
+
         <!-- </b-row>
 
          <b-row class="smallCardContainer ">-->
-        <b-col sm="12" md="6" xl="3">
-          <div class="card smallCard">
-            <div class="smallCardBody">
-              <i class="fa fa-spinner bg-danger p-4 font-2xl "></i>
-              <div class=" p-2">
-                <div class="h5 text-danger  ">7</div>
-                <div class="text-muted text-uppercase font-weight-bold font-xs">SENT</div>
+          <b-col sm="12" md="6" xl="3">
+            <div class="card smallCard small">
+              <div class="smallCardBody">
+                <i class="fa fa-hourglass-start bg-success p-3 font-l"></i>
+                <div class="p-2">
+                  <div class="h5 text-success">9</div>
+                  <div class="text-muted text-uppercase font-weight-bold font-xs">SENT</div>
+                </div>
               </div>
             </div>
-          </div>
-        </b-col>
+          </b-col>
 
 
         <b-col sm="12" md="6" xl="3">
-          <div class="card smallCard">
+          <div class="card smallCard small">
             <div class="smallCardBody">
-              <i class="fa fa-check-circle bg-danger p-4 font-2xl"></i>
-              <div class=" p-2">
-                <div class="h5 text-danger">9</div>
+              <i class="fa fa-check-circle bg-success p-3 font-l"></i>
+              <div class="p-2">
+                <div class="h5 text-success">9</div>
                 <div class="text-muted text-uppercase font-weight-bold font-xs">RECEIVED</div>
               </div>
             </div>
@@ -53,7 +61,9 @@
         </b-col>
 
 
+
       </b-row>
+      <br>
     <div class="cardheading">
       <h4><i class="fa fa-bars"></i><span class="ml-1">Product Requests</span></h4>
       <div class="">

@@ -343,13 +343,24 @@ export default {
             this.invoice = this.invoiceFormatter();
 
             this.$modal.hide("modal-coupon");
+
+            if(response.data.success===true)
+            {
+              this.$swal('Success','Coupon Code Applied Successfully','success');
+
+            }
+
           } else {
             this.$modal.hide("modal-coupon");
+
+              this.$swal('Error', response.data.msg, 'error');
+
           }
         })
         .catch((e) => {
           console.log("error applying promo === ", e.response);
           this.$modal.hide("modal-coupon");
+
         });
     },
 

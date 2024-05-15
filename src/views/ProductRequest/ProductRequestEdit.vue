@@ -11,6 +11,8 @@
 
                             <br>
                             <input class="form-control" type="text" v-model="partner_name" disabled>
+                            <input class="form-control" type="text" v-model="partner_id" hidden>
+
                         </div>
 
                         <!-- Requisition Date -->
@@ -112,6 +114,7 @@
                 axios.get(`${ADMIN_URL}/fetch-request-by-id/${this.requestId}`)
                     .then(response => {
                         const data = response.data.data;
+                        this.partner_id = data.partner_id;
                         this.partner_name = data.partner_name;
                         this.requisition_date = data.requisition_date;
                         this.send_date = data.send_date;

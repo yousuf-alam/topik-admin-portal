@@ -1,6 +1,6 @@
 <template>
   <div class="animated fadeIn">
-    <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i> PRODUCT REQUEST STATUS</h4>
+    <h4 v-if="productReqStatus.length>0"><i class="fa fa-shopping-cart mr-2 mb-2"></i> PRODUCT REQUEST STATUS</h4>
     <b-row class="smallCardContainer">
       <b-col v-for="(statusCount, index) in productReqStatus" :key="index" sm="12" md="6" xl="3">
         <div class="card smallCard small">
@@ -93,7 +93,16 @@
                 </router-link>
                 <router-link :to="{ name: 'ProductRequestEdit', params: { id: props.row.id } }"><span
                     class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
-                    <i class="fa fa-edit"></i></span></router-link>
+                    <i class="fa fa-edit"></i></span>
+                </router-link>
+
+                <span @click="sentProductToSp(props.row.id , props.row.status, props.row.partner_id)"
+                 class="btn btn-success btn-sm m-1 btn-send"
+                  data-toggle="tooltip" title="Sent">
+                   <i class="fa fa-paper-plane"></i>
+                </span>
+
+
               </div>
             </template>
           </v-client-table>
@@ -108,13 +117,10 @@ import axios from 'axios';
 import moment from 'moment';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 import Vue from 'vue';
-import paginate from 'vuejs-paginate';
-import _ from 'lodash';
 import Datepicker from 'vuejs-datepicker';
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
-import store from "../../store/store";
-Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
+ Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 
 export default {
   name: 'ProductRequests',
@@ -126,15 +132,14 @@ export default {
       productRequests: [],
       productReqStatus: [],
       columns: [
-        'id', 'partner_name', 'status', 'requisition_date', 'acquisition_period', 'total_price', 'send_date', 'approved_by', 'created_at', 'action'
+        'id', 'partner_name', 'created_at', 'requisition_date', 'acquisition_period', 'total_price', 'send_date', 'approved_by', 'status', 'action'
       ],
       date_from: '',
       date_to: '',
       date_type: 'requisition_date',
       status: 'all',
       exporting: false,
-
-      options: {
+        options: {
         pagination: { nav: 'fixed' },
         filterByColumn: true,
         // dateColumns: ['requisition_date', 'send_date', 'created_at'],
@@ -215,6 +220,40 @@ export default {
 
 
           },
+
+    sentProductToSp(requestId , status, partnerId) {
+
+
+      if (status == 'requested') {
+
+         this.$swal('Error', 'Product Request is not Approved Yet.', 'error');
+        return;
+      }
+
+      if (status == 'sent' || status == 'received') {
+
+        this.$swal('Error', 'Product is already sent/received.', 'error');
+        return;
+      }
+
+      axios.post(`${ADMIN_URL}/change-product-request-status/${requestId}`,
+        {
+          id: requestId,
+          partner_id:partnerId
+        })
+        .then(response => {
+          if (response.data.success === true) {
+            this.$swal('Success', response.data.message, 'success');
+          }
+          else {
+            this.$swal('Error', 'Something went wrong', 'error');
+          }
+          window.location.reload();
+        })
+        .catch(e => {
+          console.log("error occurs", e);
+        });
+    }
   },
 
 }
@@ -228,5 +267,10 @@ export default {
 
   overflow: visible !important;
 
+}
+
+.btn-send{
+
+  cursor: pointer;
 }
 </style>

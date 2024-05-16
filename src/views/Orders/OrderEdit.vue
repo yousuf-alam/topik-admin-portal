@@ -479,7 +479,7 @@ export default {
       currentTime: '',
       timeDifference: 0,
       scheduledTime: '03.00PM-09.00P.M',
-      selectedMethod: ''
+      selectedMethod: 'bKash'
 
     };
   },
@@ -712,10 +712,19 @@ export default {
         this.$swal('Error', 'Inserted amount cannot be greater than the due bill', 'error');
         return;
       }
+
       let formData = new FormData();
       formData.append('id', this.order.id);
       formData.append('amount', this.add_payment);
       formData.append('payment_method', this.selectedMethod);
+
+
+      if (this.selectedMethod !== 'bKash' && this.selectedMethod !== 'ssl') {
+        this.$swal('Error', 'Please select either "bkash" or "ssl" as payment method', 'error');
+        return;
+      }
+
+
       axios.post(`${ADMIN_URL}/order-payment/insert-bill`, formData)
         .then(response => {
 

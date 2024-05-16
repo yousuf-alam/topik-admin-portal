@@ -143,7 +143,16 @@ export default {
 
       axios.post(`${ADMIN_URL}/update-product/${this.product_id}`, formData)
         .then(response => {
-          console.log('Success', response);
+
+          if(response.data.success===true)
+            {
+              this.$swal('Success','Product updated successfully.','success');
+            }
+            else
+            {
+              this.$swal('Error', 'Something went wrong', 'error');
+            }
+
 
           return this.$router.push('/products');
 

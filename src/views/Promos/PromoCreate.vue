@@ -49,6 +49,10 @@
         <input type="number" class="form-control" v-model="max_uses_user">
       </div>
       <div class="form-group">
+        <label>User Limit</label>
+        <input type="number" class="form-control" v-model="user_limit">
+      </div>
+      <div class="form-group">
         <label>Minimum Order Value</label>
         <input type="number" class="form-control" v-model="order_amount">
       </div>
@@ -104,6 +108,7 @@
         service_id: null,
         category_id: null,
         max_uses_user: '',
+        user_limit: '',
         order_amount: '',
         discount_amount: '',
         percentage_amount: '',
@@ -162,6 +167,7 @@
         formData.append('description', this.description);
         formData.append('published_status', this.published_status);
         formData.append('max_uses_user', this.max_uses_user);
+        formData.append('user_limit', this.user_limit);
         formData.append('order_amount', this.order_amount);
         formData.append('discount_amount', this.discount_amount);
         formData.append('percentage_amount', this.percentage_amount);

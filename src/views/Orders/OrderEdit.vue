@@ -260,6 +260,13 @@
               <input type="text" class="form-control" v-model="order.total_bill">
             </b-form-group>
             <b-form-group label="Insert Payment">
+              <div>
+                <input type="radio" id="bKash" value="bKash" v-model="selectedMethod">
+                <label style="margin-left: 10px;" for="bKash">Bkash</label><br>
+
+                <input type="radio" id="ssl" value="ssl" v-model="selectedMethod">
+                <label style="margin-left: 10px;" for="ssl">Ssl</label>
+              </div>
               <input type="text" class="form-control" v-model="add_payment">
               <button class="btn btn-dark mt-3" @click="addPayment"> Add Payment</button>
 
@@ -472,6 +479,7 @@ export default {
       currentTime: '',
       timeDifference: 0,
       scheduledTime: '03.00PM-09.00P.M',
+      selectedMethod: ''
 
     };
   },
@@ -707,6 +715,7 @@ export default {
       let formData = new FormData();
       formData.append('id', this.order.id);
       formData.append('amount', this.add_payment);
+      formData.append('payment_method', this.selectedMethod);
       axios.post(`${ADMIN_URL}/order-payment/insert-bill`, formData)
         .then(response => {
 

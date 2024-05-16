@@ -719,12 +719,6 @@ export default {
       formData.append('payment_method', this.selectedMethod);
 
 
-      if (this.selectedMethod !== 'bKash' && this.selectedMethod !== 'ssl') {
-        this.$swal('Error', 'Please select either "bkash" or "ssl" as payment method', 'error');
-        return;
-      }
-
-
       axios.post(`${ADMIN_URL}/order-payment/insert-bill`, formData)
         .then(response => {
 

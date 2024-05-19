@@ -265,7 +265,7 @@
                 <label style="margin-left: 10px;" for="bKash">Bkash</label><br>
 
                 <input type="radio" id="ssl" value="ssl" v-model="selectedMethod">
-                <label style="margin-left: 10px;" for="ssl">Ssl</label>
+                <label style="margin-left: 10px;" for="ssl">SSL</label>
               </div>
               <input type="text" class="form-control" v-model="add_payment">
               <button class="btn btn-dark mt-3" @click="addPayment"> Add Payment</button>

@@ -290,6 +290,16 @@ const navitems = {
       icon: "fa fa-gift",
       permission_name: permissionsList.promocode,
     },
+
+
+    {
+      name: "Hot Deals",
+      url: "/hot-deals",
+      icon: "fa fa-gift",
+      permission_name: permissionsList.promocode,
+    },
+
+
     {
       name: "Banners",
       url: "/banners",

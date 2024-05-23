@@ -100,12 +100,19 @@ export default {
       key: 'this_month',
       columns: ['id', 'channel', 'type', 'partner_name', 'priority', 'assigned_to', 'complain_issue_date', 'status', 'complain_entry_date', 'solve_type', 'action'],
       tableData: [],
+
+      complaintStatusCount: [
+        { status: 'received', count: 0 },
+        { status: 'opened', count: 0 },
+        { status: 'resolved', count: 0 },
+        { status: 'customer-unreachable', count: 0 }
+      ],
       options: {
         pagination: { nav: 'fixed' },
         filterByColumn: true,
         dateColumns: ['age'],
         toMomentFormat: 'YYYY-MM-DD',
-        complaintStatusCount: [],
+
 
         sortIcon: { base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort' },
       }
@@ -133,7 +140,24 @@ export default {
     getComplaintStatusCount(){
       axios.get(`${ADMIN_URL}/user-complaints-status-count`)
         .then(response => {
-          this.complaintStatusCount = response.data.data;
+          
+          const statusCounts = response.data.data;
+
+          this.complaintStatusCount = [
+            { status: 'received', count: 0 },
+            { status: 'opened', count: 0 },
+            { status: 'resolved', count: 0 },
+            { status: 'customer-unreachable', count: 0 }
+          ];
+          // Update counts based on response
+          statusCounts.forEach(sc => {
+            const status = this.complaintStatusCount.find(s => s.status === sc.status);
+            if (status) {
+              status.count = sc.count;
+            }
+          });
+
+
         }).catch(error => {
 
           console.error("Error while fetching complaintstatus", error);

@@ -97,7 +97,7 @@ export default {
     return {
       data_loaded_successfully: false,
       key: 'this_month',
-      columns: ['id', 'channel', 'type', 'partner_name', 'priority', 'assigned_to', 'complain_issue_date', 'status', 'complain_entry_date', 'solve_type', 'action'],
+      columns: ['id', 'channel', 'type', 'partner_name','phone_number' , 'priority', 'assigned_to', 'complain_issue_date', 'status', 'complain_entry_date', 'solve_type', 'action'],
       tableData: [],
 
       complaintStatusCount: [

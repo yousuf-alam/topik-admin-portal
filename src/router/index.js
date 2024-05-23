@@ -44,8 +44,8 @@ const PromoEdit = () => import("../views/Promos/PromoEdit");
 const PartnerPromos = () => import("@/views/Promos/PartnerPromos");
 
 const HotDeals = () => import("@/views/HotDeals/HotDeals");
-// const HotDealsCreate = () => import("../views/Promos/PromoCreate");
-// const HotDealsEdit = () => import("../views/Promos/PromoEdit");
+// const HotDealCreate = () => import("../views/HotDeals/HotDealCreate");
+// const HotDealEdit = () => import("../views/HotDeals/HotDealEdit");
 
 
 
@@ -549,6 +549,21 @@ const router = new Router({
             //permission_name: permissionsList.promocode
           },
         },
+        // {
+        //   path: "hot-deals/create",
+        //   name: "HotDealCreate",
+        //   component: HotDealCreate,
+        //   meta: {
+
+        //   },
+        // },
+        // {
+        //   path: "hot-deals//edit/:id",
+        //   name: "HotDealEdit",
+        //   component: HotDealEdit,
+        //   meta: {
+        //   },
+        // },
 
 
 

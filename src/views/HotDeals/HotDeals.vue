@@ -12,9 +12,9 @@
 
         <div class="d-flex justify-content-between gap-5">
 
-          <!-- <router-link :to="{ name: 'ProductCreate' }"> -->
+          <!-- <router-link :to="{ name: 'HotDealCreate' }">
             <button class="btn btn-success">Create New Hot Deal</button>
-          <!-- </router-link> -->
+          </router-link> -->
         </div>
       </div>
       <b-row>
@@ -30,14 +30,14 @@
                   <img :src="props.row.thumbnail" style="width: 160px; height: 90px;">
                 </div>
               </template>
-              <template slot="action" slot-scope="props">
+              <!-- <template slot="action" slot-scope="props">
                 <div class="d-flex gap-2">
-                  <router-link :to="{ name: 'ProductEdit', params: { id: props.row.id } }"><span
+                  <router-link :to="{ name: 'HotDealEdit', params: { id: props.row.id } }"><span
                       class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
                       <i class="fa fa-edit"></i></span></router-link>
 
                 </div>
-              </template>
+              </template> -->
             </v-client-table>
           </b-card>
         </b-col>
@@ -59,7 +59,7 @@ export default {
     return {
       data_loaded_successfully: false,
 
-      columns: ['id', 'name', 'description', 'slug', 'discount_type','discount_amount','code', 'status', 'thumbnail', 'Action'],
+      columns: ['id', 'name', 'description', 'slug', 'discount_type','discount_amount','code', 'status', 'thumbnail'],
       tableData: [],
       options: {
         pagination: { nav: 'fixed' },

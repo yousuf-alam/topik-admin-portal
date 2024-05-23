@@ -105,7 +105,7 @@ export default {
         { status: 'received', count: 0 },
         { status: 'opened', count: 0 },
         { status: 'resolved', count: 0 },
-        { status: 'customer-unreachable', count: 0 }
+        // { status: 'customer-unreachable', count: 0 }
       ],
       options: {
         pagination: { nav: 'fixed' },
@@ -140,14 +140,14 @@ export default {
     getComplaintStatusCount(){
       axios.get(`${ADMIN_URL}/user-complaints-status-count`)
         .then(response => {
-          
+
           const statusCounts = response.data.data;
 
           this.complaintStatusCount = [
             { status: 'received', count: 0 },
             { status: 'opened', count: 0 },
             { status: 'resolved', count: 0 },
-            { status: 'customer-unreachable', count: 0 }
+            // { status: 'customer-unreachable', count: 0 }
           ];
           // Update counts based on response
           statusCounts.forEach(sc => {

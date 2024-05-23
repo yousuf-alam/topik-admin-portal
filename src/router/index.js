@@ -43,6 +43,12 @@ const PromoCreate = () => import("../views/Promos/PromoCreate");
 const PromoEdit = () => import("../views/Promos/PromoEdit");
 const PartnerPromos = () => import("@/views/Promos/PartnerPromos");
 
+const HotDeals = () => import("@/views/HotDeals/HotDeals");
+// const HotDealCreate = () => import("../views/HotDeals/HotDealCreate");
+// const HotDealEdit = () => import("../views/HotDeals/HotDealEdit");
+
+
+
 const Locations = () => import("@/views/Locations/Locations");
 const LocationCreate = () => import("@/views/Locations/LocationCreate");
 const LocationEdit = () => import("../views/Locations/LocationEdit");
@@ -534,6 +540,33 @@ const router = new Router({
             // permission_name: 'promocode create'
           },
         },
+
+        {
+          path: "hot-deals",
+          name: "Hot Deals",
+          component: HotDeals,
+          meta: {
+            //permission_name: permissionsList.promocode
+          },
+        },
+        // {
+        //   path: "hot-deals/create",
+        //   name: "HotDealCreate",
+        //   component: HotDealCreate,
+        //   meta: {
+
+        //   },
+        // },
+        // {
+        //   path: "hot-deals//edit/:id",
+        //   name: "HotDealEdit",
+        //   component: HotDealEdit,
+        //   meta: {
+        //   },
+        // },
+
+
+
         {
           path: "locations",
           name: "Locations",

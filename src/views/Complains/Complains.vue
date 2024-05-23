@@ -1,6 +1,24 @@
 <template>
   <div class="animated fadeIn">
 
+     <b-row class="smallCardContainer">
+      <b-col v-for="(statusCount, index) in complaintStatusCount" :key="index" sm="12" md="6" xl="3">
+        <div class="card smallCard small">
+          <div class="smallCardBody">
+            <i v-if="statusCount.status === 'received'" class="fa fa-hourglass-start bg-success p-3 font-l"></i>
+            <i v-else-if="statusCount.status === 'opened'" class="fa fa-thumbs-up bg-success p-3 font-l"></i>
+            <i v-else-if="statusCount.status === 'resolved'" class="fa fa-check-circle bg-success p-3 font-l"></i>
+            <i v-else-if="statusCount.status === 'customer-unreachable'" class="fa fa-spinner bg-success p-3 font-l"></i>
+            <div class="p-2">
+              <div class="h5 text-success">{{ statusCount.count }}</div>
+              <div class="text-muted text-uppercase font-weight-bold font-xs">{{ statusCount.status.toUpperCase() }}</div>
+            </div>
+          </div>
+        </div>
+      </b-col>
+    </b-row>
+<br>
+
     <div>
       <div class="cardheading">
         <h4><i class="fa fa-thumbs-down"></i><span class="ml-1">Complaints</span></h4>
@@ -9,6 +27,9 @@
 
           </h1>
         </div>
+
+
+
 
         <div class="d-flex justify-content-between gap-5">
           <select v-model="key" class="form-control mr-2" @change="handleOptionChange"
@@ -41,8 +62,9 @@
                 {{ cutDescriptionToShort(props.row.description) }}
               </template>
               <template slot="status" slot-scope="props">
-                <span class="badge badge-danger" v-if="props.row.status === 'unresolved'">{{ props.row.status }}</span>
-                <span class="badge badge-success" v-else>{{ props.row.status }}</span>
+                <span :class="getStyleOfStatus(props.row.status)" style="font-size: 12px;">
+                  {{ props.row.status }}
+                </span>
               </template>
               <template slot="action" slot-scope="props">
                 <div class="d-flex gap-2">
@@ -75,19 +97,29 @@ export default {
     return {
       data_loaded_successfully: false,
       key: 'this_month',
-      columns: ['id', 'channel', 'type', 'partner_name', 'priority', 'assigned_to', 'complain_issue_date', 'status', 'complain_entry_date', 'solve_type', 'action'],
+      columns: ['id', 'channel', 'type', 'partner_name','phone_number' , 'priority', 'assigned_to', 'complain_issue_date', 'status', 'complain_entry_date', 'solve_type', 'action'],
       tableData: [],
+
+      complaintStatusCount: [
+        { status: 'received', count: 0 },
+        { status: 'opened', count: 0 },
+        { status: 'resolved', count: 0 },
+        { status: 'customer-unreachable', count: 0 }
+      ],
       options: {
         pagination: { nav: 'fixed' },
         filterByColumn: true,
         dateColumns: ['age'],
         toMomentFormat: 'YYYY-MM-DD',
+
+
         sortIcon: { base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort' },
       }
     }
   },
   created() {
     this.getAllComplains();
+    this.getComplaintStatusCount();
   },
   methods: {
     handleOptionChange() {
@@ -102,7 +134,34 @@ export default {
         }).catch(error => {
           // console.log('Errorrrrrrrrrrrrrrr ', error.response);
         })
-    }
+    },
+
+    getComplaintStatusCount(){
+      axios.get(`${ADMIN_URL}/user-complaints-status-count`)
+        .then(response => {
+
+          const statusCounts = response.data.data;
+
+          this.complaintStatusCount = [
+            { status: 'received', count: 0 },
+            { status: 'opened', count: 0 },
+            { status: 'resolved', count: 0 },
+            { status: 'customer-unreachable', count: 0 }
+          ];
+          // Update counts based on response
+          statusCounts.forEach(sc => {
+            const status = this.complaintStatusCount.find(s => s.status === sc.status);
+            if (status) {
+              status.count = sc.count;
+            }
+          });
+
+
+        }).catch(error => {
+
+          console.error("Error while fetching complaintstatus", error);
+      })
+    },
   },
   computed: {
     cutDescriptionToShort() {
@@ -112,7 +171,28 @@ export default {
         }
         return description.substring(0, 50);
       }
-    }
+    },
+
+    getStyleOfStatus: function () {
+          return (parm) => {
+            if (parm === 'received') {
+              return 'badge badge-primary';
+
+            } else if (parm === 'opened') {
+              return 'badge badge-secondary';
+
+            } else if (parm === 'resolved') {
+
+              return 'badge badge-success';
+
+            } else if (parm === 'customer-unreachable') {
+              return 'badge badge-warning';
+
+            }  else {
+              return '';
+            }
+          }
+        },
   }
 }
 </script>

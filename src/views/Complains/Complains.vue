@@ -1,8 +1,7 @@
 <template>
   <div class="animated fadeIn">
 
-    <h4><i class="fa fa-shopping-cart mr-2 mb-2"></i> Complaint Status </h4>
-    <b-row class="smallCardContainer">
+     <b-row class="smallCardContainer">
       <b-col v-for="(statusCount, index) in complaintStatusCount" :key="index" sm="12" md="6" xl="3">
         <div class="card smallCard small">
           <div class="smallCardBody">

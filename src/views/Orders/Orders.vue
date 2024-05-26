@@ -19,7 +19,7 @@
             <br /><br />
           </b-row>
           <b-row class="p-2">
-            <div v-if="orders.length > 0" class="table-responsive scrollable-table">
+            <div v-if="ordersByPhone.length > 0" class="table-responsive scrollable-table">
               <table class="table">
                 <thead>
                   <tr>
@@ -31,7 +31,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(order, index) in orders" :key="index">
+                  <tr v-for="(order, index) in ordersByPhone" :key="index">
                     <td>{{ order.id }}</td>
                     <td>{{ order.scheduled_date }}</td>
                     <td>{{ order.scheduled_time }}</td>
@@ -261,6 +261,7 @@
         data() {
             return {
                 orders: [],
+                ordersByPhone: [],
                 total_count: '0',
                 date_from: '',
                 date_to: '',
@@ -599,7 +600,7 @@
                       status: order.status
                     };
                   });
-                  this.orders = orders;
+                  this.ordersByPhone = orders;
                   this.$modal.show('modal-show-orders');
                 } else {
 
@@ -669,7 +670,7 @@
   }
 
   .scrollable-table {
-    max-height: 400px; 
+    max-height: 400px;
     overflow-y: auto;
   }
 

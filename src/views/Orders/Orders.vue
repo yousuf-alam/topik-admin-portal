@@ -32,7 +32,8 @@
                 </thead>
                 <tbody>
                   <tr v-for="(order, index) in ordersByPhone" :key="index">
-                    <td>{{ order.id }}</td>
+
+                    <td @click="orderEdit(order.id)" style="cursor: pointer;  text-decoration: underline;">{{ order.id }}</td>
                     <td>{{ order.scheduled_date }}</td>
                     <td>{{ order.scheduled_time }}</td>
                     <td>{{ order.location_name }}</td>
@@ -610,6 +611,12 @@
               .catch(error => {
                 console.error("Error fetching orders:", error);
               });
+          },
+
+          orderEdit(orderId) {
+             var baseUrl = window.location.origin + "/orders/edit/";
+            const url = `${baseUrl}${orderId}`;
+            window.open(url, '_blank');
           },
 
           closeShowOrdersModal() {

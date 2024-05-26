@@ -19,7 +19,7 @@
             <br /><br />
           </b-row>
           <b-row class="p-2">
-            <div v-if="orders.length > 0" class="table-responsive">
+            <div v-if="orders.length > 0" class="table-responsive scrollable-table">
               <table class="table">
                 <thead>
                   <tr>
@@ -667,6 +667,12 @@
 
     margin-right: 20px;
   }
+
+  .scrollable-table {
+    max-height: 400px; 
+    overflow-y: auto;
+  }
+
 
 
   .glow {

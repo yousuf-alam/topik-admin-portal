@@ -8,7 +8,7 @@
             <i v-if="statusCount.status === 'received'" class="fa fa-hourglass-start bg-success p-3 font-l"></i>
             <i v-else-if="statusCount.status === 'opened'" class="fa fa-thumbs-up bg-success p-3 font-l"></i>
             <i v-else-if="statusCount.status === 'resolved'" class="fa fa-check-circle bg-success p-3 font-l"></i>
-            <i v-else-if="statusCount.status === 'customer-unreachable'" class="fa fa-spinner bg-success p-3 font-l"></i>
+            <i v-else-if="statusCount.status === 'un-reachable'" class="fa fa-spinner bg-success p-3 font-l"></i>
             <div class="p-2">
               <div class="h5 text-success">{{ statusCount.count }}</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs">{{ statusCount.status.toUpperCase() }}</div>
@@ -104,7 +104,7 @@ export default {
         { status: 'received', count: 0 },
         { status: 'opened', count: 0 },
         { status: 'resolved', count: 0 },
-        { status: 'customer-unreachable', count: 0 }
+        { status: 'un-reachable', count: 0 }
       ],
       options: {
         pagination: { nav: 'fixed' },
@@ -146,7 +146,7 @@ export default {
             { status: 'received', count: 0 },
             { status: 'opened', count: 0 },
             { status: 'resolved', count: 0 },
-            { status: 'customer-unreachable', count: 0 }
+            { status: 'un-reachable', count: 0 }
           ];
           // Update counts based on response
           statusCounts.forEach(sc => {
@@ -185,7 +185,7 @@ export default {
 
               return 'badge badge-success';
 
-            } else if (parm === 'customer-unreachable') {
+            } else if (parm === 'un-reachable') {
               return 'badge badge-warning';
 
             }  else {

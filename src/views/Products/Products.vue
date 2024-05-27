@@ -25,6 +25,13 @@
               <template slot="description" slot-scope="props">
                 {{ cutDescriptionToShort(props.row.description) }}
               </template>
+
+              <template slot="status" slot-scope="props">
+                <span :class="getStyleOfStatus(props.row.status)" style="font-size: 12px;">
+                  {{ props.row.status }}
+                </span>
+              </template>
+
               <template slot="image" slot-scope="props">
                 <div class="center-div">
                   <img :src="props.row.image_url" style="width: 160px; height: 90px;">
@@ -33,11 +40,17 @@
               <template slot="action" slot-scope="props">
                 <div class="d-flex gap-2">
                   <router-link :to="{ name: 'ProductEdit', params: { id: props.row.id } }"><span
-                      class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
+                      class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
                       <i class="fa fa-edit"></i></span></router-link>
                   <span class="btn btn-danger btn-sm m-1" data-toggle="tooltip" title="Delete Product"
                     :href="props.row.id" @click="handleDelete(props.row.id)">
                     <i class="fa fa-trash"></i>
+                  </span>
+
+                  <span @click="changeStatus(props.row.id)"
+                  class="btn btn-warning btn-sm m-1 btn-send"
+                   data-toggle="tooltip" title="Change Status">
+                   <i class="fa fa-solid fa-ban"></i>
                   </span>
                 </div>
               </template>
@@ -62,7 +75,7 @@ export default {
     return {
       data_loaded_successfully: false,
       key: 'this_month',
-      columns: ['id', 'category_name', 'product_name_en', 'product_name_bn', 'zoho_code','old_price','new_price', 'image', 'action'],
+      columns: ['id', 'category_name', 'product_name_en', 'product_name_bn','status', 'zoho_code','old_price','new_price', 'image', 'action'],
       tableData: [],
       options: {
         pagination: { nav: 'fixed' },
@@ -120,6 +133,25 @@ export default {
           // console.log('Error response :::: ', error.response);
         })
     },
+
+    changeStatus(productId) {
+      axios.post(`${ADMIN_URL}/change-product-status/${productId}`)
+        .then(response => {
+          if (response.data.success) {
+            this.$swal('Success', response.data.message, 'success');
+
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+          } else {
+            this.$swal('Error', response.data.message, 'error');
+          }
+        })
+        .catch(error => {
+          console.error( error);
+          this.$swal('Error', 'An error occurred while updating the status', 'error');
+        });
+    }
   },
 
 
@@ -131,7 +163,30 @@ export default {
         }
         return description.substring(0, 50);
       }
-    }
+    },
+    getStyleOfStatus: function () {
+          return (parm) => {
+            if (parm === 'active') {
+              return 'badge badge-success';
+
+            } else if (parm === 'inactive') {
+              return 'badge badge-danger';
+
+            } else {
+              return '';
+            }
+          }
+        },
   }
 }
 </script>
+
+
+<style scoped>
+
+.btn-send{
+
+cursor: pointer;
+
+}
+</style>

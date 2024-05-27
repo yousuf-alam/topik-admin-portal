@@ -1,7 +1,6 @@
 <template>
   <div class="animated fadeIn">
-    <h4 v-if="productReqStatus.length>0"><i class="fa fa-shopping-cart mr-2 mb-2"></i> PRODUCT REQUEST STATUS</h4>
-    <b-row class="smallCardContainer">
+     <b-row class="smallCardContainer">
       <b-col v-for="(statusCount, index) in productReqStatus" :key="index" sm="12" md="6" xl="3">
         <div class="card smallCard small">
           <div class="smallCardBody">
@@ -84,6 +83,13 @@
         <b-card>
           <!-- <button  @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button> -->
           <v-client-table :data="productRequests" :columns="columns" :options="options">
+
+            <template slot="status" slot-scope="props">
+              <span :class="getStyleOfStatus(props.row.status)" style="font-size: 12px;">
+                {{ props.row.status }}
+              </span>
+            </template>
+
             <template slot="action" slot-scope="props">
               <div class="d-flex gap-2">
                 <router-link :to="{ name: 'ProductRequestShow', params: { id: props.row.id } }">
@@ -127,10 +133,37 @@ export default {
   components: {
         Datepicker
       },
+
+      computed: {
+
+        getStyleOfStatus: function () {
+          return (parm) => {
+            if (parm === 'requested') {
+              return 'badge badge-primary';
+
+            } else if (parm === 'approved') {
+              return 'badge badge-warning';
+
+            } else if (parm === 'sent') {
+              return 'badge badge-secondary';
+
+            } else if (parm === 'received') {
+              return 'badge badge-success';
+
+            }else if (parm === 'rejected') {
+              return 'badge badge-danger';
+
+            }
+            else {
+              return '';
+            }
+          }
+        },
+      },
   data() {
     return {
       productRequests: [],
-      productReqStatus: [],
+
       columns: [
         'id', 'partner_name', 'created_at', 'requisition_date', 'acquisition_period', 'total_price', 'send_date', 'approved_by', 'status', 'action'
       ],
@@ -139,6 +172,13 @@ export default {
       date_type: 'requisition_date',
       status: 'all',
       exporting: false,
+      productReqStatus: [
+        { status: 'requested', count: 0 },
+        { status: 'approved', count: 0 },
+        { status: 'sent', count: 0 },
+        { status: 'received', count: 0 }
+      ],
+
         options: {
         pagination: { nav: 'fixed' },
         filterByColumn: true,
@@ -167,7 +207,23 @@ export default {
     fetchProductReqStatus() {
       axios.get(`${ADMIN_URL}/product-request-status-count`)
         .then(response => {
-          this.productReqStatus = response.data.data;
+
+          const statusCounts = response.data.data;
+
+          this.productReqStatus = [
+            { status: 'requested', count: 0 },
+            { status: 'approved', count: 0 },
+            { status: 'sent', count: 0 },
+            { status: 'received', count: 0 }
+          ];
+          statusCounts.forEach(sc => {
+            const status = this.productReqStatus.find(s => s.status === sc.status);
+            if (status) {
+              status.count = sc.count;
+            }
+          });
+
+
         })
         .catch(error => {
           console.error("Error while fetching product requests", error);

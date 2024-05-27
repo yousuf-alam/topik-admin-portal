@@ -115,7 +115,6 @@
                         const data = response.data.data;
                         this.partner_id = data.partner_id;
                         this.partner_name = data.partner_name;
-                        this.partner_id = data.partner_id;
                         this.requisition_date = data.requisition_date;
                         this.send_date = data.send_date;
                         this.acquisition_period = data.acquisition_period;

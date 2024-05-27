@@ -3,7 +3,7 @@
     <modal name="modal-order_type" height="auto" :adaptive="true" :clickToClose="false">
       <div class="m-3 p-3">
         <b-row class="p-2">
-          <h4>Choose Order Type</h4>
+          <h4 style=" font-family: 'Arial">Choose Order Type</h4>
           <br /><br />
         </b-row>
         <b-row class="p-2">
@@ -29,7 +29,7 @@
 
     <modal name="modal-coupon" height="auto" :clickToClose="false" v-if="var_modal_coupon">
       <div class="modal-header">
-        <h5 class="modal-title">Coupon</h5>
+        <h5 class="modal-title" style=" font-family: 'Arial">Coupon</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="closeModalCoupon">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -121,7 +121,7 @@
       <!--        <i class="fa fa-plus" aria-hidden="true"></i>-->
       <!--      </span>-->
 
-      <button type="button" class="btn btn-outline-secondary" style="margin-right: 5px" @click="modalCoupon">Apply
+      <button type="button" class="btn btn-outline-secondary" style="margin-right: 5px;" @click="modalCoupon">Apply
         Coupon<i class="fa fa-plus" aria-hidden="true"></i></button>
 
 
@@ -202,6 +202,7 @@ export default {
       var_modal_coupon: false,
       coupon: "",
       platform: "",
+      hot_deals: "unused",
       categories: [],
       partners: [],
       schedule: {
@@ -339,16 +340,18 @@ export default {
           if (response.data.success === true) {
             this.promo_discount = response.data.discount;
             this.coupon_id = response.data.coupon_id;
-            console.log("promo_discount", this.promo_discount);
             this.invoice = this.invoiceFormatter();
+
+            if (response.data.is_hot_deal) {
+
+              this.customer.payment_method = "ssl";
+              this.hot_deals = response.data.hot_deal_slug;
+            }
 
             this.$modal.hide("modal-coupon");
 
-            if(response.data.success===true)
-            {
-              this.$swal('Success','Coupon Code Applied Successfully','success');
+              this.$swal('Success',response.data.msg,'success');
 
-            }
 
           } else {
             this.$modal.hide("modal-coupon");
@@ -473,6 +476,7 @@ export default {
       formData.append("discount", this.invoice.discount);
       formData.append("discount_adv_pay", this.invoice.discount_adv_pay);
       formData.append("coupon_id", this.coupon_id);
+      formData.append("hot_deals", this.hot_deals);
 
       for (let i = 0; i < this.designs.length; i++) {
         let file = this.designs[i];

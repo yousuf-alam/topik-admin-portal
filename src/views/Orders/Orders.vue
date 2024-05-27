@@ -15,7 +15,7 @@
       <modal name="modal-show-orders" height="auto" :adaptive="true" :clickToClose="false">
         <div class="m-3 p-3">
           <b-row class="p-2">
-            <h4>Available Orders</h4>
+            <h4 style="font-family: Arial;">Available Orders</h4>
             <br /><br />
           </b-row>
           <b-row class="p-2">

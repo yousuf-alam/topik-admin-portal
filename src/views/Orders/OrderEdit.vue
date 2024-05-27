@@ -127,14 +127,25 @@
           <b-card class="h-70 m-4 p-4">
             <h5 class="mb-4">Payment Details</h5>
 
-            <b-form-group label="Payment Method">
+            <!-- <b-form-group label="Payment Method">
               <select class="form-control" v-model="order.payment_method" @change="getPaymentMethod">
                 <option value="bKash">bKash</option>
                 <option value="ssl">ssl</option>
                 <option value="cash">Cash on delivery</option>
 
               </select>
+            </b-form-group> -->
+
+            <b-form-group label="Payment Method">
+              <select class="form-control" v-model="order.payment_method" @change="getPaymentMethod">
+                <option v-for="method in availablePaymentMethods()" :value="method" :key="method">
+
+                  {{ paymentMethods[method] }}
+                  
+                </option>
+              </select>
             </b-form-group>
+
 
             <b-form-group label="Payment Link">
               <div class="payment-box d-flex ">
@@ -479,7 +490,14 @@ export default {
       currentTime: '',
       timeDifference: 0,
       scheduledTime: '03.00PM-09.00P.M',
-      selectedMethod: 'bKash'
+      selectedMethod: 'bKash',
+
+      paymentMethods: {
+      bKash: 'bKash',
+      ssl: 'ssl',
+      cash: 'Cash on delivery'
+    }
+
 
     };
   },
@@ -517,6 +535,15 @@ export default {
 
   },
   methods: {
+
+    availablePaymentMethods() {
+
+
+      if (this.order.payment_method === 'ssl' && this.order.hot_deals !== 'unused') {
+        return ['ssl'];
+      }
+      return ['bKash', 'ssl', 'cash'];
+    },
     designAdd(designs) {
       this.designs = designs;
     },

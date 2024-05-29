@@ -669,9 +669,7 @@
             // console.log('Lineitem Update Successful === ', response.data);
           .then(response => {
               this.$swal('Update LineItem', '', 'success');
-              setTimeout(()=>{
-                window.location.href='/line-items';
-              },1000);
+              
             })
               .catch(e => {
                 console.log("error occurs",e);

@@ -141,7 +141,7 @@
                 <option v-for="method in availablePaymentMethods()" :value="method" :key="method">
 
                   {{ paymentMethods[method] }}
-                  
+
                 </option>
               </select>
             </b-form-group>
@@ -152,7 +152,7 @@
 
                 <div class="d-flex flex-column" v-if="order.payment_method === 'ssl'">
 
-                  <div v-if="order.total_paid == 0">
+                  <div v-if="order.total_paid == 0 && order.hot_deals === 'unused'">
                     <label for="">Partial Payment</label>
                     <button @click="copyTextPartial" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
@@ -210,7 +210,26 @@
               </div>
             </b-form-group>
 
-            <b-col>
+
+           <div class="hot-deals-disabled" v-if="order.payment_method === 'ssl' && order.hot_deals !== 'unused'">
+            <!-- <b-col v-if="order.payment_method === 'ssl' && order.hot_deals !== 'unused'">
+              <b-form-group  label="Hot Deals?">
+                <b-form-radio v-model="new_hot_deals" value="On">On</b-form-radio>
+                <b-form-radio v-model="new_hot_deals" value="Off">Off</b-form-radio>
+               </b-form-group>
+            </b-col> -->
+            <b-form-group  label="Hot Deals">
+              <b-form-radio-group>
+                <b-form-radio v-model="new_hot_deals" value="On">On</b-form-radio>
+                <b-form-radio v-model="new_hot_deals" value="Off">Off</b-form-radio>
+              </b-form-radio-group>
+            </b-form-group>
+
+            <button class="btn btn-dark mb-3" @click="disableHotDeal(order.id)">Disable</button>
+
+           </div>
+
+             <b-col>
               <b-form-group label="Payment Status?">
                 <b-form-radio v-model="order.payment_status" value="Paid">Paid</b-form-radio>
                 <b-form-radio v-model="order.payment_status" value="Partial">Partial</b-form-radio>
@@ -249,6 +268,8 @@
 
 
             </b-col>
+
+
 
 
             <!--          </b-row>-->
@@ -491,6 +512,7 @@ export default {
       timeDifference: 0,
       scheduledTime: '03.00PM-09.00P.M',
       selectedMethod: 'bKash',
+      new_hot_deals : 'On',
 
       paymentMethods: {
       bKash: 'bKash',
@@ -764,6 +786,22 @@ export default {
           currentObj.output = error;
           // console.log(error);
         });
+
+    },
+
+    disableHotDeal(id){
+
+      axios.post(`${ADMIN_URL}/disable-order-hotdeal`, {
+        order_id: id,
+        hot_deals_val: this.new_hot_deals
+
+      }).then(response => {
+
+        this.$swal('Hot Deal Disabled', response.message, 'success');
+        window.location.reload(
+          setTimeout(1000)
+        );
+      });
 
     },
 

@@ -67,7 +67,7 @@ export default {
     return {
       feeds : [],
       columns: [
-        'image', 'title', 'url', 'type','user_id', 'status','action'
+        'image', 'title', 'url', 'type','user_id','publishing_time', 'status','action'
       ],
       BASE_URL:BASE_URL,
       ADMIN_URL:ADMIN_URL,

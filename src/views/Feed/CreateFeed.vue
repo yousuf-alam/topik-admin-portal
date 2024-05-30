@@ -48,6 +48,21 @@
             <b-button variant="primary" @click="addImage" class="mt-2">Add image uploader</b-button>
 
           </div>
+          <div class="form-group">
+            <label>Publishing Time</label>
+            <VueCtkDateTimePicker
+              :overlay="true"
+              :range="false"
+              :no-label="true"
+              label="Select"
+              id="RangeDatePicker"
+              format="YYYY-MM-DD hh:mm a"
+              formatted="llll"
+              color="#7D4E77"
+              v-model="publishing_time"
+            />
+
+          </div>
 
           <b-button @click="onSubmit" variant="primary" ><i class="fa fa-dot-circle-o"></i> Create Feed
           </b-button>
@@ -70,6 +85,7 @@ export default {
       selectedFile:'',
       buttonText:'',
       url:'',
+      publishing_time:'',
       image:'',
       options:[],
       fields: [{ value: "" }],
@@ -153,6 +169,7 @@ export default {
       formData.append('url', this.url);
 
       formData.append('image', this.image);
+      formData.append('publishing_time',this.publishing_time);
 
 
 

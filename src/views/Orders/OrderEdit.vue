@@ -9,7 +9,7 @@
 
       <b-row>
         <b-col class="mb-5" sm="6" md="6">
-          <b-card class="h-100 p-4 m-4">
+          <b-card class="h-60 p-4 m-4">
             <h5 class="mb-4">SP & Schedule Details</h5>
             <b-form-group>
               <label>Order ID : {{ order.id }}</label>
@@ -78,7 +78,26 @@
               @click="updateOrder"> Update</button>
 
           </b-card>
+
+          <b-card class="h-30 p-4 m-4">
+
+            <h4 class="mb-4">Hot Deals Details</h4>
+            <br>
+              <b-form-group label="Change Hot Deals">
+                <b-form-radio v-model="order.hot_deals" value="unused">Unused</b-form-radio>
+                <b-form-radio v-model="order.hot_deals" value="tara-voucher">Tara Voucher</b-form-radio>
+                <b-form-radio v-model="order.hot_deals" value="tara-card">Tara Regular</b-form-radio>
+                <b-form-radio v-model="order.hot_deals" value="brac-premium">Brac Premium Banking</b-form-radio>
+                <b-form-radio v-model="order.hot_deals" value="brac-bank">Brac Bank</b-form-radio>
+              </b-form-group>
+
+              <br>
+              <button class="btn btn-dark mb-3" @click="setHotDeal(order.id)">Change</button>
+
+
+          </b-card>
         </b-col>
+
         <b-col class="mb-5" sm="6" md="6">
           <b-card class="h-50 m-4 p-4">
             <h5 class="mb-4">Delivery Details</h5>
@@ -209,21 +228,6 @@
                 </div>
               </div>
             </b-form-group>
-
-
-           <div v-if="order.payment_method === 'ssl' && order.hot_deals !== 'unused'">
-
-            <b-form-group  label="Hot Deals">
-              <b-form-radio-group  v-model="new_hot_deals">
-                <b-form-radio   value="On">On</b-form-radio>
-                <b-form-radio   value="Off">Off</b-form-radio>
-              </b-form-radio-group>
-            </b-form-group>
-
-            <button class="btn btn-dark mb-3" @click="disableHotDeal(order.id)">Disable</button>
-
-           </div>
-           <br>
 
              <b-col>
               <b-form-group label="Payment Status?">
@@ -508,7 +512,7 @@ export default {
       timeDifference: 0,
       scheduledTime: '03.00PM-09.00P.M',
       selectedMethod: 'bKash',
-      new_hot_deals : 'On',
+      new_hot_deals : '',
 
       paymentMethods: {
       bKash: 'bKash',
@@ -523,7 +527,6 @@ export default {
     this.fetchOrder();
     this.getPartners();
     this.getLocation();
-
 
 
     // this.getPaymentMethod();
@@ -549,9 +552,15 @@ export default {
     EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
     this.calculateTimeDifference();
   },
-  watch: {
 
+  watch: {
+    'order.hot_deals'(newValue) {
+
+      this.new_hot_deals = newValue;
+      console.log(this.new_hot_deals);
+    }
   },
+
   methods: {
 
     availablePaymentMethods() {
@@ -622,7 +631,8 @@ export default {
         }
 
         this.scheduledTime = this.order.scheduled_time
-        console.log("order scheduled time", this.scheduledTime);
+        // this.new_hot_deals = this.order.hot_deals;
+         console.log("order scheduled time", this.scheduledTime);
         this.order_fetched_successfully = true;
 
 
@@ -785,21 +795,28 @@ export default {
 
     },
 
-    disableHotDeal(id){
+    setHotDeal(id) {
 
-      axios.post(`${ADMIN_URL}/disable-order-hotdeal`, {
+      axios.post(`${ADMIN_URL}/change-order-hotdeal`, {
+
         order_id: id,
-        hot_deals_val: this.new_hot_deals
+        hot_deals_val: this.new_hot_deals,
 
       }).then(response => {
-
-        this.$swal('Hot Deal Disabled', response.message, 'success');
-        window.location.reload(
-          setTimeout(1000)
-        );
+        if (response.data.success === true) {
+          this.$swal('Success', response.data.msg, 'success');
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+        } else {
+          this.$swal('Error', response.data.msg, 'error');
+        }
+      }).catch(error => {
+        console.error('Error changing hot deal:', error);
+        this.$swal('Error', 'Failed to change hot deal. Please try again later.', 'error');
       });
-
     },
+
 
     updateOrder(e) {
       e.preventDefault();

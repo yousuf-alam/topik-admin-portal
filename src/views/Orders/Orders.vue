@@ -201,8 +201,12 @@
                        </td>
 
                     <td> {{ order.bill }} </td>
-                    <td> {{ order.payment_method }} </td>
-                    <td> {{ order.shipping_phone }} </td>
+                    <td>
+                      <span :class="getStyleOfPaymentMethod(order.payment_method,order.hot_deals)">
+                        {{ order.payment_method }}
+                      </span>
+                   </td>
+                     <td> {{ order.shipping_phone }} </td>
                     <td> {{ order.shipping_address }} </td>
 
                     <td>
@@ -348,6 +352,18 @@
             }
           }
         },
+
+        getStyleOfPaymentMethod : function () {
+          return (method, slug) => {
+
+            if(method === 'ssl' && slug !== 'unused') {
+              return 'badge badge-primary';
+
+          }
+        }
+      },
+
+
         getSortIconStyle: function () {
           return (parm) => {
             const defaultIcon = 'fa fa-sort';
@@ -680,6 +696,10 @@
     max-height: 400px;
     overflow-y: auto;
   }
+
+  .ssl-color {
+    background-color: #0072BC;
+}
 
 
 

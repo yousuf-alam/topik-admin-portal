@@ -3,7 +3,7 @@
 
     <div>
       <div class="cardheading">
-        <h4><i class="fa fa-gift"></i><span class="ml-1">Hot Deals</span></h4>
+        <h4><i class="fa fa-gift"></i><span class="ml-1">Card Bins</span></h4>
         <div class="">
           <h1 class="my-auto tableName">
 
@@ -25,11 +25,7 @@
               <template slot="description" slot-scope="props">
                 {{ cutDescriptionToShort(props.row.description) }}
               </template>
-              <template slot="thumbnail" slot-scope="props">
-                <div class="center-div">
-                  <img :src="props.row.thumbnail" style="width: 160px; height: 90px;">
-                </div>
-              </template>
+
               <!-- <template slot="action" slot-scope="props">
                 <div class="d-flex gap-2">
                   <router-link :to="{ name: 'HotDealEdit', params: { id: props.row.id } }"><span
@@ -59,7 +55,7 @@ export default {
     return {
       data_loaded_successfully: false,
 
-      columns: ['id', 'name', 'description', 'slug', 'discount_type','discount_amount','code', 'status', 'thumbnail'],
+      columns: ['id', 'card_name', 'hot_deals_slug','bin_numbers', 'created_at'],
       tableData: [],
       options: {
         pagination: { nav: 'fixed' },
@@ -70,15 +66,12 @@ export default {
     }
   },
   created() {
-    this.getAllProducts();
+    this.getAllCardBins();
   },
   methods: {
-    handleOptionChange() {
-      console.log("key", this.key)
-      this.getAllProducts();
-    },
-    getAllProducts() {
-      axios.get(`${ADMIN_URL}/hot-deals`, { key: this.key })
+
+    getAllCardBins() {
+      axios.get(`${ADMIN_URL}/card-bins`,)
         .then(response => {
           this.tableData = response.data.data;
           this.data_loaded_successfully = true;

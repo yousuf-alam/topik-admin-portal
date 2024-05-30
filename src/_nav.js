@@ -296,8 +296,14 @@ const navitems = {
       name: "Hot Deals",
       url: "/hot-deals",
       icon: "fa fa-gift",
-      permission_name: permissionsList.promocode,
+
     },
+
+    {
+      name: "Card Bins",
+      url: "/card-bins",
+      icon: "fa fa-gift",
+     },
 
 
     {
@@ -306,12 +312,12 @@ const navitems = {
       icon: "fa fa-file-image-o",
       permission_name: permissionsList.topbanner,
     },
+    
     {
       name: "Payment Method",
       url: "/payment-method",
       icon: "fa fa-file-image-o",
-      permission_name: permissionsList.topbanner,
-    },
+     },
 
     {
       name: "Advance Payment Schedule",

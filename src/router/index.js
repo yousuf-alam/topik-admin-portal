@@ -46,6 +46,7 @@ const PartnerPromos = () => import("@/views/Promos/PartnerPromos");
 const HotDeals = () => import("@/views/HotDeals/HotDeals");
 // const HotDealCreate = () => import("../views/HotDeals/HotDealCreate");
 // const HotDealEdit = () => import("../views/HotDeals/HotDealEdit");
+const CardBins = () => import("@/views/CardBins/CardBins");
 
 
 
@@ -566,6 +567,14 @@ const router = new Router({
         // },
 
 
+        {
+          path: "card-bins",
+          name: "Card Bins",
+          component: CardBins,
+          meta: {
+            //permission_name: permissionsList.promocode
+          },
+        },
 
         {
           path: "locations",

@@ -211,23 +211,19 @@
             </b-form-group>
 
 
-           <div class="hot-deals-disabled" v-if="order.payment_method === 'ssl' && order.hot_deals !== 'unused'">
-            <!-- <b-col v-if="order.payment_method === 'ssl' && order.hot_deals !== 'unused'">
-              <b-form-group  label="Hot Deals?">
-                <b-form-radio v-model="new_hot_deals" value="On">On</b-form-radio>
-                <b-form-radio v-model="new_hot_deals" value="Off">Off</b-form-radio>
-               </b-form-group>
-            </b-col> -->
+           <div v-if="order.payment_method === 'ssl' && order.hot_deals !== 'unused'">
+
             <b-form-group  label="Hot Deals">
-              <b-form-radio-group>
-                <b-form-radio v-model="new_hot_deals" value="On">On</b-form-radio>
-                <b-form-radio v-model="new_hot_deals" value="Off">Off</b-form-radio>
+              <b-form-radio-group  v-model="new_hot_deals">
+                <b-form-radio   value="On">On</b-form-radio>
+                <b-form-radio   value="Off">Off</b-form-radio>
               </b-form-radio-group>
             </b-form-group>
 
             <button class="btn btn-dark mb-3" @click="disableHotDeal(order.id)">Disable</button>
 
            </div>
+           <br>
 
              <b-col>
               <b-form-group label="Payment Status?">

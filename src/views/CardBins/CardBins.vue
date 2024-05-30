@@ -55,7 +55,7 @@ export default {
     return {
       data_loaded_successfully: false,
 
-      columns: ['id', 'card_name', 'hot_deals_slug','bin_numbers', 'created_at'],
+      columns: ['id', 'card_name','bin_numbers', 'created_at'],
       tableData: [],
       options: {
         pagination: { nav: 'fixed' },

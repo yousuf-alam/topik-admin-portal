@@ -50,7 +50,7 @@
                   <span @click="changeStatus(props.row.id)"
                   class="btn btn-warning btn-sm m-1 btn-send"
                    data-toggle="tooltip" title="Change Status">
-                   <i class="fa fa-solid fa-ban"></i>
+                   <i :class="props.row.status === 'active' ? 'fa fa-solid fa-toggle-on' : 'fa fa-solid fa-toggle-off'"></i>
                   </span>
                 </div>
               </template>

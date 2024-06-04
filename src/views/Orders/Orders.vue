@@ -2,9 +2,54 @@
     <div class="animated fadeIn">
       <div class="cardheading">
           <h4><i class="fa fa-table"></i><span class="ml-1">Orders</span></h4>
+
+          <div class="search-wrapper">
+            <input type="text" class="form-control" v-model="phone_no" placeholder="Search with Phone.."/>
+            <button @click="showOrders" class="btn btn-success">Search</button>
+          </div>
+
         <router-link v-if="getUserPermission('order create')" class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link>
 
       </div>
+
+      <modal name="modal-show-orders" height="auto" :adaptive="true" :clickToClose="false">
+        <div class="m-3 p-3">
+          <b-row class="p-2">
+            <h4 style="font-family: Arial;">Available Orders</h4>
+            <br /><br />
+          </b-row>
+          <b-row class="p-2">
+            <div v-if="ordersByPhone.length > 0" class="table-responsive scrollable-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Scheduled Date</th>
+                    <th>Scheduled Time</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(order, index) in ordersByPhone" :key="index">
+
+                    <td @click="orderEdit(order.id)" style="cursor: pointer;  text-decoration: underline;">{{ order.id }}</td>
+                    <td>{{ order.scheduled_date }}</td>
+                    <td>{{ order.scheduled_time }}</td>
+                    <td>{{ order.location_name }}</td>
+                    <td>{{ order.status }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div v-else>
+              <p style="text-align:center;">No orders available</p>
+            </div>
+          </b-row>
+          <button @click="closeShowOrdersModal" class="btn btn-danger">Close</button>
+        </div>
+      </modal>
+
       <b-row>
         <modal name="modal-order_export" height="auto" :adaptive="true">
           <div class="m-3 p-3">
@@ -156,8 +201,12 @@
                        </td>
 
                     <td> {{ order.bill }} </td>
-                    <td> {{ order.payment_method }} </td>
-                    <td> {{ order.shipping_phone }} </td>
+                    <td>
+                      <span :class="getStyleOfPaymentMethod(order.payment_method,order.hot_deals)">
+                        {{ order.payment_method }}
+                      </span>
+                   </td>
+                     <td> {{ order.shipping_phone }} </td>
                     <td> {{ order.shipping_address }} </td>
 
                     <td>
@@ -217,6 +266,7 @@
         data() {
             return {
                 orders: [],
+                ordersByPhone: [],
                 total_count: '0',
                 date_from: '',
                 date_to: '',
@@ -230,7 +280,7 @@
               totalPageCount: 0,
               perPageItem: 10, // Only set this value
               pageNumber: 0,
-
+              phone_no : '',
               toSortColumn: '',
               sortingDirection: '',
               columns: [
@@ -250,7 +300,6 @@
                 'payment_method',
                 'shipping_phone',
                 'shipping_address',
-
                 'action'
               ],
               columnInputs: {
@@ -303,6 +352,18 @@
             }
           }
         },
+
+        getStyleOfPaymentMethod : function () {
+          return (method, slug) => {
+
+            if(method === 'ssl' && slug !== 'unused') {
+              return 'badge badge-primary';
+
+          }
+        }
+      },
+
+
         getSortIconStyle: function () {
           return (parm) => {
             const defaultIcon = 'fa fa-sort';
@@ -539,7 +600,50 @@
             this.makeReadySearchParams();
           },
 
+          showOrders() {
+            axios.get(`${Admin_URL}/fetch-orders-by-phone`, {
+              params: {
+                phone_no: this.phone_no
+              }
+            })
+              .then(response => {
+                if (response.data.success) {
+                  const orders = response.data.data.map(order => {
+                    return {
+                      id: order.id,
+                      scheduled_date: order.scheduled_date,
+                      scheduled_time: order.scheduled_time,
+                      location_name: order.location.name,
+                      status: order.status
+                    };
+                  });
+                  this.ordersByPhone = orders;
+                  this.$modal.show('modal-show-orders');
+                } else {
+
+                  console.error("Error fetching orders:", response.data.message);
+                }
+              })
+              .catch(error => {
+                console.error("Error fetching orders:", error);
+              });
+          },
+
+          orderEdit(orderId) {
+             var baseUrl = window.location.origin + "/orders/edit/";
+            const url = `${baseUrl}${orderId}`;
+            window.open(url, '_blank');
+          },
+
+          closeShowOrdersModal() {
+            this.$modal.hide('modal-show-orders');
+          },
+
+
+
         },
+
+
     }
 </script>
 <style scoped>
@@ -573,6 +677,32 @@
   .badge {
     font-size: 0.75rem;
   }
+
+  .search-wrapper{
+
+     display: flex;
+     align-items: center;
+     position:absolute;
+     left:350px;
+
+  }
+
+  .search-wrapper input{
+
+    margin-right: 20px;
+  }
+
+  .scrollable-table {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .ssl-color {
+    background-color: #0072BC;
+}
+
+
+
   .glow {
     /*animation: blinker 1s linear infinite;*/
   -webkit-animation: glowing 1500ms infinite;

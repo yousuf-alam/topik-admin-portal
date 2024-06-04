@@ -123,19 +123,7 @@ const navitems = {
       permission_name: permissionsList.lineitem,
     },
 
-    {
-      name: "Products",
-      url: "/products",
-      icon: "fa fa-bars",
-      permission_name: permissionsList.service,
-    },
 
-    {
-      name: "Product Requests",
-      url: "/product-requests",
-      icon: "fa fa-bars",
-      permission_name: permissionsList.service,
-    },
 
     {
       name: "Slot Counts",
@@ -290,18 +278,34 @@ const navitems = {
       icon: "fa fa-gift",
       permission_name: permissionsList.promocode,
     },
+
+
+    {
+      name: "Hot Deals",
+      url: "/hot-deals",
+      icon: "fa fa-gift",
+
+    },
+
+    {
+      name: "Card Bins",
+      url: "/card-bins",
+      icon: "fa fa-gift",
+     },
+
+
     {
       name: "Banners",
       url: "/banners",
       icon: "fa fa-file-image-o",
       permission_name: permissionsList.topbanner,
     },
+
     {
       name: "Payment Method",
       url: "/payment-method",
       icon: "fa fa-file-image-o",
-      permission_name: permissionsList.topbanner,
-    },
+     },
 
     {
       name: "Advance Payment Schedule",
@@ -408,6 +412,35 @@ const navitems = {
       icon: "fa fa-phone",
       permission_name: permissionsList.otps,
     },
+
+    {
+      title: true,
+      name: "Products",
+      permission_name: [
+        ...permissionsList.service,
+        ...permissionsList.service,
+      ],
+      class: "",
+      wrapper: {
+        element: "",
+        attributes: {},
+      },
+    },
+
+    {
+      name: "Products",
+      url: "/products",
+      icon: "fa fa-bars",
+      permission_name: permissionsList.service,
+    },
+
+    {
+      name: "Product Requests",
+      url: "/product-requests",
+      icon: "fa fa-bars",
+      permission_name: permissionsList.service,
+    },
+
     {
       title: true,
       name: "Order Settings",

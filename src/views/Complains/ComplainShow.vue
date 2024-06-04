@@ -151,7 +151,7 @@
                       </li>
                       <li><h6>
                         <span class="font-weight-bold">  Status : </span>
-                        <span class="badge badge-danger">{{ complain.status }}</span>
+                        <span class="badge badge-success">{{ complain.status }}</span>
 
                       </h6>
                       </li>

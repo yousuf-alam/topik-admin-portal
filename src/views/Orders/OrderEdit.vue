@@ -9,7 +9,7 @@
 
       <b-row>
         <b-col class="mb-5" sm="6" md="6">
-          <b-card class="h-100 p-4 m-4">
+          <b-card class="h-60 p-4 m-4">
             <h5 class="mb-4">SP & Schedule Details</h5>
             <b-form-group>
               <label>Order ID : {{ order.id }}</label>
@@ -78,7 +78,26 @@
               @click="updateOrder"> Update</button>
 
           </b-card>
+
+          <b-card class="h-30 p-4 m-4">
+
+            <h4 class="mb-4">Hot Deals Details</h4>
+            <br>
+              <b-form-group label="Change Hot Deals">
+                <b-form-radio v-model="order.hot_deals" value="unused">Unused</b-form-radio>
+                <b-form-radio v-model="order.hot_deals" value="tara-voucher">Tara Voucher</b-form-radio>
+                <b-form-radio v-model="order.hot_deals" value="tara-card">Tara Regular</b-form-radio>
+                <b-form-radio v-model="order.hot_deals" value="brac-premium">Brac Premium Banking</b-form-radio>
+                <b-form-radio v-model="order.hot_deals" value="brac-bank">Brac Bank</b-form-radio>
+              </b-form-group>
+
+              <br>
+              <button class="btn btn-dark mb-3" @click="setHotDeal(order.id)">Change</button>
+
+
+          </b-card>
         </b-col>
+
         <b-col class="mb-5" sm="6" md="6">
           <b-card class="h-50 m-4 p-4">
             <h5 class="mb-4">Delivery Details</h5>
@@ -127,21 +146,32 @@
           <b-card class="h-70 m-4 p-4">
             <h5 class="mb-4">Payment Details</h5>
 
-            <b-form-group label="Payment Method">
+            <!-- <b-form-group label="Payment Method">
               <select class="form-control" v-model="order.payment_method" @change="getPaymentMethod">
                 <option value="bKash">bKash</option>
                 <option value="ssl">ssl</option>
                 <option value="cash">Cash on delivery</option>
 
               </select>
+            </b-form-group> -->
+
+            <b-form-group label="Payment Method">
+              <select class="form-control" v-model="order.payment_method" @change="getPaymentMethod">
+                <option v-for="method in availablePaymentMethods()" :value="method" :key="method">
+
+                  {{ paymentMethods[method] }}
+
+                </option>
+              </select>
             </b-form-group>
+
 
             <b-form-group label="Payment Link">
               <div class="payment-box d-flex ">
 
                 <div class="d-flex flex-column" v-if="order.payment_method === 'ssl'">
 
-                  <div v-if="order.total_paid == 0">
+                  <div v-if="order.total_paid == 0 && order.hot_deals === 'unused'">
                     <label for="">Partial Payment</label>
                     <button @click="copyTextPartial" class="copy-icon" style="border: none;background: white">
                       <i class="fa fa-copy"></i>
@@ -199,7 +229,7 @@
               </div>
             </b-form-group>
 
-            <b-col>
+             <b-col>
               <b-form-group label="Payment Status?">
                 <b-form-radio v-model="order.payment_status" value="Paid">Paid</b-form-radio>
                 <b-form-radio v-model="order.payment_status" value="Partial">Partial</b-form-radio>
@@ -240,6 +270,8 @@
             </b-col>
 
 
+
+
             <!--          </b-row>-->
 
             <button class="btn btn-dark mt-3" @click="updateOrder"> Update</button>
@@ -265,7 +297,7 @@
                 <label style="margin-left: 10px;" for="bKash">Bkash</label><br>
 
                 <input type="radio" id="ssl" value="ssl" v-model="selectedMethod">
-                <label style="margin-left: 10px;" for="ssl">Ssl</label>
+                <label style="margin-left: 10px;" for="ssl">SSL</label>
               </div>
               <input type="text" class="form-control" v-model="add_payment">
               <button class="btn btn-dark mt-3" @click="addPayment"> Add Payment</button>
@@ -479,7 +511,15 @@ export default {
       currentTime: '',
       timeDifference: 0,
       scheduledTime: '03.00PM-09.00P.M',
-      selectedMethod: ''
+      selectedMethod: 'bKash',
+      new_hot_deals : '',
+
+      paymentMethods: {
+      bKash: 'bKash',
+      ssl: 'ssl',
+      cash: 'Cash on delivery'
+    }
+
 
     };
   },
@@ -487,7 +527,6 @@ export default {
     this.fetchOrder();
     this.getPartners();
     this.getLocation();
-
 
 
     // this.getPaymentMethod();
@@ -513,10 +552,25 @@ export default {
     EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
     this.calculateTimeDifference();
   },
-  watch: {
 
+  watch: {
+    'order.hot_deals'(newValue) {
+
+      this.new_hot_deals = newValue;
+      console.log(this.new_hot_deals);
+    }
   },
+
   methods: {
+
+    availablePaymentMethods() {
+
+
+      if (this.order.payment_method === 'ssl' && this.order.hot_deals !== 'unused') {
+        return ['ssl'];
+      }
+      return ['bKash', 'ssl', 'cash'];
+    },
     designAdd(designs) {
       this.designs = designs;
     },
@@ -577,7 +631,8 @@ export default {
         }
 
         this.scheduledTime = this.order.scheduled_time
-        console.log("order scheduled time", this.scheduledTime);
+        // this.new_hot_deals = this.order.hot_deals;
+         console.log("order scheduled time", this.scheduledTime);
         this.order_fetched_successfully = true;
 
 
@@ -712,10 +767,13 @@ export default {
         this.$swal('Error', 'Inserted amount cannot be greater than the due bill', 'error');
         return;
       }
+
       let formData = new FormData();
       formData.append('id', this.order.id);
       formData.append('amount', this.add_payment);
       formData.append('payment_method', this.selectedMethod);
+
+
       axios.post(`${ADMIN_URL}/order-payment/insert-bill`, formData)
         .then(response => {
 
@@ -736,6 +794,29 @@ export default {
         });
 
     },
+
+    setHotDeal(id) {
+
+      axios.post(`${ADMIN_URL}/change-order-hotdeal`, {
+
+        order_id: id,
+        hot_deals_val: this.new_hot_deals,
+
+      }).then(response => {
+        if (response.data.success === true) {
+          this.$swal('Success', response.data.msg, 'success');
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+        } else {
+          this.$swal('Error', response.data.msg, 'error');
+        }
+      }).catch(error => {
+        console.error('Error changing hot deal:', error);
+        this.$swal('Error', 'Failed to change hot deal. Please try again later.', 'error');
+      });
+    },
+
 
     updateOrder(e) {
       e.preventDefault();

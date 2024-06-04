@@ -126,6 +126,8 @@
             <option value="received">Received</option>
             <option value="opened">Opened</option>
             <option value="resolved">Resolved</option>
+            <option value="un-reachable">Customer Unreachable</option>
+
           </select>
         </b-form-group>
 

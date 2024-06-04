@@ -1,7 +1,7 @@
 <template>
   <b-card class="m-4">
     <b-tabs card pills>
-      <b-tab active title="Create Feed">
+      <b-tab active title="Edit Feed">
         <b-card-text>
 
           <div class="form-group">
@@ -41,6 +41,22 @@
             <b-button variant="primary" @click="addField" class="mt-2">Add Poll Option</b-button>
 
           </div>
+
+          <div class="form-group">
+            <label>Publishing Time</label>
+            <VueCtkDateTimePicker
+              :overlay="true"
+              :range="false"
+              :no-label="true"
+              label="Select"
+              id="RangeDatePicker"
+              format="YYYY-MM-DD hh:mm a"
+              formatted="llll"
+              color="#7D4E77"
+              v-model="publishing_time"
+            />
+
+          </div>
           <div class="form-group">
             <label>Select Status</label>
             <select class="form-control" v-model="status">
@@ -78,6 +94,7 @@ export default {
       image: '',
       single_image: '',
       options: [],
+      publishing_time:'',
       isDisabled: true,
       src_image: '/images/feed/',
       show: true,
@@ -105,6 +122,7 @@ export default {
           this.buttonText = this.feedItems.button_text;
           this.status = this.feedItems.status;
           this.single_image = this.feedItems.single_image;
+          this.publishing_time=this.feedItems.publishing_time;
           console.log('this imag e url', this.single_image);
         })
         .catch(e => {
@@ -147,6 +165,7 @@ export default {
       formData.append('url', this.url);
       formData.append('image', this.image);
       formData.append('status', this.status);
+      formData.append('publishing_time', this.publishing_time);
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
       axios.post(`${ADMIN_URL}/feed/update-feed/${this.feed_id}`, formData)

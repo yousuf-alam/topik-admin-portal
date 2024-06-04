@@ -70,7 +70,7 @@
               <td :class="{'off-cell':item.offDay===true}">{{ item.name }}</td>
 
 
-              <td :class="{'paste-cell':item.fifth.city==='Chittagong','tr-cell':item.fifth===2 || item.fifth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.fifth===false,'sky-cell':item.fifth==true}">
+              <td :class="{'paste-cell':item.fifth.city==='Chittagong','internal':item.fifth===4,'tr-cell':item.fifth===2 || item.fifth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.fifth===false,'sky-cell':item.fifth==true}">
                 <router-link :to="{ name: 'OrderEdit', params: { id: item.fifth.order_id }}">
                 <div  class="location-name">
                   {{ item.fifth.name }}
@@ -81,7 +81,7 @@
                   <div :class="{'red-bold-cell':item.fifth.payment_status === 'Pending','other-payment': item.fifth.payment_status !== 'Pending'}"> {{ item.fifth.payment_status }}</div>
                 </router-link>
               </td>
-              <td :class="{'paste-cell':item.sixth.city==='Chittagong','tr-cell':item.sixth===2 || item.sixth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.sixth===false,'sky-cell':item.sixth==true}">
+              <td :class="{'paste-cell':item.sixth.city==='Chittagong','internal':item.sixth===5,'tr-cell':item.sixth===2 || item.sixth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.sixth===false,'sky-cell':item.sixth==true}">
                 <router-link :to="{ name: 'OrderEdit', params: { id: item.sixth.order_id }}">
                 <div  class="location-name">
                   {{ item.sixth.name }}
@@ -92,7 +92,7 @@
                   <div :class="{'red-bold-cell':item.sixth.payment_status === 'Pending','other-payment': item.sixth.payment_status !== 'Pending'}"> {{ item.sixth.payment_status }}</div>
                 </router-link>
               </td>
-              <td :class="{'paste-cell':item.seventh.city==='Chittagong','tr-cell':item.seventh===2 || item.seventh===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.seventh===false,'sky-cell':item.seventh==true}">
+              <td :class="{'paste-cell':item.seventh.city==='Chittagong','internal':item.seventh===6,'tr-cell':item.seventh===2 || item.seventh===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.seventh===false,'sky-cell':item.seventh==true}">
                 <router-link :to="{ name: 'OrderEdit', params: { id: item.seventh.order_id }}">
                 <div  class="location-name">
                   {{ item.seventh.name }}
@@ -102,7 +102,7 @@
                   <div :class="{'red-bold-cell':item.seventh.payment_status === 'Pending','other-payment': item.seventh.payment_status !== 'Pending'}"> {{ item.seventh.payment_status }}</div>
                 </router-link>
               </td>
-              <td :class="{'paste-cell':item.eighth.city==='Chittagong','tr-cell':item.eighth===2 || item.eighth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.eighth===false,'sky-cell':item.eighth==true}">
+              <td :class="{'paste-cell':item.eighth.city==='Chittagong','internal':item.eighth===7,'tr-cell':item.eighth===2 || item.eighth===3,'tr-cell-full':item.offDay===1,'off-cell':item.offDay===true,'black-cell':item.eighth===false,'sky-cell':item.eighth==true}">
                 <router-link :to="{ name: 'OrderEdit', params: { id: item.eighth.order_id }}">
                 <div  class="location-name">
                   {{ item.eighth.name }}
@@ -342,6 +342,12 @@ export default {
       &.red-bold-cell {
         color: red;
         font-weight: 700;
+      }
+      &.internal {
+        background-color: #DAF7A6 !important;
+        min-width: 190px;
+        min-height: 100px !important;
+
       }
 
 

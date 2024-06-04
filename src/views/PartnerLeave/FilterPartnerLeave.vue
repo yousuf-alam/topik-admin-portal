@@ -58,6 +58,10 @@
                <option value="1">Full Day</option>
                <option value="2">1st Half</option>
                <option value="3">2nd Half</option>
+               <option value="4"> 09:00 AM - 12:00 PM </option>
+               <option value="5"> 12:00 PM - 03:00 PM </option>
+               <option value="6"> 03:00 PM - 06:00 PM </option>
+               <option value="7"> 06:00 PM - 09:00 PM </option>
 
 
              </select>

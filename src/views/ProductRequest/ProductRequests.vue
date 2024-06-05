@@ -6,7 +6,7 @@
           <div class="smallCardBody">
             <i v-if="statusCount.status === 'requested'" class="fa fa-hourglass-start bg-success p-3 font-l"></i>
             <i v-else-if="statusCount.status === 'approved'" class="fa fa-thumbs-up bg-success p-3 font-l"></i>
-            <i v-else-if="statusCount.status === 'sent'" class="fa fa-spinner bg-success p-3 font-l"></i>
+            <i v-else-if="statusCount.status === 'sent'" class="fa fa-paper-plane bg-success p-3 font-l"></i>
             <i v-else-if="statusCount.status === 'received'" class="fa fa-check-circle bg-success p-3 font-l"></i>
             <div class="p-2">
               <div class="h5 text-success">{{ statusCount.count }}</div>

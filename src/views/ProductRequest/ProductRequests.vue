@@ -118,6 +118,11 @@
                   data-toggle="tooltip" title="Sent">
                    <i class="fa fa-paper-plane"></i>
                 </span>
+                <span @click="exportPartnerWiseReqData(props.row.partner_id)"
+                 class="btn btn-info btn-sm m-1 btn-send"
+                  data-toggle="tooltip" title="Export">
+                  <i class="fa fa-solid fa-download"></i>
+                </span>
 
 
               </div>
@@ -323,6 +328,31 @@ export default {
         })
         .catch(e => {
           console.log("error occurs", e);
+        });
+    },
+
+    exportPartnerWiseReqData(partnerId) {
+      this.exporting = true;
+
+      axios({
+        method: 'get',
+        url: `${ADMIN_URL}/export-partner-requests/${partnerId}`,
+        responseType: 'blob'
+      })
+        .then(response => {
+          this.exporting = false;
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'partner_product_request_report_' + partnerId + '.xlsx');
+          document.body.appendChild(link);
+          link.click();
+          this.$swal('Partner Report Exported Successfully', '', 'success');
+        })
+        .catch(e => {
+          console.log("error occurs", e);
+          this.exporting = false;
+          this.$swal('Error', 'Failed to export partner report', 'error');
         });
     }
   },

@@ -22,6 +22,23 @@
                                 v-model="requisition_date" />
                         </div>
 
+                        <div class="form-group">
+                          <label for="month">For Which Month</label><br>
+                          <select v-model="month" class="form-control">
+                              <option value="1">January</option>
+                              <option value="2">February</option>
+                              <option value="3">March</option>
+                              <option value="4">April</option>
+                              <option value="5">May</option>
+                              <option value="6">June</option>
+                              <option value="7">July</option>
+                              <option value="8">August</option>
+                              <option value="9">September</option>
+                              <option value="10">October</option>
+                              <option value="11">November</option>
+                              <option value="12">December</option>
+                          </select>
+                        </div>
 
                         <!-- Send Date -->
                         <div class="form-group">
@@ -97,6 +114,7 @@
                 allProducts: [],
                 selectedProducts: [] ,
                 status:'',
+                month: null,
                 products: [{
                     product_id: '',
                     quantity: ''
@@ -116,6 +134,7 @@
                         this.partner_id = data.partner_id;
                         this.partner_name = data.partner_name;
                         this.requisition_date = data.requisition_date;
+                        this.month = data.month;
                         this.send_date = data.send_date;
                         this.acquisition_period = data.acquisition_period;
                         this.status = data.status;
@@ -148,6 +167,9 @@
             const formData = new FormData();
             formData.append('partner_id', this.partner_id);
             formData.append('requisition_date', this.requisition_date);
+            if(this.month){
+              formData.append('month', this.month);
+            }
             if (this.send_date) {
               formData.append('send_date', this.send_date);
             }

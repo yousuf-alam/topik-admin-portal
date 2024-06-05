@@ -18,6 +18,25 @@
                     v-model="requisition_date" />
             </div>
 
+
+            <div class="form-group">
+              <label for="month">For Which Month</label><br>
+              <select v-model="month" class="form-control">
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+              </select>
+            </div>
+
             <div class="form-group">
                 <label>Acquisition Period</label>
                 <select v-model="acquisition_period" class="form-control">
@@ -66,6 +85,7 @@
                 partner_id: '',
 
                 requisition_date: '',
+                month:null,
                 acquisition_period: '',
                 products: [{
                     product_id: '',
@@ -127,6 +147,13 @@
                 const formData = new FormData();
                 formData.append('partner_id', this.partner_id);
                 formData.append('requisition_date', this.requisition_date);
+                
+                if(this.month){
+
+                  formData.append('month', this.month);
+
+                }
+
                 formData.append('acquisition_period', this.acquisition_period);
 
                 this.selectedProducts.forEach((product, index) => {
@@ -142,10 +169,10 @@
                     .then(response => {
 
                       if (response.data.success === true) {
-                        this.$swal('Success', 'Product Request created successfully.', 'success');
+                        this.$swal('Success', response.data.message, 'success');
                       }
                       else {
-                        this.$swal('Error', 'Something went wrong', 'error');
+                        this.$swal('Error', "failed to store product request", 'error');
                       }
 
                         this.$router.push({

@@ -92,14 +92,7 @@ export default {
 
 
   computed: {
-    cutDescriptionToShort() {
-      return (description) => {
-        if (description === null) {
-          return 'No Description Found.';
-        }
-        return description.substring(0, 50);
-      }
-    }
+    
   }
 }
 </script>

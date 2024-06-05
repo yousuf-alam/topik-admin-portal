@@ -51,13 +51,24 @@
               </b-row>
             </div>
 
-             <div class="form-group">
-               <label class="font-weight-bold">Select Date Type:</label>
-               <select class="form-control" v-model="date_type">
-                 <option selected value="requisition_date">Requisition Date</option>
-                 <option value="created_at">Created At</option>
-               </select>
-             </div>
+            <div class="form-group">
+              <label for="month">For Which Month</label><br>
+              <select v-model="month" class="form-control">
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+              </select>
+            </div>
+
              <div class="form-group">
                <label class="font-weight-bold">Select Status:</label>
                <select class="form-control" v-model="status">
@@ -81,7 +92,7 @@
     <b-row>
       <b-col>
         <b-card>
-          <!-- <button  @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button> -->
+          <button  @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
           <v-client-table :data="productRequests" :columns="columns" :options="options">
 
             <template slot="status" slot-scope="props">
@@ -169,7 +180,7 @@ export default {
       ],
       date_from: '',
       date_to: '',
-      date_type: 'requisition_date',
+      month: null,
       status: 'all',
       exporting: false,
       productReqStatus: [
@@ -234,11 +245,15 @@ export default {
             this.$modal.show('modal-order_export');
           },
           closeModal(){
+            this.date_from = '';
+            this.date_to = '';
+            this.month = null;
+            this.status = 'all';
             this.$modal.hide('modal-order_export')
           },
           ExportProductRequest(){
             this.exporting = true;
-            console.log(this.date_type);
+            console.log(this.month);
             console.log(this.date_from);
             console.log(this.date_to);
             console.log(this.status);
@@ -248,7 +263,7 @@ export default {
               responseType: 'blob',
               data: {
 
-                date_type: this.date_type,
+                month: this.month,
                 status: this.status,
                 date_from: this.date_from,
                 date_to: this.date_to

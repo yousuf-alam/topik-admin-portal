@@ -20,6 +20,17 @@
           <option value="platform">Platform</option>
         </select>
       </div>
+
+      <div class="form-group">
+        <label >Medium Type</label>
+        <select class='form-control' v-model="medium">
+          <option value="all">All Platform</option>
+          <option value="portal">Admin Portal</option>
+          <option value="app">User App</option>
+        </select>
+      </div>
+
+
       <div v-if="type==='platform'" class="form-group">
         <label>Platforms *</label>
           <MultiSelect
@@ -102,6 +113,7 @@
         code: '',
         description: '',
         type: '0',
+        medium: 'all',
         services: '',
         published_status: '',
         categories: '',
@@ -175,6 +187,7 @@
         formData.append('expires_at', this.expires_at);
         formData.append('service_id', this.service_id);
         formData.append('category_id', this.category_id);
+        formData.append('medium', this.medium);
         if(this.platforms)
         {
             formData.append('platforms', JSON.stringify(this.platforms));

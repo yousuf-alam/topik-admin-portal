@@ -63,6 +63,15 @@
       })
         .then(response =>{
           this.promos = response.data;
+
+          this.promos = response.data.map(promo => {
+
+             promo.medium = promo.medium.charAt(0).toUpperCase() + promo.medium.slice(1);
+             promo.type = promo.type.charAt(0).toUpperCase() + promo.type.slice(1);
+             promo.status = promo.status.charAt(0).toUpperCase() + promo.status.slice(1);
+            return promo;
+          });
+
         })
         .catch(e=>{
           //console.log("error occurs");

@@ -42,7 +42,7 @@
     data() {
       return {
         promos : [],
-        columns: ['id', 'code', 'type', 'status','discount_amount', 'expires_at', 'action'],
+        columns: ['id', 'code', 'type','medium', 'status','discount_amount', 'expires_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,

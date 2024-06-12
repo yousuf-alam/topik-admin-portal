@@ -4,7 +4,8 @@
     <form @submit="onSubmit" enctype="multipart/form-data">
       <div class="form-group">
         <label>Code</label>
-        <input type="text" class="form-control" v-model="code">
+          <input type="text" class="form-control"  v-model="code" style="margin-bottom: 10px;">
+          <b-button variant="primary" @click="generateAndSetCode"> Generate Code</b-button>
       </div>
       <div class="form-group">
         <label>Description</label>
@@ -161,6 +162,24 @@
       },
       onImageChange(e) {
         this.image = e.target.files[0];
+      },
+
+      generateAndSetCode() {
+        // headers: {
+
+        //   'Access-Control-Allow-Origin': '*'
+        // }
+        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+        axios.get(`${ADMIN_URL}/generate-promocode`, {
+
+        })
+          .then(response => {
+            this.code = response.data.data;
+          })
+          .catch(e => {
+            console.log("error occurs");
+          });
+
       },
 
       onSubmit(e) {

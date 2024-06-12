@@ -201,6 +201,7 @@ import PaymentMethods from "@/views/PaymentMethod/PaymentMethods.vue";
 import EditPaymentMethod from "@/views/PaymentMethod/EditPaymentMethod.vue";
 import AdvancePaymentSchedule from "@/views/AdvancePayment/AdvancePaymentScheduleList.vue";
 import EditAdvancePaymentSchedule from "@/views/AdvancePayment/EditAdvancePaymentSchedule.vue";
+import CreateAdvancePaymentSchedule from "@/views/AdvancePayment/CreateAdvancePaymentSchedule.vue";
 import LeaveApproval from "@/views/PartnerLeave/LeaveApproval.vue";
 import NoticeEdit from "@/views/PartnerNotice/NoticeEdit.vue";
 import NoticeCreate from "@/views/PartnerNotice/NoticeCreate.vue";
@@ -977,7 +978,19 @@ const router = new Router({
             permission_name: "lineitem create",
           },
         },
-        // minimum-payment-time
+        // CreateAdvancePaymentSchedule
+
+
+        {
+          path: "/create-advance-payment-schedule",
+          name: "CreateAdvancePaymentSchedule",
+          component: CreateAdvancePaymentSchedule,
+          meta: {
+            permission_name: "lineitem create",
+          },
+        },
+
+
 
         {
           path: "/minimum-payment-time",

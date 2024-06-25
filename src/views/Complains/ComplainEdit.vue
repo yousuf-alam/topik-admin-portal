@@ -14,6 +14,7 @@
             <option value="Instagram">Instagram</option>
             <option value="Play-Store">Play Store</option>
             <option value="App-Store">App Store</option>
+            <option value="Google-Page">Google Page</option>
 
             <option value="CS-Call">CS Call</option>
             <option value="CS-In-Call">CS Out-Call</option>

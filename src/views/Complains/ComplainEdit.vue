@@ -15,7 +15,7 @@
             <option value="Play-Store">Play Store</option>
             <option value="App-Store">App Store</option>
 
-<!--            <option value="CS-Call">CS Call</option>-->
+            <option value="CS-Call">CS Call</option>
             <option value="CS-In-Call">CS Out-Call</option>
             <option value="CS-Out-Call">CS In-Call</option>
 

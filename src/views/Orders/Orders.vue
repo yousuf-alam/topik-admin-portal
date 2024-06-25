@@ -197,13 +197,13 @@
 
                     <td> {{ order.id }} </td>
                     <td> {{ order.service_type }} </td>
-                    <td> {{ order.platform }} </td>
+                    <td> {{ formatPlatform(order.platform) }}</td>
                     <td v-if="order.user_name == null"> - </td>
                     <td v-else-if="order.user_name == undefined"> - </td>
                     <td v-else> {{ order.user_name }} </td>
                     <td class="text-center">
                       <span :class="getStyleOfStatus(order.status)" style="font-size: 12px;">
-                        {{ order.status }}
+                        {{ formatStatus(order.status) }}
                       </span>
                     </td>
                     <td> {{ order.scheduled_date }} </td>
@@ -358,6 +358,10 @@
       computed: {
         getStyleOfStatus: function () {
           return (parm) => {
+
+            if(parm === 'initiated') {
+              return 'badge badge-initiated';
+            }
             if (parm === 'pending') {
               return 'badge badge-primary';
 
@@ -502,6 +506,19 @@
             }
            // console.log(type);
 
+          },
+          formatPlatform(platform) {
+
+             if (platform === 'android') {
+              return 'Android';
+            }
+             if (platform === 'ios') {
+              return 'iOS';
+            }
+          },
+
+          formatStatus(status) {
+            return status.charAt(0).toUpperCase() + status.slice(1);
           },
           handleDateRangeChange(colName) {
 
@@ -745,8 +762,10 @@
     background-color: #0072BC;
 }
 
-
-
+.badge-initiated {
+  background-color: #900C3F;
+  color: #fff;
+}
   .glow {
     /*animation: blinker 1s linear infinite;*/
   -webkit-animation: glowing 1500ms infinite;

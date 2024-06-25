@@ -19,6 +19,7 @@
             </b-form-group>
             <b-form-group label="Status">
               <select class="form-control" v-model="order.status">
+                <option value="initiated">initiated</option>
                 <option value="pending">pending</option>
                 <option value="accepted">accepted</option>
                 <option value="started">started</option>

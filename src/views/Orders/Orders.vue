@@ -7,8 +7,11 @@
             <input type="text" class="form-control" v-model="phone_no" placeholder="Search with Phone.."/>
             <button @click="showOrders" class="btn btn-success">Search</button>
           </div>
+      <div class="d-flex gap-3">
+        <button v-if="getUserPermission('admin')" @click="modalExport" class="btn btn-success mb-2 mr-2 "><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
 
         <router-link v-if="getUserPermission('order create')" class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link>
+      </div>
 
       </div>
 
@@ -113,8 +116,22 @@
       <b-row>
           <b-col>
               <b-card >
-                <button v-if="getUserPermission('admin')" @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
+
                   <div class="d-flex">
+                    <div>
+
+                        <div
+                          v-for="(item, index) in items "
+                          :key="index"
+                          v-model="columnInputs['status']"
+                          :class="['btn', 'mx-2', selected === item.key ? 'btn-primary ' : 'btn-light']"
+                          @click="selectItem(item.key)"
+                        >
+                          {{ item.value }}
+                        </div>
+
+
+                    </div>
                     <div style="margin-left: auto;" class="mb-3">
                       <span class="mx-1">Per Page: </span>
                       <select class="form-control" v-model="perPageItem" @change="makeReadySearchParams()">
@@ -153,7 +170,7 @@
                           color="#533b87"
 
                           v-model="dateRange[item]"
-                          @formatted-value="handleDateRangeChange(item)"
+                          @input="handleDateRangeChange(item)"
 
                         >
                           <!-- <button class="btn btn-secondary">Select</button> -->
@@ -169,7 +186,7 @@
                           :name="item"
                           class="form-control"
                           :placeholder="`Filter By ${item}`"
-                          @keyup="handleInputChange"
+                          @change="handleInputChange"
                         />
                       </div>
                     </th>
@@ -302,6 +319,17 @@
                 'shipping_address',
                 'action'
               ],
+              items: [
+                { key: '', value: 'All' },
+                { key: 'initiated', value: 'Initiated' },
+                { key: 'pending', value: 'Pending' },
+                { key: 'accepted', value: 'Accepted' },
+                { key: 'started', value: 'Started' },
+                { key: 'completed', value: 'Completed' },
+                { key: 'cancelled', value: 'Cancelled' },
+                { key: 'rejected', value: 'Rejected' }
+              ],
+              selected: 'all',
               columnInputs: {
 
               },
@@ -395,6 +423,13 @@
         }
       },
         methods: {
+          selectItem(key) {
+
+            if (this.selected !== key) {
+              this.selected = key;
+              this.makeReadySearchParams(key)
+            }
+          },
           modalExport() {
             this.$modal.show('modal-order_export');
           },
@@ -465,10 +500,12 @@
             {
               this.$router.push({ name: 'AppointmentCreate' , params: {type} })
             }
-           console.log(type);
+           // console.log(type);
 
           },
           handleDateRangeChange(colName) {
+
+            // console.log("ami call hoisi")
 
             // console.log(
             //     '\ncolName === ', colName,
@@ -523,12 +560,14 @@
             }, 500);
 
           },
-          makeReadySearchParams() {
+          makeReadySearchParams(key=null) {
+
+            console.log("search params calling",key);
             const id = this.getInputValue("id")
             const service_type = this.getInputValue("service_type");
             const placed_by = this.getInputValue("placed_by");
             const platform = this.getInputValue("platform");
-            const status = this.getInputValue("status");
+            const status = this.getInputValue("status") ? this.getInputValue("status") : key;
             const customer = this.getInputValue("customer");
             const partner = this.getInputValue("partner");
             const bill = this.getInputValue("bill");
@@ -575,9 +614,14 @@
 
           },
           getInputValue(colName) {
+
             if (this.columnInputs[colName] === undefined) {
               return '';
             }
+            console.log("column inputs",this.columnInputs);
+
+            console.log("column inputs",this.columnInputs[colName]);
+
             return this.columnInputs[colName];
           },
           fetchOrder(srcParms) {

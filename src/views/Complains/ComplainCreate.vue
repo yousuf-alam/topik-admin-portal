@@ -7,12 +7,13 @@
           <div class="form-group">
             <label>Channel Name</label>
             <select v-model="channel" class="form-control">
-              <option value="facebook">Facebook</option>
-              <option value="messenger">Messenger</option>
-              <option value="instagram">Instagram</option>
-              <option value="play-store">Play Store</option>
-              <option value="app-store">App Store</option>
-              <option value="cs-call">CS Call</option>
+              <option value="Facebook">Facebook</option>
+              <option value="Messenger">Messenger</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Play-Store">Play Store</option>
+              <option value="App-Store">App Store</option>
+              <option value="CS-In-Call">CS Out-Call</option>
+              <option value="CS-Out-Call">CS In-Call</option>
               <option value="mobile-app">Mobile App</option>
             </select>
           </div>
@@ -44,24 +45,24 @@
 
 
           <div class="form-group">
-            <label>Complain Issue Date(From User)</label>
+            <label>Complaint Issue Date(From User)</label>
             <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true" label="Select" id="RangeDatePicker"
               format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain_issue_date" />
           </div>
 
           <div class="form-group">
-            <label>Complain Entry Date(By Admin)</label>
+            <label>Complaint Entry Date(By Admin)</label>
             <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true" label="Select" id="RangeDatePicker"
               format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain_entry_date" />
           </div>
           <div class="form-group">
             <label>Assign To</label>
             <select v-model="assigned_to" class="form-control">
-              <option value="ealham_apu">Ealham Apu</option>
-              <option value="farah_apu">Farah Apu</option>
-              <option value="nusrat_apu">Nusrat Apu</option>
-              <option value="tech-team">Tech Team</option>
-              <option value="cs-team">CS Team</option>
+              <option value="Ealham-Binte-Ali">Ealham Binte Ali </option>
+              <option value="Farah-Kalam">Farah Kalam</option>
+              <option value="Nusrat-Jahan-Shorna">Nusrat Jahan Shorna</option>
+              <option value="Tech-Team">Tech Team</option>
+              <option value="CS-Team">CS Team</option>
             </select>
           </div>
 

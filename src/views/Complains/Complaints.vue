@@ -8,7 +8,7 @@
             <i v-if="statusCount.status === 'received'" class="fa fa-hourglass-start bg-success p-3 font-l"></i>
             <i v-else-if="statusCount.status === 'opened'" class="fa fa-thumbs-up bg-success p-3 font-l"></i>
             <i v-else-if="statusCount.status === 'resolved'" class="fa fa-check-circle bg-success p-3 font-l"></i>
-            <i v-else-if="statusCount.status === 'un-reachable'" class="fa fa-spinner bg-success p-3 font-l"></i>
+            <i v-else-if="statusCount.status === 'unreachable'" class="fa fa-spinner bg-success p-3 font-l"></i>
             <div class="p-2">
               <div class="h5 text-success">{{ statusCount.count }}</div>
               <div class="text-muted text-uppercase font-weight-bold font-xs">{{ statusCount.status.toUpperCase() }}</div>
@@ -92,19 +92,20 @@
 import axios from 'axios';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
-  name: 'Complains',
+  name: 'Complaints',
   data() {
     return {
       data_loaded_successfully: false,
       key: 'this_month',
-      columns: ['id', 'channel', 'type', 'partner_name','phone_number' , 'priority', 'assigned_to', 'complain_issue_date', 'status', 'complain_entry_date', 'solve_type', 'action'],
+      columns: ['id', 'channel', 'type', 'partner_name','phone_number' , 'priority', 'assigned_to', 'complaint_issue_date', 'status', 'complaint_entry_date', 'solution_type', 'action'],
       tableData: [],
+      statusCount:[],
 
       complaintStatusCount: [
         { status: 'received', count: 0 },
         { status: 'opened', count: 0 },
         { status: 'resolved', count: 0 },
-        { status: 'un-reachable', count: 0 }
+        { status: 'unreachable', count: 0 }
       ],
       options: {
         pagination: { nav: 'fixed' },
@@ -119,7 +120,7 @@ export default {
   },
   created() {
     this.getAllComplains();
-    this.getComplaintStatusCount();
+
   },
   methods: {
     handleOptionChange() {
@@ -130,23 +131,12 @@ export default {
       axios.post(`${ADMIN_URL}/user-complains`, { key: this.key })
         .then(response => {
           this.tableData = response.data.data;
-          this.data_loaded_successfully = true;
-        }).catch(error => {
-          // console.log('Errorrrrrrrrrrrrrrr ', error.response);
-        })
-    },
-
-    getComplaintStatusCount(){
-      axios.get(`${ADMIN_URL}/user-complaints-status-count`)
-        .then(response => {
-
-          const statusCounts = response.data.data;
-
+          const statusCounts=response.data.statistics;
           this.complaintStatusCount = [
             { status: 'received', count: 0 },
             { status: 'opened', count: 0 },
             { status: 'resolved', count: 0 },
-            { status: 'un-reachable', count: 0 }
+            { status: 'unreachable', count: 0 }
           ];
           // Update counts based on response
           statusCounts.forEach(sc => {
@@ -155,13 +145,13 @@ export default {
               status.count = sc.count;
             }
           });
-
-
+          this.data_loaded_successfully = true;
         }).catch(error => {
-
-          console.error("Error while fetching complaintstatus", error);
-      })
+          // console.log('Errorrrrrrrrrrrrrrr ', error.response);
+        })
     },
+
+
   },
   computed: {
     cutDescriptionToShort() {
@@ -175,17 +165,17 @@ export default {
 
     getStyleOfStatus: function () {
           return (parm) => {
-            if (parm === 'received') {
+            if (parm === 'Received') {
               return 'badge badge-primary';
 
-            } else if (parm === 'opened') {
+            } else if (parm === 'Opened') {
               return 'badge badge-secondary';
 
-            } else if (parm === 'resolved') {
+            } else if (parm === 'Resolved') {
 
               return 'badge badge-success';
 
-            } else if (parm === 'un-reachable') {
+            } else if (parm === 'Unreachable') {
               return 'badge badge-warning';
 
             }  else {

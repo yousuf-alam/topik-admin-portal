@@ -98,7 +98,7 @@ const Banners = () => import("@/views/Banners/Banners");
 const BannerCreate = () => import("../views/Banners/BannerCreate");
 const BannerEdit = () => import("../views/Banners/BannerEdit");
 
-const Complains = () => import("@/views/Complains/Complains");
+const Complains = () => import("@/views/Complains/Complaints.vue");
 const ComplainCreate = () => import("@/views/Complains/ComplainCreate");
 const ComplainShow = () => import("../views/Complains/ComplainShow");
 const Reviews = () => import("../views/Reviews");
@@ -220,6 +220,7 @@ import CreateScheduleNotification from "@/views/ScheduleNotification/CreateSched
 import ComplainEdit from "@/views/Complains/ComplainEdit.vue";
 import OrderRefund from "@/views/Orders/OrderRefund.vue";
 import FilterSpRoute from "@/views/FilterSpRoute.vue";
+import Complaints from "@/views/Complains/Complaints.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -1311,8 +1312,8 @@ const router = new Router({
         },
         {
           path: "complaints",
-          name: "Complains",
-          component: Complains,
+          name: "Complaints",
+          component: Complaints,
           meta: {
             permission_name: permissionsList.complain,
           },

@@ -19,7 +19,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Complain Type</label>
+            <label>Complaint Type</label>
             <select v-model="type" class="form-control">
               <option value="order">Order</option>
               <option value="technical">Technical</option>

@@ -1,7 +1,26 @@
 <template>
   <div class="animated fadeIn">
+    <div class="d-flex justify-content-between mb-4">
+      <h4><i class="fa fa-thumbs-down"></i><span class="ml-1">Complaints</span></h4>
+      <div class="d-flex justify-content-between gap-5">
+        <select v-model="key" class="form-control mr-2" @change="handleOptionChange"
+                style="width: 180px;background: #4dbd74;color: white">
+          <option value="this_month">This month</option>
+          <option value="last_month">Last month</option>
+          <option value="last_three_month">Last three month</option>
+          <option value="last_six_month">Last six month</option>
+          <option value="this_year">This year</option>
+          <option value="last_year">Previous year</option>
 
-     <b-row class="smallCardContainer">
+        </select>
+        <router-link :to="{ name: 'ComplainCreate' }">
+          <button class="btn btn-success">Report New Complaint</button>
+        </router-link>
+      </div>
+    </div>
+
+
+     <b-row class="mt-2" style="margin-top: 2rem">
       <b-col v-for="(statusCount, index) in complaintStatusCount" :key="index" sm="12" md="6" xl="3">
         <div class="card smallCard small">
           <div class="smallCardBody">
@@ -17,36 +36,10 @@
         </div>
       </b-col>
     </b-row>
-<br>
+
 
     <div>
-      <div class="cardheading">
-        <h4><i class="fa fa-thumbs-down"></i><span class="ml-1">Complaints</span></h4>
-        <div class="">
-          <h1 class="my-auto tableName">
 
-          </h1>
-        </div>
-
-
-
-
-        <div class="d-flex justify-content-between gap-5">
-          <select v-model="key" class="form-control mr-2" @change="handleOptionChange"
-            style="width: 180px;background: #4dbd74;color: white">
-            <option value="this_month">This month</option>
-            <option value="last_month">Last month</option>
-            <option value="last_three_month">Last three month</option>
-            <option value="last_six_month">Last six month</option>
-            <option value="this_year">This year</option>
-            <option value="last_year">Previous year</option>
-
-          </select>
-          <router-link :to="{ name: 'ComplainCreate' }">
-            <button class="btn btn-success">Report New Complaint</button>
-          </router-link>
-        </div>
-      </div>
       <b-row>
         <b-col>
           <b-card>
@@ -97,7 +90,7 @@ export default {
     return {
       data_loaded_successfully: false,
       key: 'this_month',
-      columns: ['id', 'channel', 'type', 'partner_name','phone_number' , 'priority', 'assigned_to', 'complaint_issue_date', 'status', 'complaint_entry_date', 'solution_type', 'action'],
+      columns: ['id', 'channel', 'type', 'Partner_Name','Phone_Number' , 'priority', 'assigned_to', 'Complaint_Issue_Date', 'status', 'Complaint_Entry_Date', 'Solution_Type', 'action'],
       tableData: [],
       statusCount:[],
 

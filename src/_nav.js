@@ -266,12 +266,12 @@ const navitems = {
       icon: "fa fa-file-word-o",
       permission_name: permissionsList.admin,
     },
-    {
-      name: "Popup Promo",
-      url: "/popup-promo",
-      icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
-    },
+    // {
+    //   name: "Popup Promo",
+    //   url: "/popup-promo",
+    //   icon: "fa fa-file-word-o",
+    //   permission_name: permissionsList.admin,
+    // },
     {
       name: "Promo Codes",
       url: "/promos",
@@ -478,13 +478,13 @@ const navitems = {
     // },
 
     {
-      name: "RewardFaq",
+      name: "Reward FAQ",
       url: "/reward-faq",
       icon: "fa fa-file-word-o",
       permission_name: permissionsList.admin,
     },
     {
-      name: "RewardStatus",
+      name: "Reward Status",
       url: "/reward-status",
       icon: "fa fa-file-word-o",
       permission_name: permissionsList.admin,

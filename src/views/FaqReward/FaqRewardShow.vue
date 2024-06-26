@@ -8,7 +8,7 @@
         </h1>
       </div>
       <div class="">
-        <router-link :to="{ name: 'CreateFaqReward'}" >
+        <router-link :to="{ name: 'CreateFAQReward'}" >
           <button class="btn btn-success">Create New FaqReward</button>
         </router-link>
       </div>

@@ -166,7 +166,8 @@
         console.log('sevice-id',serviceID)
 
         axios.post(`${Admin_URL}/categories`, {
-          service_id: serviceID
+          // service_id: serviceID
+          service_id: 1
         })
           .then(response => {
             this.categories = response.data;

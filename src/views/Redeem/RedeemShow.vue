@@ -56,7 +56,7 @@ export default {
     return {
       redeems : [],
       columns: [
-        'id', 'items', 'sub_items', 'reward_point','name','slug', 'action'
+        'id', 'item', 'Sub_Item', 'Reward_Point','name','slug', 'action'
       ],
       redeem_id:'',
       options: {

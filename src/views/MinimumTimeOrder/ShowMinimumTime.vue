@@ -1,7 +1,7 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">Minimum Order</span></h4>
+      <h4><i class="fa fa-bars"></i><span class="ml-1">Minimum Order Time</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
 

@@ -55,7 +55,7 @@ export default {
     return {
       refunds : [],
       columns: [
-        'id', 'total_paid', 'payment_status', 'status','cancel_hour_count', 'refund_status','expected_refund_amount','action'
+        'id', 'Total_Paid', 'Payment_Status', 'status','Cancel_Hour_Count', 'Refund_Status','Expected_Refund_Amount','action'
       ],
       redeem_id:'',
       options: {

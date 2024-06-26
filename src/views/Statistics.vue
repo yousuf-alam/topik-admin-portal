@@ -4,7 +4,7 @@
 
     <div class="pt-3">
       <h4><i class="fa fa-user mr-2 mb-2"></i>User Statistics (Top  User)</h4>
-      <p>name-order-price</p>
+      <p>Name-Order-Price</p>
       <b-card-group deck>
 
 

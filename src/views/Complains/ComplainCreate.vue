@@ -40,7 +40,7 @@
             <div v-for="(image, index) in images" :key="index">
               <input type="file" @change="getFileValue(index, $event.target)" class="mt-2 form-control">
             </div>
-            <b-button variant="primary" @click="addImage" class="mt-2">Add image uploader</b-button>
+            <b-button variant="primary" @click="addImage" class="mt-2">Add More Attachments</b-button>
 
           </div>
 

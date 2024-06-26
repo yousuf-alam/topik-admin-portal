@@ -2,13 +2,13 @@
   <div class="animated fadeIn">
     <div class="cardheading">
       <h4><i class="fa fa-bars"></i><span class="ml-1">LineItems</span>
-      
-      
-         
-   
+
+
+
+
       </h4>
 
-    
+
 
       <div class="">
         <h1 class="my-auto tableName">
@@ -21,11 +21,11 @@
         </router-link>
       </div>
     </div>
-     
-    
-   
+
+
+
     <b-row>
- 
+
       <b-col>
         <b-card>
             <button class="btn btn-success"  @click="ExportLineItems">Export as .xlsx</button>
@@ -71,7 +71,7 @@
         lineitems : [],
         columns: [
           'id', 'name', 'service', 'category', 'subcategory',
-          'published_status', 'created_at', 'action'
+          'Published_Status', 'created_at', 'action'
         ],
         options: {
           pagination: {nav: 'fixed'},

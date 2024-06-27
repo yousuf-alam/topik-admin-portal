@@ -1,14 +1,14 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">FaQ Reward</span></h4>
+      <h4><i class="fa fa-bars"></i><span class="ml-1">FAQ Reward</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
 
         </h1>
       </div>
       <div class="">
-        <router-link :to="{ name: 'CreateFaqReward'}" >
+        <router-link :to="{ name: 'CreateFAQReward'}" >
           <button class="btn btn-success">Create New FaqReward</button>
         </router-link>
       </div>

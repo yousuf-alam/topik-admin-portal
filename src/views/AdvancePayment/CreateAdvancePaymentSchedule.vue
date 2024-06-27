@@ -26,7 +26,7 @@
           </div>
 
 
-          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Advance Payment
+          <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create New Schedule
           </b-button>
         </b-card-text>
       </b-tab>

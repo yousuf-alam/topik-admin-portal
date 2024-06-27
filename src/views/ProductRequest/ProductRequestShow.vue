@@ -4,7 +4,7 @@
         <b-row>
             <b-col sm="6" md="6">
                 <b-card>
-                    <h4 class="text-center">Product Request Details</h4><br>
+                    <h4 class=""> Requisition Info</h4><br>
                     <ul class="list-unstyled">
                         <li class="mb-3">
                             <h6><b>Partner Name:</b> {{ productRequest . partner_name }}</h6>
@@ -35,7 +35,7 @@
 
             <b-col sm="6" md="6">
                 <b-card>
-                    <h4 class="text-center">Product Transactions Details</h4><br>
+                    <h4 class="">Products Details</h4><br>
                     <div v-for="transaction in productRequest.product_request_transactions"
                         :key="transaction.product_id">
                         <b-card no-body class="mb-3">

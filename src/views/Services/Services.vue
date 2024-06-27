@@ -46,7 +46,7 @@ import axios from 'axios';
         data() {
             return {
               services : [],
-                columns: ['id', 'name', 'published_status', 'created_at', 'action'],
+                columns: ['id', 'name', 'Published_Status', 'created_at', 'action'],
                 options: {
                     pagination: {nav: 'fixed'},
                     filterByColumn: true,

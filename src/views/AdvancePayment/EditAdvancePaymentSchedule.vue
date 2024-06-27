@@ -38,7 +38,7 @@
           </div>
 
           <b-button @click="onSubmit" variant="primary">
-            <i class="fa fa-dot-circle-o"></i> Edit Payment Schedule
+            <i class="fa fa-dot-circle-o"></i> Edit Schedule
           </b-button>
         </b-card-text>
       </b-tab>

@@ -61,7 +61,7 @@
     data() {
       return {
         categories : [],
-        columns: ['name', 'service', 'category' ,'published_status', 'created_at', 'action'],
+        columns: ['name', 'service', 'category' ,'Published_Status', 'created_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,

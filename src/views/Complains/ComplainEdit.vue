@@ -4,22 +4,26 @@
       <b-card class="h-100 p-4 m-4">
         <h5 class="mb-4">Complaint Details - CS</h5>
         <b-form-group>
-          <label>Complain ID : {{ complain.id }}</label>
+          <label>Complaint ID : {{ complain.id }}</label>
         </b-form-group>
-        <b-form-group label="Complain Channel">
+        <b-form-group label="Complaint Channel">
 
           <select v-model="complain.channel" class="form-control">
-            <option value="facebook">Facebook</option>
-            <option value="messenger">Messenger</option>
-            <option value="instagram">Instagram</option>
-            <option value="play-store">Play Store</option>
-            <option value="app-store">Play Store</option>
-            <option value="instagram">Instagram</option>
-            <option value="cs-call">CS Call</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Messenger">Messenger</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Play-Store">Play Store</option>
+            <option value="App-Store">App Store</option>
+            <option value="Google-Page">Google Page</option>
+
+            <option value="CS-Call">CS Call</option>
+            <option value="CS-In-Call">CS Out-Call</option>
+            <option value="CS-Out-Call">CS In-Call</option>
+
             <option value="mobile-app">Mobile App</option>
           </select>
         </b-form-group>
-        <b-form-group label="Complain Type">
+        <b-form-group label="Complaint Type">
           <select v-model="complain.type" class="form-control">
             <option value="order">Order</option>
             <option value="technical">Technical</option>
@@ -31,7 +35,7 @@
 
           <input class="form-control" v-model="complain.order_id">
         </b-form-group>
-        <b-form-group label="Complain Issue Date">
+        <b-form-group label="Complaint Issue Date">
           <input class="form-control" v-model="complain.complain_issue_date">
         </b-form-group>
         <div>
@@ -42,16 +46,16 @@
         </div>
 
 
-        <b-form-group label="Complain Description">
+        <b-form-group label="Complaint Description">
           <textarea class="form-control" v-model="complain.description" />
         </b-form-group>
         <b-form-group label="Assigned to" class="mt-2">
           <select v-model="complain.assigned_to" class="form-control">
-            <option value="ealham">Ealham</option>
-            <option value="farah">Farah</option>
-            <option value="nusrat">Nusrat</option>
-            <option value="tech-team">Tech Team</option>
-            <option value="cs-team">CS Team</option>
+            <option value="Ealham-Binte-Ali">Ealham Binte Ali </option>
+            <option value="Farah-Kalam">Farah Kalam</option>
+            <option value="Nusrat-Jahan-Shorna">Nusrat Jahan Shorna</option>
+            <option value="Tech-Team">Tech Team</option>
+            <option value="CS-Team">CS Team</option>
           </select>
         </b-form-group>
         <b-form-group label="Complaint Attachment">
@@ -72,10 +76,10 @@
     <b-col class="mb-5" sm="6" md="4">
       <b-card class="h-100 m-4 p-4">
         <h5 class="mb-4">Solution Details - OPS</h5>
-        <b-form-group label="Solve Type">
+        <b-form-group label="Solution Type">
           <select class='form-control' v-model="complain.solve_type">
             <option value="complementary-service">Complementary Service</option>
-            <option value="30-discount">30%-Discount</option>
+            <option value="30%-discount">30%-Discount</option>
             <option value="apology">Apology</option>
           </select>
         </b-form-group>
@@ -84,7 +88,7 @@
           <select class='form-control' v-model="complain.complementary_service_type">
             <option value="basic-cleansing">Basic Cleansing</option>
             <option value="spa-manicure-pedicure">Spa Manicure Pedicure</option>
-            <option value="heir-protien">Hair Protein</option>
+            <option value="hair-protein">Hair Protein</option>
             <option value="other">Others</option>
           </select>
         </b-form-group>
@@ -121,12 +125,12 @@
 
 
 
-        <b-form-group label="Complain Status">
+        <b-form-group label="Complaint Status">
           <select class='form-control' v-model="complain.status">
             <option value="received">Received</option>
             <option value="opened">Opened</option>
             <option value="resolved">Resolved</option>
-            <option value="un-reachable">Customer Unreachable</option>
+            <option value="unreachable">Customer Unreachable</option>
 
           </select>
         </b-form-group>
@@ -148,7 +152,7 @@
             format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain.solve_date" />
         </b-form-group>
 
-        <b-form-group label="30% Avail Date" v-if="this.complain.solve_type === '30-discount'">
+        <b-form-group label="30% Avail Date" v-if="this.complain.solve_type === '30%-discount'">
 
           <VueCtkDateTimePicker :overlay="true" :range="false" :no-label="true" label="Select" id="RangeDatePicker"
             format="YYYY-MM-DD" formatted="ll" color="#7D4E77" v-model="complain.solve_date" />
@@ -173,7 +177,7 @@
         </b-form-group>
 
 
-        <b-form-group label="30% Avail Order ID" v-if="this.complain.solve_type === '30-discount'">
+        <b-form-group label="30% Avail Order ID" v-if="this.complain.solve_type === '30%-discount'">
           <input class="form-control" v-model="complain.complementary_order_id" />
         </b-form-group>
 
@@ -217,7 +221,7 @@ export default {
   created() {
 
     this.complain_id = window.location.pathname.split("/").pop();
-    axios.get(`${ADMIN_URL}/user-complain-by-id`, {
+    axios.get(`${ADMIN_URL}/complaint-by-id`, {
       params: {
         id: this.complain_id
       }

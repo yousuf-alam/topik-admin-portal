@@ -138,6 +138,7 @@
                 <option value="location_issue">Location Issue</option>
                 <option value="bad_behave">Bad Behave</option>
                 <option value="call_receiving_problem">Call Receiving Problem</option>
+                <option value="last_order_payment_pending">Last Order Payment Pending</option>
                 <option value="other">Other</option>
 
               </select>

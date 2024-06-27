@@ -44,12 +44,12 @@
         <input type="text" name="new_price" class="form-control" v-model="new_price" required>
       </div>
 
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Upload Image</label>
-        <div class="col-sm-9">
+      <div class="form-group">
+        <label class="">Upload Image</label>
+
           <input class="form-control" type="file" name="image" v-on:change="onImageChange">
           <span class="text-danger" v-if="imageSizeError">{{ imageSizeError }}</span>
-        </div>
+
       </div>
 
       <b-button type="submit" value="Submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Product
@@ -134,7 +134,7 @@ export default {
         .catch(error => {
           // console.log('Error  ... ', error.response);
           currentObj.output = error;
-          
+
         });
     }
   }

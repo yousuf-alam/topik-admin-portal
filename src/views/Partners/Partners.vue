@@ -49,7 +49,7 @@
         BASE_URL: BASE_URL,
         PARTNER_FRONTEND_DOMAIN: PARTNER_FRONTEND_DOMAIN, /* TO_EDIT_THIS_PLACE */
         partners : [],
-        columns: ['id', 'name', 'type','booking_type', 'phone' ,'status', 'score', 'created_at', 'action'],
+        columns: ['id', 'name', 'type','Booking_Type', 'phone' ,'status', 'score', 'created_at', 'action'],
         options: {
           pagination: {nav: 'fixed'},
           filterByColumn: true,

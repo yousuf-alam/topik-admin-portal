@@ -50,7 +50,7 @@ export default {
     return {
       payments : [],
       columns: [
-        'id', 'name', 'percent_discount', 'thumbnail','updated_at', 'action'
+        'id', 'name', 'Percent_Discount', 'thumbnail','updated_at', 'action'
       ],
       redeem_id:'',
       options: {

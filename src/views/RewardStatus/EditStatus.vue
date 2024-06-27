@@ -4,7 +4,7 @@
       <b-tab active title="Edit Info">
         <b-card-text>
           <div class="form-group">
-            <label>Low limit</label>
+            <label>Low Limit</label>
             <input class="form-control" type="text" v-model="low_limit">
           </div>
           <div class="form-group">
@@ -17,27 +17,27 @@
           </div>
 
            <div  class="form-group">
-            <label>Status Color</label>
+            <label>Status Colour</label>
             <input class="form-control" type="text" v-model="status_color" >
           </div>
 
            <div  class="form-group">
-            <label>Background Color</label>
+            <label>Background Colour</label>
             <input class="form-control" type="text" v-model="background_color" >
           </div>
 
            <div  class="form-group">
-            <label>Points Color</label>
+            <label>Points Colour</label>
             <input class="form-control" type="text" v-model="points_color" >
           </div>
 
            <div  class="form-group">
-            <label>Progress Background Color</label>
+            <label>Progress Background Colour</label>
             <input class="form-control" type="text" v-model="progress_bg_color" >
           </div>
 
            <div  class="form-group">
-            <label>Bottom Text Color</label>
+            <label>Bottom Text Colour</label>
             <input class="form-control" type="text" v-model="bottom_text_color" >
           </div>
 
@@ -54,7 +54,7 @@ import axios from "axios";
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 export default {
   name: "EditStatus",
-  
+
   data(){
     return {
       low_limit:'',
@@ -66,12 +66,12 @@ export default {
       points_color:'',
       progress_bg_color:'',
       bottom_text_color:''
-      
+
     }
   },
   created() {
     this.status_id = this.$route.params.id;
-    
+
     this.getOld();
 
   },

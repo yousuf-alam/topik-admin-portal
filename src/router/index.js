@@ -98,7 +98,7 @@ const Banners = () => import("@/views/Banners/Banners");
 const BannerCreate = () => import("../views/Banners/BannerCreate");
 const BannerEdit = () => import("../views/Banners/BannerEdit");
 
-const Complains = () => import("@/views/Complains/Complains");
+const Complains = () => import("@/views/Complains/Complaints.vue");
 const ComplainCreate = () => import("@/views/Complains/ComplainCreate");
 const ComplainShow = () => import("../views/Complains/ComplainShow");
 const Reviews = () => import("../views/Reviews");
@@ -166,7 +166,7 @@ import EditFutureNotification from "@/views/FutureNotification/EditFutureNotific
 import FaqRewardShow from "@/views/FaqReward/FaqRewardShow.vue";
 import CreateFaqReward from "@/views/FaqReward/CreateFaqReward.vue";
 import EditRewardFaq from "@/views/FaqReward/EditRewardFaq.vue";
-import StatusShow from "@/views/RewardStatus/StatusShow.vue";
+import StatusShow from "@/views/RewardStatus/RewardStatus.vue";
 import CreateStatus from "@/views/RewardStatus/CreateStatus.vue";
 import EditStatus from "@/views/RewardStatus/EditStatus.vue";
 import ShowMinimumAmount from "@/views/MinimumOrderAmount/ShowMinimumAmount.vue";
@@ -220,6 +220,8 @@ import CreateScheduleNotification from "@/views/ScheduleNotification/CreateSched
 import ComplainEdit from "@/views/Complains/ComplainEdit.vue";
 import OrderRefund from "@/views/Orders/OrderRefund.vue";
 import FilterSpRoute from "@/views/FilterSpRoute.vue";
+import Complaints from "@/views/Complains/Complaints.vue";
+import RewardStatus from "@/views/RewardStatus/RewardStatus.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -764,7 +766,7 @@ const router = new Router({
 
         {
           path: "/redeem",
-          name: "RedeemShow",
+          name: "Redeem",
           component: RedeemShow,
           meta: {
             permission_name: "lineitem create",
@@ -864,7 +866,7 @@ const router = new Router({
         },
         {
           path: "/reward-faq",
-          name: "FaqRewardShow",
+          name: "FAQReward",
           component: FaqRewardShow,
           meta: {
             permission_name: "lineitem create",
@@ -880,7 +882,7 @@ const router = new Router({
         },
         {
           path: "/create-reward-faq",
-          name: "CreateFaqReward",
+          name: "CreateFAQReward",
           component: CreateFaqReward,
           meta: {
             permission_name: "lineitem create",
@@ -897,8 +899,8 @@ const router = new Router({
         //
         {
           path: "/reward-status",
-          name: "StatusShow",
-          component: StatusShow,
+          name: "RewardStatus",
+          component: RewardStatus,
           meta: {
             permission_name: "lineitem create",
           },
@@ -1044,14 +1046,14 @@ const router = new Router({
             permission_name: "lineitem create",
           },
         },
-        {
-          path: "/popup-promo",
-          name: "ShowPopupPromo",
-          component: ShowPopupPromo,
-          meta: {
-            permission_name: "lineitem create",
-          },
-        },
+        // {
+        //   path: "/popup-promo",
+        //   name: "ShowPopupPromo",
+        //   component: ShowPopupPromo,
+        //   meta: {
+        //     permission_name: "lineitem create",
+        //   },
+        // },
         {
           path: "/popup-create",
           name: "CreatePopup",
@@ -1311,8 +1313,8 @@ const router = new Router({
         },
         {
           path: "complaints",
-          name: "Complains",
-          component: Complains,
+          name: "Complaints",
+          component: Complaints,
           meta: {
             permission_name: permissionsList.complain,
           },
@@ -1416,8 +1418,8 @@ const router = new Router({
           },
         },
         {
-          path: "route-sp-daily",
-          name: "RouteSpDaily",
+          path: "sp-route",
+          name: "SP Route",
           component: RouteSpDaily,
           meta: {
             permission_name: permissionsList.spRoutes,

@@ -12,9 +12,9 @@
 
         <div class="d-flex justify-content-between gap-5">
 
-          <!-- <router-link :to="{ name: 'HotDealCreate' }">
-            <button class="btn btn-success">Create New Hot Deal</button>
-          </router-link> -->
+<!--           <router-link :to="{ name: 'HotDealCreate' }">-->
+<!--            <button class="btn btn-success">Create New Hot Deal</button>-->
+<!--          </router-link>-->
         </div>
       </div>
       <b-row>
@@ -59,7 +59,7 @@ export default {
     return {
       data_loaded_successfully: false,
 
-      columns: ['id', 'name', 'description', 'slug', 'discount_type','discount_amount','code', 'status', 'thumbnail'],
+      columns: ['id', 'name', 'description', 'slug', 'Discount_Type','Discount_Amount','code', 'status', 'thumbnail'],
       tableData: [],
       options: {
         pagination: { nav: 'fixed' },

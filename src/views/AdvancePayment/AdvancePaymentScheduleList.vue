@@ -6,9 +6,9 @@
         <h1 class="my-auto tableName">
 
         </h1>
-        <!-- <router-link :to="{ name: 'CreateAdvancePaymentSchedule' }">
-          <button class="btn btn-primary">Create Advance Payment</button>
-        </router-link> -->
+         <router-link :to="{ name: 'CreateAdvancePaymentSchedule' }">
+          <button class="btn btn-primary">Create New Schedule</button>
+        </router-link>
       </div>
 
     </div>
@@ -49,7 +49,7 @@ export default {
     return {
       payments : [],
       columns: [
-        'id', 'start_date', 'end_date', 'status','created_at', 'action'
+        'id', 'Start_Date', 'End_Date', 'status','created_at', 'action'
       ],
 
       options: {

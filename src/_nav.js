@@ -266,12 +266,12 @@ const navitems = {
       icon: "fa fa-file-word-o",
       permission_name: permissionsList.admin,
     },
-    {
-      name: "Popup Promo",
-      url: "/popup-promo",
-      icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
-    },
+    // {
+    //   name: "Popup Promo",
+    //   url: "/popup-promo",
+    //   icon: "fa fa-file-word-o",
+    //   permission_name: permissionsList.admin,
+    // },
     {
       name: "Promo Codes",
       url: "/promos",
@@ -288,7 +288,7 @@ const navitems = {
     },
 
     {
-      name: "Card Bins",
+      name: "Card BINs",
       url: "/card-bins",
       icon: "fa fa-gift",
      },
@@ -401,7 +401,7 @@ const navitems = {
     },
     {
       name: "SP Route",
-      url: "/route-sp-daily",
+      url: "/sp-route",
       icon: "fa fa-file-word-o",
       permission_name: [...permissionsList.spRoutes],
     },
@@ -470,21 +470,21 @@ const navitems = {
       icon: "fa fa-file-word-o",
       permission_name: permissionsList.admin,
     },
-    {
-      name: "First Order Discount",
-      url: "/first-order-discount",
-      icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
-    },
+    // {
+    //   name: "First Order Discount",
+    //   url: "/first-order-discount",
+    //   icon: "fa fa-file-word-o",
+    //   permission_name: permissionsList.admin,
+    // },
 
     {
-      name: "RewardFaq",
+      name: "Reward FAQ",
       url: "/reward-faq",
       icon: "fa fa-file-word-o",
       permission_name: permissionsList.admin,
     },
     {
-      name: "RewardStatus",
+      name: "Reward Status",
       url: "/reward-status",
       icon: "fa fa-file-word-o",
       permission_name: permissionsList.admin,
@@ -498,7 +498,7 @@ const navitems = {
     {
       name: "Reward User",
       url: "/reward-user",
-      icon: "fa fa-file-word-o",
+      icon: "fa fa-gift",
       permission_name: permissionsList.admin,
     },
     // {

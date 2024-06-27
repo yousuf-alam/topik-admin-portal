@@ -208,7 +208,7 @@ export default {
             }
             console.log("item is here", this.items[5]);
 
-            return this.$router.push('/route-sp-daily');
+            return this.$router.push('/sp-route');
 
           })
           .catch(error => {

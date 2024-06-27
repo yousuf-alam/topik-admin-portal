@@ -329,7 +329,7 @@
                 { key: 'cancelled', value: 'Cancelled' },
                 { key: 'rejected', value: 'Rejected' }
               ],
-              selected: 'all',
+              selected: '',
               columnInputs: {
 
               },
@@ -431,6 +431,7 @@
 
             if (this.selected !== key) {
               this.selected = key;
+             this.pageNumber = 0;
               this.makeReadySearchParams(key)
             }
           },
@@ -577,14 +578,14 @@
             }, 500);
 
           },
-          makeReadySearchParams(key=null) {
+          makeReadySearchParams() {
 
-            console.log("search params calling",key);
+            console.log("search params calling",this.selected);
             const id = this.getInputValue("id")
             const service_type = this.getInputValue("service_type");
             const placed_by = this.getInputValue("placed_by");
             const platform = this.getInputValue("platform");
-            const status = this.getInputValue("status") ? this.getInputValue("status") : key;
+            const status = this.getInputValue("status") ? this.getInputValue("status") : this.selected;
             const customer = this.getInputValue("customer");
             const partner = this.getInputValue("partner");
             const bill = this.getInputValue("bill");
@@ -643,6 +644,7 @@
           },
           fetchOrder(srcParms) {
             //console.log('SEARCH PARAMS === ', JSON.stringify(srcParms));
+            console.log('currentPage', this.pageNumber);
             axios.get(`${Admin_URL}/fetch-orders/${this.perPageItem}/${this.pageNumber}`, {
               params: srcParms
             })

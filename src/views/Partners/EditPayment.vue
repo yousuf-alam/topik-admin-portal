@@ -28,7 +28,7 @@
             <input class="form-control" type="text" v-model="payment_to"  >
           </div>
           <div  class="form-group">
-            <label>Received date</label>
+            <label>Received Date</label>
             <input class="form-control" type="text" v-model="recieved_date">
           </div>
           <div  class="form-group">
@@ -153,9 +153,21 @@ for (const pair of formData.entries()) {
 
       axios.post(`${ADMIN_URL}/partner-payment/update-payment/${this.payment_id}`, formData)
           .then(response => {
-            console.log('Success', response);
+
+
+            if (response.data.success === true) {
+
+              this.$swal('Success','Payment Details updated successfully.','success');
 
             return this.$router.push('/Partner-payment');
+          }
+          else
+            {
+              this.$swal('Error', 'Something went wrong', 'error');
+            }
+
+
+
 
           })
           .catch(error => {

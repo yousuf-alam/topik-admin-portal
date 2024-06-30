@@ -823,6 +823,8 @@ export default {
     updateOrder(e) {
       e.preventDefault();
       let currentObj = this;
+      console.log(this.order);
+
       const config = {
         headers: {
           'content-type': 'multipart/form-data'
@@ -841,7 +843,11 @@ export default {
       let formData = new FormData();
       formData.append('id', this.order.id);
       formData.append('status', this.order.status);
-      formData.append('partner_id', this.order.partner.id);
+
+      if (this.order.partner_id) {
+        formData.append('partner_id', this.order.partner_id);
+      }
+      
       formData.append('location_id', this.order.location_id);
       formData.append('scheduled_time', this.order.scheduled_time);
       formData.append('req_from_customer', this.order.req_from_customer);

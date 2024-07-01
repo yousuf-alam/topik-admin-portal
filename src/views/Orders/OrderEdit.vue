@@ -845,13 +845,9 @@ export default {
       let formData = new FormData();
       formData.append('id', this.order.id);
       formData.append('status', this.order.status);
-
-
-
-        formData.append('partner_id', this.order.partner ? this.order.partner.id  : 0 );
-      console.log("partner_id");
-
-
+      if (this.order.partner) {
+        formData.append('partner_id', this.order.partner.id);
+      }
       formData.append('location_id', this.order.location_id);
       formData.append('scheduled_time', this.order.scheduled_time);
       formData.append('req_from_customer', this.order.req_from_customer);

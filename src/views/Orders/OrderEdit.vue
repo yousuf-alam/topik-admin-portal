@@ -19,13 +19,13 @@
             </b-form-group>
             <b-form-group label="Status">
               <select class="form-control" v-model="order.status">
-                <option value="initiated">initiated</option>
-                <option value="pending">pending</option>
-                <option value="accepted">accepted</option>
-                <option value="started">started</option>
-                <option value="completed">completed</option>
-                <option value="rejected">rejected</option>
-                <option value="cancelled">cancelled</option>
+                <option value="initiated">Initiated</option>
+                <option value="pending">Pending</option>
+                <option value="accepted">Accepted</option>
+                <option value="started">Started</option>
+                <option value="completed">Completed</option>
+                <option value="rejected">Rejected</option>
+                <option value="cancelled">Cancelled</option>
               </select>
             </b-form-group>
             <b-form-group label="Cancel Reason *" v-if="order.status === 'cancelled'">
@@ -553,6 +553,7 @@ export default {
     EventBus.$on('cart:add', this.servicesAdd.bind(this));
     EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
     this.calculateTimeDifference();
+
   },
 
   watch: {
@@ -821,9 +822,10 @@ export default {
 
 
     updateOrder(e) {
+
       e.preventDefault();
       let currentObj = this;
-      console.log(this.order);
+      // console.log(this.order);
 
       const config = {
         headers: {
@@ -844,10 +846,12 @@ export default {
       formData.append('id', this.order.id);
       formData.append('status', this.order.status);
 
-      if (this.order.partner_id) {
-        formData.append('partner_id', this.order.partner_id);
-      }
-      
+
+
+        formData.append('partner_id', this.order.partner ? this.order.partner.id  : 0 );
+      console.log("partner_id");
+
+
       formData.append('location_id', this.order.location_id);
       formData.append('scheduled_time', this.order.scheduled_time);
       formData.append('req_from_customer', this.order.req_from_customer);

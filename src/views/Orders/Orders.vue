@@ -516,6 +516,8 @@
              if (platform === 'ios') {
               return 'iOS';
             }
+
+            return platform;
           },
 
           formatStatus(status) {

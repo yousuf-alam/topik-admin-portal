@@ -9,15 +9,6 @@
           </div>
 
           <div class="form-group">
-            <label>Location</label>
-            <VueMultiselect v-model="selectedLocation" :options="allLocations" :multiple="true"
-                    :searchable="true" :close-on-select="false" :allow-empty="true" label="name"
-                    placeholder="Select location" :preserve-search="true" track-by="id">
-           </VueMultiselect>
-
-          </div>
-
-          <div class="form-group">
             <label>Status</label>
             <select class="form-control" v-model="status">
               <option value="published">Published</option>
@@ -37,47 +28,23 @@
 
 <script>
 import axios from "axios";
-import VueMultiselect from 'vue-multiselect';
 const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
 export default {
   name: "CreateMinimumTime",
 
-  components: {
 
-  VueMultiselect
-
-},
   data(){
     return {
       hours:'',
       status:'',
-      allLocations: [],
-      selectedLocation: []
+
 
     }
   },
   methods:{
 
 
-    fetchLocations(searchParam) {
-      let url = `${ADMIN_URL}/search-area`;
-      if (searchParam) {
-        url += `/${searchParam}`;
-      }
-
-      axios.get(url)
-        .then(response => {
-          this.allLocations = response.data.data.map(location => ({
-            id: location.id,
-            name: location.name,
-            value: product.value
-          }));
-        })
-        .catch(error => {
-          console.error('Error fetching products:', error);
-        });
-    },
 
 
     onSubmit() {
@@ -104,5 +71,4 @@ export default {
 }
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css" scoped></style>
 

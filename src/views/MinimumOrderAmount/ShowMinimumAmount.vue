@@ -56,7 +56,7 @@ export default {
     return {
       amounts : [],
       columns: [
-        'id', 'amount', 'status', 'created_by','updated_by', 'action'
+        'id','location', 'amount', 'status', 'created_by','updated_by', 'action'
       ],
       redeem_id:'',
       options: {
@@ -74,7 +74,11 @@ export default {
     axios.get(`${ADMIN_URL}/minimum-order-amount/get-all`)
         .then(response => {
           console.log('response',response);
-          this.amounts = response.data.data;
+          // this.amounts = response.data.data;
+          this.amounts = response.data.data.map(item => ({
+          ...item,
+          location: item.location.name
+        }));
         })
         .catch(e => {
           console.log("error occurs", e.response);

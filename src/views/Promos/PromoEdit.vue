@@ -88,14 +88,14 @@
       <div class="form-group">
         <label>Select Service</label>
         <select @change="getCategories" class='form-control' v-model="promo.service_id">
-          <option selected value=null>All Services</option>
+          <option selected value="">All Services</option>
           <option :value="serv.id" v-for="serv in services">{{ serv.name }}</option>
         </select>
       </div>
       <div v-if="promo.service_id !== null" class="form-group">
         <label>Select Category</label>
         <select class='form-control' v-model="promo.category_id">
-          <option selected value=null>All Categories</option>
+          <option selected value="">All Categories</option>
           <option :value="cat.id" v-for="cat in categories">{{ cat.name }}</option>
         </select>
       </div>

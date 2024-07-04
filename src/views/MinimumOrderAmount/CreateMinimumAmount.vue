@@ -92,7 +92,7 @@ export default {
       this.locationError = '';
 
       if (!this.selectedLocation) {
-        this.locationError = 'Please select a location.';
+        this.locationError = 'Please Select a Location.';
         return;
       }
 

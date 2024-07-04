@@ -22,6 +22,20 @@
         </select>
       </div>
 
+
+      <div class="form-group">
+        <label>Locations</label>
+        <VueMultiselect v-model="selectedLocation" :options="allLocations" :multiple="true"
+         :searchable="true" :close-on-select="false"
+          :allow-empty="true" label="name" placeholder="Select Location"
+          :preserve-search="true"
+          track-by="id">
+        </VueMultiselect>
+        <div v-if="locationError" class="text-danger">{{ locationError }}</div>
+      </div>
+
+
+
       <div class="form-group">
         <label >Medium Type</label>
         <select class='form-control' v-model="medium">
@@ -30,7 +44,6 @@
           <option value="app">User App</option>
         </select>
       </div>
-
 
       <div v-if="type==='platform'" class="form-group">
         <label>Platforms *</label>
@@ -102,12 +115,17 @@
   import Datepicker from 'vuejs-datepicker';
   import Datetimepicker from 'vuejs-datetimepicker';
   import MultiSelect from 'vue-multiselect';
+  import VueMultiselect from 'vue-multiselect';
+
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
   export default {
     name: "PromoCreate",
     components: {
       Datepicker,
       Datetimepicker,
-      MultiSelect
+      MultiSelect,
+      VueMultiselect
     },
     data() {
       return {
@@ -131,12 +149,17 @@
         platforms: null,
         disabledDates: {
           to: new Date(Date.now() - 8640000)
-        }
+        },
+       allLocations: [],
+       selectedLocation: null,
+       locationError: ''
 
       }
     },
     created() {
-      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
+      this.fetchLocations();
+
       axios.get(`${ADMIN_URL}/services`)
         .then(response => {
           this.services = response.data;
@@ -144,8 +167,30 @@
         .catch(e => {
           //console.log("error occurs");
         });
+
+
     },
     methods: {
+
+
+      fetchLocations(searchParam) {
+      let url = `${ADMIN_URL}/search-area`;
+      if (searchParam) {
+        url += `/${searchParam}`;
+      }
+
+      axios.get(url)
+        .then(response => {
+          this.allLocations = response.data.data.map(location => ({
+            id: location.id,
+            name: location.name,
+            value: location.value
+           }));
+        })
+        .catch(error => {
+          console.error('Error fetching locations:', error);
+        });
+    },
 
       getCategories() {
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
@@ -195,7 +240,6 @@
         formData.append('code', this.code);
         formData.append('description', this.description);
         formData.append('type', this.type);
-        formData.append('description', this.description);
         formData.append('published_status', this.published_status);
         formData.append('max_uses_user', this.max_uses_user);
         formData.append('user_limit', this.user_limit);
@@ -211,6 +255,13 @@
         {
             formData.append('platforms', JSON.stringify(this.platforms));
         }
+
+        if (this.selectedLocation) {
+          const locationIds = this.selectedLocation.map(location => location.id);
+          formData.append('locations', JSON.stringify(locationIds));
+        }
+
+
         console.log('uu',JSON.stringify(this.platforms));
 
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
@@ -239,5 +290,5 @@
   }
 </script>
 
-<style scoped>
-</style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css" scoped></style>
+

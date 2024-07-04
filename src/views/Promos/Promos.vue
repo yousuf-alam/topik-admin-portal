@@ -20,6 +20,16 @@
             <button class="btn btn-romoni-secondary">See Partner Promos</button>
           </router-link>
           <v-client-table :data="promos" :columns="columns" :options="options">
+
+            <template slot="Location" slot-scope="props">
+              <div v-if="props.row.Location !='All'">
+                <span v-for="(location, index) in props.row.Location.split(',')" :key="index" class="location-names">
+                  {{ location.trim() }}
+                </span>
+              </div>
+              <div v-else>All</div>
+            </template>
+
             <template slot="action" slot-scope="props">
               <div>
                 <router-link :to="{ name: 'PromoEdit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
@@ -103,3 +113,15 @@
     },
   }
 </script>
+
+<style scoped>
+
+.location-names {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #41b883;
+  border-radius: 5px;
+  margin: 2px;
+}
+
+</style>

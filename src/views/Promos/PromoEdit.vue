@@ -11,7 +11,7 @@
         <textarea class="form-control" rows="3" v-model="promo.description"></textarea>
       </div>
       <div class="form-group">
-        <label >Coupon Type</label>
+        <label>Coupon Type</label>
         <select class='form-control' v-model="promo.type">
           <option value="0" selected disabled>Select Coupon Type</option>
           <option value="fixed">Fixed</option>
@@ -22,8 +22,18 @@
       </div>
 
 
+
       <div class="form-group">
-        <label >Medium Type</label>
+        <label>Locations</label>
+        <VueMultiselect v-model="selectedLocation" :options="allLocations" :multiple="true" :searchable="true"
+          :close-on-select="false" :allow-empty="true" label="name" placeholder="Select Location"
+          :preserve-search="true" track-by="id">
+        </VueMultiselect>
+        <div v-if="locationError" class="text-danger">{{ locationError }}</div>
+      </div>
+
+      <div class="form-group">
+        <label>Medium Type</label>
         <select class='form-control' v-model="promo.medium">
           <option value="all">All Platform</option>
           <option value="portal">Admin Portal</option>
@@ -34,13 +44,8 @@
 
       <div v-if="promo.type==='platform'" class="form-group">
         <label>Platforms *</label>
-        <MultiSelect
-          v-model="promo.platforms"
-          :searchable="false"
-          :close-on-select="false"
-          :show-labels="false"
-          :options="all_platforms"
-          :multiple="true">
+        <MultiSelect v-model="promo.platforms" :searchable="false" :close-on-select="false" :show-labels="false"
+          :options="all_platforms" :multiple="true">
         </MultiSelect>
       </div>
       <div v-if="promo.type==='percentage'" class="form-group">
@@ -70,24 +75,25 @@
       </div>
       <div class="form-group">
         <label>Expires on</label>
-        <datetimepicker format="YYYY-MM-DD H:i:s" :disabledDates="disabledDates" v-model="promo.expires_at"></datetimepicker>
+        <datetimepicker format="YYYY-MM-DD H:i:s" :disabledDates="disabledDates" v-model="promo.expires_at">
+        </datetimepicker>
       </div>
       <div class="form-group">
 
-        <input type="radio"  value="unpublished" v-model="promo.status">
+        <input type="radio" value="unpublished" v-model="promo.status">
         <label>Unpublished</label><br>
         <input type="radio" value="published" v-model="promo.status">
         <label>Published</label>
       </div>
       <div class="form-group">
-        <label >Select Service</label>
+        <label>Select Service</label>
         <select @change="getCategories" class='form-control' v-model="promo.service_id">
           <option selected value=null>All Services</option>
           <option :value="serv.id" v-for="serv in services">{{ serv.name }}</option>
         </select>
       </div>
       <div v-if="promo.service_id !== null" class="form-group">
-        <label >Select Category</label>
+        <label>Select Category</label>
         <select class='form-control' v-model="promo.category_id">
           <option selected value=null>All Categories</option>
           <option :value="cat.id" v-for="cat in categories">{{ cat.name }}</option>
@@ -103,12 +109,17 @@
   import Datepicker from 'vuejs-datepicker';
   import Datetimepicker from 'vuejs-datetimepicker';
   import MultiSelect from 'vue-multiselect';
+  import VueMultiselect from 'vue-multiselect';
+  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
+
   export default {
     name: "PromoEdit",
     components: {
       Datepicker,
       Datetimepicker,
-      MultiSelect
+      MultiSelect,
+      VueMultiselect
     },
     data() {
       return {
@@ -132,27 +143,68 @@
         all_platforms: ['android','ios','web'],
         disabledDates: {
           to: new Date(Date.now() - 8640000)
-        }
+        },
+        allLocations: [],
+        selectedLocation: null,
+        locationError: '',
+
+
 
       }
     },
     created() {
-      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-      axios.get(`${ADMIN_URL}/promos/show`, {
-        params: {
-          id : window.location.pathname.split("/").pop()
-        }
-      })
-        .then(response => {
-          this.promo = response.data;
-          this.promo.platforms = JSON.parse(response.data.platforms)
-        })
-        .catch(e => {
-          //console.log("error occurs");
-        });
+      this.fetchLocations();
+      this.fetchPromoDetails();
       this.getServices();
+
+
     },
+
+
     methods: {
+
+      fetchLocations(searchParam) {
+      let url = `${process.env.VUE_APP_ADMIN_URL}/search-area`;
+      if (searchParam) {
+        url += `/${searchParam}`;
+      }
+      axios.get(url)
+        .then(response => {
+          this.allLocations = response.data.data.map(location => ({
+            id: location.id,
+            name: location.name,
+            value: location.value
+          }));
+         })
+        .catch(error => {
+          console.error('Error fetching locations:', error);
+        });
+    },
+
+
+
+    fetchPromoDetails() {
+        const promoId = window.location.pathname.split("/").pop();
+        axios.get(`${ADMIN_URL}/promos/show`, { params: { id: promoId } })
+          .then(response => {
+            this.promo = response.data;
+            console.log(this.promo);
+            if (this.promo.platforms) {
+              this.promo.platforms = JSON.parse(this.promo.platforms);
+            }
+            if (this.promo.location_ids && this.promo.location_ids.length > 0) {
+
+              console.log(this.promo.location_ids);
+            const locationIds =   JSON.parse(this.promo.location_ids);
+              this.selectedLocation = this.allLocations.filter(location =>
+              locationIds.includes(location.id)
+              );
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching promo details:', error);
+          });
+      },
       getServices(){
         const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
         axios.get(`${ADMIN_URL}/services`)
@@ -176,6 +228,7 @@
           });
 
       },
+
       onSubmit(e) {
         /*this.changeDateFormat();*/
         e.preventDefault();
@@ -191,8 +244,7 @@
         formData.append('code', this.promo.code);
         formData.append('description', this.promo.description);
         formData.append('type', this.promo.type);
-        formData.append('description', this.promo.description);
-        formData.append('status', this.promo.status);
+         formData.append('status', this.promo.status);
         formData.append('max_uses_user', this.promo.max_uses_user);
         formData.append('user_limit', this.promo.user_limit);
         formData.append('order_amount', this.promo.order_amount);
@@ -209,8 +261,13 @@
             formData.append('platforms', JSON.stringify(this.promo.platforms));
         }
 
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${ADMIN_URL}/promos/edit`,formData,config)
+
+        if (this.selectedLocation && this.selectedLocation.length > 0) {
+          const locationIds = this.selectedLocation.map(location => location.id);
+          formData.append('location_ids', JSON.stringify(locationIds));
+        }
+
+         axios.post(`${ADMIN_URL}/promos/edit`,formData,config)
           .then(response => {
             console.log('Success', response);
             currentObj.success = response.data.success;

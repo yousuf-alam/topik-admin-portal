@@ -42,26 +42,26 @@
       </div>
 
 
-      <div v-if="promo.type==='platform'" class="form-group">
+      <div v-if="promo.type === 'platform'" class="form-group">
         <label>Platforms *</label>
         <MultiSelect v-model="promo.platforms" :searchable="false" :close-on-select="false" :show-labels="false"
           :options="all_platforms" :multiple="true">
         </MultiSelect>
       </div>
-      <div v-if="promo.type==='percentage'" class="form-group">
+      <div v-if="promo.type === 'percentage'" class="form-group">
         <label>Percentage Amount (%)</label>
         <input type="text" class="form-control" v-model="promo.percentage_amount">
       </div>
       <div class="form-group">
-        <label v-if="promo.type==='percentage'">Maximum Discount Amount</label>
+        <label v-if="promo.type === 'percentage'">Maximum Discount Amount</label>
         <label v-else>Discount Amount</label>
         <input type="text" class="form-control" v-model="promo.discount_amount">
       </div>
-      <div v-if="promo.type==='download'" class="form-group">
+      <div v-if="promo.type === 'download'" class="form-group">
         <label>Discount Per Usage</label>
         <input type="text" class="form-control" v-model="promo.discount_per_usage">
       </div>
-      <div v-if="promo.type==='fixed'" class="form-group">
+      <div v-if="promo.type === 'fixed'" class="form-group">
         <label>User Limit</label>
         <input type="text" class="form-control" v-model="promo.user_limit">
       </div>
@@ -105,65 +105,65 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import Datepicker from 'vuejs-datepicker';
-  import Datetimepicker from 'vuejs-datetimepicker';
-  import MultiSelect from 'vue-multiselect';
-  import VueMultiselect from 'vue-multiselect';
-  const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+import axios from 'axios';
+import Datepicker from 'vuejs-datepicker';
+import Datetimepicker from 'vuejs-datetimepicker';
+import MultiSelect from 'vue-multiselect';
+import VueMultiselect from 'vue-multiselect';
+const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
 
-  export default {
-    name: "PromoEdit",
-    components: {
-      Datepicker,
-      Datetimepicker,
-      MultiSelect,
-      VueMultiselect
-    },
-    data() {
-      return {
-        promo: [],
-        code: '',
-        description: '',
-        type: '0',
-        medium: '',
-        services: '',
-        published_status: '',
-        categories: '',
-        service_id: null,
-        category_id: null,
-        max_uses_user: '',
-        user_limit:'',
-        order_amount: '',
-        discount_amount: '',
-        percentage_amount: '',
-        discount_per_usage: '',
-        expires_at: '',
-        all_platforms: ['android','ios','web'],
-        disabledDates: {
-          to: new Date(Date.now() - 8640000)
-        },
-        allLocations: [],
-        selectedLocation: null,
-        locationError: '',
+export default {
+  name: "PromoEdit",
+  components: {
+    Datepicker,
+    Datetimepicker,
+    MultiSelect,
+    VueMultiselect
+  },
+  data() {
+    return {
+      promo: [],
+      code: '',
+      description: '',
+      type: '0',
+      medium: '',
+      services: '',
+      published_status: '',
+      categories: '',
+      service_id: null,
+      category_id: null,
+      max_uses_user: '',
+      user_limit: '',
+      order_amount: '',
+      discount_amount: '',
+      percentage_amount: '',
+      discount_per_usage: '',
+      expires_at: '',
+      all_platforms: ['android', 'ios', 'web'],
+      disabledDates: {
+        to: new Date(Date.now() - 8640000)
+      },
+      allLocations: [],
+      selectedLocation: null,
+      locationError: '',
 
 
 
-      }
-    },
-    created() {
-      this.fetchLocations();
-      this.fetchPromoDetails();
-      this.getServices();
+    }
+  },
+  created() {
+    this.fetchLocations();
+    this.fetchPromoDetails();
+    this.getServices();
 
 
-    },
+  },
 
 
-    methods: {
+  methods: {
 
-      fetchLocations(searchParam) {
+    fetchLocations(searchParam) {
       let url = `${process.env.VUE_APP_ADMIN_URL}/search-area`;
       if (searchParam) {
         url += `/${searchParam}`;
@@ -175,7 +175,7 @@
             name: location.name,
             value: location.value
           }));
-         })
+        })
         .catch(error => {
           console.error('Error fetching locations:', error);
         });
@@ -184,113 +184,109 @@
 
 
     fetchPromoDetails() {
-        const promoId = window.location.pathname.split("/").pop();
-        axios.get(`${ADMIN_URL}/promos/show`, { params: { id: promoId } })
-          .then(response => {
-            this.promo = response.data;
-            console.log(this.promo);
-            if (this.promo.platforms) {
-              this.promo.platforms = JSON.parse(this.promo.platforms);
-            }
-            if (this.promo.location_ids && this.promo.location_ids.length > 0) {
-
-              console.log(this.promo.location_ids);
-            const locationIds =   JSON.parse(this.promo.location_ids);
-              this.selectedLocation = this.allLocations.filter(location =>
-              locationIds.includes(location.id)
-              );
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching promo details:', error);
-          });
-      },
-      getServices(){
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.get(`${ADMIN_URL}/services`)
-          .then(response => {
-            this.services = response.data;
-          })
-          .catch(e => {
-            //console.log("error occurs");
-          });
-      },
-      getCategories() {
-        const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-        axios.post(`${ADMIN_URL}/categories`, {
-          service_id: this.service_id
-        })
-          .then(response => {
-            this.categories = response.data;
-          })
-          .catch(e => {
-            //console.log("error occurs");
-          });
-
-      },
-
-      onSubmit(e) {
-        /*this.changeDateFormat();*/
-        e.preventDefault();
-        let currentObj = this;
-          const config = {
-              headers: {
-                  'content-type': 'application/json',
-                  'Accept' : 'application/json',
-              }
+      const promoId = window.location.pathname.split("/").pop();
+      axios.get(`${ADMIN_URL}/promos/show`, { params: { id: promoId } })
+        .then(response => {
+          this.promo = response.data;
+          console.log(this.promo);
+          if (this.promo.platforms) {
+            this.promo.platforms = JSON.parse(this.promo.platforms);
           }
-        let formData = new FormData();
-        formData.append('coupon_id', this.promo.id);
-        formData.append('code', this.promo.code);
-        formData.append('description', this.promo.description);
-        formData.append('type', this.promo.type);
-         formData.append('status', this.promo.status);
-        formData.append('max_uses_user', this.promo.max_uses_user);
-        formData.append('user_limit', this.promo.user_limit);
-        formData.append('order_amount', this.promo.order_amount);
-        formData.append('discount_amount', this.promo.discount_amount);
-        formData.append('percentage_amount', this.promo.percentage_amount);
-        formData.append('discount_per_usage', this.promo.discount_per_usage);
-        formData.append('expires_at', this.promo.expires_at);
-        formData.append('service_id', this.promo.service_id);
-        formData.append('category_id', this.promo.category_id);
-        formData.append('medium', this.promo.medium);
+          if (this.promo.location_ids && this.promo.location_ids.length > 0) {
 
-        if(this.promo.platforms)
-        {
-            formData.append('platforms', JSON.stringify(this.promo.platforms));
+            console.log(this.promo.location_ids);
+            const locationIds = JSON.parse(this.promo.location_ids);
+            this.selectedLocation = this.allLocations.filter(location =>
+              locationIds.includes(location.id)
+            );
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching promo details:', error);
+        });
+    },
+    getServices() {
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      axios.get(`${ADMIN_URL}/services`)
+        .then(response => {
+          this.services = response.data;
+        })
+        .catch(e => {
+          //console.log("error occurs");
+        });
+    },
+    getCategories() {
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      axios.post(`${ADMIN_URL}/categories`, {
+        service_id: this.service_id
+      })
+        .then(response => {
+          this.categories = response.data;
+        })
+        .catch(e => {
+          //console.log("error occurs");
+        });
+
+    },
+
+    onSubmit(e) {
+      /*this.changeDateFormat();*/
+      e.preventDefault();
+      let currentObj = this;
+      const config = {
+        headers: {
+          'content-type': 'application/json',
+          'Accept': 'application/json',
         }
-
-
-        if (this.selectedLocation && this.selectedLocation.length > 0) {
-          const locationIds = this.selectedLocation.map(location => location.id);
-          formData.append('location_ids', JSON.stringify(locationIds));
-        }
-
-         axios.post(`${ADMIN_URL}/promos/edit`,formData,config)
-          .then(response => {
-            console.log('Success', response);
-            currentObj.success = response.data.success;
-            console.log(response.data);
-            if(response.data.success===true)
-            {
-              this.$swal('Success',response.data.message,'success');
-              window.location.href='/promos'
-            }
-            else
-            {
-              this.$swal('Error', 'Something went wrong', 'error');
-            }
-          })
-          .catch(error => {
-            console.log('Error  ... ', error.response);
-            currentObj.output = error;
-            console.log(error);
-          });
       }
+      let formData = new FormData();
+      formData.append('coupon_id', this.promo.id);
+      formData.append('code', this.promo.code);
+      formData.append('description', this.promo.description);
+      formData.append('type', this.promo.type);
+      formData.append('status', this.promo.status);
+      formData.append('max_uses_user', this.promo.max_uses_user);
+      formData.append('user_limit', this.promo.user_limit);
+      formData.append('order_amount', this.promo.order_amount);
+      formData.append('discount_amount', this.promo.discount_amount);
+      formData.append('percentage_amount', this.promo.percentage_amount);
+      formData.append('discount_per_usage', this.promo.discount_per_usage);
+      formData.append('expires_at', this.promo.expires_at);
+      formData.append('service_id', this.promo.service_id);
+      formData.append('category_id', this.promo.category_id);
+      formData.append('medium', this.promo.medium);
+
+      if (this.promo.platforms) {
+        formData.append('platforms', JSON.stringify(this.promo.platforms));
+      }
+
+
+      if (this.selectedLocation && this.selectedLocation.length > 0) {
+        const locationIds = this.selectedLocation.map(location => location.id);
+        formData.append('location_ids', JSON.stringify(locationIds));
+      }
+
+      axios.post(`${ADMIN_URL}/promos/edit`, formData, config)
+        .then(response => {
+          console.log('Success', response);
+          currentObj.success = response.data.success;
+          console.log(response.data);
+          if (response.data.success === true) {
+            this.$swal('Success', response.data.message, 'success');
+            window.location.href = '/promos'
+          }
+          else {
+            this.$swal('Error', 'Something went wrong', 'error');
+          }
+        })
+        .catch(error => {
+          console.log('Error  ... ', error.response);
+          currentObj.output = error;
+          console.log(error);
+        });
     }
   }
+}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

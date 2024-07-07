@@ -27,7 +27,7 @@
                   {{ location.trim() }}
                 </span>
                 <span v-if="shouldShowMore(props.row.Location)" @click="toggleShowMore(props.row.id)" class="show-more">
-                  {{ showMore[props.row.id] ? 'Show Less' : 'Show All' }}
+                  {{ showMore[props.row.id] ? 'Show Less' : 'Show More' }}
                 </span>
               </div>
               <div v-else>All</div>

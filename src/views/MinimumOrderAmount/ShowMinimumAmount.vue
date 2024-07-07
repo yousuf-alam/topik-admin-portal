@@ -77,7 +77,8 @@ export default {
           // this.amounts = response.data.data;
           this.amounts = response.data.data.map(item => ({
           ...item,
-          location: item.location.name
+          location: item.location.name,
+          status: item.status.charAt(0).toUpperCase() + item.status.slice(1)
         }));
         })
         .catch(e => {

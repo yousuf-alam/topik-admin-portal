@@ -111,7 +111,12 @@ export default {
       axios.put(`${ADMIN_URL}/minimum-order-amount/update/${this.amount_id}`, formData)
         .then(response => {
           console.log('Success', response);
-          this.$router.push('/minimum-order-amount');
+
+          if (response.data.success === true) {
+            this.$swal("Success", "Minimum Order Amount Updated Successfully!", "success");
+          return this.$router.push('/minimum-order-amount');
+
+          }
         })
         .catch(error => {
           console.error('Error updating minimum order amount:', error);

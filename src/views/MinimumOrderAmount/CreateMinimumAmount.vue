@@ -108,7 +108,11 @@ export default {
         .then(response => {
           console.log('Success', response);
 
+          if (response.data.success === true) {
+            this.$swal("Success","Minimum Order Amount Created Successfully!", "success");
           return this.$router.push('/minimum-order-amount');
+
+          }
 
         })
         .catch(error => {

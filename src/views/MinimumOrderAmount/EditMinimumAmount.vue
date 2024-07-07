@@ -4,7 +4,7 @@
       <b-tab active title="Edit Info">
         <b-card-text>
           <div class="form-group">
-            <label>Locations</label>
+            <label>Location</label>
             <VueMultiselect v-model="selectedLocation" :options="allLocations" :multiple="false" :searchable="true"
               :allow-empty="true" label="name" placeholder="Select Location"
               track-by="id">

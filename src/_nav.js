@@ -207,7 +207,7 @@ const navitems = {
       name: "Partner Payments",
       url: "/partner-payment",
       icon: "fa fa-reorder",
-      permission_name: permissionsList.partnerwallet,
+      permission_name: permissionsList.partnerPayments,
     },
     {
       name: "In-House Leaves",
@@ -225,7 +225,7 @@ const navitems = {
       name: "In-House Notice",
       url: "/partner-notice",
       icon: "fa fa-reorder",
-      permission_name: permissionsList.partnerSalary,
+      permission_name: permissionsList.partnerNotice,
     },
     {
       title: true,
@@ -252,19 +252,19 @@ const navitems = {
       name: "Future Notification",
       url: "/show-future-notification",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.notification,
+      permission_name: permissionsList.futureNotification,
     },
     {
       name: "Schedule Notification",
       url: "/schedule-notification",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.notification,
+      permission_name: permissionsList.scheduleNotification,
     },
     {
       name: "Feed",
       url: "/feed-show",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
+      permission_name: permissionsList.feed,
     },
     // {
     //   name: "Popup Promo",
@@ -284,6 +284,7 @@ const navitems = {
       name: "Hot Deals",
       url: "/hot-deals",
       icon: "fa fa-gift",
+      permission_name: permissionsList.hotDeals,
 
     },
 
@@ -291,6 +292,7 @@ const navitems = {
       name: "Card BINs",
       url: "/card-bins",
       icon: "fa fa-gift",
+      permission_name: permissionsList.cardBINs,
      },
 
 
@@ -305,13 +307,14 @@ const navitems = {
       name: "Payment Method",
       url: "/payment-method",
       icon: "fa fa-file-image-o",
+      permission_name: permissionsList.paymentMethod,
      },
 
     {
       name: "Advance Payment Schedule",
       url: "/advance-payment-schedule",
       icon: "fa fa-file-image-o",
-      permission_name: permissionsList.topbanner,
+      permission_name: permissionsList.advancePayment,
     },
 
     // {
@@ -417,8 +420,8 @@ const navitems = {
       title: true,
       name: "Products",
       permission_name: [
-        ...permissionsList.service,
-        ...permissionsList.service,
+        ...permissionsList.products,
+        ...permissionsList.products,
       ],
       class: "",
       wrapper: {
@@ -431,20 +434,20 @@ const navitems = {
       name: "Products",
       url: "/products",
       icon: "fa fa-bars",
-      permission_name: permissionsList.service,
+      permission_name: permissionsList.products,
     },
 
     {
       name: "Product Requests",
       url: "/product-requests",
       icon: "fa fa-bars",
-      permission_name: permissionsList.service,
+      permission_name: permissionsList.productRequest,
     },
 
     {
       title: true,
       name: "Order Settings",
-      permission_name: [...permissionsList.order, ...permissionsList.complain],
+      permission_name: [...permissionsList.order, ...permissionsList.orderSettings],
       class: "",
       wrapper: {
         element: "",
@@ -456,19 +459,19 @@ const navitems = {
       name: "Min Order Amount",
       url: "/minimum-order-amount",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
+      permission_name: permissionsList.minOrderAmount,
     },
     {
       name: "Min Order Time",
       url: "/minimum-order-time",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
+      permission_name: permissionsList.minOrderTime,
     },
     {
       name: "Min Payment Time",
       url: "/minimum-payment-time",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
+      permission_name: permissionsList.minPaymentTime,
     },
     // {
     //   name: "First Order Discount",
@@ -481,25 +484,25 @@ const navitems = {
       name: "Reward FAQ",
       url: "/reward-faq",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
+      permission_name: permissionsList.rewardFaq,
     },
     {
       name: "Reward Status",
       url: "/reward-status",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
+      permission_name: permissionsList.rewardStatus,
     },
     {
       name: "Redeem Settings",
       url: "/redeem",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
+      permission_name: permissionsList.redeemSetting,
     },
     {
       name: "Reward User",
       url: "/reward-user",
       icon: "fa fa-gift",
-      permission_name: permissionsList.admin,
+      permission_name: permissionsList.rewardUser,
     },
     // {
     //   title: true,

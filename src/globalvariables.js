@@ -113,6 +113,72 @@ export default {
     spOrderCount:[
         "sp order count"
     ],
+    refundOrder:[
+      "refund order"
+    ],
+    unsettledOrder:[
+      "unsettled order"
+    ],
+    partnerPayments:[
+      "partner payment"
+    ],
+    partnerNotice:[
+      "partner notice"
+    ],
+    futureNotification:[
+      "future notification"
+    ],
+    scheduleNotification:[
+      "schedule notification"
+    ],
+    feed:[
+      "feed"
+    ],
+    hotDeals:[
+      "hot deals"
+    ],
+    cardBINs:[
+      "card bins"
+    ],
+    paymentMethod:[
+      "payment method"
+    ],
+    advancePayment:[
+      "advance payment schedule"
+    ],
+    products:[
+      "products"
+    ],
+    productRequest:[
+      "product request"
+    ],
+    minOrderAmount:[
+      "min order amount"
+    ],
+    minOrderTime:[
+      "min order time"
+    ],
+    minPaymentTime:[
+      "min payment time"
+    ],
+    rewardFaq:[
+      "reward faq"
+    ],
+    rewardStatus:[
+      "reward status"
+    ],
+    rewardSetting:[
+      "reward setting"
+    ],
+    rewardUser:[
+      "reward user"
+    ],
+    redeemSetting:[
+      "redeem setting"
+    ],
+    orderSettings:[
+      "order settings"
+    ],
     otps: ["otp read"],
     admin: ["admin"],
     reports: ["reports"],

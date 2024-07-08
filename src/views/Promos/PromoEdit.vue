@@ -195,7 +195,8 @@ export default {
           if (this.promo.location_ids && this.promo.location_ids.length > 0) {
 
             console.log(this.promo.location_ids);
-            const locationIds = JSON.parse(this.promo.location_ids);
+          //  const locationIds = JSON.parse(this.promo.location_ids);
+            const locationIds = this.promo.location_ids;
             this.selectedLocation = this.allLocations.filter(location =>
               locationIds.includes(location.id)
             );

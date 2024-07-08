@@ -447,7 +447,7 @@ const navitems = {
     {
       title: true,
       name: "Order Settings",
-      permission_name: [...permissionsList.order, ...permissionsList.orderSettings],
+      permission_name: [...permissionsList.orderSettings],
       class: "",
       wrapper: {
         element: "",

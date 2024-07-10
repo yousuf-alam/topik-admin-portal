@@ -336,6 +336,7 @@ export default {
       console.log(this.coupon);
       axios
         .post(`${ADMIN_URL}/submit-coupon`, {
+          location_id: this.location,
           coupon: this.coupon,
           category_id: this.services[0].category_id,
           price: this.invoice.total_service_charge,

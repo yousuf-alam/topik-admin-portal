@@ -15,6 +15,9 @@
         </option>
       </select>
     </b-form-group>
+    <p v-if="minimum_order_amount !== null"  class="text-success font-weight-bold">
+      Minimum order amount for selected area: {{ minimum_order_amount }}
+    </p>
   </b-card>
 </template>
 
@@ -29,7 +32,8 @@
       return {
         locations: [],
         selected_location: '0',
-        city: 'Dhaka'
+        city: 'Dhaka',
+        minimum_order_amount: null
       }
     },
     created() {
@@ -53,7 +57,26 @@
       },
       addLocation()
       {
-        EventBus.$emit('location:add',this.selected_location);
+
+        this.fetchMinimumOrderAmount();
+
+       },
+      fetchMinimumOrderAmount() {
+        axios.get(`${ADMIN_URL}/minimum-order-amount`, {
+          params: {
+            location_id: this.selected_location
+          }
+        })
+          .then(response => {
+            this.minimum_order_amount = response.data.data.amount;
+            EventBus.$emit('location:add', {
+              location_id: this.selected_location,
+              minimum_order_amount: this.minimum_order_amount
+            });
+          })
+          .catch(e => {
+            console.log("error fetching minimum order amount", e);
+          });
       }
     }
   }

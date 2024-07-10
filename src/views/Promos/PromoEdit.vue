@@ -194,12 +194,17 @@ export default {
           }
           if (this.promo.location_ids && this.promo.location_ids.length > 0) {
 
-            console.log(this.promo.location_ids);
-          //  const locationIds = JSON.parse(this.promo.location_ids);
-            const locationIds = this.promo.location_ids;
-            this.selectedLocation = this.allLocations.filter(location =>
-              locationIds.includes(location.id)
-            );
+            // console.log(this.promo.location_ids);
+            //  const locationIds = this.promo.location_ids;
+            // this.selectedLocation = this.allLocations.filter(location =>
+            //   locationIds.includes(location.id)
+            // );
+
+            this.selectedLocation = this.promo.location_ids.map(location => ({
+              id: location.id,
+              name: location.name,
+              value: location.value
+            }));
           }
         })
         .catch(error => {

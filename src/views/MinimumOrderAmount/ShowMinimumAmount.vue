@@ -2,15 +2,19 @@
   <div class="animated fadeIn">
     <div class="cardheading">
       <h4><i class="fa fa-bars"></i><span class="ml-1">Minimum Order Amount</span></h4>
-      <div class="">
-        <h1 class="my-auto tableName">
 
-        </h1>
-      </div>
-      <div class="">
-        <router-link :to="{ name: 'CreateMinimumAmount'}" >
-          <button class="btn btn-success">Create New Minimum Order Amount</button>
-        </router-link>
+      <div class="link-btns">
+        <div class="">
+          <router-link :to="{ name: 'CreateMinimumAmountByFilter'}" >
+            <button class="btn btn-success">Create New Minimum Order Amount</button>
+          </router-link>
+        </div>
+
+        <!-- <div class="">
+          <router-link :to="{ name: 'CreateMinimumAmount'}" >
+            <button class="btn btn-success">Create New Minimum Order Amount</button>
+          </router-link>
+        </div> -->
       </div>
     </div>
     <b-row>
@@ -127,3 +131,14 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+
+.link-btns {
+
+  display: flex;
+  flex-direction: row;
+   align-items: center;
+    gap: 30px;
+}
+</style>

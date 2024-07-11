@@ -171,6 +171,7 @@ import CreateStatus from "@/views/RewardStatus/CreateStatus.vue";
 import EditStatus from "@/views/RewardStatus/EditStatus.vue";
 import ShowMinimumAmount from "@/views/MinimumOrderAmount/ShowMinimumAmount.vue";
 import CreateMinimumAmount from "@/views/MinimumOrderAmount/CreateMinimumAmount.vue";
+import CreateMinimumAmountByFilter from "@/views/MinimumOrderAmount/CreateMinimumAmountByFilter.vue";
 import EditMinimumAmount from "@/views/MinimumOrderAmount/EditMinimumAmount.vue";
 import showDiscount from "@/views/FirstOrderDiscount/ShowDiscount.vue";
 import CreatDiscount from "@/views/FirstOrderDiscount/CreatDiscount.vue";
@@ -802,6 +803,14 @@ const router = new Router({
           path: "/min-order-amount-create",
           name: "CreateMinimumAmount",
           component: CreateMinimumAmount,
+          meta: {
+            permission_name: "lineitem create",
+          },
+        },
+        {
+          path: "/min-order-amount-filter-create",
+          name: "CreateMinimumAmountByFilter",
+          component: CreateMinimumAmountByFilter,
           meta: {
             permission_name: "lineitem create",
           },

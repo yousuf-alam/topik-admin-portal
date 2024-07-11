@@ -138,7 +138,7 @@ export default {
 
   display: flex;
   flex-direction: row;
-   align-items: center;
-    gap: 30px;
+  align-items: center;
+  gap: 30px;
 }
 </style>

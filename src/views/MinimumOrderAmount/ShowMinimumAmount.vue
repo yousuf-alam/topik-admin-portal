@@ -5,7 +5,7 @@
 
       <div class="link-btns">
         <div class="">
-          <router-link :to="{ name: 'CreateMinimumAmountByFilter'}" >
+          <router-link v-if="getUserPermission('minimum order amount create')" :to="{ name: 'CreateMinimumAmountByFilter'}" >
             <button class="btn btn-success">Create New Minimum Order Amount</button>
           </router-link>
         </div>

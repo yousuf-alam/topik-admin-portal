@@ -14,7 +14,7 @@ export default {
   LS_USER_KEY_NAME: "user",
   ADMIN_URL: ADMIN_URL,
   BASE_URL: BASE_URL,
-  is_valid_phone: phoneNo =>
+  is_valid_phone: (phoneNo) =>
     /(^()?(01){1}[23456789]{1}(\d){8})$/i.test(phoneNo),
 
   permissionsList: {
@@ -24,94 +24,91 @@ export default {
       "complain create",
       "complain read",
       "complain update",
-      "complain delete"
+      "complain delete",
     ],
     service: [
       "service create",
       "service read",
       "service update",
-      "service delete"
+      "service delete",
     ],
     category: [
       "category create",
       "category read",
       "category update",
-      "category delete"
+      "category delete",
     ],
     lineitem: [
       "lineitem create",
       "lineitem read",
       "lineitem update",
-      "lineitem delete"
+      "lineitem delete",
     ],
     location: [
       "location create",
       "location read",
       "location update",
-      "location delete"
+      "location delete",
     ],
     partnerwallet: [
       "partnerwallet create",
       "partnerwallet read",
       "partnerwallet update",
-      "partnerwallet delete"
+      "partnerwallet delete",
     ],
     partner: [
       "partner create",
       "partner read",
       "partner update",
-      "partner delete"
+      "partner delete",
     ],
     resource: [
       "resource create",
       "resource read",
       "resource update",
-      "resource delete"
+      "resource delete",
     ],
     notification: [
       "notification create",
       "notification read",
       "notification update",
-      "notification delete"
+      "notification delete",
     ],
     promocode: [
       "promocode create",
       "promocode read",
       "promocode update",
-      "promocode delete"
+      "promocode delete",
     ],
     topbanner: [
       "topbanner create",
       "topbanner read",
       "topbanner update",
-      "topbanner delete"
+      "topbanner delete",
     ],
     bottombanner: [
       "bottombanner create",
       "bottombanner read",
       "bottombanner update",
-      "bottombanner delete"
+      "bottombanner delete",
     ],
     document: [
       "document create",
       "document read",
       "document update",
-      "document delete"
+      "document delete",
     ],
-    partnerSalary:[
-        "partner salary"
-    ],
-    partnerLeaves:[
-        "partner leaves"
-    ],
-    spRoutes:[
-       "sp route"
-    ],
-    salaryDisbursement:[
-       "salary disbursement"
-    ],
-    spOrderCount:[
-        "sp order count"
+    partnerSalary: ["partner salary"],
+    partnerLeaves: ["partner leaves"],
+    spRoutes: ["sp route"],
+    salaryDisbursement: ["salary disbursement"],
+    spOrderCount: ["sp order count"],
+
+    minimumOrderAmount: [
+      "minimum order amount create",
+      "minimum order amount read",
+      "minimum order amount update",
+      "minimum order amount delete",
     ],
     otps: ["otp read"],
     admin: ["admin"],
@@ -119,7 +116,7 @@ export default {
     eloan: ["eloan read"],
     thirdparty: ["third party"],
     dashboard: ["dashboard"],
-    shohoz: ["shohoz"]
+    shohoz: ["shohoz"],
   },
   SECRET_KEY: "Kali Nagin Ke Jaisi Julfe Teri Kali Kali",
   SECRET_KEY_SAME_AS_PARTNER_PANEL:
@@ -128,6 +125,6 @@ export default {
     APP_ID: PUSHER_APP_ID,
     APP_KEY: PUSHER_APP_KEY,
     APP_SECRET: PUSHER_APP_SECRET,
-    APP_CLUSTER: PUSHER_APP_CLUSTER
-  }
+    APP_CLUSTER: PUSHER_APP_CLUSTER,
+  },
 };

@@ -456,7 +456,7 @@ const navitems = {
       name: "Min Order Amount",
       url: "/minimum-order-amount",
       icon: "fa fa-file-word-o",
-      permission_name: permissionsList.admin,
+      permission_name: permissionsList.minimumOrderAmount,
     },
     {
       name: "Min Order Time",

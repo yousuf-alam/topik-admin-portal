@@ -32,7 +32,7 @@
 
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'PromoEdit', params: { id: props.row.id } }">
+                <router-link v-if="getUserPermission('promocode update')" :to="{ name: 'PromoEdit', params: { id: props.row.id } }">
                   <span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit">
                     <i class="fa fa-edit"></i>
                   </span>

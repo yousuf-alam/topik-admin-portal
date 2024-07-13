@@ -23,7 +23,7 @@
           <v-client-table :data="amounts" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'EditMinimumAmount', params: { id: props.row.id }}"
+                <router-link v-if="getUserPermission('minimum order amount update')" :to="{ name: 'EditMinimumAmount', params: { id: props.row.id }}"
                 >
                   <span
                       class="btn btn-warning btn-sm m-1"

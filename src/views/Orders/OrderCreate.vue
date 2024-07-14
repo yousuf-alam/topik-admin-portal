@@ -463,7 +463,7 @@ export default {
         this.coupon_id = 0;
       }
 
-      if(this.minimum_order_amount > this.invoice.total_bill) {
+      if(this.minimum_order_amount > this.invoice.total_service_charge) {
 
         this.$swal('Error', 'Minimum order amount should be atleast ' + this.minimum_order_amount, 'error');
         return;

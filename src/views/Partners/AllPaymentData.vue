@@ -26,8 +26,12 @@
           <v-client-table :data="partners" :columns="columns" :options="options">
             <template slot="Image" slot-scope="props">
               <div class="center-div" v-if="props.row.Image">
-                <img :src="props.row.Image" style="width: 160px; height: 90px;">
+                <img :src="props.row.Image" style="width: 160px; height: 90px;"
+                @click="showImageModal(props.row.Image)">
               </div>
+              <b-modal v-model="isModalVisible" hide-footer title="Image">
+                <img :src="modalImageUrl" alt="Image" style="max-width: 100%;">
+              </b-modal>
             </template>
             <template slot="action" slot-scope="props">
               <div class="d-flex" >
@@ -93,7 +97,9 @@ export default {
         sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
 
-      }
+      },
+       isModalVisible: false,
+      modalImageUrl: ''
 
     }
   },
@@ -202,6 +208,10 @@ export default {
         console.log('Error Response', error.response);
       })
 
+    },
+    showImageModal(imageUrl) {
+      this.modalImageUrl = imageUrl;
+      this.isModalVisible = true;
     }
   },
 
@@ -217,5 +227,10 @@ export default {
 }
 .btn-success{
   font-size: 15px;
+}
+
+.center-div {
+  position: relative;
+  cursor: pointer;
 }
 </style>

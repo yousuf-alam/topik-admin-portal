@@ -7,7 +7,7 @@
             <label>Location</label>
             <VueMultiselect v-model="selectedLocation" :options="allLocations" :multiple="false" :searchable="true"
               :allow-empty="true" label="name" placeholder="Select Location"
-              track-by="id">
+              track-by="id" disabled>
             </VueMultiselect>
             <div v-if="locationError" class="text-danger">{{ locationError }}</div>
           </div>

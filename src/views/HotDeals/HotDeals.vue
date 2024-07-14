@@ -22,9 +22,9 @@
           <b-card>
             <v-client-table :data="tableData" :columns="columns" :options="options">
 
-              <template slot="description" slot-scope="props">
+              <!-- <template slot="description" slot-scope="props">
                 {{ cutDescriptionToShort(props.row.description) }}
-              </template>
+              </template> -->
               <template slot="thumbnail" slot-scope="props">
                 <div class="center-div">
                   <img :src="props.row.thumbnail" style="width: 160px; height: 90px;">

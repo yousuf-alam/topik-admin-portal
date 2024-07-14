@@ -600,7 +600,7 @@
             // if(this.getUserPermission("admin")){
             //   setStatusCom = 1;
             // }
-            const statusCompleted = 0;
+            const statusCompleted = 1;
             //console.log( "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
             let from = '';
             let to = '';

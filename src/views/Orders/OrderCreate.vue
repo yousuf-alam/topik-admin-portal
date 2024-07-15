@@ -465,7 +465,7 @@ export default {
 
       if(this.minimum_order_amount > this.invoice.total_service_charge) {
 
-        this.$swal('Error', 'Minimum order amount should be atleast ' + this.minimum_order_amount, 'error');
+        this.$swal('Error', 'Order must be above ' + this.minimum_order_amount, 'error');
         return;
       }
 

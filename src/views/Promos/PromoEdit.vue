@@ -56,7 +56,7 @@
         <label>Discount Per Usage</label>
         <input type="text" class="form-control" v-model="promo.discount_per_usage">
       </div>
-      <div v-if="promo.type==='fixed'" class="form-group">
+      <div  class="form-group">
         <label>User Limit</label>
         <input type="text" class="form-control" v-model="promo.user_limit">
       </div>

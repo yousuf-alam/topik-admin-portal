@@ -211,11 +211,18 @@
                     <!--<td> {{ order.scheduled_time }} </td>-->
 
                     <td> {{ order.customer }} </td>
+<!--                    <td>-->
+<!--                      <span :class="{'badge badge-danger glow' : order.partner==='Unassigned'}">-->
+<!--                        {{ order.partner }}-->
+<!--                      </span>-->
+<!--                       </td>-->
+
                     <td>
-                      <span :class="{'badge badge-danger glow' : order.partner==='Unassigned'}">
-                        {{ order.partner }}
+                      <span :class="{'badge badge-initiated': order.partner === 'Unassigned' && order.status !== 'rejected'}">
+                        {{ order.status === 'rejected' && order.partner === 'Unassigned' ? 'N/A' : order.partner }}
                       </span>
-                       </td>
+                    </td>
+
 
                     <td> {{ order.bill }} </td>
                     <td>
@@ -596,11 +603,11 @@
             const shipping_phone = this.getInputValue("shipping_phone");
             const shipping_address = this.getInputValue("shipping_address");
 
-            let setStatusCom = 0;
-            if(this.getUserPermission("admin")){
-              setStatusCom = 1;
-            }
-            const statusCompleted = setStatusCom;
+            // let setStatusCom = 0;
+            // if(this.getUserPermission("admin")){
+            //   setStatusCom = 1;
+            // }
+            const statusCompleted = 1;
             //console.log( "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
             let from = '';
             let to = '';

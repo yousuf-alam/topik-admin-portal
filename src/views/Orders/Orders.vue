@@ -211,11 +211,18 @@
                     <!--<td> {{ order.scheduled_time }} </td>-->
 
                     <td> {{ order.customer }} </td>
+<!--                    <td>-->
+<!--                      <span :class="{'badge badge-danger glow' : order.partner==='Unassigned'}">-->
+<!--                        {{ order.partner }}-->
+<!--                      </span>-->
+<!--                       </td>-->
+
                     <td>
-                      <span :class="{'badge badge-danger glow' : order.partner==='Unassigned'}">
-                        {{ order.partner }}
+                      <span :class="{'badge badge-initiated': order.partner === 'Unassigned' && order.status !== 'rejected'}">
+                        {{ order.status === 'rejected' && order.partner === 'Unassigned' ? 'N/A' : order.partner }}
                       </span>
-                       </td>
+                    </td>
+
 
                     <td> {{ order.bill }} </td>
                     <td>

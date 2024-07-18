@@ -2,6 +2,18 @@
   <b-card class="m-4">
     <h5 class="mb-4">Create New Product</h5>
     <form @submit="onSubmit" enctype="multipart/form-data">
+
+
+
+      <div class="form-group">
+        <label>Product Type</label>
+        <select v-model="type" class="form-control">
+          <option value="Salon">Salon</option>
+          <option value="Makeup">Makeup</option>
+        </select>
+      </div>
+
+
       <div class="form-group">
         <label>Category Name</label>
         <select v-model="category_name" class="form-control">
@@ -68,6 +80,7 @@ export default {
   },
   data() {
     return {
+      type:'',
       category_name: '',
       product_name_en: '',
       product_name_bn: '',
@@ -103,6 +116,7 @@ export default {
 
 
       let formData = new FormData();
+      formData.append('type', this.type);
       formData.append('category_name', this.category_name);
       formData.append('product_name_en', this.product_name_en);
       formData.append('product_name_bn', this.product_name_bn);
@@ -134,7 +148,7 @@ export default {
         .catch(error => {
           // console.log('Error  ... ', error.response);
           currentObj.output = error;
-          
+
         });
     }
   }

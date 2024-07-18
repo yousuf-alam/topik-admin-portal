@@ -5,6 +5,14 @@
         <b-card-text>
 
           <div class="form-group">
+            <label>Product Type</label>
+            <select v-model="type" class="form-control">
+              <option value="Salon">Salon</option>
+              <option value="Makeup">Makeup</option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label>Category Name</label>
             <select v-model="category_name" class="form-control">
               <option value="MAKEUP">MAKEUP</option>
@@ -65,7 +73,7 @@ export default {
   data() {
     return {
       productItems: [],
-
+      type: '',
       category_name: '',
       product_name_en: '',
       product_name_bn: '',
@@ -93,6 +101,7 @@ export default {
 
           this.productItems = response.data.data;
 
+          this.type = this.productItems.type;
           this.category_name = this.productItems.category_name;
           this.product_name_en = this.productItems.product_name_en;
           this.product_name_bn = this.productItems.product_name_bn;
@@ -132,6 +141,7 @@ export default {
         }
       };
       let formData = new FormData();
+      formData.append('type', this.type);
       formData.append('category_name', this.category_name);
       formData.append('product_name_en', this.product_name_en);
       formData.append('product_name_bn', this.product_name_bn);

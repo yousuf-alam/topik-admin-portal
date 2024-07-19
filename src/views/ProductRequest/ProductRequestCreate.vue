@@ -46,6 +46,14 @@
                 </select>
             </div>
 
+            <div class="form-group">
+              <label>Product Type</label>
+              <select v-model="type" class="form-control">
+                  <option value="Salon">Salon</option>
+                  <option value="Makeup">Makeup</option>
+
+              </select>
+          </div>
 
             <div class="form-group">
                 <label>Products</label>
@@ -83,7 +91,7 @@
             return {
                 partners: [],
                 partner_id: '',
-
+                type: '',
                 requisition_date: '',
                 month:null,
                 acquisition_period: '',
@@ -147,7 +155,7 @@
                 const formData = new FormData();
                 formData.append('partner_id', this.partner_id);
                 formData.append('requisition_date', this.requisition_date);
-                
+
                 if(this.month){
 
                   formData.append('month', this.month);

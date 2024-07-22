@@ -69,6 +69,15 @@
                           </select>
                       </div>
 
+                      <div class="form-group">
+                        <label>Product Type</label>
+                        <select v-model="type" class="form-control">
+                            <option value="Salon">Salon</option>
+                            <option value="Makeup">Makeup</option>
+
+                        </select>
+                    </div>
+
                         <!-- Products -->
                         <div class="form-group">
                             <label>Products</label>

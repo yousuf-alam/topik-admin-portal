@@ -57,6 +57,14 @@
             <span class="text-danger" v-if="imageSizeError">{{ imageSizeError }}</span>
           </div>
 
+          <div class="form-group">
+            <label>Status</label>
+            <select v-model="status" class="form-control">
+              <option value="published">Published</option>
+              <option value="unpublished">Unpublished</option>
+            </select>
+          </div>
+
           <b-button @click="onSubmit" variant="primary"><i class="fa fa-dot-circle-o"></i> Update Product
           </b-button>
         </b-card-text>
@@ -80,6 +88,7 @@ export default {
       zoho_code: '',
       old_price: '',
       new_price: '',
+      status: '',
       image: '',
       isDisabled: true,
       src_image: '/images/product/',
@@ -108,6 +117,7 @@ export default {
           this.zoho_code = this.productItems.zoho_code;
           this.old_price = this.productItems.old_price;
           this.new_price = this.productItems.new_price;
+          this.status = this.productItems.status;
           this.image = this.productItems.image;
         })
         .catch(e => {
@@ -148,6 +158,7 @@ export default {
       formData.append('zoho_code', this.zoho_code);
       formData.append('old_price', this.old_price);
       formData.append('new_price', this.new_price);
+      formData.append('status', this.status);
       formData.append('image', this.image);
       const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 

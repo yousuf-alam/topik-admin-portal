@@ -58,7 +58,7 @@
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label">Upload Image</label>
-        <div class="col-sm-9">
+        <div class="col-sm-12">
           <input class="form-control" type="file" name="image" v-on:change="onImageChange">
           <span class="text-danger" v-if="imageSizeError">{{ imageSizeError }}</span>
         </div>

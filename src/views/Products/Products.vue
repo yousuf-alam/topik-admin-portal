@@ -27,8 +27,9 @@
               </template>
 
               <template slot="status" slot-scope="props">
-                <span :class="getStyleOfStatus(props.row.status)" style="font-size: 12px;">
-                  {{ props.row.status }}
+                <!-- :class="getStyleOfStatus(props.row.status)" -->
+                <span  style="font-size: 14px;">
+                  {{ getStatus(props.row.status) }}
                 </span>
               </template>
 
@@ -47,11 +48,11 @@
                     <i class="fa fa-trash"></i>
                   </span>
 
-                  <span @click="changeStatus(props.row.id)"
+                  <!-- <span @click="changeStatus(props.row.id)"
                   class="btn btn-warning btn-sm m-1 btn-send"
                    data-toggle="tooltip" title="Change Status">
                    <i :class="props.row.status === 'active' ? 'fa fa-solid fa-toggle-on' : 'fa fa-solid fa-toggle-off'"></i>
-                  </span>
+                  </span> -->
                 </div>
               </template>
             </v-client-table>
@@ -92,6 +93,10 @@ export default {
     handleOptionChange() {
       console.log("key", this.key)
       this.getAllProducts();
+    },
+    getStatus(status) {
+      return status === 'published' ? 'Published' : 'Unpublished';
+
     },
     getAllProducts() {
       axios.get(`${ADMIN_URL}/all-products`, { key: this.key })
@@ -134,24 +139,24 @@ export default {
         })
     },
 
-    changeStatus(productId) {
-      axios.post(`${ADMIN_URL}/change-product-status/${productId}`)
-        .then(response => {
-          if (response.data.success) {
-            this.$swal('Success', response.data.message, 'success');
+    // changeStatus(productId) {
+    //   axios.post(`${ADMIN_URL}/change-product-status/${productId}`)
+    //     .then(response => {
+    //       if (response.data.success) {
+    //         this.$swal('Success', response.data.message, 'success');
 
-            setTimeout(() => {
-              location.reload();
-            }, 1000);
-          } else {
-            this.$swal('Error', response.data.message, 'error');
-          }
-        })
-        .catch(error => {
-          console.error( error);
-          this.$swal('Error', 'An error occurred while updating the status', 'error');
-        });
-    }
+    //         setTimeout(() => {
+    //           location.reload();
+    //         }, 1000);
+    //       } else {
+    //         this.$swal('Error', response.data.message, 'error');
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.error( error);
+    //       this.$swal('Error', 'An error occurred while updating the status', 'error');
+    //     });
+    // }
   },
 
 
@@ -164,19 +169,21 @@ export default {
         return description.substring(0, 50);
       }
     },
-    getStyleOfStatus: function () {
-          return (parm) => {
-            if (parm === 'active') {
-              return 'badge badge-success';
 
-            } else if (parm === 'inactive') {
-              return 'badge badge-danger';
 
-            } else {
-              return '';
-            }
-          }
-        },
+    // getStyleOfStatus: function () {
+    //       return (parm) => {
+    //         if (parm === 'active') {
+    //           return 'badge badge-success';
+
+    //         } else if (parm === 'inactive') {
+    //           return 'badge badge-danger';
+
+    //         } else {
+    //           return '';
+    //         }
+    //       }
+    //     },
   }
 }
 </script>

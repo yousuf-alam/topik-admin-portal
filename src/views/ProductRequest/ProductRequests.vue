@@ -193,7 +193,7 @@ export default {
       productRequests: [],
 
       columns: [
-        'id', 'partner_name', 'created_at', 'requisition_date', 'acquisition_period', 'total_price', 'send_date', 'approved_by', 'status', 'action'
+        'id', 'partner_name','product_type', 'created_at', 'requisition_date', 'acquisition_period', 'total_price', 'send_date', 'approved_by', 'status', 'action'
       ],
       date_from: '',
       date_to: '',

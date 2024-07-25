@@ -46,7 +46,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Product Type</label>
               <select v-model="type" class="form-control">
                   <option value="Salon">Salon</option>
@@ -67,7 +67,29 @@
                     <input type="number" v-model="product.quantity" class="form-control" min="1" required>
                 </div>
                 <br>
-            </div>
+            </div> -->
+
+            <div class="form-group">
+              <label>Product Type</label>
+              <select v-model="product_type" class="form-control">
+                  <option value="Salon">Salon</option>
+                  <option value="Makeup">Makeup</option>
+              </select>
+          </div>
+
+          <div class="form-group" v-if="product_type != ''">
+              <label>Products</label>
+              <VueMultiselect v-model="selectedProducts" :options="allProducts" :multiple="true"
+                  :searchable="true" :close-on-select="false" :allow-empty="true" label="name"
+                  placeholder="Select products" :preserve-search="true" track-by="id">
+              </VueMultiselect>
+
+              <div v-for="(product, index) in selectedProducts" :key="index">
+                  <label>{{ product.name }}</label>
+                  <input type="number" v-model="product.quantity" class="form-control" min="1" required>
+              </div>
+              <br>
+          </div>
 
             <b-button type="submit" variant="primary"><i class="fa fa-dot-circle-o"></i> Create Product
                 Request</b-button>
@@ -91,7 +113,7 @@
             return {
                 partners: [],
                 partner_id: '',
-                type: '',
+                product_type: '',
                 requisition_date: '',
                 month:null,
                 acquisition_period: '',
@@ -110,28 +132,57 @@
 
         },
 
+        watch: {
+        product_type(newType) {
+            if (newType) {
+                this.fetchProducts();
+                this.selectedProducts = [];
+            }
+        }
+    },
+
         methods: {
 
 
+            // fetchProducts(searchParam) {
+            //     let url = `${ADMIN_URL}/searchable-product`;
+            //     if (searchParam) {
+            //         url += `/${searchParam}`;
+            //     }
+
+            //     axios.get(url)
+            //         .then(response => {
+            //             this.allProducts = response.data.data.map(product => ({
+            //                 id: product.id,
+            //                 name: product.name,
+            //                 value: product.value
+            //             }));
+            //         })
+            //         .catch(error => {
+            //             console.error('Error fetching products:', error);
+            //         });
+            // },
+
+
             fetchProducts(searchParam) {
-                let url = `${ADMIN_URL}/searchable-product`;
-                if (searchParam) {
-                    url += `/${searchParam}`;
-                }
+            let url = `${ADMIN_URL}/searchable-product`;
+            let data = {
+                type: this.product_type,
+                search: searchParam || ''
+            };
 
-                axios.get(url)
-                    .then(response => {
-                        this.allProducts = response.data.data.map(product => ({
-                            id: product.id,
-                            name: product.name,
-                            value: product.value
-                        }));
-                    })
-                    .catch(error => {
-                        console.error('Error fetching products:', error);
-                    });
-            },
-
+            axios.post(url, data)
+                .then(response => {
+                    this.allProducts = response.data.data.map(product => ({
+                        id: product.id,
+                        name: product.name,
+                        value: product.value
+                    }));
+                })
+                .catch(error => {
+                    console.error('Error fetching products:', error);
+                });
+        },
 
 
             fetchInHousePartners() {
@@ -155,7 +206,7 @@
                 const formData = new FormData();
                 formData.append('partner_id', this.partner_id);
                 formData.append('requisition_date', this.requisition_date);
-
+                formData.append('product_type', this.product_type);
                 if(this.month){
 
                   formData.append('month', this.month);

@@ -71,15 +71,10 @@
 
                       <div class="form-group">
                         <label>Product Type</label>
-                        <select v-model="type" class="form-control">
-                            <option value="Salon">Salon</option>
-                            <option value="Makeup">Makeup</option>
-
-                        </select>
+                        <input class="form-control" type="text" v-model="product_type" disabled>
                     </div>
-
                         <!-- Products -->
-                        <div class="form-group">
+                        <div class="form-group" v-if="product_type != ''">
                             <label>Products</label>
                             <VueMultiselect v-model="selectedProducts" :options="allProducts" :multiple="true"
                                 :searchable="true" :close-on-select="false" :allow-empty="true" label="name"
@@ -116,6 +111,7 @@
                 requestId: this.$route.params.id,
                 partners: [],
                 partner_id: '',
+                product_type: '',
                 partner_name: '',
                 requisition_date: '',
                 send_date: '',
@@ -134,13 +130,14 @@
             this.fetchProductRequest();
             // this.fetchInHousePartners();
             this.fetchProducts();
-        },
+         },
         methods: {
             fetchProductRequest() {
                 axios.get(`${ADMIN_URL}/fetch-request-by-id/${this.requestId}`)
                     .then(response => {
                         const data = response.data.data;
                         this.partner_id = data.partner_id;
+                        this.product_type = data.product_type;
                         this.partner_name = data.partner_name;
                         this.requisition_date = data.requisition_date;
                         this.month = data.month;
@@ -158,19 +155,42 @@
                     });
             },
 
-            fetchProducts() {
-                axios.get(`${ADMIN_URL}/searchable-product`)
-                    .then(response => {
-                        this.allProducts = response.data.data.map(product => ({
-                            id: product.id,
-                            name: product.name,
-                            value: product.value
-                        }));
-                    })
-                    .catch(error => {
-                        console.error('Error fetching products:', error);
-                    });
-            },
+            // fetchProducts() {
+            //     axios.get(`${ADMIN_URL}/searchable-product`)
+            //         .then(response => {
+            //             this.allProducts = response.data.data.map(product => ({
+            //                 id: product.id,
+            //                 name: product.name,
+            //                 value: product.value
+            //             }));
+            //         })
+            //         .catch(error => {
+            //             console.error('Error fetching products:', error);
+            //         });
+            // },
+
+            fetchProducts(searchParam) {
+            let url = `${ADMIN_URL}/searchable-product`;
+            let data = {
+                type: this.product_type,
+                search: searchParam || ''
+            };
+
+
+
+            axios.post(url, data)
+                .then(response => {
+                    this.allProducts = response.data.data.map(product => ({
+                        id: product.id,
+                        name: product.name,
+                        value: product.value
+                    }));
+                })
+                .catch(error => {
+                    console.error('Error fetching products:', error);
+                });
+        },
+
           onSubmit(event) {
             event.preventDefault();
             const formData = new FormData();

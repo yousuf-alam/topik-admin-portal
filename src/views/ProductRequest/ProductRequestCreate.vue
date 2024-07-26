@@ -46,29 +46,6 @@
                 </select>
             </div>
 
-            <!-- <div class="form-group">
-              <label>Product Type</label>
-              <select v-model="type" class="form-control">
-                  <option value="Salon">Salon</option>
-                  <option value="Makeup">Makeup</option>
-
-              </select>
-          </div>
-
-            <div class="form-group">
-                <label>Products</label>
-                <VueMultiselect v-model="selectedProducts" :options="allProducts" :multiple="true"
-                    :searchable="true" :close-on-select="false" :allow-empty="true" label="name"
-                    placeholder="Select products" :preserve-search="true" track-by="id">
-                </VueMultiselect>
-
-                <div v-for="(product, index) in selectedProducts" :key="index">
-                    <label>{{ product . name }}</label>
-                    <input type="number" v-model="product.quantity" class="form-control" min="1" required>
-                </div>
-                <br>
-            </div> -->
-
             <div class="form-group">
               <label>Product Type</label>
               <select v-model="product_type" class="form-control">
@@ -142,27 +119,6 @@
     },
 
         methods: {
-
-
-            // fetchProducts(searchParam) {
-            //     let url = `${ADMIN_URL}/searchable-product`;
-            //     if (searchParam) {
-            //         url += `/${searchParam}`;
-            //     }
-
-            //     axios.get(url)
-            //         .then(response => {
-            //             this.allProducts = response.data.data.map(product => ({
-            //                 id: product.id,
-            //                 name: product.name,
-            //                 value: product.value
-            //             }));
-            //         })
-            //         .catch(error => {
-            //             console.error('Error fetching products:', error);
-            //         });
-            // },
-
 
             fetchProducts(searchParam) {
             let url = `${ADMIN_URL}/searchable-product`;

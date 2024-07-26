@@ -41,6 +41,7 @@
   </b-col>
 </b-row>
 
+
     <b-row>
       <modal name="modal-order_export" height="auto" :adaptive="true">
         <div class="m-3 p-3">
@@ -50,6 +51,14 @@
           <b-row class="p-2">
             <b-col>
               <div class="form-group">
+                <label class="font-weight-bold">Select Export Type:</label>
+                <select v-model="exportType" class="form-control">
+                  <option value="dateWise">Date Wise</option>
+                  <option value="monthWise">Month Wise</option>
+                </select>
+              </div>
+
+              <div v-if="exportType === 'dateWise'" class="form-group">
                 <label class="font-weight-bold">Select Date Range:</label>
                 <b-row>
                   <b-col cols="5">
@@ -63,8 +72,12 @@
                 </b-row>
               </div>
 
-              <div class="form-group">
-                <label for="month">For Which Month</label><br>
+              <div v-if="exportType === 'monthWise'" class="form-group">
+                <label class="font-weight-bold">Select Year:</label>
+                <select v-model="year" class="form-control">
+                  <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+                </select>
+                <label class="font-weight-bold">Select Month:</label>
                 <select v-model="month" class="form-control">
                   <option value="1">January</option>
                   <option value="2">February</option>
@@ -81,27 +94,26 @@
                 </select>
               </div>
 
+
               <div class="form-group">
-                <label class="font-weight-bold">Select Status:</label>
-                <select class="form-control" v-model="status">
-                  <option selected value="all">All</option>
-                  <option value="requested">Requested</option>
-                  <option value="approved">Approved</option>
-                  <option value="sent">Sent</option>
-                  <option value="received">Received</option>
-                  <option value="rejected">Rejected</option>
+                <label>Select Partner</label>
+                <select class="form-control" v-model="sp_id">
+                  <option value="all" selected>All</option>
+                    <option v-for="partner in partners" :value="partner.id" :key="partner.id">
+                        {{ partner . name }}
+                    </option>
                 </select>
-              </div>
+            </div>
+
               <button @click="closeModal" class="btn btn-danger float-right m-1">Cancel</button>
-              <button @click="ExportProductRequest" class="btn btn-romoni-secondary float-right m-1">Export Product
-                Request Report</button>
+              <button @click="ExportProductRequest" class="btn btn-romoni-secondary float-right m-1">Export Product Request Report</button>
               <b-spinner variant="danger" label="Spinning" v-if="exporting"></b-spinner>
             </b-col>
           </b-row>
-
         </div>
       </modal>
     </b-row>
+
     <b-row>
       <b-col>
         <b-card>
@@ -193,20 +205,25 @@ export default {
       productRequests: [],
 
       columns: [
-        'id', 'partner_name','product_type', 'created_at', 'requisition_date', 'acquisition_period', 'total_price', 'send_date', 'approved_by', 'status', 'action'
+        'id', 'Product_Type','Partner_Name', 'Created_at', 'Requisition_Date', 'Acquisition_Period', 'Total_Price', 'Send_Date', 'Approved_by', 'status', 'action'
       ],
+      sp_id:'all',
       date_from: '',
       date_to: '',
       month: null,
+      year: new Date().getFullYear(),
+      years: this.getYearsList(),
       status: 'all',
       key: 'this_month',
       exporting: false,
-      productReqStatus: [
+       productReqStatus: [
         { status: 'requested', count: 0 },
         { status: 'approved', count: 0 },
         { status: 'sent', count: 0 },
         { status: 'received', count: 0 }
       ],
+      partners: [],
+      exportType: '',
 
       options: {
         pagination: { nav: 'fixed' },
@@ -219,32 +236,45 @@ export default {
   },
   created() {
     this.fetchProductRequests();
-    this.fetchProductReqStatus();
+    this.fetchInHousePartners();
 
   },
   methods: {
 
 
+
+    getYearsList() {
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 3;
+      const endYear = currentYear + 6;
+      const years = [];
+      for (let year = startYear; year <= endYear; year++) {
+        years.push(year);
+      }
+      return years;
+    },
     handleOptionChange() {
       console.log("key", this.key)
       this.fetchProductRequests();
     },
 
-    fetchProductRequests() {
-      axios.get(`${ADMIN_URL}/all-product-requests`)
+    fetchInHousePartners() {
+      axios.get(`${ADMIN_URL}/fetch-inhouse-sp`)
         .then(response => {
-          this.productRequests = response.data.data;
+          this.partners = response.data;
+
         })
         .catch(error => {
-          console.error("Error while fetching product requests", error);
+          console.error('Error fetching in-house partners: ', error);
         });
     },
 
-    fetchProductReqStatus() {
-      axios.get(`${ADMIN_URL}/product-request-status-count`)
-        .then(response => {
 
-          const statusCounts = response.data.data;
+     fetchProductRequests() {
+      axios.post(`${ADMIN_URL}/all-product-requests`, { key: this.key })
+        .then(response => {
+          this.productRequests = response.data.data;
+          const statusCounts=response.data.statistics;
 
           this.productReqStatus = [
             { status: 'requested', count: 0 },
@@ -252,59 +282,68 @@ export default {
             { status: 'sent', count: 0 },
             { status: 'received', count: 0 }
           ];
+          // Update counts based on response
           statusCounts.forEach(sc => {
             const status = this.productReqStatus.find(s => s.status === sc.status);
             if (status) {
               status.count = sc.count;
             }
           });
-
-
+          this.data_loaded_successfully = true;
+        }).catch(error => {
+          // console.log('Errorrrrrrrrrrrrrrr ', error.response);
         })
-        .catch(error => {
-          console.error("Error while fetching product requests", error);
-        });
-    },
+     },
 
     modalExport() {
       this.$modal.show('modal-order_export');
     },
     closeModal() {
+
+      this.exportType = '';
       this.date_from = '';
       this.date_to = '';
-      this.month = null;
-      this.status = 'all';
+      this.month = '';
+      // this.sp_id = '';
       this.$modal.hide('modal-order_export')
     },
     ExportProductRequest() {
       this.exporting = true;
-      console.log(this.month);
-      console.log(this.date_from);
-      console.log(this.date_to);
-      console.log(this.status);
+
+      const data = {
+        exportType: this.exportType,
+        sp_id: this.sp_id
+      };
+
+      if (this.exportType === 'dateWise') {
+        data.date_from = this.date_from;
+        data.date_to = this.date_to;
+      } else if (this.exportType === 'monthWise') {
+        data.year = this.year;
+        data.month = this.month;
+      }
+
       axios({
         method: 'post',
         url: `${ADMIN_URL}/product-request/export`,
         responseType: 'blob',
-        data: {
-
-          month: this.month,
-          status: this.status,
-          date_from: this.date_from,
-          date_to: this.date_to
-
-        }
-
-
+        data: data
       })
         .then(response => {
-
           this.exporting = false;
 
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement('a');
+          let filename = 'product_request_report.xlsx';
+
+          if (this.exportType === 'dateWise') {
+            filename = `product_request_report_${moment(this.date_from).format('YYYY-MM-DD')}_to_${moment(this.date_to).format('YYYY-MM-DD')}.xlsx`;
+          } else if (this.exportType === 'monthWise') {
+            filename = `product_request_report_${this.year}_${this.month}.xlsx`;
+          }
+
           link.href = url;
-          link.setAttribute('download', 'product_request_report_' + moment(this.date_from).format('YYYY-MM-DD') + '~' + moment(this.date_to).format('YYYY-MM-DD') + '.xlsx');
+          link.setAttribute('download', filename);
           document.body.appendChild(link);
           link.click();
           this.$swal('Report Exported Successfully', '', 'success');
@@ -312,10 +351,10 @@ export default {
         })
         .catch(e => {
           console.log("error occurs", e);
+          this.exporting = false;
         });
-
-
     },
+
 
     sentProductToSp(requestId, status, partnerId) {
 

@@ -7,10 +7,10 @@
           <h4 class="text-center">Product Request Details</h4><br>
           <ul class="list-unstyled">
             <li class="mb-3">
-              <h6><b>Partner Name:</b> {{ productRequest . partner_name }}</h6>
+              <h6><b>Product Type:</b> {{ productRequest . product_type }}</h6>
             </li>
             <li class="mb-3">
-              <h6><b>Status:</b> <span :class="statusClass">{{ productRequest . status }}</span></h6>
+              <h6><b>Partner Name:</b> {{ productRequest . partner_name }}</h6>
             </li>
             <li class="mb-3">
               <h6><b>Requisition Date:</b> {{ productRequest . requisition_date }}</h6>
@@ -26,6 +26,9 @@
             </li>
             <li class="mb-3">
               <h6><b>Approved By:</b> {{ productRequest . approved_by || 'Not approved yet' }}</h6>
+            </li>
+            <li class="mb-3">
+              <h6><b>Status:</b> <span :class="statusClass">{{ productRequest . status }}</span></h6>
             </li>
           </ul>
         </b-card>

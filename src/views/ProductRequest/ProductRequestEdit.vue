@@ -128,8 +128,7 @@
         },
         created() {
             this.fetchProductRequest();
-            // this.fetchInHousePartners();
-            this.fetchProducts();
+
          },
         methods: {
             fetchProductRequest() {
@@ -149,25 +148,12 @@
                             name: item.product_name,
                             quantity: item.quantity,
                         }));
+                        this.fetchProducts();
                     })
                     .catch(error => {
                         console.error('Error fetching product request:', error);
                     });
             },
-
-            // fetchProducts() {
-            //     axios.get(`${ADMIN_URL}/searchable-product`)
-            //         .then(response => {
-            //             this.allProducts = response.data.data.map(product => ({
-            //                 id: product.id,
-            //                 name: product.name,
-            //                 value: product.value
-            //             }));
-            //         })
-            //         .catch(error => {
-            //             console.error('Error fetching products:', error);
-            //         });
-            // },
 
             fetchProducts(searchParam) {
             let url = `${ADMIN_URL}/searchable-product`;
@@ -175,8 +161,6 @@
                 type: this.product_type,
                 search: searchParam || ''
             };
-
-
 
             axios.post(url, data)
                 .then(response => {

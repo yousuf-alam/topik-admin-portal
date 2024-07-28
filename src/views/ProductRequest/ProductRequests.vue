@@ -371,6 +371,12 @@ export default {
         return;
       }
 
+      if (status == 'rejected') {
+
+        this.$swal('Error', 'This request is already rejected.', 'error');
+        return;
+      }
+
       axios.post(`${ADMIN_URL}/change-product-request-status/${requestId}`,
         {
           id: requestId,

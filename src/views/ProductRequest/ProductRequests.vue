@@ -205,8 +205,8 @@ export default {
       productRequests: [],
 
       columns: [
-        'id', 'Product_Type','Partner_Name', 'Created_at', 'Requisition_Date', 'Acquisition_Period', 'Total_Price', 'Send_Date', 'Approved_by', 'status', 'action'
-      ],
+        'id','Product_Type', 'Partner_Name', 'status', 'Requisition_Date', 'Acquisition_Period', 'Total_Price', 'Sent_Date', 'approved_by', 'created_at', 'action'
+       ],
       sp_id:'all',
       date_from: '',
       date_to: '',

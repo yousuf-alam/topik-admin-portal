@@ -71,7 +71,9 @@
 
                       <div class="form-group">
                         <label>Product Type</label>
-                        <input class="form-control" type="text" v-model="product_type" disabled>
+                        <input class="form-control" type="text"
+                        :value="product_type ? product_type : 'N/A'" 
+                         disabled>
                     </div>
                         <!-- Products -->
                         <div class="form-group" v-if="product_type != ''">

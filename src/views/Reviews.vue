@@ -149,7 +149,7 @@
                       }
 
                 this.$router.push({
-                  name: 'Complains'
+                  name: 'Complaints'
                 });
               });
 

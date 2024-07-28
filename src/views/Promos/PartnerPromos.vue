@@ -8,7 +8,7 @@
         </h1>
       </div>
       <div class="">
-        <router-link :to="{ name: 'PromoCreate'}">
+        <router-link :to="{ name: 'PromoCreate' }">
           <button class="btn btn-success">Create New promo</button>
         </router-link>
       </div>
@@ -16,93 +16,161 @@
     <b-row>
       <b-col>
         <b-card>
-          <router-link :to="{ name: 'Promo Codes'}">
+          <router-link :to="{ name: 'Promo Codes' }">
             <button class="btn btn-romoni-secondary mb-3">See Admin Promos</button>
           </router-link>
           <v-client-table :data="promos" :columns="columns" :options="options">
+
+            <template slot="Location" slot-scope="props">
+              <div v-if="props.row.Location != 'All' && props.row.Location">
+                <span v-for="(location, index) in limitedLocations(props.row)" :key="index" class="location-names">
+                  {{ location.trim() }}
+                </span>
+                <span v-if="shouldShowMore(props.row.Location)" @click="toggleShowMore(props.row.id)" class="show-more">
+                  {{ showMore[props.row.id] ? 'Show Less' : 'Show More' }}
+                </span>
+              </div>
+              <div v-else>All</div>
+            </template>
+
+
+
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'PromoEdit', params: { id: props.row.id }}"><span class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
-                                    <i class="fa fa-edit"></i></span></router-link>
-                <span @click="publish(props.row.id)" class="btn btn-success btn-sm m-1" data-toggle="tooltip" title="Publish"> <i class="fa fa-upload"></i></span>
+                <router-link :to="{ name: 'PromoEdit', params: { id: props.row.id } }"><span
+                    class="btn btn-warning btn-sm m-1" data-toggle="tooltip" title="Edit" :href="props.row.id">
+                    <i class="fa fa-edit"></i></span></router-link>
+                <span @click="publish(props.row.id)" class="btn btn-success btn-sm m-1" data-toggle="tooltip"
+                  title="Publish"> <i class="fa fa-upload"></i></span>
               </div>
             </template>
           </v-client-table>
         </b-card>
       </b-col>
     </b-row>
+
+    <b-modal id="locations-modal" title="All Locations" v-if="currentLocations.length > 0"
+      @hide="resetCurrentLocations">
+      <div v-for="(location, index) in currentLocations" :key="index" class="location-names">
+        {{ location.trim() }}
+      </div>
+      <template #modal-footer="{ ok }">
+        <b-button size="sm" @click="ok()">Close</b-button>
+      </template>
+    </b-modal>
   </div>
 </template>
 
 
 <script>
-    import axios from 'axios';
-    export default {
-        name: 'PartnerPromos',
-        data() {
-            return {
-                promos : [],
-                columns: ['code', 'partner', 'type', 'status','discount_amount', 'expires_at', 'action'],
-                options: {
-                    pagination: {nav: 'fixed'},
-                    filterByColumn: true,
-                    dateColumns: ['age'],
-                    toMomentFormat: 'YYYY-MM-DD',
-                    sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
+import axios from 'axios';
+export default {
+  name: 'PartnerPromos',
+  data() {
+    return {
+      promos: [],
+      columns: ['code', 'partner', 'type', 'Location', 'status', 'discount_amount', 'expires_at', 'action'],
+      options: {
+        pagination: { nav: 'fixed' },
+        filterByColumn: true,
+        dateColumns: ['age'],
+        toMomentFormat: 'YYYY-MM-DD',
+        sortIcon: { base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort' },
 
-                }
+      },
+      showMore: {},
+      currentLocations: [],
 
-            }
-        },
-        created(){
-            const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-            axios.get(`${ADMIN_URL}/all-promos`, {
-                params : {
-                    type : 'partner-promos'
-                }
-            })
-                .then(response =>{
-                    this.promos = response.data.map(item => {
-                        let obj = {};
-                        obj.id = item.id;
-                        obj.code = item.code;
-                        obj.partner = item.partner.name;
-                        obj.type = item.type;
-                        obj.status = item.status;
-                        obj.discount_amount = item.discount_amount;
-                        obj.expires_at = item.expires_at;
-                        return obj;
-
-                    });
-
-                })
-                .catch(e=>{
-                    //console.log("error occurs");
-                });
-        },
-        methods: {
-            publish(promo_id)
-            {
-                const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
-                axios.post(`${ADMIN_URL}/push-promos/publish`,
-                    {
-                        id: promo_id
-                    })
-                    .then(response =>{
-                        if(response.data.success===true)
-                        {
-                            this.$swal('Success',response.data.message,'success');
-                        }
-                        else
-                        {
-                            this.$swal('Error', 'Something went wrong', 'error');
-                        }
-                        window.location.reload();
-                    })
-                    .catch(e=>{
-                        console.log("error occurs", e);
-                    });
-            }
-        },
     }
+  },
+  created() {
+    const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+    axios.get(`${ADMIN_URL}/all-promos`, {
+      params: {
+        type: 'partner-promos'
+      }
+    })
+      .then(response => {
+        this.promos = response.data.map(item => {
+          let obj = {};
+          obj.id = item.id;
+          obj.code = item.code;
+          obj.partner = item.partner.name;
+          obj.type = item.type.charAt(0).toUpperCase() + item.type.slice(1);
+          obj.Location = item.Location;
+          obj.status = item.status.charAt(0).toUpperCase() + item.status.slice(1);
+          obj.discount_amount = item.discount_amount;
+          obj.expires_at = item.expires_at;
+          return obj;
+
+        });
+
+      })
+      .catch(e => {
+        //console.log("error occurs");
+      });
+  },
+  methods: {
+    publish(promo_id) {
+      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+      axios.post(`${ADMIN_URL}/push-promos/publish`,
+        {
+          id: promo_id
+        })
+        .then(response => {
+          if (response.data.success === true) {
+            this.$swal('Success', response.data.message, 'success');
+          }
+          else {
+            this.$swal('Error', 'Something went wrong', 'error');
+          }
+          window.location.reload();
+        })
+        .catch(e => {
+          console.log("error occurs", e);
+        });
+    },
+    limitedLocations(row) {
+      const locationArray = row.Location.split(',');
+      return locationArray.length > 5 && !this.showMore[row.id] ? locationArray.slice(0, 5) : locationArray;
+    },
+    shouldShowMore(locations) {
+      return locations.split(',').length > 5;
+    },
+
+    toggleShowMore(id) {
+      const row = this.promos.find(promo => promo.id === id);
+      this.currentLocations = row.Location.split(',');
+      this.$nextTick(() => {
+        this.$bvModal.show('locations-modal');
+      });
+    },
+
+    resetCurrentLocations() {
+      this.currentLocations = [];
+
+    },
+  },
+}
 </script>
+
+<style scoped>
+
+.location-names {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #41b883;
+  border-radius: 5px;
+  margin: 2px;
+}
+
+.show-more {
+  display: block;
+  border-radius: 5px;
+
+  margin: 2px;
+  cursor: pointer;
+  color: black;
+  text-decoration: underline;
+}
+</style>

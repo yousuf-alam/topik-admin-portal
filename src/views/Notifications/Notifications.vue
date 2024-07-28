@@ -60,7 +60,7 @@
     name: 'Notifications',
     data() {
       return {
-        columns: ['title','image', 'target_group', 'status', 'action'],
+        columns: ['title','image', 'Target_Group', 'status', 'action'],
         notifications : [],
         BASE_URL: BASE_URL,
         key:'this_year',

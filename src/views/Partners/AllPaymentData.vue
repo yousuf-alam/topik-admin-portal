@@ -24,11 +24,15 @@
       <b-col>
         <b-card>
           <v-client-table :data="partners" :columns="columns" :options="options">
-            <!--<template slot="logo" slot-scope="props">
-              <div class="center-div">
-                <img :src="`${BASE_URL}/${props.row.logo}`" style="width: 160px;height: 90px;">
+            <template slot="Image" slot-scope="props">
+              <div class="center-div" v-if="props.row.Image">
+                <img :src="props.row.Image" style="width: 160px; height: 90px;"
+                @click="showImageModal(props.row.Image)">
               </div>
-            </template>-->
+              <b-modal v-model="isModalVisible" hide-footer title="Image">
+                <img :src="modalImageUrl" alt="Image" style="max-width: 100%;">
+              </b-modal>
+            </template>
             <template slot="action" slot-scope="props">
               <div class="d-flex" >
 <!--                <div v-if="(props.row.status).toLowerCase() == 'pending' || (props.row.status).toLowerCase() == 'declined'  " @click="approveId(props.row.id)">-->
@@ -84,7 +88,7 @@ export default {
       PARTNER_FRONTEND_DOMAIN: PARTNER_FRONTEND_DOMAIN, /* TO_EDIT_THIS_PLACE */
       partners : [],
       key:'this_month',
-      columns: ['id', 'partner_name', 'method','tid', 'amount' ,'status', 'approved_by', 'recieved_date', 'action'],
+      columns: ['id', 'Partner_Name', 'method','tid','Image', 'amount' ,'status', 'approved_by', 'Recieved_Date', 'action'],
       options: {
         pagination: {nav: 'fixed'},
         filterByColumn: true,
@@ -93,7 +97,9 @@ export default {
         sortIcon: {base: 'fa fa-sort', up: 'fa fa-sort-up', down: 'fa fa-sort-down', is: 'fa fa-sort'},
 
 
-      }
+      },
+       isModalVisible: false,
+      modalImageUrl: ''
 
     }
   },
@@ -202,6 +208,10 @@ export default {
         console.log('Error Response', error.response);
       })
 
+    },
+    showImageModal(imageUrl) {
+      this.modalImageUrl = imageUrl;
+      this.isModalVisible = true;
     }
   },
 
@@ -217,5 +227,10 @@ export default {
 }
 .btn-success{
   font-size: 15px;
+}
+
+.center-div {
+  position: relative;
+  cursor: pointer;
 }
 </style>

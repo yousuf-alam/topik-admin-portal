@@ -1,43 +1,37 @@
 <template>
     <div class="animated fadeIn">
-        <b-row>
-            <b-col>
-                <b-card>
-                    <h3 class="text-center">Complain Description</h3>
-                    <p>
-                        {{ showDescription(orderComplain.description) }}
-                    </p>
+      <h3>Complaint Details</h3>
+      <router-link :to="{ name: 'ComplainEdit', params: { id: complain.id } }">
+        <span class="btn btn-romoni-secondary mb-3">Edit Complaint</span>
+      </router-link>
 
-                </b-card>
-            </b-col>
-        </b-row>
         <b-row>
             <b-col sm="6" md="6">
                 <b-card>
 
-                        <h4 class="card-title">Complain Tags</h4>
+                        <h4 class="card-title">Complaint Tags</h4>
                         <ul style="list-style: none;" >
                           <li>
                             <h6>
-                              <span class="font-weight-bold">  Complain Channel : </span>
+                              <span class="font-weight-bold">  Complaint Channel : </span>
                               <span> {{complain.channel}} </span>
                             </h6>
                           </li>
                           <li>
                             <h6>
-                              <span class="font-weight-bold">  Complain Type: </span>
+                              <span class="font-weight-bold">  Complaint Type: </span>
                               <span> {{complain.type}} </span>
                             </h6>
                           </li>
                           <li>
                             <h6>
-                              <span class="font-weight-bold">  Complain Issue Date : </span>
+                              <span class="font-weight-bold">  Complaint Issue Date : </span>
                               <span> {{complain.complain_issue_date}} </span>
                             </h6>
                           </li>
                           <li>
                             <h6>
-                              <span class="font-weight-bold">  Complain Entry Date : </span>
+                              <span class="font-weight-bold">  Complaint Entry Date : </span>
                               <span> {{complain.complain_entry_date}} </span>
                             </h6>
                           </li>
@@ -49,7 +43,7 @@
                           </li>
                           <li>
                             <h6>
-                              <span class="font-weight-bold">  Assign  by : </span>
+                              <span class="font-weight-bold">  Assigned  by : </span>
                               <span> {{complain.assigned_by}} </span>
                             </h6>
                           </li>
@@ -67,13 +61,13 @@
                           </li>
                           <li>
                             <h6>
-                              <span class="font-weight-bold">  Solve Type: </span>
+                              <span class="font-weight-bold">  Solution Type: </span>
                               <span> {{complain.solve_type}} </span>
                             </h6>
                           </li>
                           <li>
                             <h6>
-                              <span class="font-weight-bold">  Solve Description: </span>
+                              <span class="font-weight-bold">  Solution Description: </span>
                               <span> {{complain.solve_description}} </span>
                             </h6>
                           </li>
@@ -105,7 +99,7 @@
             </b-col>
             <b-col sm="6" md="6">
                 <b-card>
-                    <h4 class="card-title">Complain Details</h4>
+                    <h4 class="card-title">Complaint Details</h4>
 
                     <ul style="list-style: none;">
 
@@ -145,7 +139,7 @@
                       </h6>
                       </li>
                       <li><h6>
-                        <span class="font-weight-bold">  Complain Details : </span>
+                        <span class="font-weight-bold">  Complaint Details : </span>
                         <span> {{complain.description}}</span>
                       </h6>
                       </li>

@@ -62,7 +62,7 @@
             <select class="form-control" v-model="status">
               <option value="active"> Active</option>
               <option value="finished"> Finished </option>
-              <option value="disabled"> Disable </option>
+              <option value="disabled"> Disabled </option>
 
             </select>
           </div>

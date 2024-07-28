@@ -1,7 +1,7 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">Reward user</span></h4>
+      <h4><i class="fa fa-gift"></i><span class="ml-1">Reward user</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
           <div class="d-flex justify-content-between gap-5">
@@ -26,16 +26,16 @@
 
             <template slot="image" slot-scope="props">
               <div class="center-div">
-                <img :src="`${props.row.image_path}`" style="width: 160px;height: 90px;">
+                <img :src="`${props.row.Image_Path}`" style="width: 160px;height: 90px;">
               </div>
             </template>
 
-            <template slot="image_path" slot-scope="props">
+            <template slot="Image_Path" slot-scope="props">
               <button @click="copyText" class="copy-icon" style="border: none;background: white">
                 <i class="fa fa-copy"></i>
               </button>
 
-              <a class="content" :href="props.row.image_path">{{props.row.image_path}}</a>
+              <a class="content" :href="props.row.Image_Path">{{props.row.Image_Path}}</a>
 
             </template>
 
@@ -69,7 +69,7 @@ export default {
       rewards : [],
       key:'this_month',
       columns: [
-        'id', 'user_name', 'image','image_path', 'slug','action'
+        'id', 'User_Name', 'image','Image_Path', 'slug','action'
       ],
       redeem_id:'',
       BASE_URL: BASE_URL,

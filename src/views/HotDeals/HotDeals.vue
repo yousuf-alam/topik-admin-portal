@@ -12,9 +12,9 @@
 
         <div class="d-flex justify-content-between gap-5">
 
-          <!-- <router-link :to="{ name: 'HotDealCreate' }">
-            <button class="btn btn-success">Create New Hot Deal</button>
-          </router-link> -->
+<!--           <router-link :to="{ name: 'HotDealCreate' }">-->
+<!--            <button class="btn btn-success">Create New Hot Deal</button>-->
+<!--          </router-link>-->
         </div>
       </div>
       <b-row>
@@ -22,9 +22,9 @@
           <b-card>
             <v-client-table :data="tableData" :columns="columns" :options="options">
 
-              <template slot="description" slot-scope="props">
+              <!-- <template slot="description" slot-scope="props">
                 {{ cutDescriptionToShort(props.row.description) }}
-              </template>
+              </template> -->
               <template slot="thumbnail" slot-scope="props">
                 <div class="center-div">
                   <img :src="props.row.thumbnail" style="width: 160px; height: 90px;">
@@ -59,7 +59,7 @@ export default {
     return {
       data_loaded_successfully: false,
 
-      columns: ['id', 'name', 'description', 'slug', 'discount_type','discount_amount','code', 'status', 'thumbnail'],
+      columns: ['id', 'name', 'description', 'slug', 'Discount_Type','Discount_Amount','code', 'status', 'thumbnail'],
       tableData: [],
       options: {
         pagination: { nav: 'fixed' },

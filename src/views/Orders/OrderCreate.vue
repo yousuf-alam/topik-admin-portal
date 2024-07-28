@@ -236,7 +236,8 @@ export default {
       selected_partner: null,
       invoice: [],
       promo_discount: "",
-      discountPercent: 0
+      discountPercent: 0,
+      minimum_order_amount: 0,
     };
   },
 
@@ -250,6 +251,9 @@ export default {
     EventBus.$on("cart:add", this.servicesAdd.bind(this));
     EventBus.$on("partner:confirm", this.partnerAdd.bind(this));
     EventBus.$on("accessories:add", this.accessoriesAdd.bind(this));
+  },
+  beforeDestroy() {
+    EventBus.$off('location:add', this.locationAdd);
   },
   created() {
     this.getMainServices();
@@ -294,9 +298,11 @@ export default {
     customerAdd(customer) {
       this.customer = customer;
     },
-    locationAdd(location) {
-      this.location = location;
+    locationAdd(data) {
+      this.location = data.location_id;
+      this.minimum_order_amount = data.minimum_order_amount;
       this.partners = [];
+      console.log(`Location ID: ${this.location}, Minimum Order Amount: ${this.minimum_order_amount}`);
     },
     scheduleAdd(schedule) {
       this.schedule = schedule;
@@ -330,6 +336,7 @@ export default {
       console.log(this.coupon);
       axios
         .post(`${ADMIN_URL}/submit-coupon`, {
+          location_id: this.location,
           coupon: this.coupon,
           category_id: this.services[0].category_id,
           price: this.invoice.total_service_charge,
@@ -454,6 +461,12 @@ export default {
 
       if (this.coupon_id === undefined) {
         this.coupon_id = 0;
+      }
+
+      if(this.minimum_order_amount > this.invoice.total_service_charge) {
+
+        this.$swal('Error', 'Order must be above ' + this.minimum_order_amount, 'error');
+        return;
       }
 
       let formData = new FormData();

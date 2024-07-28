@@ -1,7 +1,7 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">Order Refund</span></h4>
+      <h4><i class="fa fa-bars"></i><span class="ml-1">Refund Orders</span></h4>
       <div class="">
         <h1 class="my-auto tableName">
 
@@ -55,7 +55,7 @@ export default {
     return {
       refunds : [],
       columns: [
-        'id', 'total_paid', 'payment_status', 'status','cancel_hour_count', 'refund_status','expected_refund_amount','action'
+        'id', 'Total_Paid', 'Payment_Status', 'status','Cancel_Hour_Count', 'Refund_Status','Expected_Refund_Amount','action'
       ],
       redeem_id:'',
       options: {

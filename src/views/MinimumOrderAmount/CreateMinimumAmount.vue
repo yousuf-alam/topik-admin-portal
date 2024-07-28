@@ -3,9 +3,19 @@
     <b-tabs card pills>
       <b-tab active title="Basic Info">
         <b-card-text>
+
+          <div class="form-group">
+            <label>Location</label>
+            <VueMultiselect v-model="selectedLocation" :options="allLocations" :multiple="false" :searchable="true"
+              :allow-empty="true" label="name" placeholder="Select Location"
+              track-by="id">
+            </VueMultiselect>
+            <div v-if="locationError" class="text-danger">{{ locationError }}</div>
+          </div>
+
           <div class="form-group">
             <label>Amount</label>
-            <input class="form-control" type="text" v-model="amount" >
+            <input class="form-control" type="text" v-model="amount">
           </div>
           <div class="form-group">
             <label>Status</label>
@@ -27,41 +37,90 @@
 
 <script>
 import axios from "axios";
+import VueMultiselect from 'vue-multiselect';
+const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
 export default {
   name: "CreateMinimumAmount",
-  data(){
+  components: {
+
+    VueMultiselect
+
+  },
+  data() {
     return {
-      amount:'',
-      status:'',
+      amount: '',
+      status: '',
+      allLocations: [],
+      selectedLocation: null,
+      locationError: ''
 
     }
   },
-  methods:{
+
+  created() {
+
+    this.fetchLocations();
+
+  },
+
+
+  methods: {
+
+
+    fetchLocations(searchParam) {
+      let url = `${ADMIN_URL}/search-area`;
+      if (searchParam) {
+        url += `/${searchParam}`;
+      }
+
+      axios.get(url)
+        .then(response => {
+          this.allLocations = response.data.data.map(location => ({
+            id: location.id,
+            name: location.name,
+            value: location.value
+           }));
+        })
+        .catch(error => {
+          console.error('Error fetching locations:', error);
+        });
+    },
+
     onSubmit() {
 
+      this.locationError = '';
+
+      if (!this.selectedLocation) {
+        this.locationError = 'Please Select a Location.';
+        return;
+      }
+
       let formData = {
-        amount:this.amount,
-        status:this.status,
+        amount: this.amount,
+        status: this.status,
+        location_id: this.selectedLocation.id
 
       }
-      const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
+
 
       axios.post(`${ADMIN_URL}/minimum-order-amount/create`, formData)
-          .then(response => {
-            console.log('Success', response);
+        .then(response => {
+          console.log('Success', response);
 
-            return this.$router.push('/minimum-order-amount');
+          if (response.data.success === true) {
+            this.$swal("Success","Minimum Order Amount Created Successfully!", "success");
+          return this.$router.push('/minimum-order-amount');
 
-          })
-          .catch(error => {
+          }
 
-          });
+        })
+        .catch(error => {
+
+        });
     }
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css" scoped></style>

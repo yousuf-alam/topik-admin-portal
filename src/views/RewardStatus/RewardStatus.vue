@@ -56,7 +56,7 @@ export default {
     return {
       rewardStatus : [],
       columns: [
-   'low_limit', 'high_limit', 'status','status_color','background_color','points_color','progress_bg_color','bottom_text_color', 'action'
+   'Low_Limit', 'High_Limit', 'status','Status_Colour','Background_Colour','Points_Colour','Progress_Bg_Colour','Bottom_Text_Colour', 'action'
       ],
       status_id:'',
       options: {

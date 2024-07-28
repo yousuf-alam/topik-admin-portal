@@ -1,16 +1,20 @@
 <template>
   <div class="animated fadeIn">
     <div class="cardheading">
-      <h4><i class="fa fa-bars"></i><span class="ml-1">Minimum Order</span></h4>
-      <div class="">
-        <h1 class="my-auto tableName">
+      <h4><i class="fa fa-bars"></i><span class="ml-1">Minimum Order Amount</span></h4>
 
-        </h1>
-      </div>
-      <div class="">
-        <router-link :to="{ name: 'CreateMinimumAmount'}" >
-          <button class="btn btn-success">Create New Minimum Order Amount</button>
-        </router-link>
+      <div class="link-btns">
+        <div class="">
+          <router-link v-if="getUserPermission('minimum order amount create')" :to="{ name: 'CreateMinimumAmountByFilter'}" >
+            <button class="btn btn-success">Create New Minimum Order Amount</button>
+          </router-link>
+        </div>
+
+        <!-- <div class="">
+          <router-link :to="{ name: 'CreateMinimumAmount'}" >
+            <button class="btn btn-success">Create New Minimum Order Amount</button>
+          </router-link>
+        </div> -->
       </div>
     </div>
     <b-row>
@@ -19,7 +23,7 @@
           <v-client-table :data="amounts" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
-                <router-link :to="{ name: 'EditMinimumAmount', params: { id: props.row.id }}"
+                <router-link v-if="getUserPermission('minimum order amount update')" :to="{ name: 'EditMinimumAmount', params: { id: props.row.id }}"
                 >
                   <span
                       class="btn btn-warning btn-sm m-1"
@@ -56,7 +60,7 @@ export default {
     return {
       amounts : [],
       columns: [
-        'id', 'amount', 'status', 'created_by','updated_by', 'action'
+        'id','location', 'amount', 'status', 'created_by','updated_by', 'action'
       ],
       redeem_id:'',
       options: {
@@ -74,7 +78,12 @@ export default {
     axios.get(`${ADMIN_URL}/minimum-order-amount/get-all`)
         .then(response => {
           console.log('response',response);
-          this.amounts = response.data.data;
+          // this.amounts = response.data.data;
+          this.amounts = response.data.data.map(item => ({
+          ...item,
+          location: item.location.name,
+          status: item.status.charAt(0).toUpperCase() + item.status.slice(1)
+        }));
         })
         .catch(e => {
           console.log("error occurs", e.response);
@@ -122,3 +131,14 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+
+.link-btns {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+</style>

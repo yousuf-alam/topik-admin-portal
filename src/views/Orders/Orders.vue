@@ -7,8 +7,11 @@
             <input type="text" class="form-control" v-model="phone_no" placeholder="Search with Phone.."/>
             <button @click="showOrders" class="btn btn-success">Search</button>
           </div>
+      <div class="d-flex gap-3">
+        <button v-if="getUserPermission('admin')" @click="modalExport" class="btn btn-success mb-2 mr-2 "><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
 
         <router-link v-if="getUserPermission('order create')" class="btn btn-success mb-2" to="/orders/create">+ Create New Order</router-link>
+      </div>
 
       </div>
 
@@ -113,8 +116,22 @@
       <b-row>
           <b-col>
               <b-card >
-                <button v-if="getUserPermission('admin')" @click="modalExport" class="btn btn-success mb-2"><i class="fa fa-file-excel-o"></i> Export as .xlsx </button>
+
                   <div class="d-flex">
+                    <div>
+
+                        <div
+                          v-for="(item, index) in items "
+                          :key="index"
+                          v-model="columnInputs['status']"
+                          :class="['btn', 'mx-2', selected === item.key ? 'btn-primary ' : 'btn-light']"
+                          @click="selectItem(item.key)"
+                        >
+                          {{ item.value }}
+                        </div>
+
+
+                    </div>
                     <div style="margin-left: auto;" class="mb-3">
                       <span class="mx-1">Per Page: </span>
                       <select class="form-control" v-model="perPageItem" @change="makeReadySearchParams()">
@@ -153,7 +170,7 @@
                           color="#533b87"
 
                           v-model="dateRange[item]"
-                          @formatted-value="handleDateRangeChange(item)"
+                          @input="handleDateRangeChange(item)"
 
                         >
                           <!-- <button class="btn btn-secondary">Select</button> -->
@@ -169,7 +186,7 @@
                           :name="item"
                           class="form-control"
                           :placeholder="`Filter By ${item}`"
-                          @keyup="handleInputChange"
+                          @change="handleInputChange"
                         />
                       </div>
                     </th>
@@ -180,13 +197,13 @@
 
                     <td> {{ order.id }} </td>
                     <td> {{ order.service_type }} </td>
-                    <td> {{ order.platform }} </td>
+                    <td> {{ formatPlatform(order.platform) }}</td>
                     <td v-if="order.user_name == null"> - </td>
                     <td v-else-if="order.user_name == undefined"> - </td>
                     <td v-else> {{ order.user_name }} </td>
                     <td class="text-center">
                       <span :class="getStyleOfStatus(order.status)" style="font-size: 12px;">
-                        {{ order.status }}
+                        {{ formatStatus(order.status) }}
                       </span>
                     </td>
                     <td> {{ order.scheduled_date }} </td>
@@ -194,11 +211,18 @@
                     <!--<td> {{ order.scheduled_time }} </td>-->
 
                     <td> {{ order.customer }} </td>
+<!--                    <td>-->
+<!--                      <span :class="{'badge badge-danger glow' : order.partner==='Unassigned'}">-->
+<!--                        {{ order.partner }}-->
+<!--                      </span>-->
+<!--                       </td>-->
+
                     <td>
-                      <span :class="{'badge badge-danger glow' : order.partner==='Unassigned'}">
-                        {{ order.partner }}
+                      <span :class="{'badge badge-initiated': order.partner === 'Unassigned' && order.status !== 'rejected'}">
+                        {{ order.status === 'rejected' && order.partner === 'Unassigned' ? 'N/A' : order.partner }}
                       </span>
-                       </td>
+                    </td>
+
 
                     <td> {{ order.bill }} </td>
                     <td>
@@ -302,6 +326,17 @@
                 'shipping_address',
                 'action'
               ],
+              items: [
+                { key: '', value: 'All' },
+                { key: 'initiated', value: 'Initiated' },
+                { key: 'pending', value: 'Pending' },
+                { key: 'accepted', value: 'Accepted' },
+                { key: 'started', value: 'Started' },
+                { key: 'completed', value: 'Completed' },
+                { key: 'cancelled', value: 'Cancelled' },
+                { key: 'rejected', value: 'Rejected' }
+              ],
+              selected: '',
               columnInputs: {
 
               },
@@ -330,6 +365,10 @@
       computed: {
         getStyleOfStatus: function () {
           return (parm) => {
+
+            if(parm === 'initiated') {
+              return 'badge badge-initiated';
+            }
             if (parm === 'pending') {
               return 'badge badge-primary';
 
@@ -395,6 +434,14 @@
         }
       },
         methods: {
+          selectItem(key) {
+
+            if (this.selected !== key) {
+              this.selected = key;
+             this.pageNumber = 0;
+              this.makeReadySearchParams(key)
+            }
+          },
           modalExport() {
             this.$modal.show('modal-order_export');
           },
@@ -465,10 +512,27 @@
             {
               this.$router.push({ name: 'AppointmentCreate' , params: {type} })
             }
-           console.log(type);
+           // console.log(type);
 
           },
+          formatPlatform(platform) {
+
+             if (platform === 'android') {
+              return 'Android';
+            }
+             if (platform === 'ios') {
+              return 'iOS';
+            }
+
+            return platform;
+          },
+
+          formatStatus(status) {
+            return status.charAt(0).toUpperCase() + status.slice(1);
+          },
           handleDateRangeChange(colName) {
+
+            // console.log("ami call hoisi")
 
             // console.log(
             //     '\ncolName === ', colName,
@@ -524,11 +588,13 @@
 
           },
           makeReadySearchParams() {
+
+            console.log("search params calling",this.selected);
             const id = this.getInputValue("id")
             const service_type = this.getInputValue("service_type");
             const placed_by = this.getInputValue("placed_by");
             const platform = this.getInputValue("platform");
-            const status = this.getInputValue("status");
+            const status = this.getInputValue("status") ? this.getInputValue("status") : this.selected;
             const customer = this.getInputValue("customer");
             const partner = this.getInputValue("partner");
             const bill = this.getInputValue("bill");
@@ -537,11 +603,11 @@
             const shipping_phone = this.getInputValue("shipping_phone");
             const shipping_address = this.getInputValue("shipping_address");
 
-            let setStatusCom = 0;
-            if(this.getUserPermission("admin")){
-              setStatusCom = 1;
-            }
-            const statusCompleted = setStatusCom;
+            // let setStatusCom = 0;
+            // if(this.getUserPermission("admin")){
+            //   setStatusCom = 1;
+            // }
+            const statusCompleted = 1;
             //console.log( "Shipping_Phone ", shipping_phone, typeof( this.dateRange.created_at));
             let from = '';
             let to = '';
@@ -575,13 +641,19 @@
 
           },
           getInputValue(colName) {
+
             if (this.columnInputs[colName] === undefined) {
               return '';
             }
+            console.log("column inputs",this.columnInputs);
+
+            console.log("column inputs",this.columnInputs[colName]);
+
             return this.columnInputs[colName];
           },
           fetchOrder(srcParms) {
             //console.log('SEARCH PARAMS === ', JSON.stringify(srcParms));
+            console.log('currentPage', this.pageNumber);
             axios.get(`${Admin_URL}/fetch-orders/${this.perPageItem}/${this.pageNumber}`, {
               params: srcParms
             })
@@ -701,8 +773,10 @@
     background-color: #0072BC;
 }
 
-
-
+.badge-initiated {
+  background-color: #900C3F;
+  color: #fff;
+}
   .glow {
     /*animation: blinker 1s linear infinite;*/
   -webkit-animation: glowing 1500ms infinite;

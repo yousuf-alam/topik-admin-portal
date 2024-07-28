@@ -7,6 +7,7 @@
             <label>Hours</label>
             <input class="form-control" type="text" v-model="hours" >
           </div>
+
           <div class="form-group">
             <label>Status</label>
             <select class="form-control" v-model="status">
@@ -27,17 +28,25 @@
 
 <script>
 import axios from "axios";
+const ADMIN_URL = process.env.VUE_APP_ADMIN_URL;
 
 export default {
   name: "CreateMinimumTime",
+
+
   data(){
     return {
       hours:'',
       status:'',
 
+
     }
   },
   methods:{
+
+
+
+
     onSubmit() {
 
       let formData = {
@@ -62,6 +71,4 @@ export default {
 }
 </script>
 
-<style scoped>
 
-</style>

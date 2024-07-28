@@ -6,12 +6,17 @@
         <h1 class="my-auto tableName">
 
         </h1>
+         <router-link :to="{ name: 'CreateAdvancePaymentSchedule' }">
+          <button class="btn btn-primary">Create New Schedule</button>
+        </router-link>
       </div>
 
     </div>
     <b-row>
       <b-col>
+
         <b-card>
+
           <v-client-table :data="transformedPayments" :columns="columns" :options="options">
             <template slot="action" slot-scope="props">
               <div>
@@ -44,7 +49,7 @@ export default {
     return {
       payments : [],
       columns: [
-        'id', 'start_date', 'end_date', 'status','created_at', 'action'
+        'id', 'Start_Date', 'End_Date', 'status','created_at', 'action'
       ],
 
       options: {
@@ -72,7 +77,7 @@ export default {
   computed: {
     transformedPayments() {
       return this.payments.map(payment => {
-        payment.status = payment.status === 1 ? 'Active' : 'Inactive';
+        payment.status = payment.status === 1 ? 'Published' : 'Unpublished';
         return payment;
       });
     }

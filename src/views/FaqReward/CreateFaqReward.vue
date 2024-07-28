@@ -1,7 +1,7 @@
 <template>
   <b-card class="m-4">
     <b-tabs card pills>
-      <b-tab active title="Create Faq Reward">
+      <b-tab active title="Basic Info">
         <b-card-text>
 
           <div class="form-group">
@@ -15,11 +15,11 @@
             <div v-for="(field, index) in fields" :key="index">
               <input  v-model="field.value" @input="updateFieldValue(index, $event.target.value)" class="mt-2 form-control">
             </div>
-            <b-button variant="primary" @click="addField" class="mt-2">Add Answer</b-button>
+            <b-button variant="primary" @click="addField" class="mt-2">Add More FAQ Answers</b-button>
 
           </div>
 
-          <b-button @click="onSubmit" variant="primary" ><i class="fa fa-dot-circle-o"></i> Create FaqReward
+          <b-button @click="onSubmit" variant="primary" ><i class="fa fa-dot-circle-o"></i> Create FAQ Reward
           </b-button>
         </b-card-text>
       </b-tab>
@@ -34,7 +34,7 @@ export default {
   data(){
     return {
       question:'',
-     
+
       answers:[],
       fields: [{ value: "" }],
 

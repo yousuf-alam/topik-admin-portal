@@ -19,12 +19,13 @@
             </b-form-group>
             <b-form-group label="Status">
               <select class="form-control" v-model="order.status">
-                <option value="pending">pending</option>
-                <option value="accepted">accepted</option>
-                <option value="started">started</option>
-                <option value="completed">completed</option>
-                <option value="rejected">rejected</option>
-                <option value="cancelled">cancelled</option>
+                <option value="initiated">Initiated</option>
+                <option value="pending">Pending</option>
+                <option value="accepted">Accepted</option>
+                <option value="started">Started</option>
+                <option value="completed">Completed</option>
+                <option value="rejected">Rejected</option>
+                <option value="cancelled">Cancelled</option>
               </select>
             </b-form-group>
             <b-form-group label="Cancel Reason *" v-if="order.status === 'cancelled'">
@@ -137,6 +138,7 @@
                 <option value="location_issue">Location Issue</option>
                 <option value="bad_behave">Bad Behave</option>
                 <option value="call_receiving_problem">Call Receiving Problem</option>
+                <option value="last_order_payment_pending">Last Order Payment Pending</option>
                 <option value="other">Other</option>
 
               </select>
@@ -551,6 +553,7 @@ export default {
     EventBus.$on('cart:add', this.servicesAdd.bind(this));
     EventBus.$on('accessories:add', this.accessoriesAdd.bind(this));
     this.calculateTimeDifference();
+
   },
 
   watch: {
@@ -819,8 +822,11 @@ export default {
 
 
     updateOrder(e) {
+
       e.preventDefault();
       let currentObj = this;
+      // console.log(this.order);
+
       const config = {
         headers: {
           'content-type': 'multipart/form-data'
@@ -839,7 +845,9 @@ export default {
       let formData = new FormData();
       formData.append('id', this.order.id);
       formData.append('status', this.order.status);
-      formData.append('partner_id', this.order.partner.id);
+      if (this.order.partner) {
+        formData.append('partner_id', this.order.partner.id);
+      }
       formData.append('location_id', this.order.location_id);
       formData.append('scheduled_time', this.order.scheduled_time);
       formData.append('req_from_customer', this.order.req_from_customer);

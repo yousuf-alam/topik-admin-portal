@@ -76,7 +76,7 @@ export default {
     return {
       data_loaded_successfully: false,
       key: 'this_month',
-      columns: ['id','type', 'category_name', 'product_name_en', 'product_name_bn', 'zoho_code','old_price','new_price', 'image','status', 'action'],
+      columns: ['id','type', 'Category_Name', 'Product_Name_En', 'Product_Name_Bn', 'Zoho_Code','Old_Price','New_Price', 'image', 'action'],
       tableData: [],
       options: {
         pagination: { nav: 'fixed' },

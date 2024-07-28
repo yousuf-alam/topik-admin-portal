@@ -52,12 +52,12 @@
             </div>
           </div>
           <div  class="form-group row ">
-            <label class="col-sm-3 col-form-label">Upload multiple Thumbnail *</label>
+            <label class="col-sm-3 col-form-label">Upload Multiple Thumbnail *</label>
             <div class="col-sm-9 " v-for="(image, index) in images" :key="index">
               <input   type="file"  @change="getFileValue(index, $event.target)" class="mt-2  form-control">
             </div>
 
-              <b-button  variant="primary" @click="addImage" class="mt-2 ">Add image uploader</b-button>
+              <b-button  variant="primary" @click="addImage" class="mt-2 ">Add More in Multiple Thumbnails</b-button>
 
           </div>
 

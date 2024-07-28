@@ -35,11 +35,11 @@
       <b-col>
         <b-card>
           <v-client-table :data="partners" :columns="columns" :options="options">
-            <!--<template slot="logo" slot-scope="props">
-              <div class="center-div">
-                <img :src="`${BASE_URL}/${props.row.logo}`" style="width: 160px;height: 90px;">
+            <template slot="Image" slot-scope="props">
+              <div class="center-div" v-if="props.row.Image">
+                <img :src="props.row.Image" style="width: 160px; height: 90px;">
               </div>
-            </template>-->
+            </template>
             <template slot="action" slot-scope="props">
               <div class="d-flex" >
                 <div v-if="(props.row.status).toLowerCase() == 'pending' || (props.row.status).toLowerCase() == 'declined'  " @click="approveId(props.row.id)">
@@ -95,7 +95,7 @@ export default {
       PARTNER_FRONTEND_DOMAIN: PARTNER_FRONTEND_DOMAIN, /* TO_EDIT_THIS_PLACE */
       partners : [],
       key:'this_month',
-      columns: ['id', 'partner_name', 'method','tid', 'amount' ,'status', 'payment_to', 'recieved_date', 'action'],
+      columns: ['id', 'partner_name', 'method','tid','Image', 'amount' ,'status', 'payment_to', 'recieved_date', 'action'],
       options: {
         pagination: {nav: 'fixed'},
         filterByColumn: true,

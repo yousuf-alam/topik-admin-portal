@@ -72,11 +72,11 @@
                       <div class="form-group">
                         <label>Product Type</label>
                         <input class="form-control" type="text"
-                        :value="product_type ? product_type : 'N/A'" 
+                        :value="product_type ? product_type : 'N/A'"
                          disabled>
                     </div>
                         <!-- Products -->
-                        <div class="form-group" v-if="product_type != ''">
+                        <div class="form-group">
                             <label>Products</label>
                             <VueMultiselect v-model="selectedProducts" :options="allProducts" :multiple="true"
                                 :searchable="true" :close-on-select="false" :allow-empty="true" label="name"

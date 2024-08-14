@@ -10,6 +10,10 @@
                 <option selected readonly value="0">Select a City</option>
                 <option value="Dhaka">Dhaka</option>
                 <option value="Chittagong">Chittagong</option>
+                <option value="Tongi">Tongi</option>
+                <option value="Gazipur">Gazipur</option>
+                <option value="Savar">Savar</option>
+                <option value="Narayanganj">Narayanganj</option>
               </select>
             </div>
           </div>

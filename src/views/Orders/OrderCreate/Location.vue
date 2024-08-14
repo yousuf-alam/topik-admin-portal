@@ -5,6 +5,10 @@
         <select class="form-control" @change="getLocation" v-model="city">
           <option value="Dhaka">Dhaka</option>
           <option value="Chittagong">Chittagong</option>
+          <option value="Tongi">Tongi</option>
+          <option value="Gazipur">Gazipur</option>
+          <option value="Savar">Savar</option>
+          <option value="Narayanganj">Narayanganj</option>
         </select>
       </b-form-group>
     <b-form-group label="Select Area">

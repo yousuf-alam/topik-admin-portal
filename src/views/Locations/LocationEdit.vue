@@ -44,6 +44,10 @@
                 <select class="form-control" v-model="location.city">
                   <option selected value="Dhaka">Dhaka</option>
                   <option value="Chittagong">Chittagong</option>
+                  <option value="Tongi">Tongi</option>
+                  <option value="Gazipur">Gazipur</option>
+                  <option value="Savar">Savar</option>
+                  <option value="Narayanganj">Narayanganj</option>
                 </select>
               </div>
             </div>

@@ -60,7 +60,11 @@ export default {
       locations: [
         { id: 'all', name: 'All' },
         { id: 'Dhaka', name: 'Dhaka' },
-        { id: 'Chittagong', name: 'Chittagong' }
+        { id: 'Chittagong', name: 'Chittagong' },
+        { id: 'Savar', name: 'Savar' },
+        { id: 'Gazipur', name: 'Gazipur' },
+        { id: 'Narayanganj', name: 'Narayanganj' },
+        { id: 'Tongi', name: 'Tongi' }
       ],
       selectedLocation: null,
       areas: [],

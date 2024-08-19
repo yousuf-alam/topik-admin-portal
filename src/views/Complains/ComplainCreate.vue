@@ -122,6 +122,14 @@ export default {
     // this.getPartners();
   },
   methods: {
+    modalCoupon() {
+      this.$modal.show("modal-coupon");
+      this.var_modal_coupon = true;
+    },
+
+    closeModalCoupon() {
+      this.$modal.hide("modal-coupon");
+    },
 
     getFileValue(index, target) {
 
@@ -191,7 +199,18 @@ export default {
         .then(response => {
           // console.log('Success', response);
 
-          return this.$router.push('/complaints');
+          if (response.data.success === true) {
+            this.$swal('Success', response.data.message, 'Success');
+            return this.$router.push('/complaints');
+          }
+          else {
+            // this.$modal.hide("modal-coupon");
+
+            this.$swal('Error', response.data.message, 'error');
+            return this.$router.push('/complaints');
+          }
+
+
 
         })
         .catch(error => {

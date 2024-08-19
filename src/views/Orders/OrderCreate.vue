@@ -360,7 +360,9 @@ export default {
               this.$swal('Success',response.data.msg,'success');
 
 
-          } else {
+          }
+
+          else {
             this.$modal.hide("modal-coupon");
 
               this.$swal('Error', response.data.msg, 'error');

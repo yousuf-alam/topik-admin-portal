@@ -43,7 +43,7 @@
             </b-form-group>
             <b-form-group label="Assigned SP">
               <multiselect v-model="order.partner" :options="partners" placeholder="Select one" label="name"
-                track-by="id">
+                           track-by="id">
               </multiselect>
             </b-form-group>
             <div v-show="order.service_id === 2">
@@ -74,9 +74,39 @@
             <b-form-group label="Internal Notes" class="mt-2">
               <input type="text" class="form-control" v-model="order.internal_notes">
             </b-form-group>
+
+            <b-form-group label="Upload Sample Images">
+
+              <div v-for="(image, index) in images" :key="index"> <input type="file"
+                                                                         @change="getFileValue(index, $event.target)" class="mt-2 form-control" /> <span class="text-danger"
+                                                                                                                                                         v-if="images[index].error"> {{ images[index].error }} </span>
+
+              </div>
+
+              <div class="mt-2">
+                <b-button variant="primary" @click="addImage" class="mt-2 sample-btns"> Add More Attachments </b-button>
+                <b-button variant="success" @click="showImages" class="mt-2" :disabled="!sampleImages.length"> See Sample Images
+                </b-button>
+              </div>
+
+            </b-form-group>
+
+
+
+
             <button class="btn btn-dark mt-3"
-              v-show="order.status !== 'cancelled' || (order.status === 'cancelled' && order.cancel_reason !== '')"
-              @click="updateOrder"> Update</button>
+                    v-show="order.status !== 'cancelled' || (order.status === 'cancelled' && order.cancel_reason !== '')"
+                    @click="updateOrder"> Update</button>
+
+
+            <b-modal v-model="showModal" title="Sample Images" hide-footer>
+              <div class="image-grid">
+                <div v-for="(image, index) in sampleImages" :key="index" class="grid-item"> <img :src="image"
+                                                                                                 class="img-thumbnail" /> </div>
+              </div>
+            </b-modal>
+
+
 
           </b-card>
 
@@ -84,16 +114,16 @@
 
             <h4 class="mb-4">Hot Deals Details</h4>
             <br>
-              <b-form-group label="Change Hot Deals">
-                <b-form-radio v-model="order.hot_deals" value="unused">Unused</b-form-radio>
-                <b-form-radio v-model="order.hot_deals" value="tara-voucher">Tara Voucher</b-form-radio>
-                <b-form-radio v-model="order.hot_deals" value="tara-card">Tara Regular</b-form-radio>
-                <b-form-radio v-model="order.hot_deals" value="brac-premium">Brac Premium Banking</b-form-radio>
-                <b-form-radio v-model="order.hot_deals" value="brac-bank">Brac Bank</b-form-radio>
-              </b-form-group>
+            <b-form-group label="Change Hot Deals">
+              <b-form-radio v-model="order.hot_deals" value="unused">Unused</b-form-radio>
+              <b-form-radio v-model="order.hot_deals" value="tara-voucher">Tara Voucher</b-form-radio>
+              <b-form-radio v-model="order.hot_deals" value="tara-card">Tara Regular</b-form-radio>
+              <b-form-radio v-model="order.hot_deals" value="brac-premium">Brac Premium Banking</b-form-radio>
+              <b-form-radio v-model="order.hot_deals" value="brac-bank">Brac Bank</b-form-radio>
+            </b-form-group>
 
-              <br>
-              <button class="btn btn-dark mb-3" @click="setHotDeal(order.id)">Change</button>
+            <br>
+            <button class="btn btn-dark mb-3" @click="setHotDeal(order.id)">Change</button>
 
 
           </b-card>
@@ -116,7 +146,7 @@
             </b-form-group>
             <b-form-group label="Selected Area">
               <select class="form-control" v-model="order.location_id"
-                :class="{ 'border-danger': order.location_id === 0 }">
+                      :class="{ 'border-danger': order.location_id === 0 }">
                 <option :value="location.id" v-for="location in locations" :key="location.id">
                   {{ location.name }}
                 </option>
@@ -231,7 +261,7 @@
               </div>
             </b-form-group>
 
-             <b-col>
+            <b-col>
               <b-form-group label="Payment Status?">
                 <b-form-radio v-model="order.payment_status" value="Paid">Paid</b-form-radio>
                 <b-form-radio v-model="order.payment_status" value="Partial">Partial</b-form-radio>
@@ -243,26 +273,26 @@
               <div class="table-responsive" v-if="order.payment_status !== 'Pending'">
                 <table class="table table-striped">
                   <thead>
-                    <tr>
-                      <th>Method</th>
-                      <th>Amount</th>
-                      <th>Trans Id</th>
-                      <th>Date</th>
+                  <tr>
+                    <th>Method</th>
+                    <th>Amount</th>
+                    <th>Trans Id</th>
+                    <th>Date</th>
 
 
-                    </tr>
+                  </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="item in order.order_payments" :key="item.id">
-                      <td> {{ item.payment_method }}</td>
-                      <td> {{ item.amount }}</td>
-                      <td v-if="item.payment_method !== 'bKash' && item.payment_method !== 'ssl'">
-                      </td>
-                      <td v-if="item.payment_method === 'bKash'"> {{ item.bkash_payment }}</td>
-                      <td v-if="item.payment_method === 'ssl'"> {{ item.ssl_payment }}</td>
-                      <td>{{ item.created_at }}</td>
+                  <tr v-for="item in order.order_payments" :key="item.id">
+                    <td> {{ item.payment_method }}</td>
+                    <td> {{ item.amount }}</td>
+                    <td v-if="item.payment_method !== 'bKash' && item.payment_method !== 'ssl'">
+                    </td>
+                    <td v-if="item.payment_method === 'bKash'"> {{ item.bkash_payment }}</td>
+                    <td v-if="item.payment_method === 'ssl'"> {{ item.ssl_payment }}</td>
+                    <td>{{ item.created_at }}</td>
 
-                    </tr>
+                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -330,7 +360,7 @@
               <button class="btn btn-sm btn-warning m-1" v-if="!order.review" @click="new_review_bool = true">+ Add
                 Review</button>
               <button class="btn btn-sm btn-danger" v-if="new_review_bool === true"
-                @click="new_review_bool = false">Cancel</button>
+                      @click="new_review_bool = false">Cancel</button>
             </b-form-group>
             <div v-if="order.review">
               <b-form-group label="Rating">
@@ -363,32 +393,32 @@
             <div class="table-responsive">
               <table class="table table-striped">
                 <thead>
-                  <tr>
-                    <th>Item Name</th>
-                    <th>Option Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Action</th>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Option Name</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Action</th>
 
-                  </tr>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="item in order.items" :key="item.id">
-                    <td>{{ item.name }}</td>
-                    <td>
+                <tr v-for="item in order.items" :key="item.id">
+                  <td>{{ item.name }}</td>
+                  <td>
                       <span v-for="(answer, index) in item.options" :key="index">
                         {{ answer.ans }} <br>
                       </span>
-                    </td>
-                    <td><input type="text" style="width: 2rem" v-model="item.quantity"></td>
-                    <td><input type="text" style="width: 4rem" v-model="item.price"></td>
-                    <td>
+                  </td>
+                  <td><input type="text" style="width: 2rem" v-model="item.quantity"></td>
+                  <td><input type="text" style="width: 4rem" v-model="item.price"></td>
+                  <td>
                       <span class="cursor-pointer m-2" @click="updateItem(item)"> <i class="fa fa-check text-success"
-                          data-toggle="tooltip" title="Save"></i></span>
-                      <span class="cursor-pointer m-2" @click="deleteItem(item)"> <i class="fa fa-trash text-danger"
-                          data-toggle="tooltip" title="Delete"></i></span>
-                    </td>
-                  </tr>
+                                                                                     data-toggle="tooltip" title="Save"></i></span>
+                    <span class="cursor-pointer m-2" @click="deleteItem(item)"> <i class="fa fa-trash text-danger"
+                                                                                   data-toggle="tooltip" title="Delete"></i></span>
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -426,11 +456,11 @@
                 <h5 class="mb-4">Measurement Type</h5>
                 <div class="form-group">
                   <input type="radio" v-model="order.measurement" value="by_sample" @change="addMeasurement"
-                    id="by_sample_id">
+                         id="by_sample_id">
                   <label for="by_sample_id" class="mx-1"> Customer will provide a
                     sample</label><br>
                   <input type="radio" v-model="order.measurement" value="by_tailor" @change="addMeasurement"
-                    id="by_tailor_id">
+                         id="by_tailor_id">
                   <label for="by_tailor_id" class="mx-1">Tailor will take measurements on
                     spot</label><br>
                 </div>
@@ -498,7 +528,7 @@ export default {
       partners: [],
       locations: [],
       add_payment: '',
-      city: 'Dhaka',
+      city: '',
       type: '',
       date_type: '',
       new_review_bool: false,
@@ -516,11 +546,25 @@ export default {
       selectedMethod: 'bKash',
       new_hot_deals : '',
 
+      image:'',
+      images: [
+        {
+          image: "",
+          ext: null,
+          name: null,
+          error: "",
+        },
+      ],
+      showModal: false,
+      sampleImages: [],
+
+
+
       paymentMethods: {
-      bKash: 'bKash',
-      ssl: 'ssl',
-      cash: 'Cash on delivery'
-    }
+        bKash: 'bKash',
+        ssl: 'ssl',
+        cash: 'Cash on delivery'
+      }
 
 
     };
@@ -528,7 +572,7 @@ export default {
   created() {
     this.fetchOrder();
     this.getPartners();
-    this.getLocation();
+    // this.getLocation();
 
 
     // this.getPaymentMethod();
@@ -565,6 +609,33 @@ export default {
   },
 
   methods: {
+
+    getFileValue(index, target) {
+      let file = target.files[0];
+
+      if (file.size > 1048576) {
+        this.$set(this.images[index], "error", "Image size should be less than 1 MB");
+        target.value = "";
+      } else {
+        this.images[index].error = "";
+
+        const reader = new FileReader();
+        reader.onload = (res) => {
+
+          this.images[index] = file;
+
+        };
+        reader.onerror = (err) => console.log(err);
+        reader.readAsDataURL(file);
+      }
+    },
+    addImage() {
+      this.images.push({ image: "" });
+    },
+
+    showImages() {
+      this.showModal = true;
+    },
 
     availablePaymentMethods() {
 
@@ -635,8 +706,13 @@ export default {
 
         this.scheduledTime = this.order.scheduled_time
         // this.new_hot_deals = this.order.hot_deals;
-         console.log("order scheduled time", this.scheduledTime);
+        console.log("order scheduled time", this.scheduledTime);
         this.order_fetched_successfully = true;
+
+        this.sampleImages = this.order.sample_images || [];
+        this.city = this.order.city;
+
+        this.getLocation();
 
 
       }).catch(e => {
@@ -677,6 +753,7 @@ export default {
     },
 
     getLocation() {
+
       axios.get(`${ADMIN_URL}/locations-by-city`, {
         params: {
           city: this.city
@@ -873,6 +950,14 @@ export default {
         formData.append('bKash_status', this.order.bKash_status);
       }
 
+      if (this.images.length > 0) {
+
+        this.images.forEach((image, index) => {
+          formData.append(`images[${index}]`, image);
+        });
+      }
+
+
       /*
         for( let i = 0; i < this.designs.length; i++ ){
           let file = this.designs[i];
@@ -882,10 +967,17 @@ export default {
       axios.post(`${ADMIN_URL}/orders/update`, formData, config)
         .then(response => {
           //console.log('Success', response);
+          console.log('Response:', response.data);
           currentObj.success = response.data.success;
           //console.log(response.data);
           if (response.data.success === true) {
             this.$swal('Order Details Updated', '', 'success');
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+          }
+          else {
+            this.$swal('Error', response.data.message, 'error');
             setTimeout(() => {
               location.reload();
             }, 1000);
@@ -993,11 +1085,11 @@ export default {
           }
 
         }).catch(err => {
-          if (err.response.status === 404) {
-            this.$swal(err.response.data.heading, err.response.data.message, 'info');
-          }
+        if (err.response.status === 404) {
+          this.$swal(err.response.data.heading, err.response.data.message, 'info');
+        }
 
-        })
+      })
     }
 
   }
@@ -1022,4 +1114,26 @@ export default {
   margin-left: 20px;
   margin-right: 20px;
 }
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.grid-item img {
+  width: 100%;
+  height: auto;
+}
+
+.img-thumbnail {
+  max-width: 100%;
+  max-height: 150px;
+}
+
+.sample-btns{
+
+  margin-right: 2rem;
+}
+
 </style>

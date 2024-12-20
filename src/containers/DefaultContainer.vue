@@ -3,27 +3,27 @@
     <AppHeader fixed>
       <SidebarToggler class="d-lg-none" display="md" mobile />
       <b-link class="navbar-brand" to="#">
-        <img class="navbar-brand-full" :src="origin_url+'/img/brand/logo.svg'" width="120" height="40" alt="Romoni Logo">
-        <img class="navbar-brand-minimized" src="/img/brand/logo.svg" width="30" height="30" alt="Romoni Logo">
+        <img class="navbar-brand-full" :src="origin_url+'/img/brand/topik.svg'" width="120" height="40" alt="Romoni Logo">
+        <img class="navbar-brand-minimized" src="/img/brand/topik.svg" width="30" height="30" alt="Romoni Logo">
       </b-link>
       <SidebarToggler class="d-md-down-none" display="lg" />
       <b-navbar-nav class="d-md-down-none">
         <b-nav-item class="px-3" to="/dashboard">Admin Dashboard</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto ">
-        <!-- 
+        <!--
         <b-nav-item class="d-md-down-none">
           <i class="icon-bell"></i>
           <b-badge pill variant="danger">5</b-badge>
-        </b-nav-item> 
+        </b-nav-item>
         -->
         <NotificationDropdown/>
         <DefaultHeaderDropdownAccnt/>
       </b-navbar-nav>
-      <!-- 
+      <!--
         <b-navbar-nav>
           <TestDesktopNoti />
-        </b-navbar-nav> 
+        </b-navbar-nav>
       -->
 <!--      <AsideToggler class="d-none d-lg-block" />-->
       <!--<AsideToggler class="d-lg-none" mobile />-->
@@ -51,7 +51,7 @@
       <!--footer-->
       <div>
         <a href="https://coreui.io">
-          Romoni Services Ltd
+          Topik Learning App
         </a>
         <span class="ml-1">&copy; {{ new Date().getFullYear() }} </span>
       </div>

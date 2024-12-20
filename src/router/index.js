@@ -223,6 +223,10 @@ import OrderRefund from "@/views/Orders/OrderRefund.vue";
 import FilterSpRoute from "@/views/FilterSpRoute.vue";
 import Complaints from "@/views/Complains/Complaints.vue";
 import RewardStatus from "@/views/RewardStatus/RewardStatus.vue";
+import Mocks from "@/views/Mocks/Mocks.vue";
+import CreateMock from "@/views/Mocks/CreateMock.vue";
+import EditMock from "@/views/Mocks/EditMock.vue";
+import ShowMock from "@/views/Mocks/ShowMock.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -337,36 +341,69 @@ const router = new Router({
           ],
         },
         {
-          path: "orders",
-          name: "Orders",
-          component: Orders,
+          path: "mocks",
+          name: "Mocks",
+          component: Mocks,
           meta: {
-            permission_name: permissionsList.order,
+            permission_name: permissionsList.mock,
           },
         },
         {
-          path: "/orders/details/:id",
-          name: "OrderShow",
-          component: OrderShow,
+          path: "/mock/details/:id",
+          name: "ShowMock",
+          component: ShowMock,
           meta: {
-            permission_name: "order read",
+            permission_name: "mock",
           },
         },
         {
-          path: "/orders/edit/:id",
-          name: "OrderEdit",
-          component: OrderEdit,
+          path: "/mock/edit/:id",
+          name: "EditMock",
+          component: EditMock,
           meta: {
-            permission_name: "order read",
+            permission_name: "mock",
           },
         },
         {
-          path: "/orders/create",
-          name: "OrderCreate",
-          component: OrderCreate,
+          path: "/mock/create",
+          name: "CreateMock",
+          component: CreateMock,
           props: true,
           meta: {
-            permission_name: "order create",
+            permission_name: "mock",
+          },
+        },
+        {
+          path: "mocks",
+          name: "Mocks",
+          component: Mocks,
+          meta: {
+            permission_name: permissionsList.mock,
+          },
+        },
+        {
+          path: "/mock/details/:id",
+          name: "ShowMock",
+          component: ShowMock,
+          meta: {
+            permission_name: "mock",
+          },
+        },
+        {
+          path: "/mock/edit/:id",
+          name: "EditMock",
+          component: EditMock,
+          meta: {
+            permission_name: "mock",
+          },
+        },
+        {
+          path: "/mock/create",
+          name: "CreateMock",
+          component: CreateMock,
+          props: true,
+          meta: {
+            permission_name: "mock",
           },
         },
         {
@@ -414,22 +451,7 @@ const router = new Router({
             permission_name: "order create",
           },
         },
-        // {
-        //   path: '/orders/details/:id',
-        //   name: 'OrderShow',
-        //   component: OrderShow,
-        //   meta: {
-        //     permission_name: 'order read'
-        //   },
-        // },
-        // {
-        //   path: '/orders/edit/:id',
-        //   name: 'OrderEdit',
-        //   component: OrderEdit,
-        //   meta: {
-        //     permission_name: 'order read'
-        //   },
-        // },
+
         {
           path: "/third-party-orders/place-order/:id",
           name: "ThirdPartyOrderPlace",

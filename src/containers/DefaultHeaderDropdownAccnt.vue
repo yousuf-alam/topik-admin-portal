@@ -5,12 +5,12 @@
         :src="`${BASE_URL}/${profile_image_url}`"
         class="img-avatar"
         @error="imageViewError"
-        :alt="profile_image_title" 
+        :alt="profile_image_title"
       />
     </template>
     <template slot="dropdown">
           <b-dropdown-header tag="div" class="text-center">
-            <strong>Romoni Admin</strong>
+            <strong>Topik Admin</strong>
           </b-dropdown-header>
            <b-dropdown-item class="logged-in-user">
               {{ loggedInUser.name }}

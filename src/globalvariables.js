@@ -19,6 +19,14 @@ export default {
 
   permissionsList: {
     manage_roles: "manage roles",
+    question: "question",
+    mock: "mock",
+    mock_user: "mock user",
+    otp: "otp",
+    package: "package",
+    banner: "banner",
+    coupon: "coupon",
+    complaint: "complaint",
     order: ["order create", "order read", "order update", "order delete"],
     complain: [
       "complain create",

@@ -227,6 +227,9 @@ import Mocks from "@/views/Mocks/Mocks.vue";
 import CreateMock from "@/views/Mocks/CreateMock.vue";
 import EditMock from "@/views/Mocks/EditMock.vue";
 import ShowMock from "@/views/Mocks/ShowMock.vue";
+import Questions from "@/views/Question/Questions.vue";
+import showQuestion from "@/views/Question/ShowQuestion.vue";
+import EditQuestion from "@/views/Question/EditQuestion.vue";
 const permissionsList = globalvariable.permissionsList;
 
 const router = new Router({
@@ -373,26 +376,29 @@ const router = new Router({
             permission_name: "mock",
           },
         },
+
+
+
         {
-          path: "mocks",
-          name: "Mocks",
-          component: Mocks,
+          path: "questions",
+          name: "Questions",
+          component: Questions,
           meta: {
             permission_name: permissionsList.mock,
           },
         },
         {
-          path: "/mock/details/:id",
-          name: "ShowMock",
-          component: ShowMock,
+          path: "/question/details/:id",
+          name: "showQuestion",
+          component: showQuestion,
           meta: {
             permission_name: "mock",
           },
         },
         {
-          path: "/mock/edit/:id",
-          name: "EditMock",
-          component: EditMock,
+          path: "/question/edit/:id",
+          name: "EditQuestion",
+          component: EditQuestion,
           meta: {
             permission_name: "mock",
           },
@@ -406,6 +412,7 @@ const router = new Router({
             permission_name: "mock",
           },
         },
+
         {
           path: "/un-settled-orders",
           name: "UnsettledOrders",
